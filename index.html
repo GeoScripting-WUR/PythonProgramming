@@ -1,0 +1,1622 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  
+  <!-- bootstrap -->
+  <!--<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"  id="style">-->
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  
+  <!-- highlight.js -->
+  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" rel="stylesheet" id="code-style">-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
+  <script>
+  hljs.LANGUAGES.r=function(a){var b="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";return{c:[a.HCM,{b:b,l:b,k:{keyword:"function if in break next repeat else for return switch while try tryCatch|10 stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ...|10",literal:"NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 NA_complex_|10"},r:0},{cN:"number",b:"0[xX][0-9a-fA-F]+[Li]?\\b",r:0},{cN:"number",b:"\\d+(?:[eE][+\\-]?\\d*)?L\\b",r:0},{cN:"number",b:"\\d+\\.(?!\\d)(?:i\\b)?",r:0},{cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[a.BE],r:0},{cN:"string",b:"'",e:"'",c:[a.BE],r:0}]}}(hljs); </script>
+  <!--<script type="text/javascript", src="https://yandex.st/highlightjs/7.3/languages/r.min.js"></script>-->
+  
+  <!-- Manific Popup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.8.9/jquery.magnific-popup.min.js"></script>
+  
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script defer="defer">
+  // Function to generate the dynamic table of contents
+  jQuery.fn.generate_TOC = function () {
+    var base = $(this[0]);
+  
+    var selectors = ['h1', 'h2', 'h3', 'h4'];
+  
+    var last_ptr = [{}, {}, {}, {}];
+  
+    var anchors = {};
+  
+    generate_anchor = function (text) {
+      var test = text.replace(/\W/g, '_');
+  
+      while(test in anchors){
+        //if no suffix, add one
+        if(test.match(/_\d+$/) === null){
+          test = test + "_2";
+        }
+        //else generate unique id for duplicates by adding one to the suffix
+        else {
+          test = test.replace(/_(\d+)$/, function(match, number){ var num=+number+1; return("_" + num) });
+        }
+      }
+      anchors[test]=1;
+      return(test);
+    }
+  
+    $(selectors.join(',')).filter(function(index) { return $(this).parent().attr("id") != 'header'; }).each(function () {
+  
+      var heading = $(this);
+      var idx = selectors.indexOf(heading.prop('tagName').toLowerCase());
+      var itr = 0;
+  
+      while (itr <= idx) {
+        if (jQuery.isEmptyObject(last_ptr[itr])) {
+          last_ptr[itr] = $('<ul>').addClass('nav');
+          if (itr === 0) {
+            base.append(last_ptr[itr])
+          } else {
+            if(last_ptr[itr-1].children('li').length === 0){
+              last_ptr[itr-1].append(last_ptr[itr]);
+            }
+            else {
+              last_ptr[itr - 1].children('li').last().append(last_ptr[itr]);
+            }
+          }
+        }
+        itr++;
+      }
+      var anchor = generate_anchor(heading.text());
+      heading.attr('id', anchor);
+      var a = $('<a>')
+      .text(heading.text())
+      .attr('href', '#' + anchor);
+  
+    var li = $('<li>')
+      .append(a);
+  
+    last_ptr[idx].append(li);
+    for (i = idx + 1; i < last_ptr.length; i++) {
+      last_ptr[i] = {};
+    }
+    });
+  }
+  /* run scripts when document is ready */
+  $(function() {
+    "use strict";
+  
+    var $window = $(window);
+    var $body = $(document.body);
+  
+    /* size of thumbnails */
+  
+    var hidden_types = ['source']
+    var output_types = ['output', 'message', 'warning', 'error']
+  
+    /* style tables */
+    $('table').addClass('table table-striped table-bordered table-hover table-condensed');
+  
+    $('pre code').each(function(i, e) {
+      hljs.highlightBlock(e);
+    });
+  
+    /* Magnific Popup */
+    $(".thumbnail").each(function(){
+      $(this).magnificPopup({
+        disableOn: 768,
+        closeOnContentClick: true,
+  
+        type: 'image',
+        items: {
+          src: $(this).find('img').attr('src'),
+        }
+      });
+    });
+  
+    function toggle_block(obj, show) {
+      var span = obj.find('span');
+      if(show === true){
+        span.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        obj.next('pre').slideDown();
+      }
+      else {
+        span.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        obj.next('pre').slideUp();
+      }
+    }
+  
+    function toggle_thumbnails(imgs, show){
+      if(show === true){
+        imgs.parents().show()
+        imgs.slideDown();
+      }
+      else {
+        imgs.slideUp(400, function(){ $(this).parent().hide(); });
+      }
+    }
+  
+    function global_toggle(obj){
+      var type = obj.attr('type');
+      var show = !obj.parent('li').hasClass('active');
+      if(show === true){
+        obj.parent('li').addClass('active');
+      }
+      else{
+        obj.parent('li').removeClass('active');
+      }
+      if(type == 'figure'){
+        toggle_thumbnails($('.thumbnail img'), show);
+      }
+      else {
+        $('.toggle.' + type).each(function() { toggle_block($(this), show); });
+      }
+    }
+  
+    /* onclick toggle next code block */
+    $('.toggle').click(function() {
+      var span = $(this).find('span');
+      toggle_block($(this), !span.hasClass('glyphicon-chevron-down'));
+      return false
+    })
+  
+    // global toggles
+    $('.toggle-global').click(function(){
+      var type = $(this).attr('type');
+      if(type === 'all-source'){
+          $('li a.source').each(function() {
+            global_toggle($(this));
+          });
+        }
+      else if(type === 'all-output'){
+        $.each(output_types, function(i, val){
+          console.log(val);
+          global_toggle($('li a.' + val));
+        });
+      }
+      else {
+        console.log($(this));
+        global_toggle($(this));
+      }
+      return false;
+    });
+    /* table of contents */
+    if($(['h1', 'h2', 'h3', 'h4'].join(',')).length > 0){
+      $('body > #wrap > .container > .row').append('<div class="col-md-2"><div id="toc" class="well sidebar sidenav affix hidden-print"/></div>');
+      $('#toc').generate_TOC();
+    }
+  
+    $.each(hidden_types, function(i, type) {
+      $('li[type=' + type + ']').each(function(){ global_toggle($(this)); });
+    });
+  
+    /* remove paragraphs with no content */
+    $('p:empty').remove();
+  
+    $body.scrollspy({
+      target: '.sidebar',
+    });
+  
+    /* theme switch */
+    $('.theme-switch').click(function(){
+      var css = $('link[title=' + $(this).attr('title') + ']');
+      $('#theme[rel=stylesheet]').attr('href', css.attr('href'));
+      $('.theme-switch').closest('li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      return false;
+    });
+    /* code style switch */ //TODO use same function for both of these?
+    $('.highlight-switch').click(function(){
+      var css = $('link[title="' + $(this).attr('title') + '"]');
+      $('#highlight[rel=stylesheet]').attr('href', css.attr('href'));
+      $('.highlight-switch').closest('li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      return false;
+    });
+  
+    //TODO refresh on show/hide
+    $window.on('load', function () {
+      $body.scrollspy('refresh');
+    })
+  
+  });
+  
+  </script>
+  <style>
+  /* Knitr_bootstrap styles */
+  #header {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  #wrap .container-fluid {
+    padding: 0;
+    overflow: hidden;
+  }
+  .toggle{
+    text-transform: capitalize;
+  }
+  
+  .toggle-global{
+    text-transform: capitalize;
+  }
+  
+  /* Sticky footer styles */
+  * {
+    margin:0;
+  }
+  html,
+  body {
+      height: 100%;
+      padding:0 !important;
+      /* The html and body elements cannot have any padding or margin. */
+      /*overflow-x: hidden;*/
+  }
+  
+  /* Wrapper for page content to push down footer */
+  #wrap {
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      /* Negative indent footer by it's height */
+      margin: 0 auto -120px;
+  }
+  
+  /* Set the fixed height of the footer here */
+  #push,
+  #footer {
+      height: 120px;
+  }
+  
+  #footer {
+    text-align: center;
+  }
+  
+  /* Top level subheader elements.  These are the first nested items underneath a header element. */
+  .header li {
+    font-size: 20px;
+  }
+  
+  /* Makes the font smaller for all subheader elements. */
+  .sub-header li {
+      font-size: 12px;
+  }
+  
+  button.thumbnails {
+    margin-left:0px;
+  }
+  
+  /*
+   * Side navigation
+   *
+   * Scrollspy and affixed enhanced navigation to highlight sections and secondary
+   * sections of docs content.
+   */
+  
+  /* By default it's not affixed in mobile views, so undo that */
+  .sidebar.affix {
+    position: static;
+  }
+  
+  /* First level of nav */
+  .sidenav {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top:    10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  /* All levels of nav */
+  .sidebar .nav > li > a {
+    display: block;
+    padding: 5px 20px;
+  }
+  .sidebar .nav > li > a:hover,
+  .sidebar .nav > li > a:focus {
+    text-decoration: none;
+    border-right: 1px solid;
+  }
+  .sidebar .nav > .active > a,
+  .sidebar .nav > .active:hover > a,
+  .sidebar .nav > .active:focus > a {
+    font-weight: bold;
+    background-color: transparent;
+    border-right: 1px solid;
+  }
+  
+  /* Nav: second level (shown on .active) */
+  .sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    margin-bottom: 8px;
+  }
+  .sidebar .nav .nav > li > a {
+    padding-top:    3px;
+    padding-bottom: 3px;
+    padding-left: 30px;
+    font-size: 90%;
+  }
+  
+  .sidebar .nav .nav .nav > li > a {
+    padding-left: 40px;
+  }
+  .sidebar .nav .nav .nav .nav > li > a {
+    padding-left: 50px;
+  }
+  
+  /* Show and affix the side nav when space allows it */
+  @media screen and (min-width: 992px) {
+    .sidebar .nav > .active > ul {
+      display: block;
+    }
+    /* Widen the fixed sidebar */
+    .sidebar.affix,
+    .sidebar.affix-bottom {
+      width: 213px;
+    }
+    .sidebar.affix-top,
+    .sidebar.affix {
+      position: fixed; /* Undo the static from mobile first approach */
+      top: 30px;
+    }
+    .sidebar.affix-bottom {
+      position: absolute; /* Undo the static from mobile first approach */
+    }
+    .sidebar.affix-bottom .sidenav,
+    .sidebar.affix .sidenav {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .sidebar.affix-bottom,
+    .sidebar.affix {
+      width: 263px;
+    }
+  }
+  
+  #toc {
+    padding: 10px 0px;
+    margin:0;
+    border:0;
+  }
+  
+  
+  .panel pre {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  button + pre {
+    margin: 0;
+    padding: 0;
+  }
+  pre code {
+    border-radius: 0;
+  }
+  /* Magnific Popup CSS */
+  .mfp-bg {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1042;
+    overflow: hidden;
+    position: fixed;
+    background: #0b0b0b;
+    opacity: 0.8;
+    filter: alpha(opacity=80); }
+  
+  .mfp-wrap {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1043;
+    position: fixed;
+    outline: none !important;
+    -webkit-backface-visibility: hidden; }
+  
+  .mfp-container {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding: 0 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  
+  .mfp-container:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+  
+  .mfp-align-top .mfp-container:before {
+    display: none; }
+  
+  .mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045; }
+  
+  .mfp-inline-holder .mfp-content,
+  .mfp-ajax-holder .mfp-content {
+    width: 100%;
+    cursor: auto; }
+  
+  .mfp-ajax-cur {
+    cursor: progress; }
+  
+  .mfp-zoom-out-cur,
+  .mfp-zoom-out-cur .mfp-image-holder .mfp-close {
+    cursor: -moz-zoom-out;
+    cursor: -webkit-zoom-out;
+    cursor: zoom-out; }
+  
+  .mfp-zoom {
+    cursor: pointer;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in; }
+  
+  .mfp-auto-cursor .mfp-content {
+    cursor: auto; }
+  
+  .mfp-close,
+  .mfp-arrow,
+  .mfp-preloader,
+  .mfp-counter {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none; }
+  
+  .mfp-loading.mfp-figure {
+    display: none; }
+  
+  .mfp-hide {
+    display: none !important; }
+  
+  .mfp-preloader {
+    color: #cccccc;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    text-align: center;
+    margin-top: -0.8em;
+    left: 8px;
+    right: 8px;
+    z-index: 1044; }
+  
+  .mfp-preloader a {
+    color: #cccccc; }
+  
+  .mfp-preloader a:hover {
+    color: white; }
+  
+  .mfp-s-ready .mfp-preloader {
+    display: none; }
+  
+  .mfp-s-error .mfp-content {
+    display: none; }
+  
+  button.mfp-close,
+  button.mfp-arrow {
+    overflow: visible;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    display: block;
+    padding: 0;
+    z-index: 1046;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+  
+  button::-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+  
+  .mfp-close {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.65;
+    padding: 0 0 18px 10px;
+    color: white;
+    font-style: normal;
+    font-size: 28px;
+    font-family: Arial, Baskerville, monospace; }
+    .mfp-close:hover, .mfp-close:focus {
+      opacity: 1; }
+    .mfp-close:active {
+      top: 1px; }
+  
+  .mfp-close-btn-in .mfp-close {
+    color: #333333; }
+  
+  .mfp-image-holder .mfp-close,
+  .mfp-iframe-holder .mfp-close {
+    color: white;
+    right: -6px;
+    text-align: right;
+    padding-right: 6px;
+    width: 100%; }
+  
+  .mfp-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #cccccc;
+    font-size: 12px;
+    line-height: 18px; }
+  
+  .mfp-arrow {
+    position: absolute;
+    opacity: 0.65;
+    margin: 0;
+    top: 50%;
+    margin-top: -55px;
+    padding: 0;
+    width: 90px;
+    height: 110px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  
+  .mfp-arrow:active {
+    margin-top: -54px; }
+  
+  .mfp-arrow:hover,
+  .mfp-arrow:focus {
+    opacity: 1; }
+  
+  .mfp-arrow:before, .mfp-arrow:after,
+  .mfp-arrow .mfp-b,
+  .mfp-arrow .mfp-a {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 35px;
+    margin-left: 35px;
+    border: medium inset transparent; }
+  .mfp-arrow:after,
+  .mfp-arrow .mfp-a {
+    border-top-width: 13px;
+    border-bottom-width: 13px;
+    top: 8px; }
+  .mfp-arrow:before,
+  .mfp-arrow .mfp-b {
+    border-top-width: 21px;
+    border-bottom-width: 21px; }
+  
+  .mfp-arrow-left {
+    left: 0; }
+    .mfp-arrow-left:after,
+    .mfp-arrow-left .mfp-a {
+      border-right: 17px solid white;
+      margin-left: 31px; }
+    .mfp-arrow-left:before,
+    .mfp-arrow-left .mfp-b {
+      margin-left: 25px;
+      border-right: 27px solid #3f3f3f; }
+  
+  .mfp-arrow-right {
+    right: 0; }
+    .mfp-arrow-right:after,
+    .mfp-arrow-right .mfp-a {
+      border-left: 17px solid white;
+      margin-left: 39px; }
+    .mfp-arrow-right:before,
+    .mfp-arrow-right .mfp-b {
+      border-left: 27px solid #3f3f3f; }
+  
+  .mfp-iframe-holder {
+    padding-top: 40px;
+    padding-bottom: 40px; }
+  
+  .mfp-iframe-holder .mfp-content {
+    line-height: 0;
+    width: 100%;
+    max-width: 900px; }
+  
+  .mfp-iframe-scaler {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-top: 56.25%; }
+  
+  .mfp-iframe-scaler iframe {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    background: black; }
+  
+  .mfp-iframe-holder .mfp-close {
+    top: -40px; }
+  
+  /* Main image in popup */
+  img.mfp-img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    line-height: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 40px 0 40px;
+    margin: 0 auto; }
+  
+  /* The shadow behind the image */
+  .mfp-figure:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 40px;
+    bottom: 40px;
+    display: block;
+    right: 0;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    background: #444444; }
+  
+  .mfp-figure {
+    line-height: 0; }
+  
+  .mfp-bottom-bar {
+    margin-top: -36px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    cursor: auto; }
+  
+  .mfp-title {
+    text-align: left;
+    line-height: 18px;
+    color: #f3f3f3;
+    word-wrap: break-word;
+    padding-right: 36px; }
+  
+  .mfp-figure small {
+    color: #bdbdbd;
+    display: block;
+    font-size: 12px;
+    line-height: 14px; }
+  
+  .mfp-image-holder .mfp-content {
+    max-width: 100%; }
+  
+  .mfp-gallery .mfp-image-holder .mfp-figure {
+    cursor: pointer; }
+  
+  @media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px) {
+    /**
+     * Remove all paddings around the image on small screen
+     */
+    .mfp-img-mobile .mfp-image-holder {
+      padding-left: 0;
+      padding-right: 0; }
+  
+    .mfp-img-mobile img.mfp-img {
+      padding: 0; }
+  
+    /* The shadow behind the image */
+    .mfp-img-mobile .mfp-figure:after {
+      top: 0;
+      bottom: 0; }
+  
+    .mfp-img-mobile .mfp-bottom-bar {
+      background: rgba(0, 0, 0, 0.6);
+      bottom: 0;
+      margin: 0;
+      top: auto;
+      padding: 3px 5px;
+      position: fixed;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+  
+    .mfp-img-mobile .mfp-bottom-bar:empty {
+      padding: 0; }
+  
+    .mfp-img-mobile .mfp-counter {
+      right: 5px;
+      top: 3px; }
+  
+    .mfp-img-mobile .mfp-close {
+      top: 0;
+      right: 0;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      text-align: center;
+      padding: 0; }
+  
+    .mfp-img-mobile .mfp-figure small {
+      display: inline;
+      margin-left: 5px; } }
+  @media all and (max-width: 900px) {
+    .mfp-arrow {
+      -webkit-transform: scale(0.75);
+      transform: scale(0.75); }
+  
+    .mfp-arrow-left {
+      -webkit-transform-origin: 0;
+      transform-origin: 0; }
+  
+    .mfp-arrow-right {
+      -webkit-transform-origin: 100%;
+      transform-origin: 100%; }
+  
+    .mfp-container {
+      padding-left: 6px;
+      padding-right: 6px; } }
+  .mfp-ie7 .mfp-img {
+    padding: 0; }
+  .mfp-ie7 .mfp-bottom-bar {
+    width: 600px;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 5px;
+    padding-bottom: 5px; }
+  .mfp-ie7 .mfp-container {
+    padding: 0; }
+  .mfp-ie7 .mfp-content {
+    padding-top: 44px; }
+  .mfp-ie7 .mfp-close {
+    top: 0;
+    right: 0;
+    padding-top: 0; }
+  
+  //Magnific overrides
+  .mfp-image img{
+    background: white;
+  }
+  .mfp-figure:after {
+    background: white;
+  }
+  
+  /*
+   * Off Canvas navbar toggle right
+   * --------------------------------------------------
+   */
+  
+  @media screen and (max-width: 768px) {
+    .row-offcanvas .collapsing {
+    -webkit-transition: none 0;
+      -moz-transition: none 0;
+      transition: none 0;
+    }
+   .row-offcanvas .navbar {
+    position: absolute;
+    z-index: 2;
+      right:0;
+      height:100%;
+      width:55px;
+      border:0;
+      background-color:transparent;
+    }
+    .row-offcanvas .navbar-toggle {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    .row-offcanvas {
+      position: relative;
+    }
+    .row-offcanvas-right.active .navbar {
+    position: absolute;
+    z-index: 2;
+      right: -28.4%;
+      width:40%;
+      background-color:#eee;
+      border:0 solid #ddd;
+      border-left-width:1px;
+    }
+    .row-offcanvas-right.active {
+      left: -30%;
+    }
+    .row-offcanvas-right.active .navbar-collapse {
+      position: relative;
+      width: 100%;
+    }
+    .row-offcanvas .content {
+    /*width:calc(100% - 60px);*/
+    }
+  }
+  </style>
+</head>
+<body>
+<title>
+Week 3: Python for geo-scripting
+</title>
+<div id="wrap">
+<div class="container">
+<div class="row row-offcanvas row-offcanvas-right">
+<div class="contents col-xs-12 col-md-10">
+<h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
+<h1 id="week-3-python-for-geo-scripting">&quot;Week 3: Python for geo-scripting&quot;</h1>
+<p>Good morning! Today we will start working with Python for geo-scripting and do a refresher of functions in Python. First complete the Intro to Python course in Datacamp and then go through today's tutorial.</p>
+<h3 id="todays-schedule">Today's schedule</h3>
+<ul>
+<li>Follow DataCamp Intro to Python course</li>
+<li>Learn how to work with virtual environments: Conda</li>
+<li>Learn how to create Jupyter Notebook</li>
+<li>Refresher for python</li>
+</ul>
+<p>Using Python within Linux:</p>
+<ul>
+<li>Wide user community and support</li>
+<li>Free</li>
+<li>Flexiblility</li>
+<li>Open-source</li>
+</ul>
+<p>How?! via:</p>
+<ul>
+<li>GDAL/OGR</li>
+<li>GEOS</li>
+<li>Rasterio</li>
+<li>Shapely</li>
+<li>Mapplotlib</li>
+<li>Folium</li>
+<li>Fiona</li>
+<li>GeoPandas</li>
+<li>ArcPy (requires ArcMap license)</li>
+</ul>
+<h2 id="python-editors-and-ides">Python editors and IDEs</h2>
+<p>There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development. * Spyder is nice a lightweight IDE and can be installed from the terminal. In the Geo-Scripting course Spyder is recommended as Python IDE. * Sublime Text is a modern text editor that does nice Python highlighting. * Jupyter notebook or Ipython Notebook are good choices for short scripts and integrate visualizations together with the code. See here for a simple Jupyter <a href="http://nbviewer.ipython.org/github/GeoScripting-WUR/PythonWeek/blob/gh-pages/A%20simple%20notebook.ipynb">notebook example</a>. <a href="http://jupyter.org/">More info</a>. * <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control.</p>
+<h2 id="python-package-management">Python package management</h2>
+<p>For Python, a set of tools co-exist for installing and managing packages. From most to least desirable, you should try to install packages by:</p>
+<ul>
+<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. Conda is available for Windows, macOS and Linux.</li>
+<li>Using <code>pip</code> to manage packages and <code>virtualenv</code> to manage your environment. <em>pip</em> is a python package installer, that is pretty much standard nowadays. It is recommended to run it in a virtualenv to prevent conflicts, however, virtualenvs can be problematic when it comes to package dependencies. <code>virtualenv</code> can be used to keep separate sets of packages in its own directory tree. A demonstration of <code>pip</code> and <code>virtualenv</code> can be found here <a href="http://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/">here</a></li>
+<li>Using the distribution's package manager (on Ubuntu, that's <code>sudo apt-get install python-*</code>).</li>
+</ul>
+<h3 id="anaconda-or-miniconda">Anaconda or Miniconda</h3>
+<p>Anaconda is a Python virtual environment and package manager that is very useful to automatically keep track of package versions and dependencies. Anaconda itself comes already preinstalled with a large number of packages such as <code>numpy</code> and <code>gdal</code>. Instead of using the whole Anaconda, you can instead use the base version called Miniconda. Miniconda has the same features, but only installs the base package and requires manual installation for extra packages.</p>
+<p>It is useful to learn how to use Conda, because it is an easy and cross-platform way of installing latest Python packages without affecting any Python installations that you already have on your system. In addition, Anaconda is required to set up <code>sen2cor</code>, the Sentinel-2 imagery atmospheric correction tool.</p>
+<h4 id="miniconda-installation">Miniconda installation</h4>
+<p>To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">MINICONDA_VERSION="Miniconda3-latest-Linux-x86_64"
+pushd /tmp
+curl -O https://repo.continuum.io/miniconda/${MINICONDA_VERSION}.sh
+## This installation script will require user input
+bash ${MINICONDA_VERSION}.sh
+rm ${MINICONDA_VERSION}.sh
+popd</code></pre>
+</div>
+<p>When prompted, you can just use the default options (i.e. press Enter). However, if you don't want Conda to replace the default Python interpreter in your system, you should say <code>No</code> in the last prompt. In that case, every time you wish to use Conda you need to run the following line of code in each terminal window.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash"># $HOME expands to your home directory
+export PATH=$HOME/miniconda3/bin:$PATH</code></pre>
+</div>
+<p>For installation instructions in other operating systems, please go to the <a href="https://conda.io/docs/user-guide/install/index.html">Miniconda installation page</a>.</p>
+<h4 id="usage">Usage</h4>
+<p>The basic usage of Conda, after installed, is as follows.</p>
+<p>To search for a package:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda search spyder</code></pre>
+</div>
+<p>This would give you a list of all packages that have &quot;spyder&quot; in the name and list all available versions.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda install spyder</code></pre>
+</div>
+<p>This would install the latest version of the <code>spyder</code> package (Python IDE). Note that this would install it into your user's root virtual environment (by default it is <code>$HOME/miniconda3</code>). Conda is able to create any number of isolated virtual environments, for example:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda create --name geotest python=2.7 numpy</code></pre>
+</div>
+<p>This would create a new environment called <code>geotest</code> with Python 2.7 and <code>numpy</code> installed into it. To list the available environments:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda info --envs</code></pre>
+</div>
+<p>Conda puts an asterisk (*) in front of the active environment. To activate an environment:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">## Linux, macOS
+source activate geotest
+## Windows
+activate geotest</code></pre>
+</div>
+<p>After this, the current environment is shown in (parentheses) or [brackets] in front of your prompt (<code>(astrolab)$</code>). To deactivate the environment and go back to the default one:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">## Linux, macOS
+source deactivate
+## Windows
+deactivate</code></pre>
+</div>
+<p>To remove the environment <code>geotest</code>:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda remove --name geotest --all</code></pre>
+</div>
+<p>Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. Additionally, if you use <code>sudo</code> commands to call Python, it will use the system's Python interpreter and not the active environment for security reasons. There should be no reason to call Python code in Conda with <code>sudo</code> rights in any case, since all packages are installed with your user permissions rather than root's.</p>
+<p>In addition, as you saw before, Conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. However, since those packages are installed into a virtual environment, they will not be accessible from your system menu. Instead, to run e.g. Spyder from within a Conda environment called <code>ide</code>, you would need to do something like this:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">source activate ide
+spyder</code></pre>
+</div>
+<p>It is useful to check whether the executable comes from the system or a virtual environment by using the <code>which</code> or <code>type</code> commands:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">type gdalinfo</code></pre>
+<button class="output bash toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> bash output
+</button>
+<pre style=""><code class="output bash">## gdalinfo is /usr/bin/gdalinfo
+</code></pre>
+</div>
+<p>This shows that you would be running GDAL from the system rather than the Conda virtual environment, otherwise the path would include <code>miniconda</code> and the virtual environment name.</p>
+<p>Some helpful utilities are:</p>
+<ul>
+<li><code>conda list</code> to check which packages are installed in <code>root</code> or in the active environment;</li>
+<li><code>which python</code> or <code>python --version</code> to check which python verison is used in the environment;</li>
+<li><code>conda install --name astrolab matplotlib</code> to install extra modules in your (running) conda environment.</li>
+</ul>
+<h2 id="getting-started-with-python-within-a-linux-os">Getting started with Python within a Linux OS</h2>
+<ul>
+<li><p>Launch a Linux virtual machine and login.</p></li>
+<li><p>Open the Terminal and type the following to check the installed GDAL version:</p></li>
+</ul>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">gdal-config --version</code></pre>
+<button class="output bash toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> bash output
+</button>
+<pre style=""><code class="output bash">## 2.1.3
+</code></pre>
+</div>
+<ul>
+<li>Type the following to start Python 3 in the terminal:</li>
+</ul>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">python3</code></pre>
+</div>
+<p>An example script to find out what the installed Python version is.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import sys
+print(sys.version)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 3.5.2 (default, Nov 23 2017, 16:37:01) 
+## [GCC 5.4.0 20160609]
+</code></pre>
+</div>
+To exit Python in the terminal:
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">exit()
+# or 
+quit()</code></pre>
+</div>
+<h2 id="running-python-in-jupyter-notebooks">Running Python in Jupyter Notebooks</h2>
+<p>You can program Python in your terminal, but more facilities are available to make coding and documenting in Python easier through notebooks or Python IDEs. Today we will have a go with Jupyter Notebooks. In other lessons you can use the Python IDE Spyder. For now try the following commands in your terminal:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash"># Set directory at home
+cd
+
+# Create conda environment
+conda create -n geoscripting numpy jupyter # geoscripting is name of your new conda environment
+
+# Activate conda environment
+source activate geoscripting</code></pre>
+</div>
+<p>By creating your conda environment, you created a set of packages and a Python version to be used only in that specific conda environment. In your terminal you can see the name of your conda environment at the start of the command line before your user information. Now that we are working in our conda environment with all the necessary packages with correct versions, we can start with setting up our notebook.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash"># Start a Jupyter Notebook from the terminal
+jupyter notebook</code></pre>
+</div>
+<p>If everything goes according to plan, Jupyter will pop up in your browser. You will see a menu with all the files in your working directory. <strong>Note</strong>: the Jupyter notebook will only be able to see files that are accessible from the working directory in which from which you launch it! So keep track of the working directory in your terminal. A good practice is to start it in your project's directory.</p>
+<p>Once you are in the desired working directory, in the right top click on <em>New</em> → <em>Folder</em> (if you don't have folder/project structure yet) and/or click on <em>Python 3</em> to create a Jupyter Notebook. Click on help and have a go at the <code>User Interface Tour</code>. Give your notebook a name.</p>
+<p>These are the basic functions you will need today:</p>
+<ul>
+<li><code>Save and checkpoint</code></li>
+<li><code>Insert cell below</code></li>
+<li><code>Run</code></li>
+<li><code>Code/Markdown/Heading</code></li>
+</ul>
+<p>Similar to RMarkdown, Jupyter Notebooks has code cells (called <em>Code</em>) and text cells (called <em>Markdown</em>). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. To run code in a code cell, select it and press the <em>Run</em> button.</p>
+<h2 id="a-short-python-refresher">A short Python refresher</h2>
+<h3 id="finding-help">Finding help</h3>
+<p>Now we can try some coding. First we learn how to look for help while coding in Python. In the second cell type the code below and run it (ctrl + enter is shortcut for run cell).</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import sys
+help(sys)
+print("-------------------------------------")
+help(1)</code></pre>
+</div>
+<p>See how the functions in the <code>sys</code> module got listed and how we got information how to work with integers. Sometimes you also need to use the internet to find information.</p>
+<blockquote>
+<p><strong>Question</strong> 1: What does this mean <code>__ __</code> around words: e.g: <code>__doc__</code>?</p>
+</blockquote>
+<p>Try out the following!!!</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">help('hamster')</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## No Python documentation found for 'hamster'.
+## Use help() to get the interactive help utility.
+## Use help(str) for help on the str class.
+</code></pre>
+</div>
+<p>See also:</p>
+<ul>
+<li><a href="http://www.rafekettler.com/magicmethods.html" class="uri">http://www.rafekettler.com/magicmethods.html</a></li>
+<li><a href="https://stackoverflow.com/questions/1090620/special-magic-methods-in-python" class="uri">https://stackoverflow.com/questions/1090620/special-magic-methods-in-python</a></li>
+</ul>
+<h3 id="finding-information-via-pydoc">Finding information via Pydoc</h3>
+<p>Type the script below in your terminal to start a HTTP server with information from pydoc or go to <a href="https://docs.python.org/2/library/pydoc.html" class="uri">https://docs.python.org/2/library/pydoc.html</a>.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">pydoc -p 1234
+echo "pydoc server ready at http://localhost:1234/"</code></pre>
+</div>
+<p>Then go to <code>http://localhost:1234/</code> via your preferred browser. You can see a list of built-in modules and available modules.</p>
+<h3 id="numbers-and-variables">Numbers and variables</h3>
+<p>We continue working in Python.</p>
+<blockquote>
+<p><strong>Question 2</strong>: What is the difference between 10 and 10.0 when dealing with data types in Python?</p>
+</blockquote>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(int(10.6))</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 10
+</code></pre>
+</div>
+<p>Variable is a storage location or symbolic name to a value e.g.:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">building = 'Gaia'
+buildingNumber = 101
+'Gaia'
+"doesn't"
+'Gaia' + ' is in Wageningen'</code></pre>
+</div>
+<p>There is no need to say or define the datatype, <code>python</code> has a loose type variable declaration.</p>
+<p><em>If it walks like a duck, swims like a duck and quacks like a duck I call it a duck</em></p>
+<p>Python is basically a list of objects.</p>
+<h3 id="lists">Lists</h3>
+<p>Now we will have a go with lists.</p>
+<p><strong>Tip</strong>: Variables, functions and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.</p>
+Run this code in one cell:
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
+# how to can we print Forum?
+print(campus[3])
+# how to access the end of the list (while having no idea how big it is)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## Forum
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(campus[-1])
+# how to access the first 3 items</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## Forum
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(campus[0:3])</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## ['Gaia', 'Lumen', 'Radix']
+</code></pre>
+</div>
+Run this code in another cell. We will do some appending, inserting, extending and steps:
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">campus.append("Atlas")
+campus.insert(1,"SoilMuseum")
+campus.extend(["Action", "Vitae", "Zodiac"])
+print(campus)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## ['Gaia', 'SoilMuseum', 'Lumen', 'Radix', 'Forum', 'Atlas', 'Action', 'Vitae', 'Zodiac']
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(campus[::2])
+## list[start:end:step]</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## ['Gaia', 'Lumen', 'Forum', 'Action', 'Zodiac']
+</code></pre>
+</div>
+<p>See how the notebook remembered how you set the variable <code>campus</code>.</p>
+<blockquote>
+<p><strong>Question 3:</strong> What are the major differences between Append/Extend?</p>
+</blockquote>
+<blockquote>
+<p><strong>Question 4:</strong> What building is <code>campus[-2]</code>?</p>
+</blockquote>
+<h3 id="dictionaries-loops-ifelse">Dictionaries, loops, if/else</h3>
+<p>Let there be dictionaries... A dictionary is an unordered set of key:value pairs. Like in the dictionary, 'food':'voedsel'.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python"># dictionary
+campusDic = {101:'Gaia',
+             100:'Lumen',
+             107:'Radix',
+             102:'Forum',
+             104:'Altas'}
+print(campusDic[102])</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## Forum
+</code></pre>
+</div>
+<p>Loops: watch out here with code indentation. Python uses indentation to define code blocks and not <code>{}</code> like other languages. <code>print(building)</code> in the following code has to be <em>indented</em> by 1 tab or 4 spaces ( <a href="https://stackoverflow.com/questions/119562/tabs-versus-spaces-in-python-programming">recommended</a> ).</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">campus = ['Gaia','Lumen', 'Radix', 'Forum']
+for building in campus:
+    print(building)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## Gaia
+## Lumen
+## Radix
+## Forum
+</code></pre>
+</div>
+<p>Here, <code>building</code> is a variable that will contain any item in the campus list.</p>
+<p>Generic loops in Python have to interact over a sequence of objects e.g.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">range(5)
+for number in range(5):
+    print(number)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 0
+## 1
+## 2
+## 3
+## 4
+</code></pre>
+</div>
+<p>Object interaction and functional programming is an important part of Python programming and its tools are extensive. <code>if</code>/<code>else</code>:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">x = 3
+if x < 3:
+    print("below 3")
+else:
+    print("above 3")</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## above 3
+</code></pre>
+</div>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">x = 3
+if x == 1:
+    print("it is one")
+elif x==2:
+    print("it is two")
+elif x==3:
+    print("it is three")
+else: 
+    print("above 3")</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## it is three
+</code></pre>
+</div>
+<h3 id="functions">Functions</h3>
+<p>A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">def printPotato():
+    print("potato")
+printPotato()</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## potato
+</code></pre>
+</div>
+<p>Functions accept arguments and return variables e.g.:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">def printHelloName(name):
+    print("Good morning " + name)
+printHelloName("Jan")</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## Good morning Jan
+</code></pre>
+</div>
+<p><code>return</code> is used to indicate what you want to obtain from the function, you can <code>return</code> multiple items and return can be used to assign output to variables outside of the function.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">def times3(number):
+    tmp = number*3
+    return tmp, number
+    
+print(times3(4))</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## (12, 4)
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">output, input = times3(4)
+print(output)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 12
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(input)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 4
+</code></pre>
+</div>
+<h3 id="importing-modules">Importing modules</h3>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import math
+print(dir(math)) #show names in math module</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## ['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'copysign', 'cos', 'cosh', 'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 'isinf', 'isnan', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 'nan', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'trunc']
+</code></pre>
+</div>
+<ul>
+<li>The best way to learn a module is by checking <a href="https://docs.python.org/2/">documentation</a>.</li>
+<li>Modules are Python's butter and bread.</li>
+<li>A module contains code that can be used or excuted.</li>
+</ul>
+Basically there are three ways to load a module:
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import math
+print(math.pi)
+from math import pi
+print(pi)
+import numpy as np
+print(np.pi)</code></pre>
+</div>
+<blockquote>
+<p><strong>Question 5</strong>: Which is the best way to import modules?</p>
+</blockquote>
+<h3 id="some-important-internal-modules">Some important internal modules:</h3>
+<ul>
+<li><code>os</code>: Access to operating system features</li>
+<li><code>os.path</code>: Manipulating of file names</li>
+<li><code>sys</code>: System specific configuration</li>
+<li><code>glob</code>: Filename pattern matching</li>
+<li><code>math</code>: Mathametical functions</li>
+<li><code>datetime</code>: Date/Time manipulation</li>
+</ul>
+<blockquote>
+<p><strong>Question 6</strong>: What is the difference between <code>os</code> and <code>os.path</code>?</p>
+</blockquote>
+<p>Some examples:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import glob
+glob.glob("*")</code></pre>
+</div>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">from datetime import timedelta, date
+delta = timedelta(days=7)
+print(date.today())</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 2018-09-16
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">print(date.today()+delta)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## 2018-09-23
+</code></pre>
+</div>
+<h3 id="file-access">File access</h3>
+<p>File access is very simple for 99% of the cases.</p>
+<p>Write something to file:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">fileObj = open('test.txt','w')
+fileObj.write('some simple text')
+fileObj.close()</code></pre>
+</div>
+<p>And read something from a file:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">fileObj = open('test.txt','r')
+a = fileObj.read()
+print(a)</code></pre>
+<button class="output python toggle btn btn-xs btn-success">
+<span class="glyphicon glyphicon-chevron-down"></span> python output
+</button>
+<pre style=""><code class="output python">## some simple text
+</code></pre>
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">fileObj.close()</code></pre>
+</div>
+<blockquote>
+<p><strong>Question 7</strong>: What does <code>w</code> and <code>r</code> mean?</p>
+</blockquote>
+<h3 id="error-handling">Error handling</h3>
+<p>Sometime problems occur... Errors detected during execution are called <em>exceptions</em>.</p>
+<p>Good code deals with exceptions:</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">open("/foo0")</code></pre>
+</div>
+<p>The file doesn't exist, so the script stops and outputs an ugly message.</p>
+<p>How to deal with this I/O error? Good programming!</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">try:
+    open("foo")
+except IOError:
+    print("no file")
+## we can be more precise:
+try:
+    open("/foo")
+except IOError:
+    print("no file")</code></pre>
+</div>
+<h3 id="visualization">Visualization</h3>
+<p>Jupyter Notebooks can display output of your code, such as graphs, images and maps in the notebook. A lot of cool visualizations including code in Python are available from the <a href="https://python-graph-gallery.com/">Python Graph Gallery</a>. Before we can do the visualizations, we want to add some Python modules via the terminal.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">## Add Matplotlib and seaborn modules
+conda install --name geoscripting matplotlib seaborn
+# as conda install --name env_name pythonmodule pythonmodule</code></pre>
+</div>
+<p>We will make a graph with the <code>Seaborn</code> module and plot it with <code>Matplotlib</code>. Give it a try! (If you have just installed it, you might need to close the Jupyter notebook and reopen it.)</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python"># Load library
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Load dataset
+df = sns.load_dataset('iris')
+ 
+# Create plot
+sns.pairplot(df, kind = "reg", hue = "species")
+plt.show()</code></pre>
+</div>
+<p>Nice visualization huh! Good job.</p>
+<p>Now make a map with <code>Folium</code>. Note: Folium is very new and so is not in the main conda channel, so install it with <code>conda install folium -c conda-forge</code>.</p>
+<div class="row">
+<button class="source python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> python source
+</button>
+<pre style=""><code class="source python">import folium
+SF_COORDINATES = (51.9871868, 5.6593948)
+map = folium.Map(location=SF_COORDINATES, tiles='Mapbox Control Room', zoom_start=5)
+display(map)</code></pre>
+</div>
+<h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
+<p>Your Jupyter Notebook is automatically saved as an .ipynb file (extension comes from the historic name &quot;IPython Notebook&quot;) on your computer, but you can also download it as a python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>
+<p>By pressing Ctrl + c in the terminal where Jupyter notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>source deactivate</code>.</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">source deactivate</code></pre>
+</div>
+<h3 id="python-statements">Python statements</h3>
+<ul>
+<li><code>if</code></li>
+<li><code>for</code></li>
+<li><code>while</code></li>
+<li><code>try</code></li>
+<li><code>type</code> shows type (e.g. int, float, str) of object</li>
+<li><code>class</code> which executes a block of code and attaches its local names to a <code>class</code>, for use in object oriented programming</li>
+<li><code>def</code> which defines a function or statement</li>
+<li><code>with</code> which encloses a code block within a context manager</li>
+<li><code>pass</code> statement, which serves as a <code>NOP</code> (no operation)</li>
+<li><code>assert</code>, used during debugging to check for conditions that ought to apply</li>
+<li><code>yield</code></li>
+<li><code>import</code></li>
+</ul>
+<h2 id="python-from-r">Python from R</h2>
+<p>By the way, as you may have noticed, this document is created from an RMarkdown source, which can also include Python code blocks (have a look at the <a href="https://github.com/GeoScripting-WUR/PythonWeek/blob/gh-pages/index.Rmd">source</a> on github). Similarly Jupyter Notebooks can also use R and other languages!</p>
+<h1 id="assignment">Assignment</h1>
+<p>The assignment for today is to finish the datacamp course: Intro to Python for Data Science. If you finished early and still want to write more scripts, then you can follow one of the fun tutorials below.</p>
+<h1 id="more-info">More info</h1>
+<ul>
+<li>A great book: <a href="http://www.amazon.com/Python-Geospatial-Development-Second-Edition/dp/178216152X">Python Geospatial Development</a></li>
+<li><a href="https://docs.python.org/2/tutorial/">The official python tutorial</a></li>
+<li><a href="http://www.tutorialspoint.com/python/">Python Tutorial</a></li>
+<li><a href="https://gist.github.com/sloria/7001839">Best of the best practices in Python - Style guide</a></li>
+<li><a href="https://stackoverflow.com/questions/tagged/python">Stack OverFlow Python</a></li>
+<li><a href="http://www.qgistutorials.com/en/docs/getting_started_with_pyqgis.html">QGIS can be scripted in python</a></li>
+<li><a href="https://github.com/GeoScripting-WUR/PythonWeek/blob/gh-pages/Matplotlib_basemap.ipynb">Spatial visualization with Matplotlib</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="push">
+
+</div>
+<div id="footer">
+<div class="container">
+<p class="text-muted" id="credit">
+Styled with <a href="https://github.com/jimhester/knitrBootstrap">knitrBootstrap</a>
+</p>
+</div>
+</div>
+<link rel="stylesheet" id="theme" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css" media="screen"></link><link rel="stylesheet" id="highlight" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-bright.min.css" media="screen"></link>
+</div>
+</body>
+</html>
