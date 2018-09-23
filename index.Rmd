@@ -54,7 +54,7 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
 There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
 * [Spyder](https://www.spyder-ide.org/) is nice a lightweight IDE and can be installed from the terminal. In the Geo-scripting course Spyder is recommended as Python IDE.
-* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is very suitable to make tutorials or simple dashboards. Today the Jupyter Notebook will be used and explained.
+* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser and are not recommended during large professional projects, because they don't have good versioning, no IDE integration and no code-style correction. Today the Jupyter Notebook will be used and explained.
 * [PyCharm](https://www.jetbrains.com/pycharm/) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control and navigation. This IDE is not recommended during the Geo-scripting course since we want to focus on learning Geo-scripting and not learning an IDE, but we do want you to know there are more professional IDE out there.
 
 
@@ -471,6 +471,53 @@ except FileNotFoundError as err:
     print(err.args)
     raise
 ```
+
+
+### Functional and object-oriented programming
+Until now in `R` you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In `Python` functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
+
+An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. Take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes: name and age.
+
+```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
+class Dog:
+
+    def __init__(self, name, age):  
+        self.name = name
+        self.age = age
+```
+
+Now specify the name and age of a dog and add it to an object. To access an object's attributes in Python, you can use the dot notation. This is done by typing the name of the object, followed by a dot and the attribute's name.
+
+```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
+ozzy = Dog("Ozzy", 2)
+print(ozzy.name + " is " + str(ozzy.age) + " year(s) old.")
+```
+
+We have a Dog class, it does have a name and age which you can keep track of, but it doesn't actually do anything. This is where instance methods come in. You can rewrite the class to now include a bark() and doginfo() method. 
+
+```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
+class Dog:
+
+    def __init__(self, name, age):  
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        print("bark bark!")
+    
+    def doginfo(self):
+        print(self.name + " is " + str(self.age) + " year(s) old.")
+```
+
+Great. Now we can call the methods in a similar way as the attributes with the dot notation.
+
+```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
+ozzy = Dog("Ozzy", 2)
+ozzy.bark()
+ozzy.doginfo()
+```
+
+With OOP, your code will grow in complexity as your program gets larger. You will have different classes, subclasses, objects, inheritance, instance methods, and more. You'll want to keep your code properly structured and readable. During Geo-scripting we mostly perform functional programming to keep things simple. Sometimes class objects of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. You don't have to develop these classes, but you should know how to handle classes.
 
 ### Visualization
 

@@ -914,7 +914,7 @@ Week 3: Python for geo-scripting
 <p>There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
 <ul>
 <li><a href="https://www.spyder-ide.org/">Spyder</a> is nice a lightweight IDE and can be installed from the terminal. In the Geo-scripting course Spyder is recommended as Python IDE.</li>
-<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualizations together with code and is very suitable to make tutorials or simple dashboards. Today the Jupyter Notebook will be used and explained.</li>
+<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser and are not recommended during large professional projects, because they don't have good versioning, no IDE integration and no code-style correction. Today the Jupyter Notebook will be used and explained.</li>
 <li><a href="https://www.jetbrains.com/pycharm/">PyCharm</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control and navigation. This IDE is not recommended during the Geo-scripting course since we want to focus on learning Geo-scripting and not learning an IDE, but we do want you to know there are more professional IDE out there.</li>
 </ul>
 <h3 id="python-package-management">Python package management</h3>
@@ -1349,6 +1349,54 @@ except FileNotFoundError as err:
     print(err.args)
     raise</code></pre>
 </div>
+<h3 id="functional-and-object-oriented-programming">Functional and object-oriented programming</h3>
+<p>Until now in <code>R</code> you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <code>Python</code> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.</p>
+<p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. Take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes: name and age.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class Dog:
+
+    def __init__(self, name, age):  
+        self.name = name
+        self.age = age</code></pre>
+</div>
+<p>Now specify the name and age of a dog and add it to an object. To access an object's attributes in Python, you can use the dot notation. This is done by typing the name of the object, followed by a dot and the attribute's name.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">ozzy = Dog("Ozzy", 2)
+print(ozzy.name + " is " + str(ozzy.age) + " year(s) old.")</code></pre>
+</div>
+<p>We have a Dog class, it does have a name and age which you can keep track of, but it doesn't actually do anything. This is where instance methods come in. You can rewrite the class to now include a bark() and doginfo() method.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class Dog:
+
+    def __init__(self, name, age):  
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        print("bark bark!")
+    
+    def doginfo(self):
+        print(self.name + " is " + str(self.age) + " year(s) old.")</code></pre>
+</div>
+<p>Great. Now we can call the methods in a similar way as the attributes with the dot notation.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">ozzy = Dog("Ozzy", 2)
+ozzy.bark()
+ozzy.doginfo()</code></pre>
+</div>
+<p>With OOP, your code will grow in complexity as your program gets larger. You will have different classes, subclasses, objects, inheritance, instance methods, and more. You'll want to keep your code properly structured and readable. During Geo-scripting we mostly perform functional programming to keep things simple. Sometimes class objects of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. You don't have to develop these classes, but you should know how to handle classes.</p>
 <h3 id="visualization">Visualization</h3>
 <p>Jupyter Notebooks can directly display output of your code, such as graphs, images and maps in the notebook. A lot of cool visualizations including Python source code are available from the <a href="https://Python-graph-gallery.com/">Python Graph Gallery</a>. The gallery even has some nice maps. Before we can do the visualizations, we want to add some Python packages via the terminal. Start up a new terminal and activate the environment.</p>
 <div class="row">
