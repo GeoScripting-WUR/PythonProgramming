@@ -871,28 +871,30 @@ Week 3: Python for geo-scripting
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-python-for-geo-scripting">&quot;Week 3: Python for Geo-scripting&quot;</h1>
-<p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. First complete the Intro to Python for Data Science course in Datacamp and then go through today's tutorial.</p>
+<p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python.</p>
 <h3 id="todays-schedule">Today's schedule</h3>
 <ul>
-<li>Follow DataCamp Intro to Python for Data Science course</li>
+<li>Follow <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course in Datacamp</a></li>
 <li>Get Introduced to Python Environment</li>
 <li>Learn how to work with virtual environments: Conda</li>
 <li>Learn how to create Jupyter Notebook</li>
 <li>Refresh Python programming knowledge</li>
 <li>Check a nice example of a Jupyter Notebook</li>
 </ul>
+<h2 id="follow-intro-to-python-course-on-datacamp">Follow Intro to Python course on Datacamp</h2>
+<p>Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. Today you will have to finish the <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">introduction to Python Datacamp course</a>.</p>
 <h2 id="introduction-to-python-environment">Introduction to Python Environment</h2>
-<p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There is a lot of awesome Python packages out there for geo-scripting, data wrangling, visualization and machine learning:</p>
+<p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There is a lot of powerful Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:</p>
 <ul>
 <li>Geo Scripting
 <ul>
 <li>GeoPandas (Vector Processing)</li>
 <li>RasterIO (Raster Processing)</li>
 <li>GDAL/OGR (Vector and Raster Processing)</li>
-<li>QGIS (Open Source GIS)</li>
+<li>QGIS plugins (Open Source GIS)</li>
 <li>ArcPy (Propietary GIS)</li>
 </ul></li>
-<li>Data Wrangling
+<li>Data Handling
 <ul>
 <li>Pandas (Dataframes and Data Analysis)</li>
 <li>Numpy (Scientific Computing)</li>
@@ -913,19 +915,19 @@ Week 3: Python for geo-scripting
 <h3 id="python-editors-and-ides">Python editors and IDEs</h3>
 <p>There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
 <ul>
-<li><a href="https://www.spyder-ide.org/">Spyder</a> is nice a lightweight IDE and can be installed from the terminal. In the Geo-scripting course Spyder is recommended as Python IDE.</li>
-<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser and are not recommended during large professional projects, because they don't have good versioning, no IDE integration and no code-style correction. Today the Jupyter Notebook will be used and explained.</li>
-<li><a href="https://www.jetbrains.com/pycharm/">PyCharm</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control and navigation. This IDE is not recommended during the Geo-scripting course since we want to focus on learning Geo-scripting and not learning an IDE, but we do want you to know there are more professional IDE out there.</li>
+<li><a href="https://www.spyder-ide.org/">Spyder</a> is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as Python IDE.</li>
+<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. Today the Jupyter Notebook will be used and explained.</li>
+<li><a href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm Community Edition</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know there won't be support for it since the focus of Geo-scripting is on learning to script.</li>
 </ul>
 <h3 id="python-package-management">Python package management</h3>
-<p>A set of tools co-exist for installing and managing packages. You don't want to bloat your computer with all kinds of Python packages. This will definitely break some of your Python projects sooner or later since packages have varying dependencies. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. There are three ways to install packages sorted from most preferred to less preferred:</p>
+<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages sorted from most preferred to less preferred:</p>
 <ul>
-<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <code>Conda</code> is called a conda environment. <code>Conda</code> is available for Windows, macOS and Linux. You can also have conda environments for C libraries, or R packages, or really anything.</li>
-<li>Using <code>pip</code> to install packages and <code>conda</code> to manage packages. <code>Pip</code> is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
-<li>Using the distribution's package manager (only on Ubuntu, that's <code>sudo apt-get install Python-*</code>).</li>
+<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. You can also have conda environments for C libraries, or R packages, or really anything.</li>
+<li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
+<li>Using the distribution's package manager (only on Ubuntu, that's <code>sudo apt-get install python-*</code>).</li>
 </ul>
 <h4 id="conda-installation">Conda installation</h4>
-<p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when you install it there is just the management system without packages. Whereas with Anaconda, it is like a distribution with some built in packages. In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
+<p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when you install it there is just the management system without packages. Whereas with Anaconda, you get the distribution with popular Python packages built in. In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -954,21 +956,21 @@ popd</code></pre>
 </button>
 <pre style=""><code class="source bash">conda install spyder</code></pre>
 </div>
-<p>This would install the latest version of the <code>Spyder</code> package (Python IDE). Note that this would install it into your user's root virtual environment (by default it is <code>$HOME/miniconda3</code>). Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:</p>
+<p>This would install the latest version of the <em>Spyder</em> package (Python IDE). Note that this would install it into your user's root virtual environment (by default it is <code>$HOME/miniconda3</code>). Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda create --name geotest Python=2.7 numpy</code></pre>
+<pre style=""><code class="source bash">conda create --name geotest python=2.7 numpy</code></pre>
 </div>
-<p>This would create a new environment called <code>geotest</code> with Python 2.7 and <code>numpy</code> installed into the conda environment. To list the available environments:</p>
+<p>This would create a new environment called <em>geotest</em> with Python 2.7 and <em>numpy</em> installed into the conda environment. To list the available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda info --envs</code></pre>
 </div>
-<p>Conda puts an asterisk (*) in front of the active environment. Activate the environment.</p>
+<p>Conda puts an asterisk (*) in front of the active environment. To activate the environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -980,7 +982,7 @@ source activate geotest
 ## Windows
 activate geotest</code></pre>
 </div>
-<p>After this, the current environment is shown in (parentheses) in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Conda is recommended.</p>
+<p>After this, the current environment is shown in (parentheses) in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, Conda is recommended. In the documentation of most Python packages the recommended way to install can be found.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1008,7 +1010,7 @@ source deactivate
 ## Windows
 deactivate</code></pre>
 </div>
-<p>Since Python 2.7 is outdated and we want to work with Python 3, we can remove the environment <code>geotest</code>.</p>
+<p>Since Python 2.7 is outdated and we want to work with Python 3, we can remove the environment <em>geotest</em>.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1025,8 +1027,8 @@ spyder</code></pre>
 </div>
 <p>Some extra helpful utilities are:</p>
 <ul>
-<li><code>conda list</code> to check which packages are installed in <code>root</code> or in the active environment;</li>
-<li><code>Python --version</code> or <code>gdal-config --version</code> to check which verison is used in the environment;</li>
+<li><code>conda list</code> to check which packages are installed in <em>root</em> or in the active environment;</li>
+<li><code>python --version</code> or <code>gdal-config --version</code> to check which verison is used in the environment;</li>
 <li><code>which spyder</code> or <code>type spyder</code> to find out which Spyder executable is used either from system or conda environment.</li>
 </ul>
 <h2 id="running-python-in-terminal">Running Python in terminal</h2>
@@ -1035,11 +1037,11 @@ spyder</code></pre>
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">Python
+<pre style=""><code class="source bash">python
 # or 
-Python2
+python2
 # or 
-Python3</code></pre>
+python3</code></pre>
 </div>
 <p>Test this script and find out what your Python version is inside Python. Wow!</p>
 <div class="row">
@@ -1064,12 +1066,12 @@ quit()</code></pre>
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda create -n geoscripting numpy jupyter folium
+<pre style=""><code class="source bash">conda create -n geoscripting numpy jupyter
 conda activate geoscripting
 conda install --channel conda-forge folium</code></pre>
 </div>
-<p>Sometimes packages are not directly available from standard conda channel, but require a specific conda channel to install package from, such as conda-forge. In the documentation of most Python packages the recommended way to install can be found.</p>
-<p>Time to run the Jupyter Notebook and be amazed.</p>
+<p>Sometimes packages are not directly available from standard conda channel, but require a specific conda channel to install package from, such as conda-forge. The documentation of Python packages often show the recommended channel to install the Python package.</p>
+<p>Time to run the Jupyter Notebook.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1081,10 +1083,10 @@ jupyter notebook</code></pre>
 <p>Go to documents. Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder and create new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on untitled. Feel free to have a go at the user interface tour: <em>Help</em> → <em>User Interface Tour</em>.</p>
 <p>Hover over the toolbar to check out all tools. These are the basic tools you will need today:</p>
 <ul>
-<li><code>Save and checkpoint</code></li>
-<li><code>Insert cell below</code></li>
-<li><code>Run</code></li>
-<li><code>Code/Markdown/Heading</code> (List box)</li>
+<li><em>Save and checkpoint</em></li>
+<li><em>Insert cell below</em></li>
+<li><em>Run</em></li>
+<li><em>Code/Markdown/Heading</em> (List box)</li>
 </ul>
 <p>Similar to RMarkdown, Jupyter Notebooks has code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type following Python code in a code cell:</p>
 <div class="row">
@@ -1095,9 +1097,9 @@ jupyter notebook</code></pre>
 m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m</code></pre>
 </div>
-<p>Run the code in a code cell, select it and press the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. Nice map huh .. in just three lines of code. Isn't that easy.</p>
+<p>Run the code in a code cell, select it and press the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. Wow! Nice map :)</p>
 <h2 id="python-refresher">Python refresher</h2>
-<p>Python has a way of doing things. It is called the Pythonic way: simple readable code.</p>
+<p>Python has a specific way of doing things. It is called the <a href="https://docs.python-guide.org/writing/style/">Pythonic way</a> and stands for simple readable code.</p>
 <h3 id="looking-for-help">Looking for help</h3>
 <p>If you are looking for help while programming in Python, there are several ways to find help. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geo-scripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python.</p>
 <div class="row">
@@ -1140,7 +1142,7 @@ Run this code in one cell.
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-# how to can we print Forum?
+# how can we print Forum?
 print(campus[3])
 # how to access the end of the list (while having no idea how big it is)
 print(campus[-1])
@@ -1175,7 +1177,7 @@ print(campus[::2])</code></pre>
                     100:'Lumen',
                     107:'Radix',
                     102:'Forum',
-                    104:'Altas'}
+                    104:'Atlas'}
 print(campusDictionary[102])</code></pre>
 </div>
 <p>Loops: watch out here with code indentation. Python uses indentation to define code blocks and not <code>{}</code> like other languages. Indentation is either 1 tab or 4 spaces.</p>
@@ -1183,7 +1185,7 @@ print(campusDictionary[102])</code></pre>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">campus = ['Gaia','Lumen', 'Radix', 'Forum']
+<pre style=""><code class="source python">campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for building in campus:
     print(building)</code></pre>
 </div>
@@ -1212,7 +1214,7 @@ else:
     print("above 3")</code></pre>
 </div>
 <h3 id="functions">Functions</h3>
-<p>A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name. Functions accept arguments and return variables e.g.:</p>
+<p>A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name. Functions accept arguments and perform an action e.g.:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1220,9 +1222,12 @@ else:
 <pre style=""><code class="source python">def printHelloName(name):
     print("Good morning " + name)
 
-printHelloName(name="Jan")</code></pre>
+printHelloName(name="Jan")
+
+greeting = printHelloName(name="EnterYourName")
+print(greeting)</code></pre>
 </div>
-<p><code>return</code> is used to indicate what you want to obtain from the function, you can <code>return</code> multiple items and return can be used to assign output to variables outside of the function.</p>
+<p><code>print</code> is used to print text or a number. As the example shows, printing to a variable does not store the information in the variable. <code>return</code> is used to indicate what you want to obtain from the function. You can <code>return</code> multiple items and return can be used to assign output to variables outside of the function.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1237,7 +1242,7 @@ output_number, input_number = times3(input_number=4)
 print(output_number)
 print(input_number)</code></pre>
 </div>
-<p>A best practice in programming is to keep variable and function names very informative! Functions or classes can be made more informative by docstrings.</p>
+<p>A best practice in programming is to keep variable and function names very informative! In complex functions or classes, the functions or classes can be made more informative by docstrings.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1256,13 +1261,13 @@ times3(input_number=4)
 </div>
 <p>In this case docstrings are too much, but for larger functions or classes it is smart to have docstrings.</p>
 <h3 id="importing-modules-and-packages">Importing modules and packages</h3>
-<p>Python packages and modules are the bread and butter of Python. They make Python so great. - Any Python file is a <code>module</code>, its name being the file's base name without the .py extension. - A <code>package</code> is a collection of Python modules: a package is a directory of Python modules containing an additional <strong>init</strong>.py file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own <strong>init</strong>.py file.</p>
+<p>Python packages and modules are the bread and butter of Python. They make Python so great. - Any Python file is a <em>module</em>, its name being the file's base name without the .py extension. - A <em>package</em> is a collection of Python modules: a package is a directory of Python modules containing an additional <code>__init__.py</code> file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own <code>__init__.py</code> file.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">import math
-print(dir(math)) #show names in math module</code></pre>
+print(dir(math)) #show names in math package</code></pre>
 </div>
 Basically there are three ways to load a package:
 <div class="row">
@@ -1274,6 +1279,9 @@ print(math.pi)
 
 from math import pi
 print(pi)
+
+from math import pi as Pi
+print(Pi) 
 
 import numpy as np
 print(np.pi)</code></pre>
@@ -1311,19 +1319,30 @@ print(date.today())
 print(date.today()+delta)</code></pre>
 </div>
 <h3 id="file-access">File access</h3>
-<p>File access is very simple for 99% of the cases. Write to a file and read from the same file with two simple lines. It is a best practice to use <code>with open</code> instead of <code>open</code> since it automatically closes the file.</p>
+<p>File access is very simple for 99% of the cases. Write to a file and read from the same file with two simple lines. It is a best practice to use <code>with open</code> instead of <code>open</code> since it automatically closes the file. <a href="https://www.datacamp.com/community/tutorials/reading-writing-files-python">This tutorial on Datacamp</a> goes in depth on reading and writing files in Python.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">with open('test.txt','w') as file:
+<pre style=""><code class="source python"># Bad practice, because you might forget to close the file object
+fileObj = open('test.txt','w')
+fileObj.write('some simple text')
+fileObj.close()</code></pre>
+</div>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python"># Good practice
+with open('test.txt','w') as file:
     file.write('some simple text')</code></pre>
 </div>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">with open('test.txt','r') as file:
+<pre style=""><code class="source python"># Good practice
+with open('test.txt','r') as file:
     read_data = file.read()
 print(read_data)</code></pre>
 </div>
@@ -1343,82 +1362,88 @@ print(read_data)</code></pre>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">try:
-    open("/foo")
+<pre style=""><code class="source python">filename = "/foo"
+try:
+    open(filename)
 except FileNotFoundError as err:
-    print(err.args)
+    print("No such file or directory found: '" + filename + "'")
     raise</code></pre>
 </div>
 <h3 id="functional-and-object-oriented-programming">Functional and object-oriented programming</h3>
-<p>Until now in <code>R</code> you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <code>Python</code> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.</p>
-<p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. Take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes: name and age.</p>
+<p>Until now in <code>R</code> you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <em>Python</em> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.</p>
+<p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes (name and age), and two methods (bark() and doginfo()).</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">class Dog:
-
-    def __init__(self, name, age):  
-        self.name = name
-        self.age = age</code></pre>
-</div>
-<p>Now specify the name and age of a dog and add it to an object. To access an object's attributes in Python, you can use the dot notation. This is done by typing the name of the object, followed by a dot and the attribute's name.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">ozzy = Dog("Ozzy", 2)
-print(ozzy.name + " is " + str(ozzy.age) + " year(s) old.")</code></pre>
-</div>
-<p>We have a Dog class, it does have a name and age which you can keep track of, but it doesn't actually do anything. This is where instance methods come in. You can rewrite the class to now include a bark() and doginfo() method.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">class Dog:
-
     def __init__(self, name, age):  
         self.name = name
         self.age = age
-
+        
     def bark(self):
         print("bark bark!")
     
     def doginfo(self):
         print(self.name + " is " + str(self.age) + " year(s) old.")</code></pre>
 </div>
-<p>Great. Now we can call the methods in a similar way as the attributes with the dot notation.</p>
+<p>Great. Now we can call the attributes and methods with the dot notation.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">ozzy = Dog("Ozzy", 2)
+print(ozzy.name)
+print(ozzy.age)
 ozzy.bark()
 ozzy.doginfo()</code></pre>
 </div>
-<p>With OOP, your code will grow in complexity as your program gets larger. You will have different classes, subclasses, objects, inheritance, instance methods, and more. You'll want to keep your code properly structured and readable. During Geo-scripting we mostly perform functional programming to keep things simple. Sometimes class objects of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. You don't have to develop these classes, but you should know how to handle classes.</p>
+<p>During Geo-scripting we mostly perform functional programming to keep things simple. Sometimes class objects of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. You don't have to develop these classes, but you should know how to handle classes.</p>
 <h3 id="visualization">Visualization</h3>
-<p>Jupyter Notebooks can directly display output of your code, such as graphs, images and maps in the notebook. A lot of cool visualizations including Python source code are available from the <a href="https://Python-graph-gallery.com/">Python Graph Gallery</a>. The gallery even has some nice maps. Before we can do the visualizations, we want to add some Python packages via the terminal. Start up a new terminal and activate the environment.</p>
+<p>Jupyter Notebooks can directly display output of your code, such as graphs, images and maps in the notebook. A lot of cool visualizations including Python source code are available from the <a href="https://Python-graph-gallery.com/">Python Graph Gallery</a>. Before we can do the visualizations, we want to add some Python packages via the terminal. Keep the terminal with Jupyter Notebook alive and start up a new terminal. The new terminal will be used to update the packages in the conda environment while the Jupyter Notebook keeps running.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda install --name geoscripting matplotlib seaborn</code></pre>
 </div>
-<p>We will make a graph with the <code>Seaborn</code> module and plot it with <code>Matplotlib</code>. Give it a try!</p>
+<p>We will make a graph with the <em>seaborn</em> module and plot it with <em>matplotlib</em>. Give it a try! A</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">import matplotlib.pyplot as plt
-import seaborn as sns
+<pre style=""><code class="source python">import seaborn as sns
 
-df = sns.load_dataset('iris')
- 
-sns.pairplot(df, kind = "reg", hue = "species")
-plt.show()</code></pre>
+# Set layout
+sns.set(context='notebook', # Set type of layout
+        style='whitegrid', # Set grid style
+        palette='colorblind', # Set colors of graph
+        font='Garuda',  # Set font type
+        font_scale=2) # Set font size
+
+# Load the iris dataset
+iris = sns.load_dataset("iris")
+
+# Plot sepal width as a function of sepal_length across days
+g = sns.lmplot(x="sepal_length", # Define x-axis data from dataframe
+               y="sepal_width", # Define y-axis data from dataframe
+               hue="species", # Define groups with data from dataframe
+               data=iris,  # Define dataframe               
+               fit_reg=True, # Show linear regression
+               truncate=True, # Truncate the linear regressions
+               height=10, # Define size of graph
+               markers=["o", "x", "s"], # Define types of markers
+               scatter_kws={"s": 150}, # Define size of markers
+               legend_out=False) # Define if legend should be in or out graph and create title
+
+g.ax.legend(loc=4) # Put legend at right bottom corner
+g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set title of plot
+
+# Use more informative axis labels than are provided by default
+g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")</code></pre>
 </div>
-<p>Nice visualization huh! Good job. Now we want to make a more advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used.</p>
+<p>Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.</p>
+<p>Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1428,6 +1453,31 @@ plt.show()</code></pre>
 wageningenMap = folium.Map(location=[51.9700000, 5.6666700],
                         tiles = "Stamen Terrain",
                         zoom_start = 12)
+
+from owslib.wms import WebMapService
+x = 174094
+y = 444133
+xmin, xmax, ymin, ymax = x-500, x+500, y-500, y+500
+wms = WebMapService('https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities', version='1.3.0')
+img = wms.getmap(layers=['Actueel_ortho25IR'],
+                 styles=['default'],
+                 srs='EPSG:28992',
+                 bbox=(xmin, ymin, xmax, ymax),
+                 size=(1000, 1000),
+                 format='image/png')
+
+def transformCoordinates(input_x, input_y, input_epsg, output_epsg):
+    inProj = Proj(init='epsg:%s' % input_epsg)
+    outProj = Proj(init='epsg:%s' % output_epsg)
+    output_x, output_y = transform(inProj, outProj, input_x, input_y)
+    return output_x, output_y
+
+
+min_lon, min_lat = transformCoordinates(input_x=xmin, input_y=ymin,
+                                            input_epsg=28992, output_epsg=4326)
+max_lon, max_lat = transformCoordinates(input_x=xmax, input_y=ymax,
+                                            input_epsg=28992, output_epsg=4326)
+
 
 folium.Marker([51.987530, 5.666049],
               popup='Gaia at Wageningen University Campus',
@@ -1444,6 +1494,9 @@ folium.Marker([51.953589, 5.663216],
 
 wageningenMap.add_child(MeasureControl())
 
+wageningenMap.add_child(ImageOverlay(image, [[min_lat, min_lon], [max_lat, max_lon]],
+             opacity=0.6).add_to(mapa))
+
 wageningenMap</code></pre>
 </div>
 <h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
@@ -1456,12 +1509,14 @@ wageningenMap</code></pre>
 <pre style=""><code class="source bash">source deactivate</code></pre>
 </div>
 <h1 id="assignment">Assignment</h1>
-<p>The assignment for today was to finish the datacamp course: Intro to Python for Data Science. If you finished early and still want to write more scripts, then you can follow one of the fun tutorials below.</p>
+<p>The assignment for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>. If you finished early and still want to write more scripts, then you can follow one of the fun tutorials below.</p>
 <h1 id="more-info">More info</h1>
 <ul>
 <li><a href="https://docs.Python.org/3.7/contents.html">Official Python tutorial</a></li>
 <li><a href="https://gist.github.com/sloria/7001839">Python Style guide</a></li>
 <li><a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a></li>
+<li><a href="https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf">Python 3 Cheatsheet</a></li>
+<li><a href="https://www.datacamp.com/community/data-science-cheatsheets?tag=python">Overview Python package Cheatsheets</a></li>
 </ul>
 </div>
 </div>
