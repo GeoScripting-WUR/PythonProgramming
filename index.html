@@ -1371,7 +1371,7 @@ except FileNotFoundError as err:
 </div>
 <h3 id="functional-and-object-oriented-programming">Functional and object-oriented programming</h3>
 <p>Until now in <code>R</code> you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <em>Python</em> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.</p>
-<p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes (name and age), and two methods (bark() and doginfo()).</p>
+<p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo().</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1405,9 +1405,9 @@ ozzy.doginfo()</code></pre>
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda install --name geoscripting matplotlib seaborn</code></pre>
+<pre style=""><code class="source bash">conda install --name geoscripting matplotlib seaborn pyproj owslib</code></pre>
 </div>
-<p>We will make a graph with the <em>seaborn</em> module and plot it with <em>matplotlib</em>. Give it a try! A</p>
+<p>We will make a graph with the <em>seaborn</em> module and plot it with <em>matplotlib</em>. Give it a try!</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1434,7 +1434,7 @@ g = sns.lmplot(x="sepal_length", # Define x-axis data from dataframe
                height=10, # Define size of graph
                markers=["o", "x", "s"], # Define types of markers
                scatter_kws={"s": 150}, # Define size of markers
-               legend_out=False) # Define if legend should be in or out graph and create title
+               legend_out=False) # Define if legend should be in or out graph
 
 g.ax.legend(loc=4) # Put legend at right bottom corner
 g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set title of plot
@@ -1443,62 +1443,109 @@ g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set ti
 g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")</code></pre>
 </div>
 <p>Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.</p>
-<p>Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used.</p>
+<p>Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">from folium.plugins import MeasureControl
-
-wageningenMap = folium.Map(location=[51.9700000, 5.6666700],
-                        tiles = "Stamen Terrain",
-                        zoom_start = 12)
-
+<pre style=""><code class="source python">import folium
+import geopandas
 from owslib.wms import WebMapService
-x = 174094
-y = 444133
-xmin, xmax, ymin, ymax = x-500, x+500, y-500, y+500
-wms = WebMapService('https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities', version='1.3.0')
-img = wms.getmap(layers=['Actueel_ortho25IR'],
-                 styles=['default'],
-                 srs='EPSG:28992',
-                 bbox=(xmin, ymin, xmax, ymax),
-                 size=(1000, 1000),
-                 format='image/png')
+from owslib.wfs import WebFeatureService 
+from pyproj import Proj, transform
+from folium.plugins import MeasureControl
+from folium.raster_layers import ImageOverlay
+from folium.vector_layers import PolyLine
 
+# Create transformation function
 def transformCoordinates(input_x, input_y, input_epsg, output_epsg):
     inProj = Proj(init='epsg:%s' % input_epsg)
     outProj = Proj(init='epsg:%s' % output_epsg)
     output_x, output_y = transform(inProj, outProj, input_x, input_y)
     return output_x, output_y
 
+# Set coordinates in RD_New and convert them to WGS84
+x, y = 174094, 444133
+xmin, xmax, ymin, ymax = x-450, x+450, y-750, y+450
+min_lon, min_lat = transformCoordinates(input_x=xmin, input_y=ymin, input_epsg=28992, output_epsg=4326)
+max_lon, max_lat = transformCoordinates(input_x=xmax, input_y=ymax, input_epsg=28992, output_epsg=4326)
+avg_lon, avg_lat = transformCoordinates(input_x=x, input_y=y, input_epsg=28992, output_epsg=4326)
 
-min_lon, min_lat = transformCoordinates(input_x=xmin, input_y=ymin,
-                                            input_epsg=28992, output_epsg=4326)
-max_lon, max_lat = transformCoordinates(input_x=xmax, input_y=ymax,
-                                            input_epsg=28992, output_epsg=4326)
+# Download infrared orthophoto near Wageningen Campus
+url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities'
+wms = WebMapService(url, version='1.3.0')
+image = wms.getmap(layers=['Actueel_ortho25IR'], styles=['default'], srs='EPSG:28992',
+                   bbox=(xmin, ymin, xmax, ymax), size=(1000, 1000), format='image/png')
+imageFilename = './BGT_WMSimage_WURcampus.png'
+with open(imageFilename, 'wb') as file:
+    file.write(image.read())
+
+# Download water bodies near Wageningen Campus
+wfs = WebFeatureService(url='https://geodata.nationaalgeoregister.nl/beta/bgt/wfs', version='2.0.0')
+response = wfs.getfeature(typename='bgt:waterdeel', bbox=(xmin, ymin, xmax, ymax), 
+                          maxfeatures=100, outputFormat='json', startindex=0)
+with open('./Waterbodies.geojson', 'wb') as file:
+    file.write(bytes(response.read(), 'UTF-8'))
+    
+    
+# Create basemaps: OpenStreetMap, Stamen Toner, Stamen Terrain, Stamen Watercolor
+wageningenMap = folium.Map(location=[avg_lat, avg_lon], tiles = 'OpenStreetMap', zoom_start = 15)
+folium.TileLayer('Stamen Toner').add_to(wageningenMap)
+folium.TileLayer('Stamen Terrain').add_to(wageningenMap)
+folium.TileLayer('Stamen Watercolor').add_to(wageningenMap)
+
+# Create layer, add point markers and add layer to map
+POILayer = folium.FeatureGroup(name="Points of interest in Wageningen")
+POILayer.add_child(folium.Marker([51.987384, 5.666505], popup='Gaia Entrance at Wageningen University Campus',
+                                 icon=folium.Icon(color='green',icon='university',prefix='fa')))
+POILayer.add_child(folium.Marker([51.978761, 5.663023], popup='Shopping center Tarthorst',
+                                 icon=folium.Icon(color='red', icon='fa-shopping-cart', prefix='fa')))
+wageningenMap.add_child(POILayer)
 
 
-folium.Marker([51.987530, 5.666049],
-              popup='Gaia at Wageningen University Campus',
-              icon=folium.Icon(color='green',icon='university',prefix='fa')
-             ).add_to(wageningenMap)
-folium.Marker([51.978761, 5.663023], 
-              popup='Shopping center Tarthorst',
-              icon=folium.Icon(color='red', icon='fa-shopping-cart', prefix='fa') 
-             ).add_to(wageningenMap)
-folium.Marker([51.953589, 5.663216], 
-              popup='Beach at Rhine',
-              icon=folium.Icon(color='blue', icon='tint',prefix='fa') 
-             ).add_to(wageningenMap)
+# Create layer, add polyline and add layer to map
+RouteLayer = folium.FeatureGroup(name="Route from campus to shopping center")
+polylineLocations = [[51.987384, 5.666505], [51.986899, 5.666848], [51.985501, 5.661650], 
+                     [51.981741, 5.664579], [51.979521, 5.664321], [51.979455, 5.663795],
+                     [51.979078, 5.663753], [51.978761, 5.663023]]
+RouteLayer.add_child(PolyLine(locations=polylineLocations, popup="Path from Gaia to Shopping Center", 
+                              color="red", weight=2.5, opacity=1))
+wageningenMap.add_child(RouteLayer)
 
+
+# Load water bodies, transform coordinates to WGS84, create layer and add polygon waterbodies with GeoJson function
+# folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
+# Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
+waterbodies = geopandas.GeoDataFrame(geopandas.read_file('./Waterbodies.geojson'))
+waterbodies.crs = {'init' :'epsg:28992'}
+waterbodies = waterbodies.to_crs({'init' :'epsg:4326'})
+WaterbodiesLayer = folium.FeatureGroup(name="Waterbodies")
+WaterbodiesLayer.add_child(folium.GeoJson(waterbodies, style_function=lambda feature:{
+        'fillColor': 'blue',    
+        'fillOpacity': 0.6,
+        'weight': 2,
+        'dashArray': '5, 5',
+        'color': 'darkblue'
+        }))
+wageningenMap.add_child(WaterbodiesLayer)
+
+
+# Overlay raster on top of map
+orthophotoLayer = folium.FeatureGroup(name="Infrared Orthophoto of Wageningen")
+orthophotoLayer.add_child(ImageOverlay(imageFilename, [[min_lat, min_lon], [max_lat, max_lon]], opacity=0.6))
+wageningenMap.add_child(orthophotoLayer)
+
+# Add measurement control and layer control
 wageningenMap.add_child(MeasureControl())
+wageningenMap.add_child(folium.LayerControl())
 
-wageningenMap.add_child(ImageOverlay(image, [[min_lat, min_lon], [max_lat, max_lon]],
-             opacity=0.6).add_to(mapa))
-
+# Save map to local .html file as back-up and visualize file
+# IDEs cannot display maps from Folium directly. 
+# The locally stored .html file can be opened in any browser.
+wageningenMap.save('wageningenMap.html')
 wageningenMap</code></pre>
 </div>
+<p>The maBoth the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or get some of your own data.</p>
 <h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
 <p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name &quot;IPython Notebook&quot;). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>
 <p>By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>source deactivate</code>.</p>
