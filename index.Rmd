@@ -196,7 +196,7 @@ quit()
 Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Try the following commands in your terminal to create a conda environment with Jupyter Notebook:
 
 ```{r, eval=FALSE, engine='bash'}
-conda create -n geoscripting numpy jupyter
+conda create -n geoscripting numpy jupyter geopandas
 conda activate geoscripting
 conda install --channel conda-forge folium
 ```
