@@ -56,7 +56,7 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
 ### Python editors and IDEs
 There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
-* [Spyder](https://www.spyder-ide.org/) is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as Python IDE.
+* [Spyder](https://www.spyder-ide.org/) is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
 * [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. Today the Jupyter Notebook will be used and explained.
 * [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know there won't be support for it since the focus of Geo-scripting is on learning to script.
 
@@ -69,7 +69,7 @@ A set of tools co-exist for installing and managing packages. It is possible to 
 * Using the distribution's package manager (only on Ubuntu, that's `sudo apt-get install python-*`).
 
 #### Conda installation
-Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when you install it there is just the management system without packages. Whereas with Anaconda, you get the distribution with popular Python packages built in. 
+Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with popular Python packages already built in. 
 In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short _Bash_ script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{r, eval=FALSE, engine='bash'}
@@ -103,7 +103,7 @@ This would install the latest version of the _Spyder_ package (Python IDE). Note
 conda create --name geotest python=2.7 numpy
 ```
 
-This would create a new environment called _geotest_ with Python 2.7 and _numpy_ installed into the conda environment. To list the available environments:
+This would create a new environment called _geotest_ with Python 2.7 and _NumPy_ installed into the conda environment. To list the available environments:
 
 ```{r, eval=FALSE, engine='bash'}
 conda info --envs
@@ -120,7 +120,7 @@ source activate geotest
 activate geotest
 ```
 
-After this, the current environment is shown in (parentheses) in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, Conda is recommended. In the documentation of most Python packages the recommended way to install can be found.
+After this, the current environment is shown in (parentheses) in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.
 
 ```{r, eval=FALSE, engine='bash'}
 conda install geopandas pandas
@@ -151,13 +151,7 @@ Since Python 2.7 is outdated and we want to work with Python 3, we can remove th
 conda remove --name geotest --all
 ```
 
-In addition, as you saw with Spyder install, Conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. To run e.g. Spyder from within a conda environment called ide, you would need to do something like this:
-
-```{r, eval=FALSE, engine='bash'}
-conda activate ide
-spyder
-```
-
+In addition, as you saw with Spyder install, Conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
 Some extra helpful utilities are:
 
 * `conda list` to check which packages are installed in _root_ or in the active environment;
@@ -177,7 +171,7 @@ python2
 python3
 ```
 
-Test this script and find out what your Python version is inside Python. Wow!
+Test this script and find out what your Python version is inside Python.
 
 ```{Python, eval=FALSE, engine.path='/usr/bin/Python3'}
 import sys
@@ -193,7 +187,7 @@ quit()
 
 ## Running Python in Jupyter Notebooks
 
-Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Try the following commands in your terminal to create a conda environment with Jupyter Notebook:
+Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Try the following commands in your terminal to create a conda environment for todays tutorial with Jupyter Notebook:
 
 ```{r, eval=FALSE, engine='bash'}
 conda create -n geoscripting numpy jupyter geopandas
@@ -201,7 +195,7 @@ conda activate geoscripting
 conda install --channel conda-forge folium
 ```
 
-Sometimes packages are not directly available from standard conda channel, but require a specific conda channel to install package from, such as conda-forge. The documentation of Python packages often show the recommended channel to install the Python package.
+Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel, such as conda-forge. The documentation of Python packages often show the recommended conda channel to install the Python package.
 
 Time to run the Jupyter Notebook.
 
@@ -212,7 +206,7 @@ jupyter notebook
 
 If everything goes according to plan, Jupyter will pop up in your browser. You will see a menu with all the files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
 
-Go to documents. Make a new folder: *New* → *Folder*, rename the folder and create new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on untitled. Feel free to have a go at the user interface tour: *Help* → *User Interface Tour*.
+Go to documents. Make a new folder: *New* → *Folder*, rename the folder and create new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Feel free to have a go at the user interface tour: *Help* → *User Interface Tour*.
 
 Hover over the toolbar to check out all tools. These are the basic tools you will need today:
 
@@ -229,7 +223,7 @@ m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m
 ```
 
-Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Nice map :)
+Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Try and drag the map to play around with it. Nice map :) 
 
 
 ## Python refresher
@@ -391,16 +385,14 @@ times3(input_number=4)
 In this case docstrings are too much, but for larger functions or classes it is smart to have docstrings.
 
 ### Importing modules and packages
-Python packages and modules are the bread and butter of Python. They make Python so great.
-- Any Python file is a _module_, its name being the file's base name without the .py extension.
-- A _package_ is a collection of Python modules: a package is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
+Python packages and modules are the bread and butter of Python. They make Python so great. Any Python file is a _module_, its name being the file's base name without the .py extension. A _package_ is a collection of Python modules: a package is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
 
 ```{Python, engine.path='/usr/bin/Python3'}
 import math
 print(dir(math)) #show names in math package
 ```
 
-Basically there are three ways to load a package:
+Basically there are four ways to load a module from a package:
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 import math
 print(math.pi)
@@ -436,10 +428,11 @@ glob.glob("*")
 ```
 
 ```{Python, engine.path='/usr/bin/Python3'}
-from datetime import timedelta, date
-delta = timedelta(days=7)
+from datetime import date
+birthday = date(2019, 3, 1)   #Fill in your own birthday
 print(date.today())
-print(date.today()+delta)
+timetillbirthday = birthday - date.today()
+print("Ah only", timetillbirthday.days, "days left till my birthday")
 ```
 
 ### File access
@@ -562,7 +555,7 @@ g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
-Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
+Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
 
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 import folium
@@ -663,7 +656,7 @@ wageningenMap.save('wageningenMap.html')
 wageningenMap
 ```
 
-The maBoth the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or get some of your own data. 
+Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or get some of your own data. 
 
 ### Exiting the Jupyter Notebook
 Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.
@@ -676,7 +669,7 @@ source deactivate
 
 
 # Assignment
-The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). If you finished early and still want to write more scripts, then you can follow one of the fun tutorials below.
+The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). If you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The Python style guide can be recommended for people whom want to properly write code in Python. If you are often stuck coding in Python, a cheat sheet might put you back on track quickly. Furthermore, the Geo-Spatial Notebooks are quite interesting for any geo-scripter.
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3.7/contents.html)
