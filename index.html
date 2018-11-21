@@ -882,7 +882,7 @@ Week 3: Python for geo-scripting
 <li>Check a nice example of a Jupyter Notebook</li>
 </ul>
 <h2 id="follow-intro-to-python-course-on-datacamp">Follow Intro to Python course on Datacamp</h2>
-<p>Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. Today you will have to finish the <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">introduction to Python Datacamp course</a>.</p>
+<p>Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. As assignment for today, you will have to finish the <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">introduction to Python Datacamp course</a>.</p>
 <h2 id="introduction-to-python-environment">Introduction to Python Environment</h2>
 <p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There is a lot of powerful Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:</p>
 <ul>
@@ -920,7 +920,7 @@ Week 3: Python for geo-scripting
 <li><a href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm Community Edition</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know there won't be support for it since the focus of Geo-scripting is on learning to script.</li>
 </ul>
 <h3 id="python-package-management">Python package management</h3>
-<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages sorted from most preferred to less preferred:</p>
+<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages, which we list below sorted from most preferred to less preferred:</p>
 <ul>
 <li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. You can also have conda environments for C libraries, or R packages, or really anything.</li>
 <li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
@@ -936,7 +936,7 @@ Week 3: Python for geo-scripting
 pushd /tmp
 curl -O https://repo.continuum.io/miniconda/${MINICONDA_VERSION}.sh
 ## This installation script will require user input
-bash ${MINICONDA_VERSION}.sh
+sudo bash ${MINICONDA_VERSION}.sh
 rm ${MINICONDA_VERSION}.sh
 popd</code></pre>
 </div>
@@ -1436,7 +1436,7 @@ g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set ti
 g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")</code></pre>
 </div>
 <p>Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.</p>
-<p>Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
+<p>Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. In short a few things that are good to know: some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1549,7 +1549,7 @@ wageningenMap</code></pre>
 <pre style=""><code class="source bash">source deactivate</code></pre>
 </div>
 <h1 id="assignment">Assignment</h1>
-<p>The assignment for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>. If you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The Python style guide can be recommended for people whom want to properly write code in Python. If you are often stuck coding in Python, a cheat sheet might put you back on track quickly. Furthermore, the Geo-Spatial Notebooks are quite interesting for any geo-scripter.</p>
+<p>The assignment for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>. If you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The Python style guide can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a cheat sheet might help to put you back on track quickly. Furthermore, the Geo-Spatial Notebooks are quite inspiring and interesting for any geo-scripter.</p>
 <h1 id="more-info">More info</h1>
 <ul>
 <li><a href="https://docs.Python.org/3.7/contents.html">Official Python tutorial</a></li>
