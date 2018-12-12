@@ -77,7 +77,7 @@ MINICONDA_VERSION="Miniconda3-latest-Linux-x86_64"
 pushd /tmp
 curl -O https://repo.continuum.io/miniconda/${MINICONDA_VERSION}.sh
 ## This installation script will require user input
-sudo bash ${MINICONDA_VERSION}.sh
+bash ${MINICONDA_VERSION}.sh
 rm ${MINICONDA_VERSION}.sh
 popd
 ```
