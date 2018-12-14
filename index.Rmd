@@ -56,7 +56,7 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
 There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
 * [Spyder](https://www.spyder-ide.org/) is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
-* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. Today the Jupyter Notebook will be used and explained.
+* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. It allows different programming languages. You can have a Python, R, Julia, Spark or PySpark kernel in the notebook. Today the Jupyter Notebook with a Python kernel will be used and explained. 
 * [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know there won't be support for it since the focus of Geo-scripting is on learning to script.
 
 
