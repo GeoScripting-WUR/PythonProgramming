@@ -52,7 +52,6 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
     * Scikit-Learn (Machine Learning)
 
 
-
 ### Python editors and IDEs
 There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
@@ -82,7 +81,7 @@ rm ${MINICONDA_VERSION}.sh
 popd
 ```
 
-When prompted, you can just use the default options (i.e. press Enter). When prompted to replace the default Python interpreter in your system with Conda interpreter, you should say `Yes` in the last prompt. Finally, restart your terminal to be able to use conda in the terminal.
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. Finally, restart your terminal to be able to use conda in the terminal.
 
 #### Conda usage
 Go to your terminal and type in:
