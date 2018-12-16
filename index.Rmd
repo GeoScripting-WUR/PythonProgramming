@@ -553,7 +553,7 @@ g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
 g
 ```
 
-<img src="Sepal_Width_Image.png" alt="Upside-down sloths are so cute", width = "60%">
+<img src="Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%">
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
@@ -656,7 +656,7 @@ wageningenMap # Jupyter Notebook allows interactive visualization in the Noteboo
 wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file
 ```
 
-<img src="WUR_Folium_Map.png" alt="Upside-down sloths are so cute", width = "100%">
+<img src="WUR_Folium_Map.png" alt="Wageningen University Folium map", width = "100%">
 
 Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
 
