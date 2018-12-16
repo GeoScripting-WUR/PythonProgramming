@@ -550,7 +550,10 @@ g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set ti
 
 # Use more informative axis labels than are provided by default
 g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
+g
 ```
+
+<img src="Sepal_Width_Image.png" alt="Upside-down sloths are so cute", width = "60%">
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
@@ -584,8 +587,8 @@ avg_lon, avg_lat = transformCoordinates(input_x=x, input_y=y, input_epsg=28992, 
 url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities'
 wms = WebMapService(url, version='1.3.0')
 image = wms.getmap(layers=['Actueel_ortho25IR'], styles=['default'], srs='EPSG:28992',
-                   bbox=(xmin, ymin, xmax, ymax), size=(1000, 1000), format='image/png')
-imageFilename = './BGT_WMSimage_WURcampus.png'
+                   bbox=(xmin, ymin, xmax, ymax), size=(200, 200), format='image/png')
+imageFilename = 'WUR_Infrared_Orthophoto.png'
 with open(imageFilename, 'wb') as file:
     file.write(image.read())
 
@@ -593,7 +596,7 @@ with open(imageFilename, 'wb') as file:
 wfs = WebFeatureService(url='https://geodata.nationaalgeoregister.nl/beta/bgt/wfs', version='2.0.0')
 response = wfs.getfeature(typename='bgt:waterdeel', bbox=(xmin, ymin, xmax, ymax), 
                           maxfeatures=100, outputFormat='json', startindex=0)
-with open('./Waterbodies.geojson', 'wb') as file:
+with open('./WUR_Waterbodies.geojson', 'wb') as file:
     file.write(bytes(response.read(), 'UTF-8'))
     
     
@@ -648,14 +651,14 @@ wageningenMap.add_child(orthophotoLayer)
 wageningenMap.add_child(MeasureControl())
 wageningenMap.add_child(folium.LayerControl())
 
-# Save map to local .html file as back-up and visualize file
-# IDEs cannot display maps from Folium directly. 
-# The locally stored .html file can be opened in any browser.
-wageningenMap.save('wageningenMap.html')
-wageningenMap
+# Visualize map
+wageningenMap # Jupyter Notebook allows interactive visualization in the Notebook
+wageningenMap.save('wageningenMap.html') # Some other IDEs allow interactive visualization, but the created Folium can also be accessed via the file
 ```
 
-Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or get some of your own data. 
+<img src="WUR_Folium_Map.png" alt="Upside-down sloths are so cute", width = "100%">
+
+Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
 
 ### Exiting the Jupyter Notebook
 Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.

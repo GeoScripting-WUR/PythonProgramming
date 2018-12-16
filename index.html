@@ -1433,8 +1433,10 @@ g.ax.legend(loc=4) # Put legend at right bottom corner
 g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set title of plot
 
 # Use more informative axis labels than are provided by default
-g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")</code></pre>
+g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
+g</code></pre>
 </div>
+<p><img src="Sepal_Width_Image.png" alt="Upside-down sloths are so cute", width = "60%"></p>
 <p>Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.</p>
 <p>Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. In short a few things that are good to know: some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
 <div class="row">
@@ -1468,8 +1470,8 @@ avg_lon, avg_lat = transformCoordinates(input_x=x, input_y=y, input_epsg=28992, 
 url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities'
 wms = WebMapService(url, version='1.3.0')
 image = wms.getmap(layers=['Actueel_ortho25IR'], styles=['default'], srs='EPSG:28992',
-                   bbox=(xmin, ymin, xmax, ymax), size=(1000, 1000), format='image/png')
-imageFilename = './BGT_WMSimage_WURcampus.png'
+                   bbox=(xmin, ymin, xmax, ymax), size=(200, 200), format='image/png')
+imageFilename = 'WUR_Infrared_Orthophoto.png'
 with open(imageFilename, 'wb') as file:
     file.write(image.read())
 
@@ -1477,7 +1479,7 @@ with open(imageFilename, 'wb') as file:
 wfs = WebFeatureService(url='https://geodata.nationaalgeoregister.nl/beta/bgt/wfs', version='2.0.0')
 response = wfs.getfeature(typename='bgt:waterdeel', bbox=(xmin, ymin, xmax, ymax), 
                           maxfeatures=100, outputFormat='json', startindex=0)
-with open('./Waterbodies.geojson', 'wb') as file:
+with open('./WUR_Waterbodies.geojson', 'wb') as file:
     file.write(bytes(response.read(), 'UTF-8'))
     
     
@@ -1532,13 +1534,12 @@ wageningenMap.add_child(orthophotoLayer)
 wageningenMap.add_child(MeasureControl())
 wageningenMap.add_child(folium.LayerControl())
 
-# Save map to local .html file as back-up and visualize file
-# IDEs cannot display maps from Folium directly. 
-# The locally stored .html file can be opened in any browser.
-wageningenMap.save('wageningenMap.html')
-wageningenMap</code></pre>
+# Visualize map
+wageningenMap # Jupyter Notebook allows interactive visualization in the Notebook
+wageningenMap.save('wageningenMap.html') # Some other IDEs allow interactive visualization, but the created Folium can also be accessed via the file</code></pre>
 </div>
-<p>Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or get some of your own data.</p>
+<p><img src="WUR_Folium_Map.png" alt="Upside-down sloths are so cute", width = "100%"></p>
+<p>Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata.</p>
 <h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
 <p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name &quot;IPython Notebook&quot;). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>
 <p>By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>source deactivate</code>.</p>
