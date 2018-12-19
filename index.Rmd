@@ -222,6 +222,8 @@ m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m
 ```
 
+<img src="./images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map", width = "100%">
+
 Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Try and drag the map to play around with it. Nice map :) 
 
 
@@ -553,7 +555,7 @@ g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
 g
 ```
 
-<img src="Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%">
+<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%">
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
@@ -656,7 +658,7 @@ wageningenMap # Jupyter Notebook allows interactive visualization in the Noteboo
 wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file
 ```
 
-<img src="WUR_Folium_Map.png" alt="Wageningen University Folium map", width = "100%">
+<img src="./images/WUR_Folium_Map.png" alt="Wageningen University Folium map", width = "100%">
 
 Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
 
@@ -680,6 +682,7 @@ The assignment for today was to finish the datacamp course: [Intro to Python for
 - [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data)
 - [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf)
 - [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
+- [Geo Python course](https://geo-python.github.io)
 
 
 
