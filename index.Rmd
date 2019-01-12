@@ -13,7 +13,7 @@ output:
 
 # [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
 
-# "Week 3: Python for Geo-scripting"
+# "Week 2, Lesson 10: Python for Geo-scripting"
 
 Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. 
 
