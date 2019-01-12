@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas" />
-  <title></title>
+  <title>Week 2, Lesson 10: Introduction to Python for Geo-Scripting</title>
   <style type="text/css">code{white-space: pre;}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -862,9 +862,11 @@
   </style>
 </head>
 <body>
-<title>
-Week 3: Python for geo-scripting
-</title>
+<div id="header">
+<h1 class="title">Week 2, Lesson 10: Introduction to Python for Geo-Scripting</h1>
+<h2 class="author">Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas</h2>
+<h3 class="date">12 januari, 2019</h3>
+</div>
 <div id="wrap">
 <div class="container">
 <div class="row row-offcanvas row-offcanvas-right">
@@ -877,7 +879,7 @@ Week 3: Python for geo-scripting
 <li>Follow <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course in Datacamp</a></li>
 <li>Get Introduced to Python Environment</li>
 <li>Learn how to work with virtual environments: Conda</li>
-<li>Learn how to create Jupyter Notebook</li>
+<li>Learn how to create a Jupyter Notebook</li>
 <li>Refresh Python programming knowledge</li>
 <li>Check a nice example of a Jupyter Notebook</li>
 </ul>
@@ -913,7 +915,7 @@ Week 3: Python for geo-scripting
 </ul></li>
 </ul>
 <h3 id="python-editors-and-ides">Python editors and IDEs</h3>
-<p>There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
+<p>There are a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
 <ul>
 <li><a href="https://www.spyder-ide.org/">Spyder</a> is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.</li>
 <li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. It allows different programming languages. You can have a Python, R, Julia, Spark or PySpark kernel in the notebook. Today the Jupyter Notebook with a Python kernel will be used and explained.</li>
@@ -922,12 +924,12 @@ Week 3: Python for geo-scripting
 <h3 id="python-package-management">Python package management</h3>
 <p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages, which we list below sorted from most preferred to less preferred:</p>
 <ul>
-<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. You can also have conda environments for C libraries, or R packages, or really anything.</li>
+<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.</li>
 <li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
 <li>Using the distribution's package manager (only on Ubuntu, that's <code>sudo apt-get install python-*</code>).</li>
 </ul>
 <h4 id="conda-installation">Conda installation</h4>
-<p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with popular Python packages already built in. In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
+<p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with most popular Python packages already built in. In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1020,11 +1022,11 @@ deactivate</code></pre>
 <p>In addition, as you saw with Spyder install, Conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. Some extra helpful utilities are:</p>
 <ul>
 <li><code>conda list</code> to check which packages are installed in <em>root</em> or in the active environment;</li>
-<li><code>python --version</code> or <code>gdal-config --version</code> to check which verison is used in the environment;</li>
+<li><code>python --version</code> or <code>gdal-config --version</code> to check which Python or GDAL version is used in the environment;</li>
 <li><code>which spyder</code> or <code>type spyder</code> to find out which Spyder executable is used either from system or conda environment.</li>
 </ul>
 <h2 id="running-python-in-terminal">Running Python in terminal</h2>
-<p>For quick testing, Python can be started from terminal in Linux.</p>
+<p>For quick testing, Python can be started from terminal in Linux. Open a new terminal and type one of the lines with Python below.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1068,7 +1070,7 @@ conda install --channel conda-forge folium</code></pre>
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">cd
+<pre style=""><code class="source bash">cd #reset working environment to default location
 jupyter notebook</code></pre>
 </div>
 <p>If everything goes according to plan, Jupyter will pop up in your browser. You will see a menu with all the files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
@@ -1080,7 +1082,7 @@ jupyter notebook</code></pre>
 <li><em>Run</em></li>
 <li><em>Code/Markdown/Heading</em> (List box)</li>
 </ul>
-<p>Similar to RMarkdown, Jupyter Notebooks has code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type following Python code in a code cell:</p>
+<p>Similar to RMarkdown, Jupyter Notebooks have code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type the following Python code in a code cell:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1092,7 +1094,14 @@ m</code></pre>
 <p><img src="./images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map", width = "100%"></p>
 <p>Run the code in a code cell, select it and press the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. Wow! Try and drag the map to play around with it. Nice map :)</p>
 <h2 id="python-refresher">Python refresher</h2>
-<p>Python has a specific way of doing things. It is called the <a href="https://docs.python-guide.org/writing/style/">Pythonic way</a> and stands for simple readable code.</p>
+<p>Additionally in this tutorial we will do a quick Python refresher.</p>
+<div class="row">
+<div class="alert alert-info">
+<p>
+<strong>Protip</strong>: Python has a specific way of doing things. It is called the <a href="https://docs.python-guide.org/writing/style/">Pythonic way</a> and stands for simple readable code.
+</p>
+</div>
+</div>
 <h3 id="looking-for-help">Looking for help</h3>
 <p>If you are looking for help while programming in Python, there are several ways to find help. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geo-scripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python.</p>
 <div class="row">
@@ -1103,9 +1112,15 @@ m</code></pre>
 help(sys)</code></pre>
 </div>
 <p>See how the functions in the <code>sys</code> package got listed.</p>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question</strong> 1: What does this mean <code>__ __</code> around words: e.g: <code>__doc__</code>?</p>
+<p>
+<strong>Question</strong> 1: What does this mean <code>__ __</code> around words: e.g: <code><strong>doc</strong></code>?
+</p>
 </blockquote>
+</div>
+</div>
 <h3 id="numbers-and-variables">Numbers and variables</h3>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1113,9 +1128,15 @@ help(sys)</code></pre>
 </button>
 <pre style=""><code class="source python">print(int(10.6))</code></pre>
 </div>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 2</strong>: What is the difference between 10 and 10.0 when dealing with data types in Python?</p>
+<p>
+<strong>Question 2</strong>: What is the difference between 10 and 10.0 when dealing with data types in Python?
+</p>
 </blockquote>
+</div>
+</div>
 <p>Variable is a storage location or symbolic name to a value e.g.:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1128,7 +1149,13 @@ building + ' is in Wageningen'</code></pre>
 <p>There is no need to define the datatype, <code>Python</code> has a loose datatype variable declaration. Python is basically a list of objects.</p>
 <h3 id="lists">Lists</h3>
 <p>Now we will have a go with lists.</p>
-<p><strong>Tip</strong>: Variables, functions, classes and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.</p>
+<div class="row">
+<div class="alert alert-info">
+<p>
+<strong>Protip</strong>: Variables, functions, classes and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.
+</p>
+</div>
+</div>
 Run this code in one cell.
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1154,12 +1181,24 @@ print(campus)
 print(campus[::2])</code></pre>
 </div>
 <p>See how the notebook remembered how you set the variable <code>campus</code>.</p>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 3:</strong> What are the major differences between Append/Extend?</p>
+<p>
+<strong>Question 3:</strong> What are the major differences between Append/Extend?
+</p>
 </blockquote>
+</div>
+</div>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 4:</strong> What building is <code>campus[-2]</code>?</p>
+<p>
+<strong>Question 4:</strong> What building is <code>campus[-2]</code>?
+</p>
 </blockquote>
+</div>
+</div>
 <h3 id="dictionaries-loops-ifelse">Dictionaries, loops, if/else</h3>
 <p>Let there be dictionaries... A dictionary is an unordered set of key:value pairs. Like in the dictionary, 'food':'voedsel'.</p>
 <div class="row">
@@ -1279,9 +1318,15 @@ print(Pi)
 import numpy as np
 print(np.pi)</code></pre>
 </div>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 5</strong>: Which is the best way to import modules?</p>
+<p>
+<strong>Question 5</strong>: Which is the best way to import modules?
+</p>
 </blockquote>
+</div>
+</div>
 <h3 id="some-important-internal-modules">Some important internal modules:</h3>
 <ul>
 <li><code>os</code>: Access to operating system features</li>
@@ -1291,9 +1336,15 @@ print(np.pi)</code></pre>
 <li><code>math</code>: Mathametical functions</li>
 <li><code>datetime</code>: Date/Time manipulation</li>
 </ul>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 6</strong>: What is the difference between <code>os</code> and <code>os.path</code>?</p>
+<p>
+<strong>Question 6</strong>: What is the difference between <code>os</code> and <code>os.path</code>?
+</p>
 </blockquote>
+</div>
+</div>
 <p>Some examples:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1327,7 +1378,7 @@ fileObj.close()</code></pre>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Good practice
+<pre style=""><code class="source python"># Good practice: writing data
 with open('test.txt','w') as file:
     file.write('some simple text')</code></pre>
 </div>
@@ -1335,21 +1386,28 @@ with open('test.txt','w') as file:
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Good practice
+<pre style=""><code class="source python"># Good practice: reading data
 with open('test.txt','r') as file:
     read_data = file.read()
 print(read_data)</code></pre>
 </div>
+<div class="row">
+<div class="alert alert-success">
 <blockquote>
-<p><strong>Question 7</strong>: What does <code>w</code> and <code>r</code> mean?</p>
+<p>
+<strong>Question 7</strong>: What does <code>w</code>, <code>r</code> and <code>rw</code> mean?
+</p>
 </blockquote>
+</div>
+</div>
 <h3 id="error-handling">Error handling</h3>
 <p>Sometime problems occur... Errors detected during execution are called <em>exceptions</em>. Good programmers and good code deal with exceptions.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">open("/foo0")</code></pre>
+<pre style=""><code class="source python">with open('/foo0', 'r') as file:
+    read_data = file.read()</code></pre>
 </div>
 <p>The file doesn't exist, so the script stops and outputs an informative message saying there is no file found. If you want to script error handling yourself:</p>
 <div class="row">
@@ -1358,13 +1416,13 @@ print(read_data)</code></pre>
 </button>
 <pre style=""><code class="source python">filename = "/foo"
 try:
-    open(filename)
-except FileNotFoundError as err:
-    print("No such file or directory found: '" + filename + "'")
-    raise</code></pre>
+    with open(filename, 'r') as file:
+        read_data = file.read()
+except FileNotFoundError as error:
+    print("No such file or directory found: '" + filename + "'")</code></pre>
 </div>
 <h3 id="functional-and-object-oriented-programming">Functional and object-oriented programming</h3>
-<p>Until now in <code>R</code> you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <em>Python</em> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.</p>
+<p>Until now you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In <em>Python</em> functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of &quot;objects&quot;, which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures/functions, often known as methods.</p>
 <p>An <a href="https://www.datacamp.com/community/tutorials/python-oop-tutorial">example on Datacamp</a> helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo().</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1401,7 +1459,7 @@ ozzy.doginfo()</code></pre>
 </button>
 <pre style=""><code class="source bash">conda install --name geoscripting matplotlib seaborn pyproj owslib</code></pre>
 </div>
-<p>We will make a graph with the <em>seaborn</em> module and plot it with <em>matplotlib</em>. Give it a try!</p>
+<p>We will make a graph with the <em>seaborn</em> module and plot it with <em>matplotlib</em>. Give it a try! The extra comments help to explain the parameters, but writing so many comments is not a recommended way to write code. The names of the functions, methods and parameters should mostly be self explanatory to extra comments.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1439,7 +1497,8 @@ g</code></pre>
 </div>
 <p><img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%"></p>
 <p>Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.</p>
-<p>Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. In short a few things that are good to know: some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
+<p>Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities.</p>
+<p>In short a few things that are good to know: some icons of the free font library <a href="https://fontawesome.com/icons">FontAwesome</a> are used. Plus some new libraries are introduced: <em>owslib</em> and <em>pyproj</em>. <a href="https://geopython.github.io/OWSLib/"><em>Owslib</em></a> is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence the name Owslib) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. The second new package <a href="https://geopython.github.io/OWSLib/"><em>Pyproj</em></a> performs cartographic transformations and geodetic computations.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1551,7 +1610,14 @@ wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HT
 <pre style=""><code class="source bash">source deactivate</code></pre>
 </div>
 <h1 id="excercise">Excercise</h1>
-<p>The assignment for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>. If you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.</p>
+<p>The assignment for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>.</p>
+<div class="row">
+<div class="alert alert-info">
+<p>
+<strong>Protip</strong>: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.
+</p>
+</div>
+</div>
 <h1 id="more-info">More info</h1>
 <ul>
 <li><a href="https://docs.Python.org/3.7/contents.html">Official Python tutorial</a></li>

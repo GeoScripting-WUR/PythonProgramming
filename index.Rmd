@@ -1,9 +1,9 @@
 ---
 author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+title: "Week 2, Lesson 10: Introduction to Python for Geo-Scripting"
 output:
   knitrBootstrap::bootstrap_document:
-    title: "Week 3: Python for geo-scripting"
     theme: "simplex"
     highlight: Tomorrow Night Bright
     menu: FALSE
@@ -22,7 +22,7 @@ Good morning! Today we will start working with Python for Geo-scripting and do a
 - Follow [Intro to Python for Data Science course in Datacamp](https://www.datacamp.com/courses/intro-to-python-for-data-science) 
 - Get Introduced to Python Environment
 - Learn how to work with virtual environments: Conda
-- Learn how to create Jupyter Notebook
+- Learn how to create a Jupyter Notebook
 - Refresh Python programming knowledge
 - Check a nice example of a Jupyter Notebook
 
@@ -53,7 +53,7 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
 
 
 ### Python editors and IDEs
-There are a number of proper Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
+There are a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
 * [Spyder](https://www.spyder-ide.org/) is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
 * [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. It allows different programming languages. You can have a Python, R, Julia, Spark or PySpark kernel in the notebook. Today the Jupyter Notebook with a Python kernel will be used and explained. 
@@ -63,12 +63,12 @@ There are a number of proper Integrated Development Environments [IDE] for Pytho
 ### Python package management
 A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages). So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages, which we list below sorted from most preferred to less preferred:
 
-* Using [conda](https://conda.io/docs/user-guide/tasks/manage-pkgs.html) to install packages and to keep separate sets of packages. A set of of packages in _Conda_ is called a conda environment. _Conda_ is available for Windows, macOS and Linux. You can also have conda environments for C libraries, or R packages, or really anything.
+* Using [conda](https://conda.io/docs/user-guide/tasks/manage-pkgs.html) to install packages and to keep separate sets of packages. A set of of packages in _Conda_ is called a conda environment. _Conda_ is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.
 * Using _pip_ to install packages and _conda_ to manage packages. _Pip_ is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs).
 * Using the distribution's package manager (only on Ubuntu, that's `sudo apt-get install python-*`).
 
 #### Conda installation
-Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with popular Python packages already built in. 
+Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with most popular Python packages already built in. 
 In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short _Bash_ script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{r, eval=FALSE, engine='bash'}
@@ -154,13 +154,13 @@ In addition, as you saw with Spyder install, Conda is able to install some non-P
 Some extra helpful utilities are:
 
 * `conda list` to check which packages are installed in _root_ or in the active environment;
-* `python --version` or `gdal-config --version` to check which verison is used in the environment;
+* `python --version` or `gdal-config --version` to check which Python or GDAL version is used in the environment;
 * `which spyder` or `type spyder` to find out which Spyder executable is used either from system or conda environment.
 
 
 ## Running Python in terminal
 
-For quick testing, Python can be started from terminal in Linux.
+For quick testing, Python can be started from terminal in Linux. Open a new terminal and type one of the lines with Python below.
 
 ```{r, eval=FALSE, engine='bash'}
 python
@@ -199,7 +199,7 @@ Sometimes packages are not directly available from the standard conda channels, 
 Time to run the Jupyter Notebook.
 
 ```{r, eval=FALSE, engine='bash'}
-cd
+cd #reset working environment to default location
 jupyter notebook
 ```
 
@@ -214,7 +214,7 @@ Hover over the toolbar to check out all tools. These are the basic tools you wil
 - _Run_
 - _Code/Markdown/Heading_ (List box)
 
-Similar to RMarkdown, Jupyter Notebooks has code cells (*Code*) and text cells (*Markdown*). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type following Python code in a code cell:
+Similar to RMarkdown, Jupyter Notebooks have code cells (*Code*) and text cells (*Markdown*). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type the following Python code in a code cell:
 
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 import folium
@@ -229,7 +229,11 @@ Run the code in a code cell, select it and press the *Run* button, or press *CTR
 
 ## Python refresher
 
-Python has a specific way of doing things. It is called the [Pythonic way](https://docs.python-guide.org/writing/style/) and stands for simple readable code.
+Additionally in this tutorial we will do a quick Python refresher.
+
+```{block type="alert alert-info"}
+**Protip**: Python has a specific way of doing things. It is called the [Pythonic way](https://docs.python-guide.org/writing/style/) and stands for simple readable code.
+```
 
 ### Looking for help
 
@@ -242,7 +246,10 @@ help(sys)
 
 See how the functions in the `sys` package got listed.
 
+```{block, type="alert alert-success"}
 > **Question** 1: What does this mean `__ __` around words: e.g: `__doc__`?
+
+```
 
 
 ### Numbers and variables
@@ -252,7 +259,9 @@ See how the functions in the `sys` package got listed.
 print(int(10.6))
 ```
 
+```{block, type="alert alert-success"}
 > **Question 2**: What is the difference between 10 and 10.0 when dealing with data types in Python?
+```
 
 Variable is a storage location or symbolic name to a value e.g.:
 
@@ -268,7 +277,9 @@ There is no need to define the datatype, `Python` has a loose datatype variable 
 ### Lists
 Now we will have a go with lists.
 
-**Tip**: Variables, functions, classes and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.
+```{block type="alert alert-info"}
+**Protip**: Variables, functions, classes and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.
+```
 
 Run this code in one cell.
 ```{Python, engine.path='/usr/bin/Python3'}
@@ -292,9 +303,13 @@ print(campus[::2])
 
 See how the notebook remembered how you set the variable `campus`. 
 
+```{block, type="alert alert-success"}
 > **Question 3:** What are the major differences between Append/Extend?
+```
 
+```{block, type="alert alert-success"}
 > **Question 4:** What building is `campus[-2]`?
+```
 
 ### Dictionaries, loops, if/else
 
@@ -408,7 +423,9 @@ import numpy as np
 print(np.pi)
 ```
 
+```{block, type="alert alert-success"}
 > **Question 5**: Which is the best way to import modules?
+```
 
 ### Some important internal modules:
 
@@ -419,7 +436,9 @@ print(np.pi)
 - `math`: Mathametical functions
 - `datetime`: Date/Time manipulation
 
+```{block, type="alert alert-success"}
 > **Question 6**: What is the difference between `os` and `os.path`?
+```
 
 Some examples:
 
@@ -448,26 +467,29 @@ fileObj.close()
 ```
 
 ```{Python, eval=FALSE, engine.path='/usr/bin/Python3'}
-# Good practice
+# Good practice: writing data
 with open('test.txt','w') as file:
     file.write('some simple text')
 ```
 
 ```{Python, eval=FALSE, engine.path='/usr/bin/Python3'}
-# Good practice
+# Good practice: reading data
 with open('test.txt','r') as file:
     read_data = file.read()
 print(read_data)
 ```
 
-> **Question 7**: What does `w` and `r` mean?
+```{block, type="alert alert-success"}
+> **Question 7**: What does `w`, `r` and `rw` mean?
+```
 
 ### Error handling
 
 Sometime problems occur... Errors detected during execution are called *exceptions*. Good programmers and good code deal with exceptions.
 
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
-open("/foo0")
+with open('/foo0', 'r') as file:
+    read_data = file.read()
 ```
 
 The file doesn't exist, so the script stops and outputs an informative message saying there is no file found. If you want to script error handling yourself:
@@ -475,15 +497,15 @@ The file doesn't exist, so the script stops and outputs an informative message s
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 filename = "/foo"
 try:
-    open(filename)
-except FileNotFoundError as err:
+    with open(filename, 'r') as file:
+        read_data = file.read()
+except FileNotFoundError as error:
     print("No such file or directory found: '" + filename + "'")
-    raise
 ```
 
 
 ### Functional and object-oriented programming
-Until now in `R` you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In _Python_ functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
+Until now you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In _Python_ functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures/functions, often known as methods.
 
 An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo(). 
 
@@ -520,7 +542,7 @@ Jupyter Notebooks can directly display output of your code, such as graphs, imag
 conda install --name geoscripting matplotlib seaborn pyproj owslib
 ```
 
-We will make a graph with the _seaborn_ module and plot it with _matplotlib_. Give it a try!
+We will make a graph with the _seaborn_ module and plot it with _matplotlib_. Give it a try! The extra comments help to explain the parameters, but writing so many comments is not a recommended way to write code. The names of the functions, methods and parameters should mostly be self explanatory to extra comments.
 
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 import seaborn as sns
@@ -559,7 +581,9 @@ g
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
-Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. In short a few things that are good to know: some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence OWS) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
+Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. 
+
+In short a few things that are good to know: some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence the name Owslib) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. The second new package [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
 
 ```{Python, engine.path='/usr/bin/Python3', eval=FALSE}
 import folium
@@ -674,7 +698,11 @@ source deactivate
 
 # Excercise
 
-The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). If you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
+The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
+
+```{block type="alert alert-info"}
+**Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
+```
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3.7/contents.html)
