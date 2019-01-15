@@ -28,7 +28,7 @@ Good morning! Today we will start working with Python for Geo-scripting and do a
 
 
 ## Follow Intro to Python course on Datacamp 
-Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. As assignment for today, you will have to finish the [introduction to Python Datacamp course](https://www.datacamp.com/courses/intro-to-python-for-data-science).
+Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. As assignment for today (or actually exercise), you will have to finish the [introduction to Python Datacamp course](https://www.datacamp.com/courses/intro-to-python-for-data-science).
 
 ## Introduction to Python Environment
 Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There is a lot of powerful Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:
@@ -81,7 +81,7 @@ rm ${MINICONDA_VERSION}.sh
 popd
 ```
 
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. Finally, restart your terminal to be able to use conda in the terminal.
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
 
 #### Conda usage
 Go to your terminal and type in:
@@ -205,7 +205,7 @@ jupyter notebook
 
 If everything goes according to plan, Jupyter will pop up in your browser. You will see a menu with all the files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
 
-Go to documents. Make a new folder: *New* → *Folder*, rename the folder and create new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Feel free to have a go at the user interface tour: *Help* → *User Interface Tour*.
+Go to documents. Make a new folder: *New* → *Folder*, rename the folder (check the box next to the new 'Untitled Folder' and click **'Rename'** in the top) and create new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Feel free to have a go at the user interface tour: *Help* → *User Interface Tour*.
 
 Hover over the toolbar to check out all tools. These are the basic tools you will need today:
 
@@ -654,7 +654,7 @@ wageningenMap.add_child(RouteLayer)
 # Load water bodies, transform coordinates to WGS84, create layer and add polygon waterbodies with GeoJson function
 # folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
 # Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-waterbodies = geopandas.GeoDataFrame(geopandas.read_file('./Waterbodies.geojson'))
+waterbodies = geopandas.GeoDataFrame(geopandas.read_file('./WUR_Waterbodies.geojson'))
 waterbodies.crs = {'init' :'epsg:28992'}
 waterbodies = waterbodies.to_crs({'init' :'epsg:4326'})
 WaterbodiesLayer = folium.FeatureGroup(name="Waterbodies")
@@ -701,7 +701,7 @@ source deactivate
 The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
 
 ```{block type="alert alert-info"}
-**Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people whom want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
+**Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
 ```
 
 # More info
