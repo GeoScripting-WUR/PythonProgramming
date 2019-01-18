@@ -99,7 +99,6 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 This will install Miniconda into `~/miniconda3`, and also all the necessary packages for the Python week, into a new environment called `geoscripting`. You can also read the Bash code of the scripts you run to know exactly how they work.
 
 Finally, restart your terminal to be able to use `conda` in the terminal. Next, let's see how to use Conda in case you want to install packages or make new virtual environments by yourself.
->>>>>>> 4d8bbd314572f22083af567303721761a6ed9997
 
 #### Conda usage
 Go to your terminal and type in:
@@ -196,13 +195,13 @@ python3
 
 Test this script and find out what your Python version is inside Python.
 
-```{python, eval=FALSE, engine.path='/usr/bin/python3'}
+```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
 import sys
 print('Good morning, you are running Python:', sys.version)
 ```
 
 Okay enough fooling around. Time for some proper IDEs. Exit Python in the terminal to return to your normal terminal.
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 exit()
 # or 
 quit()
@@ -241,7 +240,7 @@ Hover over the toolbar to check out all tools. These are the basic tools you wil
 
 Similar to RMarkdown, Jupyter Notebooks have code cells (*Code*) and text cells (*Markdown*). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type the following Python code in a code cell:
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
 m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m
@@ -264,7 +263,7 @@ Additionally in this tutorial we will do a quick Python refresher.
 
 If you are looking for help while programming in Python, there are several ways to find help. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geo-scripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python.
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import sys
 help(sys)
 ```
@@ -280,7 +279,7 @@ See how the functions in the `sys` package got listed.
 ### Numbers and variables
 
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 print(int(10.6))
 ```
 
@@ -290,7 +289,7 @@ print(int(10.6))
 
 Variable is a storage location or symbolic name to a value e.g.:
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 building = 'Gaia'
 buildingNumber = 101
 building + ' is in Wageningen'
@@ -307,7 +306,7 @@ Now we will have a go with lists.
 ```
 
 Run this code in one cell.
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 # how can we print Forum?
 print(campus[3])
@@ -318,7 +317,7 @@ print(campus[0:3])
 ```
 
 Play around with this code in another cell. We will do some appending, inserting, extending and steps:
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 campus.append("Atlas")
 campus.insert(1,"SoilMuseum")
 campus.extend(["Action", "Vitae", "Zodiac"])
@@ -340,7 +339,7 @@ See how the notebook remembered how you set the variable `campus`.
 
 Let there be dictionaries... A dictionary is an unordered set of key:value pairs. Like in the dictionary, 'food':'voedsel'.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 campusDictionary = {101:'Gaia',
                     100:'Lumen',
                     107:'Radix',
@@ -351,7 +350,7 @@ print(campusDictionary[102])
 
 Loops: watch out here with code indentation. Python uses indentation to define code blocks and not `{}` like other languages. Indentation is either 1 tab or 4 spaces.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for building in campus:
     print(building)
@@ -359,7 +358,7 @@ for building in campus:
 
 Generic loops in Python have to interact over a sequence of objects e.g.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 range(5)
 for number in range(5):
     print(number)
@@ -368,7 +367,7 @@ for number in range(5):
 Object interaction and functional programming is an important part of Python programming and its tools are extensive.
 `if`/`else`:
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 x = 3
 if x == 1:
     print("it is one")
@@ -384,7 +383,7 @@ else:
 
 A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name. Functions accept arguments and perform an action e.g.:
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 def printHelloName(name):
     print("Good morning " + name)
 
@@ -395,7 +394,7 @@ print(greeting)
 ```
 `print` is used to print text or a number. As the example shows, printing to a variable does not store the information in the variable. `return` is used to indicate what you want to obtain from the function. You can `return` multiple items and return can be used to assign output to variables outside of the function.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 def times3(input_number):
     output_number = input_number * 3
     return output_number, input_number
@@ -409,7 +408,7 @@ print(input_number)
 
 A best practice in programming is to keep variable and function names very informative! In complex functions or classes, the functions or classes can be made more informative by docstrings.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 def times3(input_number):
     """Multiplies input number times three.
     
@@ -428,13 +427,13 @@ In this case docstrings are too much, but for larger functions or classes it is 
 ### Importing modules and packages
 Python packages and modules are the bread and butter of Python. They make Python so great. Any Python file is a _module_, its name being the file's base name without the .py extension. A _package_ is a collection of Python modules: a package is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 import math
 print(dir(math)) #show names in math package
 ```
 
 Basically there are four ways to load a module from a package:
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import math
 print(math.pi)
 
@@ -467,12 +466,12 @@ print(np.pi)
 
 Some examples:
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 import glob
 glob.glob("*")
 ```
 
-```{python, engine.path='/usr/bin/python3'}
+```{Python,engine.path='/usr/bin/python3'}
 from datetime import date
 birthday = date(2019, 3, 1)   #Fill in your own birthday
 print(date.today())
@@ -484,20 +483,20 @@ print("Ah only", timetillbirthday.days, "days left till my birthday")
 
 File access is very simple for 99% of the cases. Write to a file and read from the same file with two simple lines. It is a best practice to use `with open` instead of `open` since it automatically closes the file. [This tutorial on Datacamp](https://www.datacamp.com/community/tutorials/reading-writing-files-python) goes in depth on reading and writing files in Python.
 
-```{python, eval=FALSE, engine.path='/usr/bin/python3'}
+```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
 # Bad practice, because you might forget to close the file object
 fileObj = open('test.txt','w')
 fileObj.write('some simple text')
 fileObj.close()
 ```
 
-```{python, eval=FALSE, engine.path='/usr/bin/python3'}
+```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
 # Good practice: writing data
 with open('test.txt','w') as file:
     file.write('some simple text')
 ```
 
-```{python, eval=FALSE, engine.path='/usr/bin/python3'}
+```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
 # Good practice: reading data
 with open('test.txt','r') as file:
     read_data = file.read()
@@ -512,14 +511,14 @@ print(read_data)
 
 Sometime problems occur... Errors detected during execution are called *exceptions*. Good programmers and good code deal with exceptions.
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 with open('/foo0', 'r') as file:
     read_data = file.read()
 ```
 
 The file doesn't exist, so the script stops and outputs an informative message saying there is no file found. If you want to script error handling yourself:
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 filename = "/foo"
 try:
     with open(filename, 'r') as file:
@@ -534,7 +533,7 @@ Until now you have used functional programming. Functional programming is a prog
 
 An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo(). 
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 class Dog:
     def __init__(self, name, age):  
         self.name = name
@@ -549,7 +548,7 @@ class Dog:
 
 Great. Now we can call the attributes and methods with the dot notation.
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 ozzy = Dog("Ozzy", 2)
 print(ozzy.name)
 print(ozzy.age)
@@ -569,7 +568,7 @@ conda install --name geoscripting matplotlib seaborn pyproj owslib
 
 We will make a graph with the _seaborn_ module and plot it with _matplotlib_. Give it a try! The extra comments help to explain the parameters, but writing so many comments is not a recommended way to write code. The names of the functions, methods and parameters should mostly be self explanatory to extra comments.
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import seaborn as sns
 
 # Set layout
@@ -602,7 +601,7 @@ g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
 g
 ```
 
-<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%">
+<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%"></img>
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
@@ -610,7 +609,7 @@ Ah this is a course in geospatial scripting. Let's make an advanced map in Pytho
 
 In short a few things that are good to know: some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence the name Owslib) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. The second new package [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
 
-```{python, engine.path='/usr/bin/python3', eval=FALSE}
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
 import geopandas
 from owslib.wms import WebMapService
