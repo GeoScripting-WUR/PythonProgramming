@@ -611,7 +611,7 @@ In short a few things that are good to know: some icons of the free font library
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
-import geopandas
+import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
 from pyproj import Proj, transform
@@ -642,14 +642,15 @@ imageFilename = 'WUR_Infrared_Orthophoto.png'
 with open(imageFilename, 'wb') as file:
     file.write(image.read())
 
-# Download water bodies near Wageningen Campus
-wfs = WebFeatureService(url='https://geodata.nationaalgeoregister.nl/beta/bgt/wfs', version='2.0.0')
-response = wfs.getfeature(typename='bgt:waterdeel', bbox=(xmin, ymin, xmax, ymax), 
-                          maxfeatures=100, outputFormat='json', startindex=0)
-with open('./WUR_Waterbodies.geojson', 'wb') as file:
-    file.write(bytes(response.read(), 'UTF-8'))
-    
-    
+# Download roads around Wageningen Campus
+WfsUrl = 'https://geodata.nationaalgeoregister.nl/nwbwegen/wfs?'
+wfs = WebFeatureService(url=WfsUrl, version='2.0.0')
+layer = list(wfs.contents)[0]
+xmin, xmax, ymin, ymax = x-1000, x+350, y-1000, y+350
+response = wfs.getfeature(typename=layer, bbox=(xmin, ymin, xmax, ymax))
+with open('Roads.gml', 'wb') as file:
+    file.write(response.read())
+
 # Create basemaps: OpenStreetMap, Stamen Toner, Stamen Terrain, Stamen Watercolor
 wageningenMap = folium.Map(location=[avg_lat, avg_lon], tiles = 'OpenStreetMap', zoom_start = 15)
 folium.TileLayer('Stamen Toner').add_to(wageningenMap)
@@ -664,6 +665,20 @@ POILayer.add_child(folium.Marker([51.978761, 5.663023], popup='Shopping center T
                                  icon=folium.Icon(color='red', icon='fa-shopping-cart', prefix='fa')))
 wageningenMap.add_child(POILayer)
 
+# Load road features, transform coordinates to WGS84, create layer and add polyline  with GeoJson function
+# folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
+# Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
+roads = geopandas.GeoDataFrame(geopandas.read_file('Roads.gml'))
+roads.crs = {'init' :'epsg:28992'}
+roads = roads.to_crs({'init' :'epsg:4326'})
+RoadsLayer = folium.FeatureGroup(name="Roads")
+RoadsLayer.add_child(folium.GeoJson(roads, style_function=lambda feature:{
+        'fillColor': 'blue',    
+        'fillOpacity': 0.6,
+        'weight': 4,
+        'color': 'darkblue'
+        }))
+wageningenMap.add_child(RoadsLayer)
 
 # Create layer, add polyline and add layer to map
 RouteLayer = folium.FeatureGroup(name="Route from campus to shopping center")
@@ -673,24 +688,6 @@ polylineLocations = [[51.987384, 5.666505], [51.986899, 5.666848], [51.985501, 5
 RouteLayer.add_child(PolyLine(locations=polylineLocations, popup="Path from Gaia to Shopping Center", 
                               color="red", weight=2.5, opacity=1))
 wageningenMap.add_child(RouteLayer)
-
-
-# Load water bodies, transform coordinates to WGS84, create layer and add polygon waterbodies with GeoJson function
-# folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
-# Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-waterbodies = geopandas.GeoDataFrame(geopandas.read_file('./WUR_Waterbodies.geojson'))
-waterbodies.crs = {'init' :'epsg:28992'}
-waterbodies = waterbodies.to_crs({'init' :'epsg:4326'})
-WaterbodiesLayer = folium.FeatureGroup(name="Waterbodies")
-WaterbodiesLayer.add_child(folium.GeoJson(waterbodies, style_function=lambda feature:{
-        'fillColor': 'blue',    
-        'fillOpacity': 0.6,
-        'weight': 2,
-        'dashArray': '5, 5',
-        'color': 'darkblue'
-        }))
-wageningenMap.add_child(WaterbodiesLayer)
-
 
 # Overlay raster on top of map
 orthophotoLayer = folium.FeatureGroup(name="Infrared Orthophoto of Wageningen")
