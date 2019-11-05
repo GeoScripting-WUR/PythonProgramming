@@ -1,5 +1,5 @@
 ---
-author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas"
+author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, Corné Vreugdenhil"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 title: "Week 2, Lesson 10: Introduction to Python for Geo-Scripting"
 output:
@@ -611,7 +611,7 @@ In short a few things that are good to know: some icons of the free font library
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
-import geopandas as gpd
+import geopandas
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
 from pyproj import Proj, transform
