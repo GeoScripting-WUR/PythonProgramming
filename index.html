@@ -865,7 +865,7 @@
 <div id="header">
 <h1 class="title">Week 2, Lesson 10: Introduction to Python for Geo-Scripting</h1>
 <h2 class="author">Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, Corné Vreugdenhil</h2>
-<h3 class="date">05 November, 2019</h3>
+<h3 class="date">14 November, 2019</h3>
 </div>
 <div id="wrap">
 <div class="container">
@@ -1522,7 +1522,7 @@ g</code></pre>
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">import folium
-import geopandas
+import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
 from pyproj import Proj, transform
@@ -1579,7 +1579,7 @@ wageningenMap.add_child(POILayer)
 # Load road features, transform coordinates to WGS84, create layer and add polyline  with GeoJson function
 # folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
 # Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-roads = geopandas.GeoDataFrame(geopandas.read_file('Roads.gml'))
+roads = gpd.GeoDataFrame(gpd.read_file('Roads.gml'))
 roads.crs = {'init' :'epsg:28992'}
 roads = roads.to_crs({'init' :'epsg:4326'})
 RoadsLayer = folium.FeatureGroup(name="Roads")
@@ -1613,7 +1613,7 @@ wageningenMap.add_child(folium.LayerControl())
 wageningenMap # Jupyter Notebook allows interactive visualization in the Notebook
 wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file</code></pre>
 </div>
-<p><img src="images/WUR_Folium_Map.png" alt="Wageningen University Folium map" width="100%"></img></p>
+<p><img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img></p>
 <p>Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata.</p>
 <h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
 <p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name &quot;IPython Notebook&quot;). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>

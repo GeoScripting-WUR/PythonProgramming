@@ -611,7 +611,7 @@ In short a few things that are good to know: some icons of the free font library
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
-import geopandas
+import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
 from pyproj import Proj, transform
@@ -668,7 +668,7 @@ wageningenMap.add_child(POILayer)
 # Load road features, transform coordinates to WGS84, create layer and add polyline  with GeoJson function
 # folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
 # Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-roads = geopandas.GeoDataFrame(geopandas.read_file('Roads.gml'))
+roads = gpd.GeoDataFrame(gpd.read_file('Roads.gml'))
 roads.crs = {'init' :'epsg:28992'}
 roads = roads.to_crs({'init' :'epsg:4326'})
 RoadsLayer = folium.FeatureGroup(name="Roads")
@@ -703,7 +703,7 @@ wageningenMap # Jupyter Notebook allows interactive visualization in the Noteboo
 wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file
 ```
 
-<img src="images/WUR_Folium_Map.png" alt="Wageningen University Folium map" width="100%"></img>
+<img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img>
 
 Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
 
