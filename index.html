@@ -865,7 +865,7 @@
 <div id="header">
 <h1 class="title">Week 2, Lesson 10: Introduction to Python for Geo-Scripting</h1>
 <h2 class="author">Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, Corné Vreugdenhil</h2>
-<h3 class="date">14 November, 2019</h3>
+<h3 class="date">22 November, 2019</h3>
 </div>
 <div id="wrap">
 <div class="container">
@@ -1075,13 +1075,17 @@ Okay enough fooling around. Time for some proper IDEs. Exit Python in the termin
 quit()</code></pre>
 </div>
 <h2 id="running-python-in-jupyter-notebooks">Running Python in Jupyter Notebooks</h2>
-<p>Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the <code>geoscripting</code> environment. <!--Try the following commands in your terminal to create a conda environment for todays tutorial with Jupyter Notebook:
-
-<div class="row"><button class="source bash toggle btn btn-xs btn-primary"><span class="glyphicon glyphicon-chevron-down"></span> bash source</button><pre style=""><code class="source bash">conda create -n geoscripting numpy jupyter geopandas
-conda activate geoscripting
-conda install --channel conda-forge folium</code></pre></div>
-
---></p>
+<p>Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the <code>geoscripting</code> environment.</p>
+<p>If geoscripting environment is not there yet (check with 'conda info --envs'), create one for todays tutorial with Jupyter Notebook:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda create -n geoscripting python=3 pip jupyter seaborn pyproj spyder rasterio geopandas kealib matplotlib owslib pysal descartes -y
+source activate geoscripting
+conda install -c conda-forge rasterstats folium geopy osmnx -y
+pip install fiona==1.8.8</code></pre>
+</div>
 <p>Time to run the Jupyter Notebook.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
