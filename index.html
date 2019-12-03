@@ -865,7 +865,7 @@
 <div id="header">
 <h1 class="title">Week 2, Lesson 10: Introduction to Python for Geo-Scripting</h1>
 <h2 class="author">Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, Corné Vreugdenhil</h2>
-<h3 class="date">22 November, 2019</h3>
+<h3 class="date">03 December, 2019</h3>
 </div>
 <div id="wrap">
 <div class="container">
@@ -1525,7 +1525,11 @@ g</code></pre>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">import folium
+<pre style=""><code class="source python">import os
+if not os.path.exists('data'): os.makedirs('data')
+if not os.path.exists('output'): os.makedirs('output')
+
+import folium
 import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
@@ -1553,7 +1557,7 @@ url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=
 wms = WebMapService(url, version='1.3.0')
 image = wms.getmap(layers=['Actueel_ortho25IR'], styles=['default'], srs='EPSG:28992',
                    bbox=(xmin, ymin, xmax, ymax), size=(200, 200), format='image/png')
-imageFilename = 'WUR_Infrared_Orthophoto.png'
+imageFilename = 'data/WUR_Infrared_Orthophoto.png'
 with open(imageFilename, 'wb') as file:
     file.write(image.read())
 
@@ -1563,7 +1567,7 @@ wfs = WebFeatureService(url=WfsUrl, version='2.0.0')
 layer = list(wfs.contents)[0]
 xmin, xmax, ymin, ymax = x-1000, x+350, y-1000, y+350
 response = wfs.getfeature(typename=layer, bbox=(xmin, ymin, xmax, ymax))
-with open('Roads.gml', 'wb') as file:
+with open('data/Roads.gml', 'wb') as file:
     file.write(response.read())
 
 # Create basemaps: OpenStreetMap, Stamen Toner, Stamen Terrain, Stamen Watercolor
@@ -1583,7 +1587,7 @@ wageningenMap.add_child(POILayer)
 # Load road features, transform coordinates to WGS84, create layer and add polyline  with GeoJson function
 # folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
 # Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-roads = gpd.GeoDataFrame(gpd.read_file('Roads.gml'))
+roads = gpd.GeoDataFrame(gpd.read_file('data/Roads.gml'))
 roads.crs = {'init' :'epsg:28992'}
 roads = roads.to_crs({'init' :'epsg:4326'})
 RoadsLayer = folium.FeatureGroup(name="Roads")
@@ -1615,7 +1619,7 @@ wageningenMap.add_child(folium.LayerControl())
 
 # Visualize map
 wageningenMap # Jupyter Notebook allows interactive visualization in the Notebook
-wageningenMap.save('wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file</code></pre>
+wageningenMap.save('output/wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file</code></pre>
 </div>
 <p><img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img></p>
 <p>Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata.</p>
