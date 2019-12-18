@@ -724,7 +724,7 @@ source deactivate
 
 # Excercise
 
-The assignment for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
+The exercise for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
 
 ```{block type="alert alert-info"}
 **Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
