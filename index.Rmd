@@ -1,7 +1,7 @@
 ---
 author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, Corné Vreugdenhil"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-title: "Week 3, Lesson 9: Introduction to Python for Geo-Scripting"
+pagetitle: "Week 3, Lesson 9: Introduction to Python for Geo-Scripting"
 output:
   knitrBootstrap::bootstrap_document:
     theme: "simplex"
@@ -11,9 +11,9 @@ output:
     highlight.chooser: TRUE
 ---
 
-# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="http://www.wur.nl/upload/b43b7095-e452-482a-8969-fed9a50393a8_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
+# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
 
-# "Week 3, Lesson 9: Python for Geo-scripting"
+# Week 3, Lesson 9: Python for Geo-scripting
 
 Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. 
 
