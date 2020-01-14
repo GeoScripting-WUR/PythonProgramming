@@ -602,7 +602,7 @@ g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
 g
 ```
 
-<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image", width = "60%"></img>
+<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image" width = "60%"></img>
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
