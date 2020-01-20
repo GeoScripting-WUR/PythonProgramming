@@ -1070,16 +1070,13 @@ Okay enough fooling around. Time for some proper IDEs. Exit Python in the termin
 quit()</code></pre>
 </div>
 <h2 id="running-python-in-jupyter-notebooks">Running Python in Jupyter Notebooks</h2>
-<p>Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the <code>geoscripting</code> environment.</p>
-<p>If geoscripting environment is not there yet (check with 'conda info --envs'), create one for todays tutorial with Jupyter Notebook:</p>
+<p>Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the <code>geoscripting</code> environment. If you don't have this 'geoscripting' environment yet, create quickly one with the bash scripts below. These install a conda environment with all packages (and versions) that don't conflict with each other for this course.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda create -n geoscripting python=3 pip jupyter seaborn pyproj spyder rasterio geopandas kealib matplotlib owslib pysal descartes -y
-source activate geoscripting
-conda install -c conda-forge rasterstats folium geopy osmnx -y
-pip install fiona==1.8.8</code></pre>
+<pre style=""><code class="source bash">wget https://raw.githubusercontent.com/GeoScripting-WUR/InstallLinuxScript/master/user/environment.yml
+conda env create -f environment.yml</code></pre>
 </div>
 <p>Time to run the Jupyter Notebook.</p>
 <div class="row">

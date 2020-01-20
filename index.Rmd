@@ -209,15 +209,11 @@ quit()
 
 ## Running Python in Jupyter Notebooks
 
-Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the `geoscripting` environment. 
-
-If geoscripting environment is not there yet (check with 'conda info --envs'), create one for todays tutorial with Jupyter Notebook:
+Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the `geoscripting` environment. If you don't have this 'geoscripting' environment yet, create quickly  one with the bash scripts below. These install a conda environment with all packages (and versions) that don't conflict with each other for this course.
 
 ```{r, eval=FALSE, engine='bash'}
-conda create -n geoscripting python=3 pip jupyter seaborn pyproj spyder rasterio geopandas kealib matplotlib owslib pysal descartes -y
-source activate geoscripting
-conda install -c conda-forge rasterstats folium geopy osmnx -y
-pip install fiona==1.8.8
+wget https://raw.githubusercontent.com/GeoScripting-WUR/InstallLinuxScript/master/user/environment.yml
+conda env create -f environment.yml
 ```
 
 Time to run the Jupyter Notebook.
