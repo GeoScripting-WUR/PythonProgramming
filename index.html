@@ -1533,26 +1533,21 @@ if not os.path.exists('output'): os.makedirs('output')
 
 import folium
 import geopandas as gpd
+from pyproj import Proj, Transformer, transform
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
 from folium.plugins import MeasureControl
 from folium.raster_layers import ImageOverlay
 from folium.vector_layers import PolyLine
 
-# Create transformation function
-def transformCoordinates(input_x, input_y, input_epsg, output_epsg):
-    ## based on https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1
-    from pyproj import Proj, Transformer, transform
-    transformer = Transformer.from_crs(input_epsg, output_epsg)
-    output_y, output_x = transformer.transform(input_x, input_y)
-    return output_x, output_y
-
-# Set coordinates in RD_New and convert them to WGS84
+## Set coordinates in RD_New and convert them to WGS84
+## based on https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1
 x, y = 174094, 444133
 xmin, xmax, ymin, ymax = x-450, x+450, y-750, y+450
-min_lon, min_lat = transformCoordinates(input_x=xmin, input_y=ymin, input_epsg=28992, output_epsg=4326)
-max_lon, max_lat = transformCoordinates(input_x=xmax, input_y=ymax, input_epsg=28992, output_epsg=4326)
-avg_lon, avg_lat = transformCoordinates(input_x=x, input_y=y, input_epsg=28992, output_epsg=4326)
+transformer = Transformer.from_crs(28992, 4326) # define a transformer object
+min_lat, min_lon = transformer.transform(xmin, ymin) # mind the swap in axis order, see: https://geopandas.org/projections.html#the-axis-order-of-a-crs
+max_lat, max_lon = transformer.transform(xmax, ymax)
+avg_lat, avg_lon = transformer.transform(x, y)
 
 # Download infrared orthophoto near Wageningen Campus
 url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities'
