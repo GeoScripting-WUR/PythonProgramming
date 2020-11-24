@@ -620,16 +620,16 @@ import folium
 import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
-from pyproj import Proj, transform
 from folium.plugins import MeasureControl
 from folium.raster_layers import ImageOverlay
 from folium.vector_layers import PolyLine
 
 # Create transformation function
 def transformCoordinates(input_x, input_y, input_epsg, output_epsg):
-    inProj = Proj(init='epsg:%s' % input_epsg)
-    outProj = Proj(init='epsg:%s' % output_epsg)
-    output_x, output_y = transform(inProj, outProj, input_x, input_y)
+    ## based on https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1
+    from pyproj import Proj, Transformer, transform
+    transformer = Transformer.from_crs(input_epsg, output_epsg)
+    output_y, output_x = transformer.transform(input_x, input_y)
     return output_x, output_y
 
 # Set coordinates in RD_New and convert them to WGS84

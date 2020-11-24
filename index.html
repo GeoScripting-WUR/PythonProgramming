@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-9-introduction-to-python-for-geo-scripting">Week 3, Lesson 9: Introduction to Python for Geo-Scripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil</em> - 2020-11-17</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil</em> - 2020-11-24</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. Today’s schedule is as following:</p>
 <ul>
@@ -1535,16 +1535,16 @@ import folium
 import geopandas as gpd
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService 
-from pyproj import Proj, transform
 from folium.plugins import MeasureControl
 from folium.raster_layers import ImageOverlay
 from folium.vector_layers import PolyLine
 
 # Create transformation function
 def transformCoordinates(input_x, input_y, input_epsg, output_epsg):
-    inProj = Proj(init='epsg:%s' % input_epsg)
-    outProj = Proj(init='epsg:%s' % output_epsg)
-    output_x, output_y = transform(inProj, outProj, input_x, input_y)
+    ## based on https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1
+    from pyproj import Proj, Transformer, transform
+    transformer = Transformer.from_crs(input_epsg, output_epsg)
+    output_y, output_x = transformer.transform(input_x, input_y)
     return output_x, output_y
 
 # Set coordinates in RD_New and convert them to WGS84
