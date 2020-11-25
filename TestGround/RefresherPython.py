@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Geoscripting 2020
-Lesson 10 - Python Refresher
+Lesson 9 - Python Refresher
 v20201124
 CHappyhill
 """
