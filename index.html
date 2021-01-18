@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-9-introduction-to-python-for-geo-scripting">Week 3, Lesson 9: Introduction to Python for Geo-Scripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil</em> - 2020-11-24</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil</em> - 2021-01-18</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. Today’s schedule is as following:</p>
 <ul>
@@ -929,7 +929,7 @@
 <h3 id="python-package-management">Python package management</h3>
 <p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages, which we list below sorted from most preferred to less preferred:</p>
 <ul>
-<li>Using <a href="https://conda.io/docs/user-guide/tasks/manage-pkgs.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.</li>
+<li>Using <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> to install packages and to keep separate sets of packages. A set of of packages in <em>Conda</em> is called a conda environment. <em>Conda</em> is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.</li>
 <li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
 <li>Using the distribution’s package manager (only on Ubuntu, that’s <code>sudo apt-get install python-*</code>).</li>
 </ul>
@@ -1634,7 +1634,7 @@ wageningenMap.save('output/wageningenMap.html') # The folium map can be stored a
 <div class="row">
 <div class="alert alert-info">
 <p>
-<strong>Protip</strong>: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.
+<strong>Protip</strong>: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.
 </p>
 </div>
 </div>
@@ -1643,7 +1643,7 @@ wageningenMap.save('output/wageningenMap.html') # The folium map can be stored a
 <li><a href="https://docs.Python.org/3.7/contents.html">Official Python tutorial</a></li>
 <li><a href="https://gist.github.com/sloria/7001839">Python Style guide</a></li>
 <li><a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a></li>
-<li><a href="https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf">Python 3 Cheatsheet</a></li>
+<li><a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">Python 3 Cheatsheet</a></li>
 <li><a href="https://www.datacamp.com/community/data-science-cheatsheets?tag=python">Overview Python package Cheatsheets</a></li>
 <li><a href="https://geo-python.github.io">Geo Python course</a></li>
 </ul>

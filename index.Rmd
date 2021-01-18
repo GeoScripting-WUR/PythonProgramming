@@ -68,7 +68,7 @@ There are a number of Integrated Development Environments [IDE] for Python. An I
 ### Python package management
 A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages). So instead per project an environment is created on your local machine, where Python packages can be installed and organized. For each project it is recommended to make a new environment. Another way to handle conflicting Python packages is with the distribution package manager of Ubuntu. The available Python packages of the distribution manager have been tested to work together, but some cons are that it does not have all packages and sometimes has outdated packages. There are three recommended ways to install packages, which we list below sorted from most preferred to less preferred:
 
-* Using [conda](https://conda.io/docs/user-guide/tasks/manage-pkgs.html) to install packages and to keep separate sets of packages. A set of of packages in _Conda_ is called a conda environment. _Conda_ is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.
+* Using [conda](https://docs.conda.io/projects/conda/en/latest/index.html) to install packages and to keep separate sets of packages. A set of of packages in _Conda_ is called a conda environment. _Conda_ is available for Windows, macOS and Linux. In the conda environments basically anything, such as software, C libraries or R packages, can be installed.
 * Using _pip_ to install packages and _conda_ to manage packages. _Pip_ is available for Windows, macOS and Linux. Pip sometimes is the better way to install packages and can install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs).
 * Using the distribution's package manager (only on Ubuntu, that's `sudo apt-get install python-*`).
 
@@ -723,14 +723,14 @@ source deactivate
 The exercise for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
 
 ```{block type="alert alert-info"}
-**Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
+**Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/py_cs/) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
 ```
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3.7/contents.html)
 - [Python Style guide ](https://gist.github.com/sloria/7001839)
 - [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data)
-- [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/Python-3-Cheatsheet.pdf)
+- [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
 - [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
 - [Geo Python course](https://geo-python.github.io)
 
