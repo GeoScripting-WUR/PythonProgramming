@@ -29,7 +29,7 @@ Good morning! Today we will start working with Python for Geo-scripting and do a
 - Check a nice example of a Jupyter Notebook
 
 
-## Follow Intro to Python course on Datacamp 
+## Follow Intro to Python course on Datacamp
 Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. As assignment for today (or actually exercise), you will have to finish one of the Python Datacamp courses listed below.
 
 * [Introduction to Python](https://www.datacamp.com/courses/intro-to-python-for-data-science) | recommended to follow if you haven't any scripting experience so far
@@ -61,7 +61,7 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
 There are a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
 
 * [Spyder](https://www.spyder-ide.org/) is a nice lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
-* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. It allows different programming languages. You can have a Python, R, Julia, Spark or PySpark kernel in the notebook. Today the Jupyter Notebook with a Python kernel will be used and explained. 
+* [Jupyter Notebook](http://jupyter.org/) integrates visualizations together with code and is highly suitable to make tutorials or simple dashboards. Jupyter Notebooks run in your browser on a localhost server or on a web server. Jupyter Notebooks are nice to make quick visualizations and do prototype testing. It allows different programming languages. You can have a Python, R, Julia, Spark or PySpark kernel in the notebook. Today the Jupyter Notebook with a Python kernel will be used and explained.
 * [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know there won't be support for it since the focus of Geo-scripting is on learning to script.
 
 
@@ -96,7 +96,7 @@ popd
 ```
 
 <<<<<<< HEAD
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*.
 =======
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
@@ -192,9 +192,9 @@ For quick testing, Python can be started from terminal in Linux. Open a new term
 
 ```{r, eval=FALSE, engine='bash'}
 python
-# or 
+# or
 python2
-# or 
+# or
 python3
 ```
 
@@ -208,7 +208,7 @@ print('Good morning, you are running Python:', sys.version)
 Okay enough fooling around. Time for some proper IDEs. Exit Python in the terminal to return to your normal terminal.
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 exit()
-# or 
+# or
 quit()
 ```
 
@@ -250,7 +250,7 @@ m
 
 <img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img>
 
-Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Try and drag the map to play around with it. Nice map :) 
+Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Try and drag the map to play around with it. Nice map :)
 
 
 ## Python refresher
@@ -327,7 +327,7 @@ print(campus)
 print(campus[::2])
 ```
 
-See how the notebook remembered how you set the variable `campus`. 
+See how the notebook remembered how you set the variable `campus`.
 
 ```{block, type="alert alert-success"}
 > **Question 3:** What are the major differences between Append/Extend?
@@ -377,7 +377,7 @@ elif x == 2:
     print("it is two")
 elif x == 3:
     print("it is three")
-else: 
+else:
     print("above 3")
 ```
 
@@ -400,7 +400,7 @@ print(greeting)
 def times3(input_number):
     output_number = input_number * 3
     return output_number, input_number
-    
+
 print(times3(input_number=4))
 
 output_number, input_number = times3(input_number=4)
@@ -413,13 +413,13 @@ A best practice in programming is to keep variable and function names very infor
 ```{Python,engine.path='/usr/bin/python3'}
 def times3(input_number):
     """Multiplies input number times three.
-    
+
     :input_number: input_number is an integer
     :returns: input_number * 3, input_number
     """
     outputNumber = input_number * 3
     return output_number, input_number
-    
+
 times3(input_number=4)
 
 ```
@@ -443,7 +443,7 @@ from math import pi
 print(pi)
 
 from math import pi as Pi
-print(Pi) 
+print(Pi)
 
 import numpy as np
 print(np.pi)
@@ -533,17 +533,17 @@ except FileNotFoundError as error:
 ### Functional and object-oriented programming
 Until now you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In _Python_ functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures/functions, often known as methods.
 
-An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo(). 
+An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo().
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 class Dog:
     def __init__(self, name, age):  
         self.name = name
         self.age = age
-        
+
     def bark(self):
         print("bark bark!")
-    
+
     def doginfo(self):
         print(self.name + " is " + str(self.age) + " year(s) old.")
 ```
@@ -571,6 +571,7 @@ conda install --name geoscripting matplotlib seaborn pyproj owslib
 We will make a graph with the _seaborn_ module and plot it with _matplotlib_. Give it a try! The extra comments help to explain the parameters, but writing so many comments is not a recommended way to write code. The names of the functions, methods and parameters should mostly be self explanatory to extra comments.
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import matplotlib
 import seaborn as sns
 
 # Set layout
@@ -607,7 +608,7 @@ g
 
 Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
 
-Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. 
+Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities.
 
 In short a few things that are good to know: some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence the name Owslib) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. The second new package [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
 
@@ -620,7 +621,7 @@ import folium
 import geopandas as gpd
 from pyproj import Proj, Transformer, transform
 from owslib.wms import WebMapService
-from owslib.wfs import WebFeatureService 
+from owslib.wfs import WebFeatureService
 from folium.plugins import MeasureControl
 from folium.raster_layers import ImageOverlay
 from folium.vector_layers import PolyLine
@@ -683,10 +684,10 @@ wageningenMap.add_child(RoadsLayer)
 
 # Create layer, add polyline and add layer to map
 RouteLayer = folium.FeatureGroup(name="Route from campus to shopping center")
-polylineLocations = [[51.987384, 5.666505], [51.986899, 5.666848], [51.985501, 5.661650], 
+polylineLocations = [[51.987384, 5.666505], [51.986899, 5.666848], [51.985501, 5.661650],
                      [51.981741, 5.664579], [51.979521, 5.664321], [51.979455, 5.663795],
                      [51.979078, 5.663753], [51.978761, 5.663023]]
-RouteLayer.add_child(PolyLine(locations=polylineLocations, popup="Path from Gaia to Shopping Center", 
+RouteLayer.add_child(PolyLine(locations=polylineLocations, popup="Path from Gaia to Shopping Center",
                               color="red", weight=2.5, opacity=1))
 wageningenMap.add_child(RouteLayer)
 
@@ -706,7 +707,7 @@ wageningenMap.save('output/wageningenMap.html') # The folium map can be stored a
 
 <img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img>
 
-Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
+Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata.
 
 ### Exiting the Jupyter Notebook
 Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.
@@ -720,7 +721,7 @@ source deactivate
 
 # Excercise
 
-The exercise for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
+The exercise for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science).
 
 ```{block type="alert alert-info"}
 **Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/py_cs/) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
@@ -733,7 +734,3 @@ The exercise for today was to finish the datacamp course: [Intro to Python for D
 - [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
 - [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
 - [Geo Python course](https://geo-python.github.io)
-
-
-
-
