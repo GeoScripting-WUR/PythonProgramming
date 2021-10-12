@@ -1,5 +1,5 @@
 ---
-author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil"
+author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 pagetitle: "Week 3, Lesson 9: Introduction to Python for Geo-Scripting"
 output:
@@ -13,7 +13,7 @@ output:
 
 # [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/>
 
-# Week 3, Lesson 9: Introduction to Python for Geo-Scripting
+# Week 3, Lesson 9: Introduction to Python for Geoscripting
 
 _Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil_  - `r format(Sys.time(), '%Y-%m-%d')`
 
@@ -246,22 +246,24 @@ Now start Jupyter:
 
 ```{r, eval=FALSE, engine='bash'}
 cd #reset working environment to default location
-source activate geoscripting
+conda activate geoscripting
 jupyter notebook
 ```
 
 Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
 
-Go to documents. Make a new folder: *New* → *Folder*, rename the folder (check the box next to the new 'Untitled Folder' and click **'Rename'** in the top) and create new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Feel free to have a go at the user interface tour: *Help* → *User Interface Tour*.
+Make a new folder: *New* → *Folder*, rename the folder (check the box next to the new 'Untitled Folder' and click **'Rename'** in the top) and, in this folder, create a new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Note that this creates a file with the extension *.ipynb*, which stands for Jupyter Notebook. 
 
-Hover over the toolbar to check out all tools. These are the basic tools you will need today:
+Feel free to have a go at the user interface tour (*Help* → *User Interface Tour*), or hover over the toolbar to check out the tools. The main tools are:
 
 - _Save and checkpoint_
 - _Insert cell below_
 - _Run_
 - _Code/Markdown/Heading_ (List box)
 
-Similar to RMarkdown, Jupyter Notebooks have code cells (*Code*) and text cells (*Markdown*). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type the following Python code in a code cell:
+Similar to RMarkdown, Jupyter Notebooks have code cells (*Code*) and text cells (*Markdown*). Insert an extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cell on code. 
+
+Type the following Python code in the code cell:
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
@@ -271,35 +273,60 @@ m
 
 <img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img>
 
-Run the code in a code cell, select it and press the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. Wow! Try and drag the map to play around with it. Nice map :) 
+Run the code cell by selecting it and pressing the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. You'll see a map visualized below your code. Try to drag the map to play around with it. Close Jupyter when you are finished. 
 
+## Running a Python script in Spyder
 
-## Python refresher
+The [Spyder IDE](https://docs.spyder-ide.org/)can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
 
-Additionally in this tutorial we will do a quick Python refresher.
-
-```{block type="alert alert-info"}
-**Protip**: Python has a specific way of doing things. It is called the [Pythonic way](https://docs.python-guide.org/writing/style/) and stands for simple readable code.
+```{r, eval=FALSE,engine='bash'}
+cd ~/Documents/
+mkdir PythonRefresher #or give the directory a name to your liking
+cd ./PythonRefresher
+mkdir scripts
+mkdir data
+mkdir output
+spyder
 ```
+
+In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
+
+* F5 to run your script
+* CTRL + S to save your script
+* CTRL + 1 to comment/uncomment your code
+* TAB to indent your code
+* SHIFT + TAB to unindent your code
+
+Open a new file and save your Python script in the main directory you just made and name it main.py (File -- > New File --> Save As).
+
+
+## Python programming refresher
+
+Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.
 
 ### Looking for help
 
-If you are looking for help while programming in Python, there are several ways to find help. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geo-scripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python.
+There are several ways to find help with programming in Python. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import sys
 help(sys)
 ```
 
-See how the functions in the `sys` package got listed.
+See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question** 1: What does this mean `__ __` around words: e.g: `__doc__`?
+> **Question** 1: What kind of functionality does the `sys` package provide?
 
 ```
 
 
-### Numbers and variables
+### Data types, numbers and variables
+
+
+
+
+
 
 
 ```{Python,engine.path='/usr/bin/python3'}
@@ -307,7 +334,7 @@ print(int(10.6))
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 2**: What is the difference between 10 and 10.0 when dealing with data types in Python?
+> **Question 2**: What is the difference between 10 and 10.0 in Python?
 ```
 
 Variable is a storage location or symbolic name to a value e.g.:
