@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-9-introduction-to-python-for-geo-scripting">Week 3, Lesson 9: Introduction to Python for Geo-Scripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil</em> - 2021-01-18</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-10-12</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. Today’s schedule is as following:</p>
 <ul>
@@ -890,7 +890,7 @@
 <li><a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far</li>
 <li><a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</li>
 </ul>
-<h2 id="introduction-to-python-environment">Introduction to Python Environment</h2>
+<h2 id="introduction-to-python">Introduction to Python</h2>
 <p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:</p>
 <ul>
 <li>Geo Scripting
@@ -923,13 +923,11 @@
 <p>There is a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
 <ul>
 <li><a href="https://www.spyder-ide.org/">Spyder</a> is a lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.</li>
-<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. Today the Jupyter Notebook with a Python kernel will be used and explained.</li>
+<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark.</li>
 <li><a href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm Community Edition</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know that you will not be assisted solving IDE-related issues.</li>
 </ul>
-<h3 id="python-package-management">Python package management</h3>
-<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So, instead, we recommend to create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages, can be installed, but we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.
-</p>
-
+<h3 id="python-package-management-with-conda">Python package management with conda</h3>
+<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So, instead, we recommend to create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages, can be installed, but we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.</p>
 <h4 id="conda-installation">Conda installation</h4>
 <p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with most popular Python packages already built in.</p>
 <p>In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
@@ -957,17 +955,16 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
 <p>This will install Miniconda into <code>~/miniconda3</code>, and also all the necessary packages for the Python week, into a new environment called <code>geoscripting</code>. You can also read the Bash code of the scripts you run to know exactly how they work.</p>
-<p>Finally, restart your terminal to be able to use <code>conda</code> in the terminal. Next, let’s see how to use Conda in case you want to install packages or make new virtual environments by yourself.</p>
+<p>Finally, restart your terminal to be able to use <code>conda</code> in the terminal. Next, let’s see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.</p>
 <h4 id="conda-usage">Conda usage</h4>
-
-<p> To create a new conda environment with a specified name, Python version, and Python packages, type:</p>
+<p>Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda create --name geotest python=2.7 numpy</code></pre>
 </div>
-<p>This would create a new environment called <em>geotest</em> with Python 2.7 and the <em>NumPy</em> package installed into the conda environment. To list the available environments:</p>
+<p>This would create a new environment called <em>geotest</em> with Python 2.7 and <em>NumPy</em> installed into the conda environment. To list the available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -986,16 +983,13 @@ source activate geotest
 ## Windows
 activate geotest</code></pre>
 </div>
-<p>After this, the current environment is shown in (parentheses) in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. </p>
-
-<p>After creating a conda environment, (additional) Python packages can be installed. There are three recommended ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install can be found.</p>
+<p>After this, the current environment is shown in (parentheses) in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.</p>
+<p>After creating a conda environment, (additional) Python packages can be installed. There are three recommended ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.</p>
 <ul>
-<li>Using <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> to install and manage packages. Conda packages are downloaded from conda channels, which are URLs to directories containing conda packages. Generally, installing with conda is the preferred method. </li>
-<li>Using <em>pip</em> to install packages and <em>conda</em> to manage them. <em>Pip</em> is available for Windows, macOS and Linux. Pip can also install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
-<li>Using the distribution’s package manager (only on Ubuntu, that’s <code>sudo apt-get install python-*</code>).</li>
+<li>Using <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> to install and manage packages. Conda packages are downloaded from conda channels, which are URLs to directories containing conda packages. Generally, installing with conda is the preferred method.</li>
+<li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip can also install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
+<li>Using the distribution’s package manager (only on Ubuntu, that is <code>sudo apt-get install python-*</code>).</li>
 </ul>
-
-
 <p>The conda command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1010,23 +1004,35 @@ activate geotest</code></pre>
 </button>
 <pre style=""><code class="source bash">conda install spyder</code></pre>
 </div>
-<p>This would install the latest version of the <em>Spyder</em> package (Python IDE). Note that this would install it into your currently activated environment.
-
+<p>This would install the latest version of the <em>Spyder</em> package (Python IDE). Note that this would install it into your currently activated environment.</p>
+<p>Multiple packages can be installed at the same time:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda install geopandas pandas
-pip install rasterio rasterstats</code></pre>
+<pre style=""><code class="source bash">conda install geopandas pandas</code></pre>
 </div>
-<p>Sometimes packages are not directly available from the default conda channel, but require a specific conda channel, such as conda-forge. The documentation of Python packages often provides the recommended conda channel to install the Python package.</p>
+<p>Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package, for example conda-forge:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda install --channel conda-forge folium</code></pre>
 </div>
-<p>Removing is just as simple.</p>
+<p>As explained above, another alternative is to use <em>pip</em> to install packages (not possible for all packages):</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">pip install rasterio rasterstats</code></pre>
+</div>
+<p>In addition, as you saw with Spyder install, conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. Some additional helpful utilities for package management in this context are:</p>
+<ul>
+<li><code>conda list</code> to check which packages are installed in <em>root</em> or in the active environment;</li>
+<li><code>python --version</code> or <code>gdal-config --version</code> to check which Python or GDAL version is used in the environment;</li>
+<li><code>which spyder</code> or <code>type spyder</code> to find out which Spyder executable is used either from system or conda environment.</li>
+</ul>
+<p>Removing packages is just as simple:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1034,7 +1040,7 @@ pip install rasterio rasterstats</code></pre>
 <pre style=""><code class="source bash">conda remove geopandas pandas folium
 pip uninstall rasterio rasterstats</code></pre>
 </div>
-<p>Now deactivate the environment and return to base environment.</p>
+<p>Now, we deactivate the environment and return to base environment.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1046,32 +1052,22 @@ source deactivate
 ## Windows
 deactivate</code></pre>
 </div>
-<p>Since Python 2.7 is outdated and we want to work with Python 3, we can remove the environment <em>geotest</em>.</p>
+<p>When we are finished, we can remove the environment <em>geotest</em>.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda remove --name geotest --all</code></pre>
 </div>
-<p>In addition, as you saw with Spyder install, Conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. Some extra helpful utilities are:</p>
-<ul>
-<li><code>conda list</code> to check which packages are installed in <em>root</em> or in the active environment;</li>
-<li><code>python --version</code> or <code>gdal-config --version</code> to check which Python or GDAL version is used in the environment;</li>
-<li><code>which spyder</code> or <code>type spyder</code> to find out which Spyder executable is used either from system or conda environment.</li>
-</ul>
-<h2 id="running-python-in-terminal">Running Python in the terminal</h2>
-<p>For quick testing, Python can be started from terminal in Linux. Open a new terminal and type one of the lines with Python below.</p>
+<h2 id="running-a-python-script-in-the-terminal">Running a Python script in the terminal</h2>
+<p>Within a conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">python
-# or 
-python2
-# or 
-python3</code></pre>
+<pre style=""><code class="source bash">python</code></pre>
 </div>
-<p>Test this script and find out what your Python version is inside Python.</p>
+<p>Now, you can type Python comments that will be executed one by one:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1079,7 +1075,7 @@ python3</code></pre>
 <pre style=""><code class="source python">import sys
 print('Good morning, you are running Python:', sys.version)</code></pre>
 </div>
-Okay enough fooling around. Time for some proper IDEs. Exit Python in the terminal to return to your normal terminal.
+To go back, type:
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1088,8 +1084,16 @@ Okay enough fooling around. Time for some proper IDEs. Exit Python in the termin
 # or 
 quit()</code></pre>
 </div>
-<h2 id="running-python-in-jupyter-notebooks">Running Python in Jupyter Notebooks</h2>
-<p>Jupyter Notebooks make coding in Python much easier and allow for nice integrated visualizations. Jupyter is already set up for you in the <code>geoscripting</code> environment. If you don’t have this ‘geoscripting’ environment yet, create quickly one with the bash scripts below. These install a conda environment with all packages (and versions) that don’t conflict with each other for this course.</p>
+<p>Usually, we do not want to run commands one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) <code>test.py</code>. Open it, for example with a text editor, paste in the code you used above (<code>import sys</code> etc.), and save the script. Navigate in the terminal to the location where this script is stored, using <code>cd</code>. Finally, run the script with:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">python test.py</code></pre>
+</div>
+<p>The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE, such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment.</p>
+<h2 id="python-in-jupyter-notebooks">Python in Jupyter Notebooks</h2>
+<p>Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Jupyter is already set up for you in the <code>geoscripting</code> environment. If you do not have the ‘geoscripting’ environment yet, create one with the bash scripts below.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1097,7 +1101,7 @@ quit()</code></pre>
 <pre style=""><code class="source bash">wget https://raw.githubusercontent.com/GeoScripting-WUR/InstallLinuxScript/master/user/environment.yml
 conda env create -f environment.yml</code></pre>
 </div>
-<p>Time to run the Jupyter Notebook.</p>
+<p>Now start Jupyter:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1106,7 +1110,7 @@ conda env create -f environment.yml</code></pre>
 source activate geoscripting
 jupyter notebook</code></pre>
 </div>
-<p>If everything goes according to plan, Jupyter will pop up in your browser. You will see a menu with all the files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
+<p>Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
 <p>Go to documents. Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder (check the box next to the new ‘Untitled Folder’ and click <strong>‘Rename’</strong> in the top) and create new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on <em>untitled</em>. Feel free to have a go at the user interface tour: <em>Help</em> → <em>User Interface Tour</em>.</p>
 <p>Hover over the toolbar to check out all tools. These are the basic tools you will need today:</p>
 <ul>
