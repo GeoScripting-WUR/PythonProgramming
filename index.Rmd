@@ -158,13 +158,13 @@ Multiple packages can be installed at the same time:
 conda install geopandas pandas
 ```
 
-Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package, for example conda-forge:
+Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package. For example, the folium package can be installed from the conda-forge channel:
 
 ```{r, eval=FALSE, engine='bash'}
 conda install --channel conda-forge folium
 ```
 
-As explained above, another alternative is to use _pip_ to install packages (not possible for all packages):
+As explained above, another alternative is to use _pip_ to install packages (not possible for all packages), as shown here for the packages rasterio and rasterstats:
 
 ```{r, eval=FALSE, engine='bash'}
 pip install rasterio rasterstats
@@ -195,7 +195,7 @@ source deactivate
 deactivate
 ```
 
-When we are finished, we can remove the environment _geotest_.
+When we are finished, and do not need the environment for next time, we can remove the environment _geotest_.
 
 ```{r, eval=FALSE, engine='bash'}
 conda remove --name geotest --all
@@ -210,7 +210,7 @@ Within a conda environment, Python can be started directly, or can be called to 
 python
 ```
 
-Now, you can type Python comments that will be executed one by one:
+Now, you can type Python expressions that will be executed one by one:
 
 ```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
 import sys
@@ -224,7 +224,7 @@ exit()
 quit()
 ```
 
-Usually, we do not want to run commands one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) `test.py`. Open it, for example with a text editor, paste in the code you used above (`import sys` etc.), and save the script. Navigate in the terminal to the location where this script is stored, using `cd`. Finally, run the script with:
+Usually, we do not want to run expressions one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) `test.py`. Open it, for example with a text editor, paste in the code you used above (`import sys` etc.), and save the script. Navigate in the terminal to the location where this script is stored, using `cd`. Finally, run the script with:
 
 ```{r, eval=FALSE, engine='bash'}
 python test.py
@@ -273,7 +273,19 @@ m
 
 <img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img>
 
-Run the code cell by selecting it and pressing the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. You'll see a map visualized below your code. Try to drag the map to play around with it. Close Jupyter when you are finished. 
+Run the code cell by selecting it and pressing the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. You'll see a map visualized below your code. Try to drag the map to play around with it. 
+
+Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (the file extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.
+
+By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing `source deactivate`.
+
+```{r, engine='bash', eval=FALSE}
+conda deactivate
+```
+
+
+
+
 
 ## Running a Python script in Spyder
 
@@ -304,30 +316,29 @@ Open a new file and save your Python script in the main directory you just made 
 
 Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.
 
-### Looking for help
 
-There are several ways to find help with programming in Python. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
+### Classes and objects
 
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import sys
-help(sys)
-```
+Python is an *object-oriented programming language*. That is a programming paradigm that structures a code hierarchically with *classes* and *objects*. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.
 
-See how the objects and functions in the `sys` package got listed.
+For example, one could have a class `dog` with functions, `eat()` and `run()`, and properties `breed` and `age`. One can then create an *instance* of this class, i.e. an object, that represents a Maltese of two years old. This object can apply the function `eat()` and `run()`.
 
 ```{block, type="alert alert-success"}
-> **Question** 1: What kind of functionality does the `sys` package provide?
-
+> **Question 1**: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
 ```
 
 
-### Data types, numbers and variables
+### Value types and variables
 
+Values belong to a type. The most important built-in types are:
+* integer
+* floating point
+* Boolean
+* string
 
+Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.
 
-
-
-
+Values can be cast to other types, e.g.,:
 
 ```{Python,engine.path='/usr/bin/python3'}
 print(int(10.6))
@@ -337,15 +348,129 @@ print(int(10.6))
 > **Question 2**: What is the difference between 10 and 10.0 in Python?
 ```
 
-Variable is a storage location or symbolic name to a value e.g.:
+Often, we do not use values directly in a script. Instead, we use access them through variables. A variable is a way to reference to a known or unknown value. A value is assigned to a variable with the `=`-sign, e.g.:
 
 ```{Python,engine.path='/usr/bin/python3'}
 building = 'Gaia'
-buildingNumber = 101
-building + ' is in Wageningen'
+buildingnumber = 101
+print(building + ' is in Wageningen')
 ```
 
-There is no need to define the datatype, Python has a loose datatype variable declaration. Python is basically a list of objects.
+As opposed to other programming languages, in Python, the datatype does not need to be explicitly defined when creating a variable. Python derives the datatype of the variable from the value assigned to it. In the code above, the variable `building` is thus a string, and the variable `buildingnumber` is an integer, without having defined this explicitly.
+
+Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.
+
+
+### Functions
+
+A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs. 
+
+Functions may (not always) accept *argument(s)*, perform an *action*,  and may (not always) *return value(s)*. For example, the built-in function 'int()' we have seen before performs the action of converting a value to integer type:
+
+```{Python,engine.path='/usr/bin/python3'}
+# return value into a variable, the function name, its (single) argument
+myint = int(10.6)
+
+```
+
+You can also create functions yourself. The syntax for creating a function is:
+
+```
+def functionname(arg1, arg2, argn):
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+    return returnvar1, returnvar2, returnvarn
+
+```
+
+For example, we could create a function to multiply a number (provided as argument) by three, and return the output and input number: 
+
+```{Python,engine.path='/usr/bin/python3'}
+def times3(input_number):
+    output_number = input_number * 3
+    return output_number, input_number
+    
+print(times3(4))
+
+output_number, input_number = times3(input_number=4)
+print(output_number)
+print(input_number)
+```
+
+Functions or classes can be made more informative by *docstrings*:
+
+```{Python,engine.path='/usr/bin/python3'}
+def times3(input_number):
+    """Multiplies input number times three.
+    
+    :input_number: input_number is an integer
+    :returns: input_number * 3, input_number
+    """
+    output_number = input_number * 3
+    return output_number, input_number
+    
+print(times3(input_number=4))
+
+```
+
+Variables created in functions are *local*. That means that a variable created in a function does not exist outside of the function. So, here, `output_number` cannot be accessed outside of the function definition (after the indented part of the code). 
+
+
+```{block, type="alert alert-success"}
+> **Question 3**: Test typing `print(output_number)` at the end of the code block defined above. What happens? Why is that?
+```
+
+
+### Modules and packages
+Python packages and modules are collections of classes and functions. Any Python file is a _module_, its name being the file's base name without the .py extension. A _package_ is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
+
+Basically there are four ways to load a module and/or a package:
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import math
+print(math.pi)
+
+from math import pi
+print(pi)
+
+from math import pi as ip
+print(ip) 
+
+import numpy as np
+print(np.pi)
+```
+
+```{block, type="alert alert-success"}
+> **Question 4**: What are the differences between these four ways to import modules and/or packages?
+```
+
+Often-used internal packages/modules:
+
+- `os`: Operating system features
+- `sys`: System specific configuration
+- `math`: Mathametical functions, operators and constants
+- `datetime`: Date/Time functionality
+
+
+### Looking for help
+
+There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import sys
+help(sys)
+```
+
+See how the objects and functions in the `sys` package got listed.
+
+```{block, type="alert alert-success"}
+> **Question 5**: What kind of functionality does the `sys` package provide?
+
+```
+
+
+
+
 
 
 ### Lists
@@ -378,11 +503,11 @@ print(campus[::2])
 See how the notebook remembered how you set the variable `campus`. 
 
 ```{block, type="alert alert-success"}
-> **Question 3:** What are the major differences between Append/Extend?
+> **Question 6:** What are the major differences between Append/Extend?
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 4:** What building is `campus[-2]`?
+> **Question 7:** What building is `campus[-2]`?
 ```
 
 ### Dictionaries, loops, if/else
@@ -429,105 +554,7 @@ else:
     print("above 3")
 ```
 
-### Functions
 
-A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name. Functions accept arguments and perform an action e.g.:
-
-```{Python,engine.path='/usr/bin/python3'}
-def printHelloName(name):
-    print("Good morning " + name)
-
-printHelloName(name="Jan")
-
-greeting = printHelloName(name="EnterYourName")
-print(greeting)
-```
-`print` is used to print text or a number. As the example shows, printing to a variable does not store the information in the variable. `return` is used to indicate what you want to obtain from the function. You can `return` multiple items and return can be used to assign output to variables outside of the function.
-
-```{Python,engine.path='/usr/bin/python3'}
-def times3(input_number):
-    output_number = input_number * 3
-    return output_number, input_number
-    
-print(times3(input_number=4))
-
-output_number, input_number = times3(input_number=4)
-print(output_number)
-print(input_number)
-```
-
-A best practice in programming is to keep variable and function names very informative! In complex functions or classes, the functions or classes can be made more informative by docstrings.
-
-```{Python,engine.path='/usr/bin/python3'}
-def times3(input_number):
-    """Multiplies input number times three.
-    
-    :input_number: input_number is an integer
-    :returns: input_number * 3, input_number
-    """
-    outputNumber = input_number * 3
-    return output_number, input_number
-    
-times3(input_number=4)
-
-```
-
-In this case docstrings are too much, but for larger functions or classes it is smart to have docstrings.
-
-### Importing modules and packages
-Python packages and modules are the bread and butter of Python. They make Python so great. Any Python file is a _module_, its name being the file's base name without the .py extension. A _package_ is a collection of Python modules: a package is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
-
-```{Python,engine.path='/usr/bin/python3'}
-import math
-print(dir(math)) #show names in math package
-```
-
-Basically there are four ways to load a module from a package:
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import math
-print(math.pi)
-
-from math import pi
-print(pi)
-
-from math import pi as Pi
-print(Pi) 
-
-import numpy as np
-print(np.pi)
-```
-
-```{block, type="alert alert-success"}
-> **Question 5**: Which is the best way to import modules?
-```
-
-### Some important internal modules:
-
-- `os`: Access to operating system features
-- `os.path`: Manipulating of file names
-- `sys`: System specific configuration
-- `glob`: Filename pattern matching
-- `math`: Mathametical functions
-- `datetime`: Date/Time manipulation
-
-```{block, type="alert alert-success"}
-> **Question 6**: What is the difference between `os` and `os.path`?
-```
-
-Some examples:
-
-```{Python,engine.path='/usr/bin/python3'}
-import glob
-glob.glob("*")
-```
-
-```{Python,engine.path='/usr/bin/python3'}
-from datetime import date
-birthday = date(2019, 3, 1)   #Fill in your own birthday
-print(date.today())
-timetillbirthday = birthday - date.today()
-print("Ah only", timetillbirthday.days, "days left till my birthday")
-```
 
 ### File access
 
@@ -554,7 +581,7 @@ print(read_data)
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 7**: What does `w`, `r` and `rw` mean?
+> **Question 8**: What does `w`, `r` and `rw` mean?
 ```
 
 ### Error handling
@@ -755,15 +782,6 @@ wageningenMap.save('output/wageningenMap.html') # The folium map can be stored a
 <img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img>
 
 Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
-
-### Exiting the Jupyter Notebook
-Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.
-
-By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing `source deactivate`.
-
-```{r, engine='bash', eval=FALSE}
-source deactivate
-```
 
 
 # Excercise

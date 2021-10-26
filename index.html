@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Corné Vreugdenhil" />
+  <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil" />
   <title>Week 3, Lesson 9: Introduction to Python for Geo-Scripting</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
@@ -872,8 +872,8 @@
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
-<h1 id="week-3-lesson-9-introduction-to-python-for-geo-scripting">Week 3, Lesson 9: Introduction to Python for Geo-Scripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-10-12</p>
+<h1 id="week-3-lesson-9-introduction-to-python-for-geoscripting">Week 3, Lesson 9: Introduction to Python for Geoscripting</h1>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-10-26</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. Today’s schedule is as following:</p>
 <ul>
@@ -1012,14 +1012,14 @@ activate geotest</code></pre>
 </button>
 <pre style=""><code class="source bash">conda install geopandas pandas</code></pre>
 </div>
-<p>Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package, for example conda-forge:</p>
+<p>Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package. For example, the folium package can be installed from the conda-forge channel:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">conda install --channel conda-forge folium</code></pre>
 </div>
-<p>As explained above, another alternative is to use <em>pip</em> to install packages (not possible for all packages):</p>
+<p>As explained above, another alternative is to use <em>pip</em> to install packages (not possible for all packages), as shown here for the packages rasterio and rasterstats:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1052,7 +1052,7 @@ source deactivate
 ## Windows
 deactivate</code></pre>
 </div>
-<p>When we are finished, we can remove the environment <em>geotest</em>.</p>
+<p>When we are finished, and do not need the environment for next time, we can remove the environment <em>geotest</em>.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1067,7 +1067,7 @@ deactivate</code></pre>
 </button>
 <pre style=""><code class="source bash">python</code></pre>
 </div>
-<p>Now, you can type Python comments that will be executed one by one:</p>
+<p>Now, you can type Python expressions that will be executed one by one:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1084,7 +1084,7 @@ To go back, type:
 # or 
 quit()</code></pre>
 </div>
-<p>Usually, we do not want to run commands one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) <code>test.py</code>. Open it, for example with a text editor, paste in the code you used above (<code>import sys</code> etc.), and save the script. Navigate in the terminal to the location where this script is stored, using <code>cd</code>. Finally, run the script with:</p>
+<p>Usually, we do not want to run expressions one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) <code>test.py</code>. Open it, for example with a text editor, paste in the code you used above (<code>import sys</code> etc.), and save the script. Navigate in the terminal to the location where this script is stored, using <code>cd</code>. Finally, run the script with:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1107,19 +1107,20 @@ conda env create -f environment.yml</code></pre>
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">cd #reset working environment to default location
-source activate geoscripting
+conda activate geoscripting
 jupyter notebook</code></pre>
 </div>
 <p>Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
-<p>Go to documents. Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder (check the box next to the new ‘Untitled Folder’ and click <strong>‘Rename’</strong> in the top) and create new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on <em>untitled</em>. Feel free to have a go at the user interface tour: <em>Help</em> → <em>User Interface Tour</em>.</p>
-<p>Hover over the toolbar to check out all tools. These are the basic tools you will need today:</p>
+<p>Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder (check the box next to the new ‘Untitled Folder’ and click <strong>‘Rename’</strong> in the top) and, in this folder, create a new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on <em>untitled</em>. Note that this creates a file with the extension <em>.ipynb</em>, which stands for Jupyter Notebook.</p>
+<p>Feel free to have a go at the user interface tour (<em>Help</em> → <em>User Interface Tour</em>), or hover over the toolbar to check out the tools. The main tools are:</p>
 <ul>
 <li><em>Save and checkpoint</em></li>
 <li><em>Insert cell below</em></li>
 <li><em>Run</em></li>
 <li><em>Code/Markdown/Heading</em> (List box)</li>
 </ul>
-<p>Similar to RMarkdown, Jupyter Notebooks have code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert some extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cells on code. Type the following Python code in a code cell:</p>
+<p>Similar to RMarkdown, Jupyter Notebooks have code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert an extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cell on code.</p>
+<p>Type the following Python code in the code cell:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1129,36 +1130,56 @@ m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m</code></pre>
 </div>
 <p><img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img></p>
-<p>Run the code in a code cell, select it and press the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. Wow! Try and drag the map to play around with it. Nice map :)</p>
-<h2 id="python-refresher">Python refresher</h2>
-<p>Additionally in this tutorial we will do a quick Python refresher.</p>
+<p>Run the code cell by selecting it and pressing the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. You’ll see a map visualized below your code. Try to drag the map to play around with it.</p>
+<p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (the file extension comes from the historic name “IPython Notebook”). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>
+<p>By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>source deactivate</code>.</p>
 <div class="row">
-<div class="alert alert-info">
-<p>
-<strong>Protip</strong>: Python has a specific way of doing things. It is called the <a href="https://docs.python-guide.org/writing/style/">Pythonic way</a> and stands for simple readable code.
-</p>
-</div>
-</div>
-<h3 id="looking-for-help">Looking for help</h3>
-<p>If you are looking for help while programming in Python, there are several ways to find help. Usually googling solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geo-scripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source python">import sys
-help(sys)</code></pre>
+<pre style=""><code class="source bash">conda deactivate</code></pre>
 </div>
-<p>See how the functions in the <code>sys</code> package got listed.</p>
+<h2 id="running-a-python-script-in-spyder">Running a Python script in Spyder</h2>
+<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a>can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder <em>from the terminal in which you have activated the ‘geoscripting’ environment</em>, as follows:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">cd ~/Documents/
+mkdir PythonRefresher #or give the directory a name to your liking
+cd ./PythonRefresher
+mkdir scripts
+mkdir data
+mkdir output
+spyder</code></pre>
+</div>
+<p>In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:</p>
+<ul>
+<li>F5 to run your script</li>
+<li>CTRL + S to save your script</li>
+<li>CTRL + 1 to comment/uncomment your code</li>
+<li>TAB to indent your code</li>
+<li>SHIFT + TAB to unindent your code</li>
+</ul>
+<p>Open a new file and save your Python script in the main directory you just made and name it main.py (File – &gt; New File –&gt; Save As).</p>
+<h2 id="python-programming-refresher">Python programming refresher</h2>
+<p>Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.</p>
+<h3 id="classes-and-objects">Classes and objects</h3>
+<p>Python is an <em>object-oriented programming language</em>. That is a programming paradigm that structures a code hierarchically with <em>classes</em> and <em>objects</em>. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.</p>
+<p>For example, one could have a class <code>dog</code> with functions, <code>eat()</code> and <code>run()</code>, and properties <code>breed</code> and <code>age</code>. One can then create an <em>instance</em> of this class, i.e. an object, that represents a Maltese of two years old. This object can apply the function <code>eat()</code> and <code>run()</code>.</p>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question</strong> 1: What does this mean <code>__ __</code> around words: e.g: <code><strong>doc</strong></code>?
+<strong>Question 1</strong>: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
 </p>
 </blockquote>
 </div>
 </div>
-<h3 id="numbers-and-variables">Numbers and variables</h3>
+<h3 id="value-types-and-variables">Value types and variables</h3>
+<p>Values belong to a type. The most important built-in types are: * integer * floating point * Boolean * string</p>
+<p>Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.</p>
+<p>Values can be cast to other types, e.g.,:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1169,21 +1190,136 @@ help(sys)</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 2</strong>: What is the difference between 10 and 10.0 when dealing with data types in Python?
+<strong>Question 2</strong>: What is the difference between 10 and 10.0 in Python?
 </p>
 </blockquote>
 </div>
 </div>
-<p>Variable is a storage location or symbolic name to a value e.g.:</p>
+<p>Often, we do not use values directly in a script. Instead, we use access them through variables. A variable is a way to reference to a known or unknown value. A value is assigned to a variable with the <code>=</code>-sign, e.g.:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">building = 'Gaia'
-buildingNumber = 101
-building + ' is in Wageningen'</code></pre>
+buildingnumber = 101
+print(building + ' is in Wageningen')</code></pre>
 </div>
-<p>There is no need to define the datatype, Python has a loose datatype variable declaration. Python is basically a list of objects.</p>
+<p>As opposed to other programming languages, in Python, the datatype does not need to be explicitly defined when creating a variable. Python derives the datatype of the variable from the value assigned to it. In the code above, the variable <code>building</code> is thus a string, and the variable <code>buildingnumber</code> is an integer, without having defined this explicitly.</p>
+<p>Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.</p>
+<h3 id="functions">Functions</h3>
+<p>A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs.</p>
+<p>Functions may (not always) accept <em>argument(s)</em>, perform an <em>action</em>, and may (not always) <em>return value(s)</em>. For example, the built-in function ‘int()’ we have seen before performs the action of converting a value to integer type:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python"># return value into a variable, the function name, its (single) argument
+myint = int(10.6)
+</code></pre>
+</div>
+<p>You can also create functions yourself. The syntax for creating a function is:</p>
+<pre><code>def functionname(arg1, arg2, argn):
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+    return returnvar1, returnvar2, returnvarn
+</code></pre>
+<p>For example, we could create a function to multiply a number (provided as argument) by three, and return the output and input number:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">def times3(input_number):
+    output_number = input_number * 3
+    return output_number, input_number
+    
+print(times3(4))
+
+output_number, input_number = times3(input_number=4)
+print(output_number)
+print(input_number)</code></pre>
+</div>
+<p>Functions or classes can be made more informative by <em>docstrings</em>:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">def times3(input_number):
+    """Multiplies input number times three.
+    
+    :input_number: input_number is an integer
+    :returns: input_number * 3, input_number
+    """
+    output_number = input_number * 3
+    return output_number, input_number
+    
+print(times3(input_number=4))
+</code></pre>
+</div>
+<p>Variables created in functions are <em>local</em>. That means that a variable created in a function does not exist outside of the function. So, here, <code>output_number</code> cannot be accessed outside of the function definition (after the indented part of the code).</p>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 3</strong>: Test typing <code>print(output_number)</code> at the end of the code block defined above. What happens? Why is that?
+</p>
+</blockquote>
+</div>
+</div>
+<h3 id="modules-and-packages">Modules and packages</h3>
+<p>Python packages and modules are collections of classes and functions. Any Python file is a <em>module</em>, its name being the file’s base name without the .py extension. A <em>package</em> is a directory of Python modules containing an additional <code>__init__.py</code> file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own <code>__init__.py</code> file.</p>
+Basically there are four ways to load a module and/or a package:
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">import math
+print(math.pi)
+
+from math import pi
+print(pi)
+
+from math import pi as ip
+print(ip) 
+
+import numpy as np
+print(np.pi)</code></pre>
+</div>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 4</strong>: What are the differences between these four ways to import modules and/or packages?
+</p>
+</blockquote>
+</div>
+</div>
+<p>Often-used internal packages/modules:</p>
+<ul>
+<li><code>os</code>: Operating system features</li>
+<li><code>sys</code>: System specific configuration</li>
+<li><code>math</code>: Mathametical functions, operators and constants</li>
+<li><code>datetime</code>: Date/Time functionality</li>
+</ul>
+<h3 id="looking-for-help">Looking for help</h3>
+<p>There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">import sys
+help(sys)</code></pre>
+</div>
+<p>See how the objects and functions in the <code>sys</code> package got listed.</p>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 5</strong>: What kind of functionality does the <code>sys</code> package provide?
+</p>
+</blockquote>
+</div>
+</div>
 <h3 id="lists">Lists</h3>
 <p>Now we will have a go with lists.</p>
 <div class="row">
@@ -1222,7 +1358,7 @@ print(campus[::2])</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 3:</strong> What are the major differences between Append/Extend?
+<strong>Question 6:</strong> What are the major differences between Append/Extend?
 </p>
 </blockquote>
 </div>
@@ -1231,7 +1367,7 @@ print(campus[::2])</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 4:</strong> What building is <code>campus[-2]</code>?
+<strong>Question 7:</strong> What building is <code>campus[-2]</code>?
 </p>
 </blockquote>
 </div>
@@ -1282,124 +1418,6 @@ elif x == 3:
 else: 
     print("above 3")</code></pre>
 </div>
-<h3 id="functions">Functions</h3>
-<p>A function is a section of code that does something specific that you want to use multiple times without having to type the full function again but just call the function by its name. Functions accept arguments and perform an action e.g.:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">def printHelloName(name):
-    print("Good morning " + name)
-
-printHelloName(name="Jan")
-
-greeting = printHelloName(name="EnterYourName")
-print(greeting)</code></pre>
-</div>
-<p><code>print</code> is used to print text or a number. As the example shows, printing to a variable does not store the information in the variable. <code>return</code> is used to indicate what you want to obtain from the function. You can <code>return</code> multiple items and return can be used to assign output to variables outside of the function.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">def times3(input_number):
-    output_number = input_number * 3
-    return output_number, input_number
-    
-print(times3(input_number=4))
-
-output_number, input_number = times3(input_number=4)
-print(output_number)
-print(input_number)</code></pre>
-</div>
-<p>A best practice in programming is to keep variable and function names very informative! In complex functions or classes, the functions or classes can be made more informative by docstrings.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">def times3(input_number):
-    """Multiplies input number times three.
-    
-    :input_number: input_number is an integer
-    :returns: input_number * 3, input_number
-    """
-    outputNumber = input_number * 3
-    return output_number, input_number
-    
-times3(input_number=4)
-</code></pre>
-</div>
-<p>In this case docstrings are too much, but for larger functions or classes it is smart to have docstrings.</p>
-<h3 id="importing-modules-and-packages">Importing modules and packages</h3>
-<p>Python packages and modules are the bread and butter of Python. They make Python so great. Any Python file is a <em>module</em>, its name being the file’s base name without the .py extension. A <em>package</em> is a collection of Python modules: a package is a directory of Python modules containing an additional <code>__init__.py</code> file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own <code>__init__.py</code> file.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">import math
-print(dir(math)) #show names in math package</code></pre>
-</div>
-Basically there are four ways to load a module from a package:
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">import math
-print(math.pi)
-
-from math import pi
-print(pi)
-
-from math import pi as Pi
-print(Pi) 
-
-import numpy as np
-print(np.pi)</code></pre>
-</div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 5</strong>: Which is the best way to import modules?
-</p>
-</blockquote>
-</div>
-</div>
-<h3 id="some-important-internal-modules">Some important internal modules:</h3>
-<ul>
-<li><code>os</code>: Access to operating system features</li>
-<li><code>os.path</code>: Manipulating of file names</li>
-<li><code>sys</code>: System specific configuration</li>
-<li><code>glob</code>: Filename pattern matching</li>
-<li><code>math</code>: Mathametical functions</li>
-<li><code>datetime</code>: Date/Time manipulation</li>
-</ul>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 6</strong>: What is the difference between <code>os</code> and <code>os.path</code>?
-</p>
-</blockquote>
-</div>
-</div>
-<p>Some examples:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">import glob
-glob.glob("*")</code></pre>
-</div>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">from datetime import date
-birthday = date(2019, 3, 1)   #Fill in your own birthday
-print(date.today())
-timetillbirthday = birthday - date.today()
-print("Ah only", timetillbirthday.days, "days left till my birthday")</code></pre>
-</div>
 <h3 id="file-access">File access</h3>
 <p>File access is very simple for 99% of the cases. Write to a file and read from the same file with two simple lines. It is a best practice to use <code>with open</code> instead of <code>open</code> since it automatically closes the file. <a href="https://www.datacamp.com/community/tutorials/reading-writing-files-python">This tutorial on Datacamp</a> goes in depth on reading and writing files in Python.</p>
 <div class="row">
@@ -1432,7 +1450,7 @@ print(read_data)</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 7</strong>: What does <code>w</code>, <code>r</code> and <code>rw</code> mean?
+<strong>Question 8</strong>: What does <code>w</code>, <code>r</code> and <code>rw</code> mean?
 </p>
 </blockquote>
 </div>
@@ -1633,15 +1651,6 @@ wageningenMap.save('output/wageningenMap.html') # The folium map can be stored a
 </div>
 <p><img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img></p>
 <p>Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata.</p>
-<h3 id="exiting-the-jupyter-notebook">Exiting the Jupyter Notebook</h3>
-<p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (extension comes from the historic name “IPython Notebook”). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>.</p>
-<p>By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>source deactivate</code>.</p>
-<div class="row">
-<button class="source bash toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> bash source
-</button>
-<pre style=""><code class="source bash">source deactivate</code></pre>
-</div>
 <h1 id="excercise">Excercise</h1>
 <p>The exercise for today was to finish the datacamp course: <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Intro to Python for Data Science course</a>.</p>
 <div class="row">
