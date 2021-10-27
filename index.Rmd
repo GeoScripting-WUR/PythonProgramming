@@ -19,21 +19,19 @@ _Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius 
 
 ## Introduction
 
-Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. Today's schedule is as following:
-
-- Follow one of the Datacamp courses as introduction into Python
-- Get Introduced to Python Environment
-- Learn how to work with virtual environments: Conda
-- Learn how to create a Jupyter Notebook
-- Refresh Python programming knowledge
-- Check a nice example of a Jupyter Notebook
-
-
-## Follow Intro to Python course on Datacamp 
-Datacamp has courses on R, Python and SQL. Most popular modules in Python are covered in Datacamp too. As assignment for today (or actually exercise), you will have to finish one of the Python Datacamp courses listed below.
-
+Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
 * [Introduction to Python](https://www.datacamp.com/courses/intro-to-python-for-data-science) | recommended to follow if you haven't any scripting experience so far
 * [Python for R users](https://www.datacamp.com/courses/python-for-r-users) | recommended if you have experience already in R
+
+Today's schedule is:
+
+- Get Introduced to Python 
+- Learn how to work with virtual environments: Conda
+- Learn how to run a Python script from the terminal
+- Get introduced to Python editors and IDEs
+- Refresh Python programming knowledge
+- Exercise
+
 
 ## Introduction to Python
 Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:
@@ -57,23 +55,12 @@ Python is a jack-of-all-trades programming language, that is free, flexible, ope
     * Scikit-Learn (Machine Learning)
 
 
-### Python editors and IDEs
-There is a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
-
-* [Spyder](https://www.spyder-ide.org/) is a lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
-* [Jupyter Notebook](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
-* [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know that you will not be assisted solving IDE-related issues.
-
-
-### Python package management with conda
+## Python package management with conda
 A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages). So, instead, we recommend to create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages, can be installed, but we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.
 
 
 
-
-
-
-#### Conda installation
+### Conda installation
 Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with most popular Python packages already built in.
 
 In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short _Bash_ script for you. Just run the following lines of code, line by line, in a new terminal window.
@@ -106,7 +93,7 @@ This will install Miniconda into `~/miniconda3`, and also all the necessary pack
 
 Finally, restart your terminal to be able to use `conda` in the terminal. Next, let's see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.
 
-#### Conda usage
+### Conda usage
 Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
 
 ```{r, eval=FALSE, engine='bash'}
@@ -230,10 +217,19 @@ Usually, we do not want to run expressions one by one, but build scripts instead
 python test.py
 ```
 
-The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE, such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment. 
+The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE (see below), such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment. 
 
 
-## Python in Jupyter Notebooks
+## Python editors and IDEs
+There is a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
+
+* [Spyder](https://www.spyder-ide.org/) is a lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.
+* [Jupyter Notebook](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
+* [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know that you will not be assisted solving IDE-related issues.
+
+
+
+### Jupyter Notebooks
 
 Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Jupyter is already set up for you in the `geoscripting` environment. If you do not have the 'geoscripting' environment yet, create one with the bash scripts below. 
 
@@ -275,9 +271,9 @@ m
 
 Run the code cell by selecting it and pressing the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. You'll see a map visualized below your code. Try to drag the map to play around with it. 
 
-Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (the file extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. To exit a notebook properly, use *File* → *Close and Halt*.
+Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (the file extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. 
 
-By pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing `source deactivate`.
+To exit a notebook properly, use *File* → *Close and Halt*. After that, by pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing `conda deactivate`.
 
 ```{r, engine='bash', eval=FALSE}
 conda deactivate
@@ -285,11 +281,9 @@ conda deactivate
 
 
 
+### Spyder
 
-
-## Running a Python script in Spyder
-
-The [Spyder IDE](https://docs.spyder-ide.org/)can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
 
 ```{r, eval=FALSE,engine='bash'}
 cd ~/Documents/
@@ -321,7 +315,33 @@ Finally, in this tutorial we will do a quick Python refresher. We advise you to 
 
 Python is an *object-oriented programming language*. That is a programming paradigm that structures a code hierarchically with *classes* and *objects*. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.
 
-For example, one could have a class `dog` with functions, `eat()` and `run()`, and properties `breed` and `age`. One can then create an *instance* of this class, i.e. an object, that represents a Maltese of two years old. This object can apply the function `eat()` and `run()`.
+For example, one could have a class `dog` with functions, `bark()` and `doginfo()`, and properties `breed` and `age`. 
+
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+class Dog:
+    def __init__(self, breed, age):  
+        self.breed = breed
+        self.age = age
+        
+    def bark(self):
+        print("bark bark!")
+    
+    def doginfo(self):
+        print("This " + self.breed + " is " + str(self.age) + " year(s) old.")
+```
+
+One can then create an *instance* of this class, i.e. an object, that represents Ozzy, a Maltese of two years old. This object can apply the function `eat()` and `run()`. We can call the attributes and functions with the dot notation:
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+ozzy = Dog("Maltese", 2)
+print(ozzy.breed)
+print(ozzy.age)
+ozzy.bark()
+ozzy.doginfo()
+```
+
+During Geo-scripting, you do not need to define your own classes. However, sometimes existing classes of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. It is therefore important to understand the concepts of classes and objects generated from them.
 
 ```{block, type="alert alert-success"}
 > **Question 1**: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
@@ -334,7 +354,7 @@ Values belong to a type. The most important built-in types are:
 * integer
 * floating point
 * Boolean
-* string
+* several compound data types (next section), like string
 
 Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.
 
@@ -361,6 +381,68 @@ As opposed to other programming languages, in Python, the datatype does not need
 Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.
 
 
+### Compound data types
+
+*Compound data types* are Python data types that have in common that they can be broken down into smaller *elements*. The most commonly known compound data types are:
+- string
+- list
+- dictionary
+- tuple
+- Numpy array
+
+For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, `[ ]`. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, STARTS AT 0! Positive indexes access elements from the front, and negative indexes from the back. Here is an example for accessing items in a list, and a string:
+
+```{Python,engine.path='/usr/bin/python3'}
+
+# LIST
+campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
+print(campus[3]) # Forum
+print(campus[-1]) # the last item of the list
+print(campus[0:3]) # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
+our_building = campus[0] # GAIA
+
+# STRING
+print(our_building[0]) # G
+print(our_building[0:2]) # GA
+```
+
+```{block, type="alert alert-success"}
+> **Question 3:** What building is `campus[-2]`? Test it.
+```
+
+Lists can be nested. That means that a list is an item in another list. Accessing items works the same, e.g,:
+
+```{Python,engine.path='/usr/bin/python3'}
+
+samples = [["x","y","z"],[12,32,7],[12,40,7]]
+
+# access the x
+header = samples[0]
+first_item = header[0]
+
+# or at once
+first_item = samples[0][0]
+
+```
+
+
+```{block, type="alert alert-success"}
+> **Question 4:** How can we access the value 40 above? Test it.
+```
+
+A *dictionary* is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is unordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, `[ ]` cannot be used. 
+
+```{Python,engine.path='/usr/bin/python3'}
+campus_dictionary = {101:'Gaia',
+                    100:'Lumen',
+                    107:'Radix',
+                    102:'Forum',
+                    104:'Atlas'}
+print(campus_dictionary[102])
+```
+
+
+
 ### Functions
 
 A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs. 
@@ -384,45 +466,46 @@ def functionname(arg1, arg2, argn):
 
 ```
 
-For example, we could create a function to multiply a number (provided as argument) by three, and return the output and input number: 
+For example, we could create a function to compute the area of a rectangle based on its width and length, provided as arguments, and return the output: 
 
 ```{Python,engine.path='/usr/bin/python3'}
-def times3(input_number):
-    output_number = input_number * 3
-    return output_number, input_number
+def calculate_rectangle_area(width, length):
+    rectangle_area = width * length
+    return rectangle_area
     
-print(times3(4))
+print(calculate_rectangle_area(4,3))
 
-output_number, input_number = times3(input_number=4)
+output_number = calculate_rectangle_area(width=4,length=3)
 print(output_number)
-print(input_number)
 ```
 
 Functions or classes can be made more informative by *docstrings*:
 
 ```{Python,engine.path='/usr/bin/python3'}
-def times3(input_number):
-    """Multiplies input number times three.
+def calculate_rectangle_area(width, length):
+    """Computes the area of a rectangle by multiplying width and length.
     
-    :input_number: input_number is an integer
-    :returns: input_number * 3, input_number
+    :width: width is the width of the rectangle
+    :length: length is the length of the rectangle
+    :returns: width * length
     """
-    output_number = input_number * 3
-    return output_number, input_number
+    rectangle_area = width * length
+    return rectangle_area
     
-print(times3(input_number=4))
+print(calculate_rectangle_area(4,3))
 
 ```
 
-Variables created in functions are *local*. That means that a variable created in a function does not exist outside of the function. So, here, `output_number` cannot be accessed outside of the function definition (after the indented part of the code). 
+Variables created in functions are *local*. That means that a variable created in a function does not exist outside of the function. So, here, `rectangle_area` cannot be accessed outside of the function definition (after the indented part of the code). 
 
 
 ```{block, type="alert alert-success"}
-> **Question 3**: Test typing `print(output_number)` at the end of the code block defined above. What happens? Why is that?
+> **Question 5**: Test typing `print(rectangle_area)` at the end of the code block defined above. What happens? Why is that?
 ```
 
 
 ### Modules and packages
+
 Python packages and modules are collections of classes and functions. Any Python file is a _module_, its name being the file's base name without the .py extension. A _package_ is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
 
 Basically there are four ways to load a module and/or a package:
@@ -441,7 +524,7 @@ print(np.pi)
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 4**: What are the differences between these four ways to import modules and/or packages?
+> **Question 6**: What are the differences between these four ways to import modules and/or packages?
 ```
 
 Often-used internal packages/modules:
@@ -464,83 +547,46 @@ help(sys)
 See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question 5**: What kind of functionality does the `sys` package provide?
+> **Question 7**: What kind of functionality does the `sys` package provide?
 
 ```
 
+### Conditionals
 
+*Comparison operators* compare two values or, more commonly, variables. The operands (x and y below) are often numerical, e.g. floating point or integer. The result of comparison operators is a 0 (False) or 1 (True), of type Boolean.
 
-
-
-
-### Lists
-Now we will have a go with lists.
-
-```{block type="alert alert-info"}
-**Protip**: Variables, functions, classes and methods that you define in one of your Jupyter Notebook cells can be used in other cells too.
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+x == y    # TRUE if x is equal to y
+x != y    # TRUE if x is not equal to y
+x > y     # TRUE if x is greater than y
+x < y     # TRUE if x is less than y
+x >= y    # TRUE if x is greater than or equal to y
+x <= y    # TRUE if x is less than or equal to y
 ```
 
-Run this code in one cell.
-```{Python,engine.path='/usr/bin/python3'}
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-# how can we print Forum?
-print(campus[3])
-# how to access the end of the list (while having no idea how big it is)
-print(campus[-1])
-# how to access the first 3 items
-print(campus[0:3])
+*Logical operators* evaluate the logical relation between two values or variables. The operands (x and y below) are in most cases Boolean. The result of logical operators is also Boolean.
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+x and y   # TRUE if both x and y are TRUE
+x or y    # TRUE if x or y are TRUE
+not x     # TRUE if x is FALSE
 ```
 
-Play around with this code in another cell. We will do some appending, inserting, extending and steps:
-```{Python,engine.path='/usr/bin/python3'}
-campus.append("Atlas")
-campus.insert(1,"SoilMuseum")
-campus.extend(["Action", "Vitae", "Zodiac"])
-print(campus)
-print(campus[::2])
+A *conditional statement* checks whether a condition is fulfilled and only if it does, it executes a block of code. The syntax of a conditional statement is:
+
+```
+if condition:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+else:
+    ... (alternative_expression1) ...
+    ... (alternative_expression2) ...
+    ... (alternative_expression3) ...
+
 ```
 
-See how the notebook remembered how you set the variable `campus`. 
-
-```{block, type="alert alert-success"}
-> **Question 6:** What are the major differences between Append/Extend?
-```
-
-```{block, type="alert alert-success"}
-> **Question 7:** What building is `campus[-2]`?
-```
-
-### Dictionaries, loops, if/else
-
-Let there be dictionaries... A dictionary is an unordered set of key:value pairs. Like in the dictionary, 'food':'voedsel'.
-
-```{Python,engine.path='/usr/bin/python3'}
-campusDictionary = {101:'Gaia',
-                    100:'Lumen',
-                    107:'Radix',
-                    102:'Forum',
-                    104:'Atlas'}
-print(campusDictionary[102])
-```
-
-Loops: watch out here with code indentation. Python uses indentation to define code blocks and not `{}` like other languages. Indentation is either 1 tab or 4 spaces.
-
-```{Python,engine.path='/usr/bin/python3'}
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-for building in campus:
-    print(building)
-```
-
-Generic loops in Python have to interact over a sequence of objects e.g.
-
-```{Python,engine.path='/usr/bin/python3'}
-range(5)
-for number in range(5):
-    print(number)
-```
-
-Object interaction and functional programming is an important part of Python programming and its tools are extensive.
-`if`/`else`:
+The condition should be a Boolean variable, or an expression resulting in a Boolean. A condition is typically built up using comparison operators and/or logical operators. The expressions after the `if`-statement are executed when the condition is met, while the conditions in the `else`-statement (not mandatory to include) are executed when the condition is not met. Mutiple conditions can be checked consecutively with one or more `elif`-statements in-between the `if` and `else`. For example:
 
 ```{Python,engine.path='/usr/bin/python3'}
 x = 3
@@ -555,242 +601,184 @@ else:
 ```
 
 
+```{block, type="alert alert-success"}
+> **Question 8**: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
 
-### File access
-
-File access is very simple for 99% of the cases. Write to a file and read from the same file with two simple lines. It is a best practice to use `with open` instead of `open` since it automatically closes the file. [This tutorial on Datacamp](https://www.datacamp.com/community/tutorials/reading-writing-files-python) goes in depth on reading and writing files in Python.
-
-```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
-# Bad practice, because you might forget to close the file object
-fileObj = open('test.txt','w')
-fileObj.write('some simple text')
-fileObj.close()
 ```
 
-```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
-# Good practice: writing data
-with open('test.txt','w') as file:
-    file.write('some simple text')
+
+### Loops
+
+Loops are an essential construct in Python, more than in R. Two types of loops exist:
+- the `for`-loop, used when it can be known beforehand how many iterations are required
+- the `while`-loop, used when it cannot be known beforehand how many iterations are required
+
+The `for`-loop is the preferred construct, as it is computationally more efficient and less error-prone than the `while`-loop; no chance to end up in an endless loop or to accidentally skip an element (iteration). The syntax of a `for`-loop is:
+
+```
+for element in compound:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+
 ```
 
-```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
-# Good practice: reading data
-with open('test.txt','r') as file:
-    read_data = file.read()
-print(read_data)
+Often `i`, standing for iterator, is used as the `element`, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the `element` is what one should use in the expressions in the `for`-loop. The `for`-loop works on any compound data type:
+
+```{Python,engine.path='/usr/bin/python3'}
+
+# LOOPING A LIST
+campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
+for i in campus:
+    print(i)
+
+# LOOPING A STRING
+our_building = campus[0] # GAIA
+for letter in our_building:
+    print(letter)
+
 ```
+
+The `while`-loop works on a condition instead of on a compound data type. The syntax of a `while`-loop is:
+
+```
+while condition:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+
+```
+
+In a `while`-loop, when an element is used, it is not automatically altered in each iteration; the alteration needs to be explicitly programmed. 
+
+```{Python,engine.path='/usr/bin/python3'}
+
+n = 0
+while n < 20:
+    print(n)
+    n = n+1
+
+```
+
 
 ```{block, type="alert alert-success"}
-> **Question 8**: What does `w`, `r` and `rw` mean?
+> **Question 9**: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
+
 ```
 
-### Error handling
+You may remember that variables in a function are local. This is different for loops: Variables in a loop are NOT local, and thus affect what happens outside of the loop, as demonstrated by the last question. Be aware of this.
 
-Sometime problems occur... Errors detected during execution are called *exceptions*. Good programmers and good code deal with exceptions.
 
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-with open('/foo0', 'r') as file:
-    read_data = file.read()
+### Visualization 
+
+Visualization is essential to make concepts understandable and patterns recognizable. In Python, matplotlib is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.
+
+In matplotlib, a *figure* object contains *axes*, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:
+
+<img src="images/mpl_structure.png" alt="matplotlib class structure" width="100%"></img>
+
+<img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="100%"></img>
+
+Let us create a simple line figure, based on data in Numpy arrays.
+
+```{Python,engine.path='/usr/bin/python3'}
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Create some data
+x = np.arange(-np.pi, np.pi, 0.2)
+y = np.sin(x)
+# Plot x against y
+plt.plot(x,y)
+# Show in an interactive plot
+plt.show()
+
 ```
 
-The file doesn't exist, so the script stops and outputs an informative message saying there is no file found. If you want to script error handling yourself:
+Instead of a single plot, the figure can have two subplots. Using the `sharex` and/or `sharey` argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.
 
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-filename = "/foo"
-try:
-    with open(filename, 'r') as file:
-        read_data = file.read()
-except FileNotFoundError as error:
-    print("No such file or directory found: '" + filename + "'")
+```{Python,engine.path='/usr/bin/python3'}
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Create some data
+x1 = np.arange(-np.pi, np.pi, 0.2)
+y1 = np.sin(x1)
+x2 = np.arange(-np.pi, 0, 0.2)
+y2 = np.cos(x2)
+
+# Initiate a figure
+# A figure with two subplots 
+f, axarr = plt.subplots(2, sharex=True)
+# subplots are stored in an array
+line = axarr[0].plot(x1, y1)
+axarr[0].set_title('plot 1')
+axarr[1].plot(x2, y2)
+axarr[1].set_title('plot 2')
+f.suptitle('super title', fontsize=16)
+
+# Axis label
+axarr[1].set_xlabel('x')
+axarr[0].set_ylabel('sin(x)')
+axarr[1].set_ylabel('cos(x)')
+
+# Axis ticks and tick labels
+xticks = axarr[1].get_xticks()
+print(xticks)
+new_ticks = np.arange(-np.pi, np.pi + 0.1, 0.25 * np.pi)
+new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
+            r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
+            "$0$", r"$\frac{1}{4}\pi$",
+            r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
+            r"$2\pi$"]
+axarr[1].set_xticks(new_ticks)
+axarr[1].set_xticklabels(new_labels)
+
+plt.show()
+
+```
+
+One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors:
+
+```{Python,engine.path='/usr/bin/python3'}
+
+from matplotlib import pyplot as plt
+
+x = [1,2,3,4,5]
+y = [6,7,8,9,10]
+
+# New: define number of rows and columns of subplots
+# And we unpack them directly into variables that then each contain one axes object
+f, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
+# dashed line
+ax0.plot(x, y, 'r--')
+# scatter plot, using a colormap based on the y-value, changing the marker size to 35
+ax1.scatter(x, y, c=y, cmap='bwr', s = 35)
+# bar chart, changing the bar color to black
+ax2.bar(x, y, color='k')
+# horizontal bar chart, changing the bar color to yellow
+ax3.barh(x, y, color='y')
+plt.show()
+
 ```
 
 
-### Functional and object-oriented programming
-Until now you have used functional programming. Functional programming is a programming paradigm, that treats computation as the evaluation of functions and avoids changing-state and mutable data. In _Python_ functional and object-oriented programming are both common. Python uses classes to be object-oriented. Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures/functions, often known as methods.
-
-An [example on Datacamp ](https://www.datacamp.com/community/tutorials/python-oop-tutorial) helps to explain the OOP concept. In short take a class Dog. Don't think of the dog as a specific dog. We're describing what a dog in general is and can do. Dogs usually have a name and age; these are instance attributes. Dogs can also bark; this is a method. Create a general dog class by making a class with two attributes - name and age - and two methods - bark() and doginfo(). 
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-class Dog:
-    def __init__(self, name, age):  
-        self.name = name
-        self.age = age
-        
-    def bark(self):
-        print("bark bark!")
-    
-    def doginfo(self):
-        print(self.name + " is " + str(self.age) + " year(s) old.")
-```
-
-Great. Now we can call the attributes and methods with the dot notation.
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-ozzy = Dog("Ozzy", 2)
-print(ozzy.name)
-print(ozzy.age)
-ozzy.bark()
-ozzy.doginfo()
-```
-
-During Geo-scripting we mostly perform functional programming to keep things simple. Sometimes class objects of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. You don't have to develop these classes, but you should know how to handle classes.
-
-### Visualization
-
-Jupyter Notebooks can directly display output of your code, such as graphs, images and maps in the notebook. A lot of cool visualizations including Python source code are available from the [Python Graph Gallery](https://Python-graph-gallery.com/). Before we can do the visualizations, we want to add some Python packages via the terminal. Keep the terminal with Jupyter Notebook alive and start up a new terminal. The new terminal will be used to update the packages in the conda environment while the Jupyter Notebook keeps running.
-
-```{r, engine='bash', eval=FALSE}
-conda install --name geoscripting matplotlib seaborn pyproj owslib
-```
-
-We will make a graph with the _seaborn_ module and plot it with _matplotlib_. Give it a try! The extra comments help to explain the parameters, but writing so many comments is not a recommended way to write code. The names of the functions, methods and parameters should mostly be self explanatory to extra comments.
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import seaborn as sns
-
-# Set layout
-sns.set(context='notebook', # Set type of layout
-        style='whitegrid', # Set grid style
-        palette='colorblind', # Set colors of graph
-        font='Garuda',  # Set font type
-        font_scale=2) # Set font size
-
-# Load the iris dataset
-iris = sns.load_dataset("iris")
-
-# Plot sepal width as a function of sepal_length across days
-g = sns.lmplot(x="sepal_length", # Define x-axis data from dataframe
-               y="sepal_width", # Define y-axis data from dataframe
-               hue="species", # Define groups with data from dataframe
-               data=iris,  # Define dataframe               
-               fit_reg=True, # Show linear regression
-               truncate=True, # Truncate the linear regressions
-               height=10, # Define size of graph
-               markers=["o", "x", "s"], # Define types of markers
-               scatter_kws={"s": 150}, # Define size of markers
-               legend_out=False) # Define if legend should be in or out graph
-
-g.ax.legend(loc=4) # Put legend at right bottom corner
-g.ax.set_title("Sepal Width as a Function of Sepal Length across Days") # Set title of plot
-
-# Use more informative axis labels than are provided by default
-g.set_axis_labels("Sepal length (mm)", "Sepal width (mm)")
-g
-```
-
-<img src="./images/Sepal_Width_Image.png" alt="Sepal Width Image" width = "60%"></img>
-
-Nice visualization! Generally functions of most Python packages have a lot of optional parameters to tweak the function, image or model to your liking. Sometimes it can be tricky to find what parameters you need, but you know how to look for help.
-
-Ah this is a course in geospatial scripting. Let's make an advanced map in Python with some markers and a way to measure the distance between markers. Just copy-paste and run the code below. We created here an example visualization to show some possibilities. 
-
-In short a few things that are good to know: some icons of the free font library [FontAwesome](https://fontawesome.com/icons) are used. Plus some new libraries are introduced: _owslib_ and _pyproj_. [_Owslib_](https://geopython.github.io/OWSLib/) is a Python package for client programming with Open Geospatial Consortium (OGC) web service (hence the name Owslib) interface standards, and their related content models. It allows to directly download rasters from web mapping services or vectors from web feature services. The second new package [_Pyproj_](https://geopython.github.io/OWSLib/) performs cartographic transformations and geodetic computations.
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import os
-if not os.path.exists('data'): os.makedirs('data')
-if not os.path.exists('output'): os.makedirs('output')
-
-import folium
-import geopandas as gpd
-from pyproj import Proj, Transformer, transform
-from owslib.wms import WebMapService
-from owslib.wfs import WebFeatureService 
-from folium.plugins import MeasureControl
-from folium.raster_layers import ImageOverlay
-from folium.vector_layers import PolyLine
-
-## Set coordinates in RD_New and convert them to WGS84
-## based on https://pyproj4.github.io/pyproj/stable/gotchas.html#upgrading-to-pyproj-2-from-pyproj-1
-x, y = 174094, 444133
-xmin, xmax, ymin, ymax = x-450, x+450, y-750, y+450
-transformer = Transformer.from_crs(28992, 4326) # define a transformer object
-min_lat, min_lon = transformer.transform(xmin, ymin) # mind the swap in axis order, see: https://geopandas.org/projections.html#the-axis-order-of-a-crs
-max_lat, max_lon = transformer.transform(xmax, ymax)
-avg_lat, avg_lon = transformer.transform(x, y)
-
-# Download infrared orthophoto near Wageningen Campus
-url = 'https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wms?&request=GetCapabilities'
-wms = WebMapService(url, version='1.3.0')
-image = wms.getmap(layers=['Actueel_ortho25IR'], styles=['default'], srs='EPSG:28992',
-                   bbox=(xmin, ymin, xmax, ymax), size=(200, 200), format='image/png')
-imageFilename = 'data/WUR_Infrared_Orthophoto.png'
-with open(imageFilename, 'wb') as file:
-    file.write(image.read())
-
-# Download roads around Wageningen Campus
-WfsUrl = 'https://geodata.nationaalgeoregister.nl/nwbwegen/wfs?'
-wfs = WebFeatureService(url=WfsUrl, version='2.0.0')
-layer = list(wfs.contents)[0]
-xmin, xmax, ymin, ymax = x-1000, x+350, y-1000, y+350
-response = wfs.getfeature(typename=layer, bbox=(xmin, ymin, xmax, ymax))
-with open('data/Roads.gml', 'wb') as file:
-    file.write(response.read())
-
-# Create basemaps: OpenStreetMap, Stamen Toner, Stamen Terrain, Stamen Watercolor
-wageningenMap = folium.Map(location=[avg_lat, avg_lon], tiles = 'OpenStreetMap', zoom_start = 15)
-folium.TileLayer('Stamen Toner').add_to(wageningenMap)
-folium.TileLayer('Stamen Terrain').add_to(wageningenMap)
-folium.TileLayer('Stamen Watercolor').add_to(wageningenMap)
-
-# Create layer, add point markers and add layer to map
-POILayer = folium.FeatureGroup(name="Points of interest in Wageningen")
-POILayer.add_child(folium.Marker([51.987384, 5.666505], popup='Gaia Entrance at Wageningen University Campus',
-                                 icon=folium.Icon(color='green',icon='university',prefix='fa')))
-POILayer.add_child(folium.Marker([51.978761, 5.663023], popup='Shopping center Tarthorst',
-                                 icon=folium.Icon(color='red', icon='fa-shopping-cart', prefix='fa')))
-wageningenMap.add_child(POILayer)
-
-# Load road features, transform coordinates to WGS84, create layer and add polyline  with GeoJson function
-# folium.GeoJson is general function to plot either points, lines or polygons from a JSON.
-# Folium has other ways to plot polygons, such as Polygon() and Chloropeth().
-roads = gpd.GeoDataFrame(gpd.read_file('data/Roads.gml'))
-roads.crs = {'init' :'epsg:28992'}
-roads = roads.to_crs({'init' :'epsg:4326'})
-RoadsLayer = folium.FeatureGroup(name="Roads")
-RoadsLayer.add_child(folium.GeoJson(roads, style_function=lambda feature:{
-        'fillColor': 'blue',    
-        'fillOpacity': 0.6,
-        'weight': 4,
-        'color': 'darkblue'
-        }))
-wageningenMap.add_child(RoadsLayer)
-
-# Create layer, add polyline and add layer to map
-RouteLayer = folium.FeatureGroup(name="Route from campus to shopping center")
-polylineLocations = [[51.987384, 5.666505], [51.986899, 5.666848], [51.985501, 5.661650], 
-                     [51.981741, 5.664579], [51.979521, 5.664321], [51.979455, 5.663795],
-                     [51.979078, 5.663753], [51.978761, 5.663023]]
-RouteLayer.add_child(PolyLine(locations=polylineLocations, popup="Path from Gaia to Shopping Center", 
-                              color="red", weight=2.5, opacity=1))
-wageningenMap.add_child(RouteLayer)
-
-# Overlay raster on top of map
-orthophotoLayer = folium.FeatureGroup(name="Infrared Orthophoto of Wageningen")
-orthophotoLayer.add_child(ImageOverlay(imageFilename, [[min_lat, min_lon], [max_lat, max_lon]], opacity=0.6))
-wageningenMap.add_child(orthophotoLayer)
-
-# Add measurement control and layer control
-wageningenMap.add_child(MeasureControl())
-wageningenMap.add_child(folium.LayerControl())
-
-# Visualize map
-wageningenMap # Jupyter Notebook allows interactive visualization in the Notebook
-wageningenMap.save('output/wageningenMap.html') # The folium map can be stored as an HTML file and viewed by opening the HTML file
-```
-
-<img src="images/WageningenHTMLexample.png" alt="Wageningen University Folium map" width="100%"></img>
-
-Both the figure and maps show there are a lot of possibilities to make appealing graphs and maps in Python. Tweak some of the parameters to your liking or add some other geodata. 
 
 
 # Excercise
 
-The exercise for today was to finish the datacamp course: [Intro to Python for Data Science course](https://www.datacamp.com/courses/intro-to-python-for-data-science). 
+Here comes the exercise for today (tbd).
 
+
+<!-- 
 ```{block type="alert alert-info"}
 **Protip**: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The [Python style guide](https://gist.github.com/sloria/7001839) can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a [cheat sheet](https://ugoproto.github.io/ugo_py_doc/py_cs/) might help to put you back on track quickly. Furthermore, the [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data) are quite inspiring and interesting for any geo-scripter.
 ```
+-->
+
+
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3.7/contents.html)
