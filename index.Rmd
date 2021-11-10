@@ -348,9 +348,9 @@ During Geo-scripting, you do not need to define your own classes. However, somet
 ```
 
 
-### Value types and variables
+### Data types and variables
 
-Values belong to a type. The most important built-in types are:
+Values belong to a data type. The most important built-in (base) types are:
 * integer
 * floating point
 * Boolean
@@ -376,14 +376,14 @@ buildingnumber = 101
 print(building + ' is in Wageningen')
 ```
 
-As opposed to other programming languages, in Python, the datatype does not need to be explicitly defined when creating a variable. Python derives the datatype of the variable from the value assigned to it. In the code above, the variable `building` is thus a string, and the variable `buildingnumber` is an integer, without having defined this explicitly.
+As opposed to other programming languages, in Python, the data type does not need to be explicitly defined when creating a variable. Python derives the data type of the variable from the value assigned to it. In the code above, the variable `building` is thus a string, and the variable `buildingnumber` is an integer, without having defined this explicitly.
 
 Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.
 
 
 ### Compound data types
 
-*Compound data types* are Python data types that have in common that they can be broken down into smaller *elements*. The most commonly known compound data types are:
+*Compound data types* or container types are Python data types that have in common that they can be broken down into smaller *elements*. The most commonly known compound data types are:
 - string
 - list
 - dictionary
@@ -410,7 +410,7 @@ print(our_building[0:2]) # GA
 > **Question 3:** What building is `campus[-2]`? Test it.
 ```
 
-Lists can be nested. That means that a list is an item in another list. Accessing items works the same, e.g,:
+Lists can be nested. That means that a list is an item in another list. Accessing items in nested lists works the same as in regular lists, e.g,:
 
 ```{Python,engine.path='/usr/bin/python3'}
 
@@ -430,7 +430,7 @@ first_item = samples[0][0]
 > **Question 4:** How can we access the value 40 above? Test it.
 ```
 
-A *dictionary* is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is unordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, `[ ]` cannot be used. 
+A *dictionary* is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is not ordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, `[ ]` cannot be used. 
 
 ```{Python,engine.path='/usr/bin/python3'}
 campus_dictionary = {101:'Gaia',
@@ -439,6 +439,50 @@ campus_dictionary = {101:'Gaia',
                     102:'Forum',
                     104:'Atlas'}
 print(campus_dictionary[102])
+```
+
+In contrast to a list, a *numpy array* is a *homogeneous multidimensional array* from the NumPy package (see section about modules and packages). Homogeneous refers to the fact that all data in one array have to be of the same type. NumPy’s array class is called `ndarray` (n-dimensional). In the array, the dimensions are called *axes*, and the number of axes is the *rank*.
+
+<img src="images/numpy_structure.png" alt="matplotlib class structure" width="100%"></img>
+
+Below, you see to create a numpy array from a set of lists, and how to create *standard* arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.
+
+```{Python,engine.path='/usr/bin/python3'}
+# Create array from list
+a = np.array([[1, 3, 4], [2, 7, 6]])
+print('a is', a)
+
+# Create standard arrays.
+print(np.zeros((3,2)))
+print(np.ones((2,3), np.int))
+print(np.ones((2,3), np.int) * 5)
+print(np.empty((2,2)))
+
+```
+
+Just like with other compound data types, the elements can be accessed with the square-bracket operator, `[ ]`. But in numpy arrays, the is one index per dimension (per axis), separated by commas. Muliple elements per dimension can be selected with a colon (from - to, excluding). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.
+
+<img src="images/numpy_slicing.png" alt="matplotlib class structure" width="50%"></img>
+
+Finally, *structured numpy arrays* can have a different data type per column, i.e. per attribute. It is thereby similar to a DataFrame in R (we'll find another similar data type tomorrow). In structured numpy arrays, you can access or edit attribute values either by dimension or by attribute name.
+
+
+```{Python,engine.path='/usr/bin/python3'}
+# Create create structured numpy array filled with zeroes
+data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
+                          'formats':('U10', 'i4', 'f8')})
+print(data.dtype)
+
+# Now we can fill this structured array with data (lists)
+# of the correct type
+name = ['Alice', 'Bob', 'Cathy', 'Doug']
+age = [25, 45, 37, 19]
+weight = [55.0, 85.5, 68.0, 61.5]
+data['name'] = name
+data['age'] = age
+data['weight'] = weight
+print(data)
+
 ```
 
 
@@ -696,7 +740,9 @@ plt.show()
 
 ```
 
-Instead of a single plot, the figure can have two subplots. Using the `sharex` and/or `sharey` argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.
+<img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img>
+
+Instead of a single plot, the figure can have subplots (here two). Using the `sharex` and/or `sharey` argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.
 
 ```{Python,engine.path='/usr/bin/python3'}
 
@@ -740,6 +786,8 @@ plt.show()
 
 ```
 
+<img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img>
+
 One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors:
 
 ```{Python,engine.path='/usr/bin/python3'}
@@ -764,12 +812,7 @@ plt.show()
 
 ```
 
-
-
-
-# Excercise
-
-Here comes the exercise for today (tbd).
+<img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
 
 
 <!-- 
@@ -778,15 +821,27 @@ Here comes the exercise for today (tbd).
 ```
 -->
 
+# What have we learned?
+
+1. Python package management with conda
+2. Running a Python script in the terminal
+3. Using Python editors and IDEs
+4. What classes and objects are
+5. Data types and variables
+6. Compound data types
+7. Writing and using functions
+8. Using modules and packages
+9. Looking for help
+10. Applying conditionals
+11. Using loops
+12. Visualization
 
 
 # More info
-- [Official Python tutorial](https://docs.Python.org/3.7/contents.html)
-- [Python Style guide ](https://gist.github.com/sloria/7001839)
-- [Geo-Spatial Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data)
+- [Official Python tutorial](https://docs.Python.org/3/contents.html)
+- [Python Style guide ](https://www.python.org/dev/peps/pep-0008/)
 - [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
 - [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
-- [Geo Python course](https://geo-python.github.io)
 
 
 
