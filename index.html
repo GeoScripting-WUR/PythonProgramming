@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-9-introduction-to-python-for-geoscripting">Week 3, Lesson 9: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-11-10</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-02</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>: * <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far * <a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</p>
 <p>Today’s schedule is:</p>
@@ -964,14 +964,14 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">## Cross-platform
+<pre style=""><code class="source bash">## Cross-platform (but not always working, like in our VDI, try it)
 conda activate geotest
 ## Linux, macOS
 source activate geotest
 ## Windows
 activate geotest</code></pre>
 </div>
-<p>After this, the current environment is shown in (parentheses) in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.</p>
+<p>After this, the current environment is shown in parentheses in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.</p>
 <p>After creating a conda environment, (additional) Python packages can be installed. There are three recommended ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.</p>
 <ul>
 <li>Using <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> to install and manage packages. Conda packages are downloaded from conda channels, which are URLs to directories containing conda packages. Generally, installing with conda is the preferred method.</li>
@@ -1102,7 +1102,7 @@ conda env create -f environment.yml</code></pre>
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">cd #reset working environment to default location
-conda activate geoscripting
+source activate geoscripting
 jupyter notebook</code></pre>
 </div>
 <p>Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
@@ -1199,7 +1199,7 @@ ozzy.doginfo()</code></pre>
 </div>
 </div>
 <h3 id="data-types-and-variables">Data types and variables</h3>
-<p>Values belong to a data type. The most important built-in types are: * integer * floating point * Boolean * several compound data types (next section), like string</p>
+<p>Values belong to a data type. The most important built-in (base) types are: * integer * floating point * Boolean * several compound data types (next section), like string</p>
 <p>Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.</p>
 <p>Values can be cast to other types, e.g.,:</p>
 <div class="row">
@@ -1229,7 +1229,7 @@ print(building + ' is in Wageningen')</code></pre>
 <p>As opposed to other programming languages, in Python, the data type does not need to be explicitly defined when creating a variable. Python derives the data type of the variable from the value assigned to it. In the code above, the variable <code>building</code> is thus a string, and the variable <code>buildingnumber</code> is an integer, without having defined this explicitly.</p>
 <p>Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.</p>
 <h3 id="compound-data-types">Compound data types</h3>
-<p><em>Compound data types</em> are Python data types that have in common that they can be broken down into smaller <em>elements</em>. The most commonly known compound data types are: - string - list - dictionary - tuple - Numpy array</p>
+<p><em>Compound data types</em> or container types are Python data types that have in common that they can be broken down into smaller <em>elements</em>. The most commonly known compound data types are: - string - list - dictionary - tuple - Numpy array</p>
 <p>For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, <code>[ ]</code>. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, STARTS AT 0! Positive indexes access elements from the front, and negative indexes from the back. Here is an example for accessing items in a list, and a string:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1675,12 +1675,10 @@ plt.show()
 </ol>
 <h1 id="more-info">More info</h1>
 <ul>
-<li><a href="https://docs.Python.org/3.7/contents.html">Official Python tutorial</a></li>
-<li><a href="https://gist.github.com/sloria/7001839">Python Style guide</a></li>
-<li><a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a></li>
+<li><a href="https://docs.Python.org/3/contents.html">Official Python tutorial</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0008/">Python Style guide</a></li>
 <li><a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">Python 3 Cheatsheet</a></li>
 <li><a href="https://www.datacamp.com/community/data-science-cheatsheets?tag=python">Overview Python package Cheatsheets</a></li>
-<li><a href="https://geo-python.github.io">Geo Python course</a></li>
 </ul>
 </div>
 </div>

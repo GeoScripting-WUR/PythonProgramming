@@ -109,7 +109,7 @@ conda info --envs
 Conda puts an asterisk (*) in front of the active environment. To activate the environment:
 
 ```{r, eval=FALSE, engine='bash'}
-## Cross-platform
+## Cross-platform (but not always working, like in our VDI, try it)
 conda activate geotest
 ## Linux, macOS
 source activate geotest
@@ -117,7 +117,7 @@ source activate geotest
 activate geotest
 ```
 
-After this, the current environment is shown in (parentheses) in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.
+After this, the current environment is shown in parentheses in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.
 
 After creating a conda environment, (additional) Python packages can be installed. There are three recommended ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.
 
@@ -242,7 +242,7 @@ Now start Jupyter:
 
 ```{r, eval=FALSE, engine='bash'}
 cd #reset working environment to default location
-conda activate geoscripting
+source activate geoscripting
 jupyter notebook
 ```
 
