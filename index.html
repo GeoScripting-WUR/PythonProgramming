@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/5e55a1d9-47c3-4149-9384-26d5147ee2d7_WUR_RGB_standard.png" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-9-introduction-to-python-for-geoscripting">Week 3, Lesson 9: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-02</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-10</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>: * <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far * <a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</p>
 <p>Today’s schedule is:</p>
@@ -1561,7 +1561,7 @@ while n < 20:
 <p>Visualization is essential to make concepts understandable and patterns recognizable. In Python, matplotlib is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.</p>
 <p>In matplotlib, a <em>figure</em> object contains <em>axes</em>, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:</p>
 <p><img src="images/mpl_structure.png" alt="matplotlib class structure" width="100%"></img></p>
-<p><img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="100%"></img></p>
+<p><img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="50%"></img></p>
 <p>Let us create a simple line figure, based on data in Numpy arrays.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1653,6 +1653,20 @@ plt.show()
 </code></pre>
 </div>
 <p><img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img></p>
+<p>When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use plt.axis(‘equal’), or ax.set_aspect(‘equal’) on the axis, to ensure equal scales in both directions. Let us test this on the non-spatial data in the plots above, see what happens, and save the figure to disk.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">
+ax0.set_aspect('equal')
+ax1.set_aspect('equal')
+ax2.set_aspect('equal')
+ax3.set_aspect('equal')
+plt.savefig('./output/equal_scale.png')
+</code></pre>
+</div>
+<p><img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img></p>
 <!-- 
 <div class="row"><div class="alert alert-info">
 <p><strong>Protip</strong>: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.</p>
