@@ -1627,7 +1627,7 @@ plt.show()
 </code></pre>
 </div>
 <p><img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img></p>
-<p>One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors:</p>
+<p>One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors. Furthermore, for the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1641,8 +1641,9 @@ y = [6,7,8,9,10]
 # New: define number of rows and columns of subplots
 # And we unpack them directly into variables that then each contain one axes object
 f, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
-# dashed line
-ax0.plot(x, y, 'r--')
+# dashed line, label for legend, and show the legend on the subplot
+ax0.plot(x, y, 'r--', label='red dashed line')
+ax0.legend(loc='lower right')
 # scatter plot, using a colormap based on the y-value, changing the marker size to 35
 ax1.scatter(x, y, c=y, cmap='bwr', s = 35)
 # bar chart, changing the bar color to black
@@ -1653,6 +1654,15 @@ plt.show()
 </code></pre>
 </div>
 <p><img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img></p>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 10</strong>: In the upper right subplot, why is there no point at x=3, y=8?.
+</p>
+</blockquote>
+</div>
+</div>
 <p>When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use plt.axis(‘equal’), or ax.set_aspect(‘equal’) on the axis, to ensure equal scales in both directions. Let us test this on the non-spatial data in the plots above, see what happens, and save the figure to disk.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
