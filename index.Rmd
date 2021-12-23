@@ -100,7 +100,7 @@ Conda creates isolated environments with sets of packages, that do not interfere
 conda create --name geotest python=2.7 numpy
 ```
 
-This would create a new environment called _geotest_ with Python 2.7 and _NumPy_ installed into the conda environment. To list the available environments:
+This would create a new environment called _geotest_ with Python 2.7 and _NumPy_ installed into the conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed; see the example later on. To create an environment from such a file, use the argument `--file` (or `--f` in short), see the conda (documentation)[https://docs.conda.io/projects/conda/en/latest/commands/create.html]. To list the available environments:
 
 ```{r, eval=FALSE, engine='bash'}
 conda info --envs
@@ -231,18 +231,9 @@ There is a number of Integrated Development Environments [IDE] for Python. An ID
 
 ### Jupyter Notebooks
 
-Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Jupyter is already set up for you in the `geoscripting` environment. If you do not have the 'geoscripting' environment yet, create one with the bash scripts below. 
+Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Install `jupyter` and the module `folium` in an existing or new environment that includes Python and start Jupyter:
 
 ```{r, eval=FALSE, engine='bash'}
-wget https://raw.githubusercontent.com/GeoScripting-WUR/InstallLinuxScript/master/user/environment.yml
-conda env create -f environment.yml
-```
-
-Now start Jupyter:
-
-```{r, eval=FALSE, engine='bash'}
-cd #reset working environment to default location
-source activate geoscripting
 jupyter notebook
 ```
 
@@ -283,7 +274,7 @@ conda deactivate
 
 ### Spyder
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the spyder package is installed in the active conda environment (so make one and do this!). Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
 
 ```{r, eval=FALSE,engine='bash'}
 cd ~/Documents/
@@ -303,12 +294,51 @@ In Spyder you should see an editor, a file explorer and a console. Have a look a
 * TAB to indent your code
 * SHIFT + TAB to unindent your code
 
-Open a new file and save your Python script in the main directory you just made and name it main.py (File -- > New File --> Save As).
+Open a new file and save your Python script in the main directory you just made and name it `main.py` (File -- > New File --> Save As).
 
 
 ## Python programming refresher
 
 Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.
+
+First, make a folder structure for this tutorial:
+
+```{r, eval=FALSE,engine='bash'}
+cd ~/Documents/
+mkdir PythonRefresher #or give the directory a name to your liking
+cd ./PythonRefresher
+mkdir scripts
+mkdir data
+mkdir output
+```
+
+Next, create a text file, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
+```
+name: refresher
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - matplotlib
+  - spyder
+```
+Now, create a new conda environment based on this file:
+
+```{r, eval=FALSE, engine='bash'}
+conda env create --f refresher.yaml
+```
+
+Once everything is installed, activate the environment and start spyder:
+
+```{r, eval=FALSE, engine='bash'}
+source activate refresher
+spyder
+```
+
+Create a new Python script and save it in the `scripts` folder. 
+
+Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file `refresher.yaml` are installed from the conda-forge channel, it is wise to use this same channel when you want to install additional packages in your environment. 
 
 
 ### Classes and objects
@@ -448,6 +478,8 @@ In contrast to a list, a *numpy array* is a *homogeneous multidimensional array*
 Below, you see to create a numpy array from a set of lists, and how to create *standard* arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.
 
 ```{Python,engine.path='/usr/bin/python3'}
+import numpy as np
+
 # Create array from list
 a = np.array([[1, 3, 4], [2, 7, 6]])
 print('a is', a)
@@ -830,7 +862,7 @@ ax0.set_aspect('equal')
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('./output/equal_scale.png')
+plt.savefig('../output/equal_scale.png')
 
 ```
 

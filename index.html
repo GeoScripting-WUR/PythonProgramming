@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-8-introduction-to-python-for-geoscripting">Week 3, Lesson 8: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-21</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-23</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>: * <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far * <a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</p>
 <p>Today’s schedule is:</p>
@@ -952,7 +952,7 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 </button>
 <pre style=""><code class="source bash">conda create --name geotest python=2.7 numpy</code></pre>
 </div>
-<p>This would create a new environment called <em>geotest</em> with Python 2.7 and <em>NumPy</em> installed into the conda environment. To list the available environments:</p>
+<p>This would create a new environment called <em>geotest</em> with Python 2.7 and <em>NumPy</em> installed into the conda environment. Another option is to create an environment from a <code>.yaml</code> file, in which all required modules are listed; see the example later on. To create an environment from such a file, use the argument <code>--file</code> (or <code>--f</code> in short), see the conda (documentation)[https://docs.conda.io/projects/conda/en/latest/commands/create.html]. To list the available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1088,22 +1088,12 @@ quit()</code></pre>
 <li><a href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm Community Edition</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know that you will not be assisted solving IDE-related issues.</li>
 </ul>
 <h3 id="jupyter-notebooks">Jupyter Notebooks</h3>
-<p>Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Jupyter is already set up for you in the <code>geoscripting</code> environment. If you do not have the ‘geoscripting’ environment yet, create one with the bash scripts below.</p>
+<p>Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Install <code>jupyter</code> and the module <code>folium</code> in an existing or new environment that includes Python and start Jupyter:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">wget https://raw.githubusercontent.com/GeoScripting-WUR/InstallLinuxScript/master/user/environment.yml
-conda env create -f environment.yml</code></pre>
-</div>
-<p>Now start Jupyter:</p>
-<div class="row">
-<button class="source bash toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> bash source
-</button>
-<pre style=""><code class="source bash">cd #reset working environment to default location
-source activate geoscripting
-jupyter notebook</code></pre>
+<pre style=""><code class="source bash">jupyter notebook</code></pre>
 </div>
 <p>Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
 <p>Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder (check the box next to the new ‘Untitled Folder’ and click <strong>‘Rename’</strong> in the top) and, in this folder, create a new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on <em>untitled</em>. Note that this creates a file with the extension <em>.ipynb</em>, which stands for Jupyter Notebook.</p>
@@ -1135,7 +1125,7 @@ m</code></pre>
 <pre style=""><code class="source bash">conda deactivate</code></pre>
 </div>
 <h3 id="spyder">Spyder</h3>
-<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be started in a terminal when the spyder package is installed in the active conda environment. Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder <em>from the terminal in which you have activated the ‘geoscripting’ environment</em>, as follows:</p>
+<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be started in a terminal when the spyder package is installed in the active conda environment (so make one and do this!). Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder <em>from the terminal in which you have activated the ‘geoscripting’ environment</em>, as follows:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1156,9 +1146,47 @@ spyder</code></pre>
 <li>TAB to indent your code</li>
 <li>SHIFT + TAB to unindent your code</li>
 </ul>
-<p>Open a new file and save your Python script in the main directory you just made and name it main.py (File – &gt; New File –&gt; Save As).</p>
+<p>Open a new file and save your Python script in the main directory you just made and name it <code>main.py</code> (File – &gt; New File –&gt; Save As).</p>
 <h2 id="python-programming-refresher">Python programming refresher</h2>
 <p>Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.</p>
+<p>First, make a folder structure for this tutorial:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">cd ~/Documents/
+mkdir PythonRefresher #or give the directory a name to your liking
+cd ./PythonRefresher
+mkdir scripts
+mkdir data
+mkdir output</code></pre>
+</div>
+<p>Next, create a text file, (re)name it (to) <code>refresher.yaml</code>, and copy the following content into the file:</p>
+<pre><code>name: refresher
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - matplotlib
+  - spyder</code></pre>
+<p>Now, create a new conda environment based on this file:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">conda env create --f refresher.yaml</code></pre>
+</div>
+<p>Once everything is installed, activate the environment and start spyder:</p>
+<div class="row">
+<button class="source bash toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> bash source
+</button>
+<pre style=""><code class="source bash">source activate refresher
+spyder</code></pre>
+</div>
+<p>Create a new Python script and save it in the <code>scripts</code> folder.</p>
+<p>Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file <code>refresher.yaml</code> are installed from the conda-forge channel, it is wise to use this same channel when you want to install additional packages in your environment.</p>
 <h3 id="classes-and-objects">Classes and objects</h3>
 <p>Python is an <em>object-oriented programming language</em>. That is a programming paradigm that structures a code hierarchically with <em>classes</em> and <em>objects</em>. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.</p>
 <p>For example, one could have a class <code>dog</code> with functions, <code>bark()</code> and <code>doginfo()</code>, and properties <code>breed</code> and <code>age</code>.</p>
@@ -1300,7 +1328,9 @@ print(campus_dictionary[102])</code></pre>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Create array from list
+<pre style=""><code class="source python">import numpy as np
+
+# Create array from list
 a = np.array([[1, 3, 4], [2, 7, 6]])
 print('a is', a)
 
@@ -1673,7 +1703,7 @@ ax0.set_aspect('equal')
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('./output/equal_scale.png')
+plt.savefig('../output/equal_scale.png')
 </code></pre>
 </div>
 <p><img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img></p>
