@@ -312,7 +312,13 @@ mkdir data
 mkdir output
 ```
 
-Next, create a text file, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
+Next, create a text file. This can be done, for example, with the `cat` command.
+```{r, eval=FALSE,engine='bash'}
+cat > file1.txt
+```
+
+By right-clicking the new file, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
+
 ```
 name: refresher
 channels:
