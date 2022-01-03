@@ -89,9 +89,7 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
 
-This will install Miniconda into `~/miniconda3`, and also all the necessary packages for the Python week, into a new environment called `geoscripting`. You can also read the Bash code of the scripts you run to know exactly how they work.
-
-Finally, restart your terminal to be able to use `conda` in the terminal. Next, let's see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.
+This will install Miniconda into `~/miniconda3`. Finally, restart your terminal to be able to use `conda` in the terminal. Next, let's see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.
 
 ### Conda usage
 Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
@@ -274,15 +272,9 @@ conda deactivate
 
 ### Spyder
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the spyder package is installed in the active conda environment (so make one and do this!). Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder *from the terminal in which you have activated the 'geoscripting' environment*, as follows:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the spyder package is installed in the active conda environment. So make an environment, install Spyder, and activate the environment. Spyder automatically uses the Python interpreter of the active conda environment. Start Spyder:
 
 ```{r, eval=FALSE,engine='bash'}
-cd ~/Documents/
-mkdir PythonRefresher #or give the directory a name to your liking
-cd ./PythonRefresher
-mkdir scripts
-mkdir data
-mkdir output
 spyder
 ```
 
@@ -294,7 +286,7 @@ In Spyder you should see an editor, a file explorer and a console. Have a look a
 * TAB to indent your code
 * SHIFT + TAB to unindent your code
 
-Open a new file and save your Python script in the main directory you just made and name it `main.py` (File -- > New File --> Save As).
+Open a new file and save it somewhere as `main.py` (File -- > New File --> Save As). Test writing a few lines of code and running the script.
 
 
 ## Python programming refresher
@@ -312,7 +304,7 @@ mkdir data
 mkdir output
 ```
 
-Next, create a text file. This can be done, for example, with the `cat` command.
+Next, we will create a conda environment from a file. Hereto, create a text file. This can be done, for example, with the `cat` command.
 ```{r, eval=FALSE,engine='bash'}
 cat > file1.txt
 ```

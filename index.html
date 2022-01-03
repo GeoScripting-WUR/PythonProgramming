@@ -873,7 +873,7 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-8-introduction-to-python-for-geoscripting">Week 3, Lesson 8: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2021-12-23</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2022-01-03</p>
 <h2 id="introduction">Introduction</h2>
 <p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>: * <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far * <a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</p>
 <p>Today’s schedule is:</p>
@@ -942,8 +942,7 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 =======
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
-<p>This will install Miniconda into <code>~/miniconda3</code>, and also all the necessary packages for the Python week, into a new environment called <code>geoscripting</code>. You can also read the Bash code of the scripts you run to know exactly how they work.</p>
-<p>Finally, restart your terminal to be able to use <code>conda</code> in the terminal. Next, let’s see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.</p>
+<p>This will install Miniconda into <code>~/miniconda3</code>. Finally, restart your terminal to be able to use <code>conda</code> in the terminal. Next, let’s see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.</p>
 <h3 id="conda-usage">Conda usage</h3>
 <p>Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:</p>
 <div class="row">
@@ -1125,18 +1124,12 @@ m</code></pre>
 <pre style=""><code class="source bash">conda deactivate</code></pre>
 </div>
 <h3 id="spyder">Spyder</h3>
-<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be started in a terminal when the spyder package is installed in the active conda environment (so make one and do this!). Spyder automatically uses the Python interpreter of the active conda environment. Make a new directory for your main script, other scripts and data with some bash code and start Spyder <em>from the terminal in which you have activated the ‘geoscripting’ environment</em>, as follows:</p>
+<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be started in a terminal when the spyder package is installed in the active conda environment. So make an environment, install Spyder, and activate the environment. Spyder automatically uses the Python interpreter of the active conda environment. Start Spyder:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">cd ~/Documents/
-mkdir PythonRefresher #or give the directory a name to your liking
-cd ./PythonRefresher
-mkdir scripts
-mkdir data
-mkdir output
-spyder</code></pre>
+<pre style=""><code class="source bash">spyder</code></pre>
 </div>
 <p>In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:</p>
 <ul>
@@ -1146,7 +1139,7 @@ spyder</code></pre>
 <li>TAB to indent your code</li>
 <li>SHIFT + TAB to unindent your code</li>
 </ul>
-<p>Open a new file and save your Python script in the main directory you just made and name it <code>main.py</code> (File – &gt; New File –&gt; Save As).</p>
+<p>Open a new file and save it somewhere as <code>main.py</code> (File – &gt; New File –&gt; Save As). Test writing a few lines of code and running the script.</p>
 <h2 id="python-programming-refresher">Python programming refresher</h2>
 <p>Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.</p>
 <p>First, make a folder structure for this tutorial:</p>
@@ -1161,7 +1154,7 @@ mkdir scripts
 mkdir data
 mkdir output</code></pre>
 </div>
-Next, create a text file. This can be done, for example, with the <code>cat</code> command.
+Next, we will create a conda environment from a file. Hereto, create a text file. This can be done, for example, with the <code>cat</code> command.
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
