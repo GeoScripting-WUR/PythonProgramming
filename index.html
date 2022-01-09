@@ -873,17 +873,19 @@
 <div class="contents col-xs-12 col-md-10">
 <h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/></h1>
 <h1 id="week-3-lesson-8-introduction-to-python-for-geoscripting">Week 3, Lesson 8: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2022-01-03</p>
+<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2022-01-09</p>
 <h2 id="introduction">Introduction</h2>
-<p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>: * <a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far * <a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</p>
-<p>Today’s schedule is:</p>
+<p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>:</p>
 <ul>
-<li>Get Introduced to Python</li>
-<li>Learn how to work with virtual environments: Conda</li>
-<li>Learn how to run a Python script from the terminal</li>
+<li><a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far</li>
+<li><a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</li>
+</ul>
+<h2 id="todays-learning-objectives">Today’s Learning objectives</h2>
+<ul>
+<li>Know how to work with virtual environments: Conda</li>
+<li>Know how to run a Python script from the terminal</li>
 <li>Get introduced to Python editors and IDEs</li>
 <li>Refresh Python programming knowledge</li>
-<li>Exercise</li>
 </ul>
 <h2 id="introduction-to-python">Introduction to Python</h2>
 <p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:</p>
@@ -1150,18 +1152,9 @@ m</code></pre>
 <pre style=""><code class="source bash">cd ~/Documents/
 mkdir PythonRefresher #or give the directory a name to your liking
 cd ./PythonRefresher
-mkdir scripts
-mkdir data
 mkdir output</code></pre>
 </div>
-Next, we will create a conda environment from a file. Hereto, create a text file. This can be done, for example, with the <code>cat</code> command.
-<div class="row">
-<button class="source bash toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> bash source
-</button>
-<pre style=""><code class="source bash">cat > file1.txt</code></pre>
-</div>
-<p>By right-clicking the new file, (re)name it (to) <code>refresher.yaml</code>, and copy the following content into the file:</p>
+<p>We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a conda environment from a file. Hereto, create a text file in your preferred text editor, e.g. <code>gedit</code>. Then, (re)name it (to) <code>refresher.yaml</code>, and copy the following content into the file:</p>
 <pre><code>name: refresher
 channels:
   - conda-forge
@@ -1175,9 +1168,9 @@ dependencies:
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda env create --f refresher.yaml</code></pre>
+<pre style=""><code class="source bash">conda env create --file refresher.yaml</code></pre>
 </div>
-<p>Once everything is installed, activate the environment and start spyder:</p>
+<p>Once everything is installed, activate the environment and start Spyder:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1185,7 +1178,7 @@ dependencies:
 <pre style=""><code class="source bash">source activate refresher
 spyder</code></pre>
 </div>
-<p>Create a new Python script and save it in the <code>scripts</code> folder.</p>
+<p>Create a new Python script and save it.</p>
 <p>Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file <code>refresher.yaml</code> are installed from the conda-forge channel, it is wise to use this same channel when you want to install additional packages in your environment.</p>
 <h3 id="classes-and-objects">Classes and objects</h3>
 <p>Python is an <em>object-oriented programming language</em>. That is a programming paradigm that structures a code hierarchically with <em>classes</em> and <em>objects</em>. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.</p>
@@ -1258,7 +1251,7 @@ print(building + ' is in Wageningen')</code></pre>
 <p>Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.</p>
 <h3 id="compound-data-types">Compound data types</h3>
 <p><em>Compound data types</em> or container types are Python data types that have in common that they can be broken down into smaller <em>elements</em>. The most commonly known compound data types are: - string - list - dictionary - tuple - Numpy array</p>
-<p>For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, <code>[ ]</code>. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, STARTS AT 0! Positive indexes access elements from the front, and negative indexes from the back. Here is an example for accessing items in a list, and a string:</p>
+<p>For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, <code>[ ]</code>. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, STARTS AT 0! Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon <code>from:to</code>, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1322,7 +1315,12 @@ first_item = samples[0][0]
 print(campus_dictionary[102])</code></pre>
 </div>
 <p>In contrast to a list, a <em>numpy array</em> is a <em>homogeneous multidimensional array</em> from the NumPy package (see section about modules and packages). Homogeneous refers to the fact that all data in one array have to be of the same type. NumPy’s array class is called <code>ndarray</code> (n-dimensional). In the array, the dimensions are called <em>axes</em>, and the number of axes is the <em>rank</em>.</p>
-<p><img src="images/numpy_structure.png" alt="matplotlib class structure" width="100%"></img></p>
+<figure>
+<img src="images/numpy_structure.png" alt="Anatomy of a numpy array" width="100%">
+<figcaption>
+Anatomy of a numpy array, source https://valecs.gitlab.io/resources/numpy.pdf.
+</figcaption>
+</figure>
 <p>Below, you see to create a numpy array from a set of lists, and how to create <em>standard</em> arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1341,8 +1339,8 @@ print(np.ones((2,3), np.int) * 5)
 print(np.empty((2,2)))
 </code></pre>
 </div>
-<p>Just like with other compound data types, the elements can be accessed with the square-bracket operator, <code>[ ]</code>. But in numpy arrays, the is one index per dimension (per axis), separated by commas. Muliple elements per dimension can be selected with a colon (from - to, excluding). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.</p>
-<p><img src="images/numpy_slicing.png" alt="matplotlib class structure" width="50%"></img></p>
+<p>Just like with other compound data types, the elements can be accessed with the square-bracket operator, <code>[ ]</code>. But in numpy arrays, there is one index per dimension (per axis), separated by commas. Multiple elements per dimension can be selected with a colon (<code>from:to</code>, just like in a list). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.</p>
+<p><img src="images/numpy_slicing.png" alt="How to slice Numpy arrays" width="50%"></img></p>
 <p>Finally, <em>structured numpy arrays</em> can have a different data type per column, i.e. per attribute. It is thereby similar to a DataFrame in R (we’ll find another similar data type tomorrow). In structured numpy arrays, you can access or edit attribute values either by dimension or by attribute name.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1590,8 +1588,18 @@ while n < 20:
 <h3 id="visualization">Visualization</h3>
 <p>Visualization is essential to make concepts understandable and patterns recognizable. In Python, matplotlib is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.</p>
 <p>In matplotlib, a <em>figure</em> object contains <em>axes</em>, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:</p>
-<p><img src="images/mpl_structure.png" alt="matplotlib class structure" width="100%"></img></p>
-<p><img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="50%"></img></p>
+<figure>
+<img src="images/mpl_structure.png" alt="matplotlib class structure" width="80%">
+<figcaption>
+Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html.
+</figcaption>
+</figure>
+<figure>
+<img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="50%">
+<figcaption>
+Elements in an example Matplotlib figure, source https://www.aosabook.org/en/matplotlib.html.
+</figcaption>
+</figure>
 <p>Let us create a simple line figure, based on data in Numpy arrays.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1611,6 +1619,14 @@ plt.show()
 </code></pre>
 </div>
 <p><img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img></p>
+<p>Note that the behavior of <code>plt.show()</code> depends on how you run the script. If you are using Spyder and want <code>plt.show()</code> to work:</p>
+<ol style="list-style-type: decimal">
+<li>Go to Tools.</li>
+<li>Go to Preferences.</li>
+<li>Select IPython console.</li>
+<li>Go to Graphics tab.</li>
+<li>In the Graphics backend section, select Automatic as the backend type. Then, restart your kernel.</li>
+</ol>
 <p>Instead of a single plot, the figure can have subplots (here two). Using the <code>sharex</code> and/or <code>sharey</code> argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1703,7 +1719,7 @@ ax0.set_aspect('equal')
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('../output/equal_scale.png')
+plt.savefig('./output/equal_scale.png')
 </code></pre>
 </div>
 <p><img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img></p>
