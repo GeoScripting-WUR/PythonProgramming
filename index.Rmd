@@ -21,7 +21,6 @@ a:visited {color: #91170a;}
 
 # Week 3, Tutorial 8: Python refresher
 
-
 ## Introduction
 
 Good morning! Today we will start working with Python for geoscripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
@@ -262,7 +261,7 @@ Type the following Python code in the code cell:
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
-m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
+m = folium.Map(location = [51.9700000, 5.6666700], zoom_start = 13)
 m
 ```
 
@@ -416,7 +415,7 @@ Variable names should: 1) start with a lowercase letter, and 2) not contain spac
 - tuple
 - NumPy array
 
-For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, `[ ]`. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, *STARTS AT 0!* Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon `from:to`, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:
+For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, `[ ]`. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, **STARTS AT 0!** Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon `from:to`, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:
 
 ```{Python,engine.path='/usr/bin/python3'}
 # List
@@ -852,7 +851,7 @@ plt.savefig('./output/equal_scale.png')
 
 <img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img>
 
-# Looking for Python help
+# Python help
 
 There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
 
@@ -880,7 +879,7 @@ See how the objects and functions in the `sys` package got listed.
 9. Applying conditionals
 10. Using loops
 11. Visualization
-12. Looking for Python help
+12. Python help
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3/contents.html)

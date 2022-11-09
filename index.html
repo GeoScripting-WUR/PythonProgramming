@@ -5,33 +5,181 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil" />
-  <title>Week 3, Lesson 8: Introduction to Python for Geo-Scripting</title>
+  <title>Tutorial 8: Python refresher</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  
+
   <!-- bootstrap -->
   <!--<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"  id="style">-->
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  
+
   <!-- highlight.js -->
   <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" rel="stylesheet" id="code-style">-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
   <script>
   hljs.LANGUAGES.r=function(a){var b="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";return{c:[a.HCM,{b:b,l:b,k:{keyword:"function if in break next repeat else for return switch while try tryCatch|10 stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ...|10",literal:"NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 NA_complex_|10"},r:0},{cN:"number",b:"0[xX][0-9a-fA-F]+[Li]?\\b",r:0},{cN:"number",b:"\\d+(?:[eE][+\\-]?\\d*)?L\\b",r:0},{cN:"number",b:"\\d+\\.(?!\\d)(?:i\\b)?",r:0},{cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[a.BE],r:0},{cN:"string",b:"'",e:"'",c:[a.BE],r:0}]}}(hljs); </script>
   <!--<script type="text/javascript", src="https://yandex.st/highlightjs/7.3/languages/r.min.js"></script>-->
-  
+
   <!-- Manific Popup -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.8.9/jquery.magnific-popup.min.js"></script>
-  
+
   <script type="text/javascript"
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
@@ -39,16 +187,16 @@
   // Function to generate the dynamic table of contents
   jQuery.fn.generate_TOC = function () {
     var base = $(this[0]);
-  
+
     var selectors = ['h1', 'h2', 'h3', 'h4'];
-  
+
     var last_ptr = [{}, {}, {}, {}];
-  
+
     var anchors = {};
-  
+
     generate_anchor = function (text) {
       var test = text.replace(/\W/g, '_');
-  
+
       while(test in anchors){
         //if no suffix, add one
         if(test.match(/_\d+$/) === null){
@@ -62,13 +210,13 @@
       anchors[test]=1;
       return(test);
     }
-  
+
     $(selectors.join(',')).filter(function(index) { return $(this).parent().attr("id") != 'header'; }).each(function () {
-  
+
       var heading = $(this);
       var idx = selectors.indexOf(heading.prop('tagName').toLowerCase());
       var itr = 0;
-  
+
       while (itr <= idx) {
         if (jQuery.isEmptyObject(last_ptr[itr])) {
           last_ptr[itr] = $('<ul>').addClass('nav');
@@ -90,10 +238,10 @@
       var a = $('<a>')
       .text(heading.text())
       .attr('href', '#' + anchor);
-  
+
     var li = $('<li>')
       .append(a);
-  
+
     last_ptr[idx].append(li);
     for (i = idx + 1; i < last_ptr.length; i++) {
       last_ptr[i] = {};
@@ -103,35 +251,35 @@
   /* run scripts when document is ready */
   $(function() {
     "use strict";
-  
+
     var $window = $(window);
     var $body = $(document.body);
-  
+
     /* size of thumbnails */
-  
+
     var hidden_types = ['source']
     var output_types = ['output', 'message', 'warning', 'error']
-  
+
     /* style tables */
     $('table').addClass('table table-striped table-bordered table-hover table-condensed');
-  
+
     $('pre code').each(function(i, e) {
       hljs.highlightBlock(e);
     });
-  
+
     /* Magnific Popup */
     $(".thumbnail").each(function(){
       $(this).magnificPopup({
         disableOn: 768,
         closeOnContentClick: true,
-  
+
         type: 'image',
         items: {
           src: $(this).find('img').attr('src'),
         }
       });
     });
-  
+
     function toggle_block(obj, show) {
       var span = obj.find('span');
       if(show === true){
@@ -143,7 +291,7 @@
         obj.next('pre').slideUp();
       }
     }
-  
+
     function toggle_thumbnails(imgs, show){
       if(show === true){
         imgs.parents().show()
@@ -153,7 +301,7 @@
         imgs.slideUp(400, function(){ $(this).parent().hide(); });
       }
     }
-  
+
     function global_toggle(obj){
       var type = obj.attr('type');
       var show = !obj.parent('li').hasClass('active');
@@ -170,14 +318,14 @@
         $('.toggle.' + type).each(function() { toggle_block($(this), show); });
       }
     }
-  
+
     /* onclick toggle next code block */
     $('.toggle').click(function() {
       var span = $(this).find('span');
       toggle_block($(this), !span.hasClass('glyphicon-chevron-down'));
       return false
     })
-  
+
     // global toggles
     $('.toggle-global').click(function(){
       var type = $(this).attr('type');
@@ -203,18 +351,18 @@
       $('body > #wrap > .container > .row').append('<div class="col-md-2"><div id="toc" class="well sidebar sidenav affix hidden-print"/></div>');
       $('#toc').generate_TOC();
     }
-  
+
     $.each(hidden_types, function(i, type) {
       $('li[type=' + type + ']').each(function(){ global_toggle($(this)); });
     });
-  
+
     /* remove paragraphs with no content */
     $('p:empty').remove();
-  
+
     $body.scrollspy({
       target: '.sidebar',
     });
-  
+
     /* theme switch */
     $('.theme-switch').click(function(){
       var css = $('link[title=' + $(this).attr('title') + ']');
@@ -231,14 +379,14 @@
       $(this).closest('li').addClass('active');
       return false;
     });
-  
+
     //TODO refresh on show/hide
     $window.on('load', function () {
       $body.scrollspy('refresh');
     })
-  
+
   });
-  
+
   </script>
   <style>
   /* Knitr_bootstrap styles */
@@ -253,11 +401,11 @@
   .toggle{
     text-transform: capitalize;
   }
-  
+
   .toggle-global{
     text-transform: capitalize;
   }
-  
+
   /* Sticky footer styles */
   * {
     margin:0;
@@ -269,7 +417,7 @@
       /* The html and body elements cannot have any padding or margin. */
       /*overflow-x: hidden;*/
   }
-  
+
   /* Wrapper for page content to push down footer */
   #wrap {
       min-height: 100%;
@@ -278,43 +426,43 @@
       /* Negative indent footer by it's height */
       margin: 0 auto -120px;
   }
-  
+
   /* Set the fixed height of the footer here */
   #push,
   #footer {
       height: 120px;
   }
-  
+
   #footer {
     text-align: center;
   }
-  
+
   /* Top level subheader elements.  These are the first nested items underneath a header element. */
   .header li {
     font-size: 20px;
   }
-  
+
   /* Makes the font smaller for all subheader elements. */
   .sub-header li {
       font-size: 12px;
   }
-  
+
   button.thumbnails {
     margin-left:0px;
   }
-  
+
   /*
    * Side navigation
    *
    * Scrollspy and affixed enhanced navigation to highlight sections and secondary
    * sections of docs content.
    */
-  
+
   /* By default it's not affixed in mobile views, so undo that */
   .sidebar.affix {
     position: static;
   }
-  
+
   /* First level of nav */
   .sidenav {
     margin-top: 30px;
@@ -323,7 +471,7 @@
     padding-bottom: 10px;
     border-radius: 5px;
   }
-  
+
   /* All levels of nav */
   .sidebar .nav > li > a {
     display: block;
@@ -341,7 +489,7 @@
     background-color: transparent;
     border-right: 1px solid;
   }
-  
+
   /* Nav: second level (shown on .active) */
   .sidebar .nav .nav {
     display: none; /* Hide by default, but at >768px, show it */
@@ -353,14 +501,14 @@
     padding-left: 30px;
     font-size: 90%;
   }
-  
+
   .sidebar .nav .nav .nav > li > a {
     padding-left: 40px;
   }
   .sidebar .nav .nav .nav .nav > li > a {
     padding-left: 50px;
   }
-  
+
   /* Show and affix the side nav when space allows it */
   @media screen and (min-width: 992px) {
     .sidebar .nav > .active > ul {
@@ -392,14 +540,14 @@
       width: 263px;
     }
   }
-  
+
   #toc {
     padding: 10px 0px;
     margin:0;
     border:0;
   }
-  
-  
+
+
   .panel pre {
     margin: 0;
     padding: 0;
@@ -424,7 +572,7 @@
     background: #0b0b0b;
     opacity: 0.8;
     filter: alpha(opacity=80); }
-  
+
   .mfp-wrap {
     top: 0;
     left: 0;
@@ -434,7 +582,7 @@
     position: fixed;
     outline: none !important;
     -webkit-backface-visibility: hidden; }
-  
+
   .mfp-container {
     text-align: center;
     position: absolute;
@@ -446,16 +594,16 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
-  
+
   .mfp-container:before {
     content: '';
     display: inline-block;
     height: 100%;
     vertical-align: middle; }
-  
+
   .mfp-align-top .mfp-container:before {
     display: none; }
-  
+
   .mfp-content {
     position: relative;
     display: inline-block;
@@ -463,30 +611,30 @@
     margin: 0 auto;
     text-align: left;
     z-index: 1045; }
-  
+
   .mfp-inline-holder .mfp-content,
   .mfp-ajax-holder .mfp-content {
     width: 100%;
     cursor: auto; }
-  
+
   .mfp-ajax-cur {
     cursor: progress; }
-  
+
   .mfp-zoom-out-cur,
   .mfp-zoom-out-cur .mfp-image-holder .mfp-close {
     cursor: -moz-zoom-out;
     cursor: -webkit-zoom-out;
     cursor: zoom-out; }
-  
+
   .mfp-zoom {
     cursor: pointer;
     cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in;
     cursor: zoom-in; }
-  
+
   .mfp-auto-cursor .mfp-content {
     cursor: auto; }
-  
+
   .mfp-close,
   .mfp-arrow,
   .mfp-preloader,
@@ -494,13 +642,13 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none; }
-  
+
   .mfp-loading.mfp-figure {
     display: none; }
-  
+
   .mfp-hide {
     display: none !important; }
-  
+
   .mfp-preloader {
     color: #cccccc;
     position: absolute;
@@ -511,19 +659,19 @@
     left: 8px;
     right: 8px;
     z-index: 1044; }
-  
+
   .mfp-preloader a {
     color: #cccccc; }
-  
+
   .mfp-preloader a:hover {
     color: white; }
-  
+
   .mfp-s-ready .mfp-preloader {
     display: none; }
-  
+
   .mfp-s-error .mfp-content {
     display: none; }
-  
+
   button.mfp-close,
   button.mfp-arrow {
     overflow: visible;
@@ -536,11 +684,11 @@
     z-index: 1046;
     -webkit-box-shadow: none;
     box-shadow: none; }
-  
+
   button::-moz-focus-inner {
     padding: 0;
     border: 0; }
-  
+
   .mfp-close {
     width: 44px;
     height: 44px;
@@ -560,10 +708,10 @@
       opacity: 1; }
     .mfp-close:active {
       top: 1px; }
-  
+
   .mfp-close-btn-in .mfp-close {
     color: #333333; }
-  
+
   .mfp-image-holder .mfp-close,
   .mfp-iframe-holder .mfp-close {
     color: white;
@@ -571,7 +719,7 @@
     text-align: right;
     padding-right: 6px;
     width: 100%; }
-  
+
   .mfp-counter {
     position: absolute;
     top: 0;
@@ -579,7 +727,7 @@
     color: #cccccc;
     font-size: 12px;
     line-height: 18px; }
-  
+
   .mfp-arrow {
     position: absolute;
     opacity: 0.65;
@@ -590,14 +738,14 @@
     width: 90px;
     height: 110px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-  
+
   .mfp-arrow:active {
     margin-top: -54px; }
-  
+
   .mfp-arrow:hover,
   .mfp-arrow:focus {
     opacity: 1; }
-  
+
   .mfp-arrow:before, .mfp-arrow:after,
   .mfp-arrow .mfp-b,
   .mfp-arrow .mfp-a {
@@ -620,7 +768,7 @@
   .mfp-arrow .mfp-b {
     border-top-width: 21px;
     border-bottom-width: 21px; }
-  
+
   .mfp-arrow-left {
     left: 0; }
     .mfp-arrow-left:after,
@@ -631,7 +779,7 @@
     .mfp-arrow-left .mfp-b {
       margin-left: 25px;
       border-right: 27px solid #3f3f3f; }
-  
+
   .mfp-arrow-right {
     right: 0; }
     .mfp-arrow-right:after,
@@ -641,22 +789,22 @@
     .mfp-arrow-right:before,
     .mfp-arrow-right .mfp-b {
       border-left: 27px solid #3f3f3f; }
-  
+
   .mfp-iframe-holder {
     padding-top: 40px;
     padding-bottom: 40px; }
-  
+
   .mfp-iframe-holder .mfp-content {
     line-height: 0;
     width: 100%;
     max-width: 900px; }
-  
+
   .mfp-iframe-scaler {
     width: 100%;
     height: 0;
     overflow: hidden;
     padding-top: 56.25%; }
-  
+
   .mfp-iframe-scaler iframe {
     position: absolute;
     display: block;
@@ -666,10 +814,10 @@
     height: 100%;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     background: black; }
-  
+
   .mfp-iframe-holder .mfp-close {
     top: -40px; }
-  
+
   /* Main image in popup */
   img.mfp-img {
     width: auto;
@@ -682,7 +830,7 @@
     box-sizing: border-box;
     padding: 40px 0 40px;
     margin: 0 auto; }
-  
+
   /* The shadow behind the image */
   .mfp-figure:after {
     content: '';
@@ -697,10 +845,10 @@
     z-index: -1;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     background: #444444; }
-  
+
   .mfp-figure {
     line-height: 0; }
-  
+
   .mfp-bottom-bar {
     margin-top: -36px;
     position: absolute;
@@ -708,26 +856,26 @@
     left: 0;
     width: 100%;
     cursor: auto; }
-  
+
   .mfp-title {
     text-align: left;
     line-height: 18px;
     color: #f3f3f3;
     word-wrap: break-word;
     padding-right: 36px; }
-  
+
   .mfp-figure small {
     color: #bdbdbd;
     display: block;
     font-size: 12px;
     line-height: 14px; }
-  
+
   .mfp-image-holder .mfp-content {
     max-width: 100%; }
-  
+
   .mfp-gallery .mfp-image-holder .mfp-figure {
     cursor: pointer; }
-  
+
   @media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px) {
     /**
      * Remove all paddings around the image on small screen
@@ -735,15 +883,15 @@
     .mfp-img-mobile .mfp-image-holder {
       padding-left: 0;
       padding-right: 0; }
-  
+
     .mfp-img-mobile img.mfp-img {
       padding: 0; }
-  
+
     /* The shadow behind the image */
     .mfp-img-mobile .mfp-figure:after {
       top: 0;
       bottom: 0; }
-  
+
     .mfp-img-mobile .mfp-bottom-bar {
       background: rgba(0, 0, 0, 0.6);
       bottom: 0;
@@ -754,14 +902,14 @@
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box; }
-  
+
     .mfp-img-mobile .mfp-bottom-bar:empty {
       padding: 0; }
-  
+
     .mfp-img-mobile .mfp-counter {
       right: 5px;
       top: 3px; }
-  
+
     .mfp-img-mobile .mfp-close {
       top: 0;
       right: 0;
@@ -772,7 +920,7 @@
       position: fixed;
       text-align: center;
       padding: 0; }
-  
+
     .mfp-img-mobile .mfp-figure small {
       display: inline;
       margin-left: 5px; } }
@@ -780,15 +928,15 @@
     .mfp-arrow {
       -webkit-transform: scale(0.75);
       transform: scale(0.75); }
-  
+
     .mfp-arrow-left {
       -webkit-transform-origin: 0;
       transform-origin: 0; }
-  
+
     .mfp-arrow-right {
       -webkit-transform-origin: 100%;
       transform-origin: 100%; }
-  
+
     .mfp-container {
       padding-left: 6px;
       padding-right: 6px; } }
@@ -808,7 +956,7 @@
     top: 0;
     right: 0;
     padding-top: 0; }
-  
+
   //Magnific overrides
   .mfp-image img{
     background: white;
@@ -816,12 +964,12 @@
   .mfp-figure:after {
     background: white;
   }
-  
+
   /*
    * Off Canvas navbar toggle right
    * --------------------------------------------------
    */
-  
+
   @media screen and (max-width: 768px) {
     .row-offcanvas .collapsing {
     -webkit-transition: none 0;
@@ -867,33 +1015,56 @@
   </style>
 </head>
 <body>
+<title>
+Tutorial 8: Python refresher
+</title>
 <div id="wrap">
 <div class="container">
 <div class="row row-offcanvas row-offcanvas-right">
 <div class="contents col-xs-12 col-md-10">
-<h1 id="wur-geoscripting"><a href="https://geoscripting-wur.github.io/">WUR Geoscripting</a> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/></h1>
-<h1 id="week-3-lesson-8-introduction-to-python-for-geoscripting">Week 3, Lesson 8: Introduction to Python for Geoscripting</h1>
-<p><em>Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil</em> - 2022-01-09</p>
+<style type="text/css">
+body {max-width: none;}
+a:visited {color: #91170a;}
+</style>
+<h1 id="wur-geoscripting"><a
+href="https://geoscripting-wur.github.io/">WUR Geoscripting</a>
+<img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/></h1>
+<h1 id="week-3-tutorial-8-python-refresher">Week 3, Tutorial 8: Python
+refresher</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Good morning! Today we will start working with Python for Geo-scripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python <em>before today</em>:</p>
+<p>Good morning! Today we will start working with Python for
+geoscripting and do a refresher of functions in Python. If you are
+unfamiliar with Python and/or feel that you need more training, follow
+one of the Datacamp courses as introduction into Python <em>before
+today</em>:</p>
 <ul>
-<li><a href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction to Python</a> | recommended to follow if you haven’t any scripting experience so far</li>
-<li><a href="https://www.datacamp.com/courses/python-for-r-users">Python for R users</a> | recommended if you have experience already in R</li>
+<li><a
+href="https://www.datacamp.com/courses/intro-to-python-for-data-science">Introduction
+to Python</a> | recommended to follow if you haven’t any scripting
+experience so far</li>
+<li><a href="https://www.datacamp.com/courses/python-for-r-users">Python
+for R users</a> | recommended if you have experience already in R</li>
 </ul>
 <h2 id="todays-learning-objectives">Today’s Learning objectives</h2>
 <ul>
-<li>Know how to work with virtual environments: Conda</li>
+<li>Know how to work with virtual environments: Conda + Mamba</li>
 <li>Know how to run a Python script from the terminal</li>
 <li>Get introduced to Python editors and IDEs</li>
 <li>Refresh Python programming knowledge</li>
 </ul>
-<h2 id="introduction-to-python">Introduction to Python</h2>
-<p>Python is a jack-of-all-trades programming language, that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geo-scripting, data wrangling, visualization and machine learning. For example:</p>
+<h1 id="introduction-to-python">Introduction to Python</h1>
+<p>Python is a jack-of-all-trades programming language that is free,
+flexible, open-source, cross-platform and has a very large community
+behind it. If you ask Python programmers what they like most about
+Python, they will often cite its high readability and high availability
+of good packages. There are many Python packages out there for
+geoscripting, data wrangling, visualization and machine learning. For
+example:</p>
 <ul>
-<li>Geo Scripting
+<li>Geoscripting
 <ul>
 <li>GeoPandas (Vector Processing)</li>
-<li>RasterIO (Raster Processing)</li>
+<li>Rasterio (Raster Processing)</li>
 <li>GDAL/OGR (Vector and Raster Processing)</li>
 <li>QGIS plugins (Open Source GIS)</li>
 <li>ArcPy (Propietary GIS)</li>
@@ -901,7 +1072,7 @@
 <li>Data Handling
 <ul>
 <li>Pandas (Dataframes and Data Analysis)</li>
-<li>Numpy (Scientific Computing)</li>
+<li>NumPy (Scientific Computing)</li>
 </ul></li>
 <li>Visualization
 <ul>
@@ -911,16 +1082,37 @@
 </ul></li>
 <li>Machine Learning
 <ul>
-<li>TensorFlow (Deep Learning)</li>
-<li>Keras (Deep/Machine Learning)</li>
-<li>Scikit-Learn (Machine Learning)</li>
+<li>scikit-learn (Machine Learning)</li>
+<li>Keras + TensorFlow (Deep Learning)</li>
+<li>PyTorch (Deep Learning)</li>
 </ul></li>
 </ul>
-<h2 id="python-package-management-with-conda">Python package management with conda</h2>
-<p>A set of tools co-exist for installing and managing packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even <a href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break your system Python interpreter</a>. So, instead, we recommend to create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages, can be installed, but we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.</p>
-<h3 id="conda-installation">Conda installation</h3>
-<p>Conda can be downloaded in two versions: Anaconda and Miniconda. The difference is that Miniconda is just shipping the repository management system. So when it is installed, you will only have the management system without packages. Whereas with Anaconda, you get the distribution with most popular Python packages already built in.</p>
-<p>In Geo-scripting Miniconda is used. To install Miniconda in your Linux environment, we have prepared a short <em>Bash</em> script for you. Just run the following lines of code, line by line, in a new terminal window.</p>
+<h2 id="python-package-management-with-conda">Python package management
+with Conda</h2>
+<p>A set of tools co-exist for installing and managing Python packages.
+It is possible to install packages on your base Python interpreter, but
+sooner or later you will get conflicting Python packages since packages
+have varying dependencies. It can even <a
+href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break
+your system Python interpreter</a>.</p>
+<p>Instead, we recommend to create a <code>conda</code> environment on
+your local machine for each project. In <code>conda</code> environments,
+basically anything, such as software, C libraries or R packages can be
+installed. Here we use them here for installing Python packages.
+Packages installed in one environment do not interfere with your base
+Python or with other <code>conda</code> environments.</p>
+<h2 id="condamamba-installation">Conda/Mamba installation</h2>
+<p>For this course, we will make use of Mamba, fast drop-in
+reimplementation of the Conda package manager. It has its core parts
+implemented in C++ for maximum efficiency, makes use of parallel
+downloading of repository data and package files using multi-threading,
+and uses <code>libsolv</code> for (much) faster dependency solving.</p>
+<p>Mamba replaces Conda for most commands, <em>except for activating and
+deactivating environments</em>. You will see more clearly how this works
+in practice in the first part of this tutorial.</p>
+<p>To install Mamba in your Linux environment, we have prepared a short
+<code>Bash</code> script for you. Just run the following lines of code,
+line by line, in a new terminal window.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -944,119 +1136,183 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 =======
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
-<p>This will install Miniconda into <code>~/miniconda3</code>. Finally, restart your terminal to be able to use <code>conda</code> in the terminal. Next, let’s see how to use Conda in case you want make new virtual environments by yourself, or install packages after creating the environment.</p>
-<h3 id="conda-usage">Conda usage</h3>
-<p>Conda creates isolated environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:</p>
+<p>This will install Mamba into <code>~/mamba</code>. Finally, restart
+your terminal to be able to use <code>mamba</code> and
+<code>conda</code> in the terminal. Next, let’s see how to use Mamba in
+case you want make new virtual environments by yourself, or install
+packages after creating the environment.</p>
+<h2 id="mamba-usage">Mamba usage</h2>
+<p>Mamba creates isolated <code>conda</code> environments with sets of
+packages, that do not interfere with your base Python or with other
+<code>conda</code> environments. To create an environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda create --name geotest python=2.7 numpy</code></pre>
+<pre style=""><code class="source bash">mamba create --name geotest python=2.7 numpy</code></pre>
 </div>
-<p>This would create a new environment called <em>geotest</em> with Python 2.7 and <em>NumPy</em> installed into the conda environment. Another option is to create an environment from a <code>.yaml</code> file, in which all required modules are listed; see the example later on. To create an environment from such a file, use the argument <code>--file</code> (or <code>--f</code> in short), see the conda (documentation)[https://docs.conda.io/projects/conda/en/latest/commands/create.html]. To list the available environments:</p>
+<p>This would create a new environment called <code>geotest</code> with
+Python 2.7 and <code>NumPy</code> installed into the <code>conda</code>
+environment. Another option is to create an environment from a
+<code>.yaml</code> file, in which all required modules are listed. You
+will see an example of this later on in this tutorial. To create an
+environment from such a file, you can use the argument
+<code>--file</code> (or <code>--f</code> in short).</p>
+<p>Let’s first list the currently available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda info --envs</code></pre>
+<pre style=""><code class="source bash">mamba info --envs</code></pre>
 </div>
-<p>Conda puts an asterisk (*) in front of the active environment. To activate the environment:</p>
+<p>Mamba puts an asterisk (*) in front of the active environment. To
+activate the environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">## Cross-platform (but not always working, like in our VDI, try it)
+<pre style=""><code class="source bash"># Cross-platform (but not always working, like in our VDI, try it)
 conda activate geotest
-## Linux, macOS
+
+# Linux, macOS
 source activate geotest
-## Windows
+
+# Windows
 activate geotest</code></pre>
 </div>
-<p>After this, the current environment is shown in parentheses in front of your prompt (<code>(geotest)$</code>). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again. If you want to install a new package and are inside the conda environment, the package is installed simply with conda or pip. Generally, installing with conda is recommended. In the documentation of most Python packages the recommended way to install can be found.</p>
-<p>After creating a conda environment, (additional) Python packages can be installed. There are three recommended ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.</p>
+<p>After this, the current environment is shown in parentheses in front
+of your prompt (<code>(geotest)$</code>). Note that the activated
+environment is only valid for the shell in which you activated it. For
+instance, if you close the shell window and open a new one you will have
+to activate it again.</p>
+<p>After creating a <code>conda</code> environment, (additional) Python
+packages can be installed. There are three possible ways to install
+packages, which we list below. In the documentation of most Python
+packages the recommended way to install them can be found.</p>
 <ul>
-<li>Using <a href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a> to install and manage packages. Conda packages are downloaded from conda channels, which are URLs to directories containing conda packages. Generally, installing with conda is the preferred method.</li>
-<li>Using <em>pip</em> to install packages and <em>conda</em> to manage packages. <em>Pip</em> is available for Windows, macOS and Linux. Pip can also install <a href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on Windows</a>.</li>
-<li>Using the distribution’s package manager (only on Ubuntu, that is <code>sudo apt-get install python-*</code>).</li>
+<li>Using <code>mamba</code> to install and manage <code>conda</code>
+packages. This downloads <code>conda</code> packages using
+<code>conda</code> channels, which are URLs to directories containing
+the <code>conda</code> packages. Generally, installing
+<code>conda</code> packages using <code>mamba</code> is the preferred
+method.</li>
+<li>Using <code>pip</code> to install packages and <code>mamba</code> to
+manage these packages. <code>pip</code> is available for Windows, macOS
+and Linux. <code>pip</code> can also install <a
+href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on
+Windows</a>.</li>
+<li>Using the distribution’s package manager (only on Ubuntu, that is
+<code>sudo apt-get install python-*</code>).</li>
 </ul>
-<p>The conda command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:</p>
+<p>The <code>mamba</code> command searches a set of channels. By
+default, packages are automatically downloaded and updated from the
+default channel. To search for a package, type:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda search spyder</code></pre>
+<pre style=""><code class="source bash">mamba search spyder</code></pre>
 </div>
-<p>This gives a list of all packages that have “Spyder” in the name and lists all available versions. To install:</p>
+<p>This gives a list of all packages that have “spyder” in the name and
+lists all available versions. To install:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda install spyder</code></pre>
+<pre style=""><code class="source bash">mamba install spyder</code></pre>
 </div>
-<p>This would install the latest version of the <em>Spyder</em> package (Python IDE). Note that this would install it into your currently activated environment.</p>
-<p>Multiple packages can be installed at the same time:</p>
+<p>This installs the latest version of the <em>Spyder</em> package
+(Python IDE). Note that this would install it into your currently
+activated environment.</p>
+<p>Note that you can also install multiple packages at the same
+time:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda install geopandas pandas</code></pre>
+<pre style=""><code class="source bash">mamba install geopandas pandas</code></pre>
 </div>
-<p>Sometimes packages are not directly available from the standard conda channels, but require a specific conda channel. The documentation of Python packages often show the recommended conda channel to install the Python package. For example, the folium package can be installed from the conda-forge channel:</p>
+<p>Sometimes packages are not directly available from the standard
+<code>conda</code> channels, but require a specific <code>conda</code>
+channel. The documentation of Python packages often show the recommended
+<code>conda</code> channel to install the Python package. For example,
+the folium package can be installed from the <code>conda-forge</code>
+channel:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda install --channel conda-forge folium</code></pre>
+<pre style=""><code class="source bash">mamba install --channel conda-forge folium</code></pre>
 </div>
-<p>As explained above, another alternative is to use <em>pip</em> to install packages (not possible for all packages), as shown here for the packages rasterio and rasterstats:</p>
+<p>As explained above, another alternative is to use <code>pip</code> to
+install packages (not possible for all packages), as shown here for the
+packages <code>rasterio</code> and <code>rasterstats</code>:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">pip install rasterio rasterstats</code></pre>
 </div>
-<p>In addition, as you saw with Spyder install, conda is able to install some non-Python packages that have Python bindings, such as Spyder and GDAL. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones. Some additional helpful utilities for package management in this context are:</p>
+<p>In addition, as you saw with <em>Spyder</em> install,
+<code>mamba</code> is able to install some non-Python packages that have
+Python bindings, such as <em>Spyder</em> and <em>GDAL</em>. This is
+useful for making sure your Python and binary versions match and do not
+interfere with the system-wide ones.</p>
+<p>Some additional helpful utilities for package management in this
+context are:</p>
 <ul>
-<li><code>conda list</code> to check which packages are installed in <em>root</em> or in the active environment;</li>
-<li><code>python --version</code> or <code>gdal-config --version</code> to check which Python or GDAL version is used in the environment;</li>
-<li><code>which spyder</code> or <code>type spyder</code> to find out which Spyder executable is used either from system or conda environment.</li>
+<li><code>mamba list</code> to check which packages are installed in
+<code>root</code> or in the active environment;</li>
+<li><code>python --version</code> or <code>gdal-config --version</code>
+to check which Python or GDAL version is used in the environment;</li>
+<li><code>which spyder</code> or <code>type spyder</code> to find out
+which <em>Spyder</em> executable is used either from system or
+<code>conda</code> environment.</li>
 </ul>
 <p>Removing packages is just as simple:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda remove geopandas pandas folium
+<pre style=""><code class="source bash">mamba remove geopandas pandas folium
 pip uninstall rasterio rasterstats</code></pre>
 </div>
-<p>Now, we deactivate the environment and return to base environment.</p>
+<p>Now, we deactivate the environment and return to base
+environment.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">## Cross-platform
+<pre style=""><code class="source bash"># Cross-platform
 conda deactivate
-## Linux, macOS
+
+# Linux, macOS
 source deactivate
-## Windows
+
+# Windows
 deactivate</code></pre>
 </div>
-<p>When we are finished, and do not need the environment for next time, we can remove the environment <em>geotest</em>.</p>
+<p>When we are finished, and do not need the environment for next time,
+we can remove the environment <code>geotest</code>.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda remove --name geotest --all</code></pre>
+<pre style=""><code class="source bash">mamba remove --name geotest --all</code></pre>
 </div>
-<h2 id="running-a-python-script-in-the-terminal">Running a Python script in the terminal</h2>
-<p>Within a conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:</p>
+<h2 id="running-a-python-script-in-the-terminal">Running a Python script
+in the terminal</h2>
+<p>Within a <code>conda</code> environment, Python can be started
+directly, or can be called to run a script file. To start Python
+directly:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">python</code></pre>
 </div>
-<p>Now, you can type Python expressions that will be executed one by one:</p>
+<p>Now, you can type Python expressions that will be executed one by
+one:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1073,52 +1329,106 @@ To go back, type:
 # or 
 quit()</code></pre>
 </div>
-<p>Usually, we do not want to run expressions one by one, but build scripts instead, to ensure transferability and reproducibilty. Now, create a new text file, and (re)name it (to) <code>test.py</code>. Open it, for example with a text editor, paste in the code you used above (<code>import sys</code> etc.), and save the script. Navigate in the terminal to the location where this script is stored, using <code>cd</code>. Finally, run the script with:</p>
+<p>Usually, we do not want to run expressions one by one, but build
+scripts instead, to ensure transferability and reproducibilty. Create a
+new text file and (re)name it (to) <code>test.py</code>. Open it, for
+example with a text editor, paste in the code you used above
+(<code>import sys</code> etc.), and save the script. Navigate in the
+terminal to the location where this script is stored, using
+<code>cd</code>. Finally, run the script with:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">python test.py</code></pre>
 </div>
-<p>The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE (see below), such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment.</p>
+<p>The output is printed to the terminal. Running a script from the
+terminal is less error-prone than running it from an IDE (see the next
+section), such as Spyder, as IDEs often keep variables in memory after
+the script has finished running. Therefore, running a script from the
+terminal is a good final test before submitting an exercise or
+assignment.</p>
 <h2 id="python-editors-and-ides">Python editors and IDEs</h2>
-<p>There is a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.</p>
+<p>There is a number of Integrated Development Environments [IDE] for
+Python. An IDE is a software application that provides facilities for
+software development.</p>
 <ul>
-<li><a href="https://www.spyder-ide.org/">Spyder</a> is a lightweight IDE. In the Geo-scripting course Spyder is recommended as the Python IDE.</li>
-<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark.</li>
-<li><a href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm Community Edition</a> is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during the Geo-scripting course instead of Spyder, but do know that you will not be assisted solving IDE-related issues.</li>
+<li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates
+visualization with code and is suitable to make tutorials, simple
+dashboards, quick visualizations, and do prototype testing. Jupyter
+Notebooks run in your browser on a localhost server or on a web server.
+They allow for various programming languages, e.g. Python, R, Julia,
+Spark or PySpark.</li>
+<li><a href="https://www.spyder-ide.org/">Spyder</a> is a lightweight
+IDE. <em>In this course, Spyder is the recommended Python IDE.</em></li>
+<li><a
+href="https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html">PyCharm
+Community Edition</a> is a free professional Python IDE with a lot of
+advanced functionality, such as integrated GIT version control, code
+completion, code checking, debugging and navigation. This IDE can
+optionally be used by more advanced scripters during this course instead
+of Spyder, but do know that you will not be assisted for solving
+IDE-related issues.</li>
 </ul>
 <h3 id="jupyter-notebooks">Jupyter Notebooks</h3>
-<p>Jupyter Notebooks integrate code and visualization, and are therefore hepful for demonstration purposes. Install <code>jupyter</code> and the module <code>folium</code> in an existing or new environment that includes Python and start Jupyter:</p>
+<p>Jupyter Notebooks integrate code and visualization, and are therefore
+helpful for demonstration purposes. Install <code>jupyter</code> and the
+module <code>folium</code> in an existing or new environment that
+includes Python and start Jupyter:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">jupyter notebook</code></pre>
 </div>
-<p>Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!</p>
-<p>Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder (check the box next to the new ‘Untitled Folder’ and click <strong>‘Rename’</strong> in the top) and, in this folder, create a new Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your notebook a name by clicking on <em>untitled</em>. Note that this creates a file with the extension <em>.ipynb</em>, which stands for Jupyter Notebook.</p>
-<p>Feel free to have a go at the user interface tour (<em>Help</em> → <em>User Interface Tour</em>), or hover over the toolbar to check out the tools. The main tools are:</p>
+<p>Jupyter should pop up in your browser. You will see a menu with all
+files in your working directory. The Jupyter Notebook will only see
+files that are accessible from the working directory in which you
+launched the notebook!</p>
+<p>Make a new folder: <em>New</em> → <em>Folder</em>, rename the folder
+(check the box next to the new ‘Untitled Folder’ and click
+<strong>‘Rename’</strong> in the top) and, in this folder, create a new
+Python3 Jupyter Notebook <em>New</em> → <em>Python 3</em>. Give your
+notebook a name by clicking on <em>untitled</em>. Note that this creates
+a file with the extension <em>.ipynb</em>, which stands for Jupyter
+Notebook.</p>
+<p>Feel free to have a go at the user interface tour (<em>Help</em> →
+<em>User Interface Tour</em>), or hover over the toolbar to check out
+the tools. The main tools are:</p>
 <ul>
 <li><em>Save and checkpoint</em></li>
 <li><em>Insert cell below</em></li>
 <li><em>Run</em></li>
 <li><em>Code/Markdown/Heading</em> (List box)</li>
 </ul>
-<p>Similar to RMarkdown, Jupyter Notebooks have code cells (<em>Code</em>) and text cells (<em>Markdown</em>). Insert an extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cell on code.</p>
+<p>Similar to RMarkdown, Jupyter Notebooks have code cells
+(<em>Code</em>) and text cells (<em>Markdown</em>). Insert two extra
+cells by clicking the + button and change the first cell from code to
+markdown. Enter some documentation for your code (e.g. your team name,
+exercise and date). Leave the other cell on code.</p>
 <p>Type the following Python code in the code cell:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">import folium
-m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
+m = folium.Map(location = [51.9700000, 5.6666700], zoom_start = 13)
 m</code></pre>
 </div>
+<p>Run the code cell by selecting it and pressing the <em>Run</em>
+button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. You’ll
+see a map visualized below your code, similar to the one below. Try to
+drag the map to play around with it.</p>
 <p><img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img></p>
-<p>Run the code cell by selecting it and pressing the <em>Run</em> button, or press <em>CTRL + Enter</em> or <em>Shift + Enter</em>. You’ll see a map visualized below your code. Try to drag the map to play around with it.</p>
-<p>Your Jupyter Notebook is automatically saved as an .ipynb file on your computer (the file extension comes from the historic name “IPython Notebook”). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually.</p>
-<p>To exit a notebook properly, use <em>File</em> → <em>Close and Halt</em>. After that, by pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing <code>conda deactivate</code>.</p>
+<p>Your Jupyter Notebook is automatically saved as an
+<code>.ipynb</code> file on your computer (the file extension comes from
+the historic name “IPython Notebook”). The notebook can be downloaded as
+a Python script, pdf or html. You can also save it manually.</p>
+<p>To exit a notebook properly, use <em>File</em> → <em>Close and
+Halt</em>. After that, by pressing Ctrl + c in the terminal where
+Jupyter Notebook server is running, you cancel the running process. The
+terminal goes back to command line and you can exit the virtual
+environment by typing <code>conda deactivate</code>.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1126,14 +1436,21 @@ m</code></pre>
 <pre style=""><code class="source bash">conda deactivate</code></pre>
 </div>
 <h3 id="spyder">Spyder</h3>
-<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be started in a terminal when the spyder package is installed in the active conda environment. So make an environment, install Spyder, and activate the environment. Spyder automatically uses the Python interpreter of the active conda environment. Start Spyder:</p>
+<p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be
+started in a terminal when the <code>spyder</code> package is installed
+in the active <code>conda</code> environment. So, using
+<code>mamba</code>, make an environment and install Spyder to that
+environment. Activate the environment using <code>conda</code>. Spyder
+will automatically make use of the Python interpreter of the active
+<code>conda</code> environment. To start Spyder:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">spyder</code></pre>
 </div>
-<p>In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:</p>
+<p>In Spyder you should see an editor, a file explorer and a console.
+Have a look at the toolbar. Some important shortcuts are:</p>
 <ul>
 <li>F5 to run your script</li>
 <li>CTRL + S to save your script</li>
@@ -1141,9 +1458,13 @@ m</code></pre>
 <li>TAB to indent your code</li>
 <li>SHIFT + TAB to unindent your code</li>
 </ul>
-<p>Open a new file and save it somewhere as <code>main.py</code> (File – &gt; New File –&gt; Save As). Test writing a few lines of code and running the script.</p>
-<h2 id="python-programming-refresher">Python programming refresher</h2>
-<p>Finally, in this tutorial we will do a quick Python refresher. We advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.</p>
+<p>Open a new file and save it somewhere as <code>main.py</code> (File –
+&gt; New File –&gt; Save As). Test writing a few lines of code and
+running the script.</p>
+<h1 id="python-programming-refresher">Python programming refresher</h1>
+<p>In the second part of this tutorial we will do a quick Python
+refresher. Again, we advise you to code in Spyder, as this IDE will be
+used in the rest of the Python week too.</p>
 <p>First, make a folder structure for this tutorial:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1154,7 +1475,12 @@ mkdir PythonRefresher #or give the directory a name to your liking
 cd ./PythonRefresher
 mkdir output</code></pre>
 </div>
-<p>We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a conda environment from a file. Hereto, create a text file in your preferred text editor, e.g. <code>gedit</code>. Then, (re)name it (to) <code>refresher.yaml</code>, and copy the following content into the file:</p>
+<p>We only make a directory for output, because no input data or
+separate scripts are created in this tutorial. Next, we will create a
+<code>conda</code> environment from a file. First create a text file in
+your preferred text editor, e.g. <code>gedit</code>. Then, (re)name it
+(to) <code>refresher.yaml</code>, and copy the following content into
+the file:</p>
 <pre><code>name: refresher
 channels:
   - conda-forge
@@ -1163,14 +1489,16 @@ dependencies:
   - numpy
   - matplotlib
   - spyder</code></pre>
-<p>Now, create a new conda environment based on this file:</p>
+<p>Now, create a new <code>conda</code> environment based on this
+file:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">conda env create --file refresher.yaml</code></pre>
+<pre style=""><code class="source bash">mamba env create --file refresher.yaml</code></pre>
 </div>
-<p>Once everything is installed, activate the environment and start Spyder:</p>
+<p>Once everything is installed, activate the environment and start
+Spyder:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1179,10 +1507,21 @@ dependencies:
 spyder</code></pre>
 </div>
 <p>Create a new Python script and save it.</p>
-<p>Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file <code>refresher.yaml</code> are installed from the conda-forge channel, it is wise to use this same channel when you want to install additional packages in your environment.</p>
-<h3 id="classes-and-objects">Classes and objects</h3>
-<p>Python is an <em>object-oriented programming language</em>. That is a programming paradigm that structures a code hierarchically with <em>classes</em> and <em>objects</em>. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.</p>
-<p>For example, one could have a class <code>dog</code> with functions, <code>bark()</code> and <code>doginfo()</code>, and properties <code>breed</code> and <code>age</code>.</p>
+<p>Important to note: for compatibility, it is best to install packages
+from the same channel as much as possible. Given that packages in the
+file <code>refresher.yaml</code> are installed from the
+<code>conda-forge</code> channel, it is wise to use this same channel
+when you want to install additional packages in your environment.</p>
+<h2 id="classes-and-objects">Classes and objects</h2>
+<p>Python is an <em>object-oriented programming language</em>. That is a
+programming paradigm that structures a code hierarchically with
+<em>classes</em> and <em>objects</em>. A class is a blueprint of
+functions and attributes to build an object, while an object is a
+self-contained component operationalizing the functions and
+attributes.</p>
+<p>For example, one could have a class <code>dog</code> with functions,
+<code>bark()</code> and <code>doginfo()</code>, and properties
+<code>breed</code> and <code>age</code>.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1191,14 +1530,17 @@ spyder</code></pre>
     def __init__(self, breed, age):  
         self.breed = breed
         self.age = age
-        
+
     def bark(self):
         print("bark bark!")
-    
+
     def doginfo(self):
         print("This " + self.breed + " is " + str(self.age) + " year(s) old.")</code></pre>
 </div>
-<p>One can then create an <em>instance</em> of this class, i.e. an object, that represents Ozzy, a Maltese of two years old. This object can apply the function <code>eat()</code> and <code>run()</code>. We can call the attributes and functions with the dot notation:</p>
+<p>One can then create an <em>instance</em> of this class, i.e. an
+object, that represents Ozzy, a Maltese of two years old. This object
+can apply the function <code>eat()</code> and <code>run()</code>. We can
+call the attributes and functions with the dot notation:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1209,20 +1551,31 @@ print(ozzy.age)
 ozzy.bark()
 ozzy.doginfo()</code></pre>
 </div>
-<p>During Geo-scripting, you do not need to define your own classes. However, sometimes existing classes of modules will be used, such as a DataFrame in Pandas or a GeoDataFrame in GeoPandas. It is therefore important to understand the concepts of classes and objects generated from them.</p>
+<p>During Geo-scripting, you do not need to define your own classes.
+However, sometimes existing classes of modules will be used, such as a
+<code>DataFrame</code> in Pandas or a <code>GeoDataFrame</code> in
+GeoPandas. It is therefore important to understand the concepts of
+classes and objects generated from them.</p>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 1</strong>: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
+<strong>Question 1</strong>: Suppose that we want to build a script in
+Python of an orchestra playing a song. What would be the class and what
+would be the objects?
 </p>
 </blockquote>
 </div>
 </div>
-<h3 id="data-types-and-variables">Data types and variables</h3>
-<p>Values belong to a data type. The most important built-in (base) types are: * integer * floating point * Boolean * several compound data types (next section), like string</p>
-<p>Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.</p>
-<p>Values can be cast to other types, e.g.,:</p>
+<h2 id="data-types-and-variables">Data types and variables</h2>
+<p>Values belong to a data type. The most important built-in (base)
+types are: * integer * floating point * Boolean * several compound data
+types (see next section), like string</p>
+<p>Python is a strongly typed language. That is, you cannot perform
+operations inappropriate to the type of the value. For example,
+attempting to add integers to strings will fail. For this reason,
+understanding and being aware of value types in Python is crucial.</p>
+<p>Values can be cast to other types, e.g.:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1233,12 +1586,16 @@ ozzy.doginfo()</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 2</strong>: What is the difference between 10 and 10.0 in Python?
+<strong>Question 2</strong>: What is the difference between 10 and 10.0
+in Python?
 </p>
 </blockquote>
 </div>
 </div>
-<p>Often, we do not use values directly in a script. Instead, we use access them through variables. A variable is a way to reference to a known or unknown value. A value is assigned to a variable with the <code>=</code>-sign, e.g.:</p>
+<p>Often, we do not use values directly in a script. Instead, we use
+access them through variables. A variable is a way to reference to a
+known or unknown value. In Python, a value is assigned to a variable
+with the <code>=</code>-sign, e.g.:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1247,24 +1604,41 @@ ozzy.doginfo()</code></pre>
 buildingnumber = 101
 print(building + ' is in Wageningen')</code></pre>
 </div>
-<p>As opposed to other programming languages, in Python, the data type does not need to be explicitly defined when creating a variable. Python derives the data type of the variable from the value assigned to it. In the code above, the variable <code>building</code> is thus a string, and the variable <code>buildingnumber</code> is an integer, without having defined this explicitly.</p>
-<p>Variables should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.</p>
-<h3 id="compound-data-types">Compound data types</h3>
-<p><em>Compound data types</em> or container types are Python data types that have in common that they can be broken down into smaller <em>elements</em>. The most commonly known compound data types are: - string - list - dictionary - tuple - Numpy array</p>
-<p>For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, <code>[ ]</code>. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, STARTS AT 0! Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon <code>from:to</code>, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:</p>
+<p>As opposed to other programming languages, in Python, the data type
+does not need to be explicitly defined when creating a variable. Python
+derives the data type of the variable from the value assigned to it. In
+the code above, the variable <code>building</code> is thus a string, and
+the variable <code>buildingnumber</code> is an integer, without having
+defined this explicitly.</p>
+<p>Variable names should: 1) start with a lowercase letter, and 2) not
+contain spaces. Furthermore, it is advisable to use meaningful variable
+names, both for yourself and for (future) users of your code.</p>
+<h2 id="compound-data-types">Compound data types</h2>
+<p><em>Compound data types</em> or container types are Python data types
+that have in common that they can be broken down into smaller
+<em>elements</em>. The most commonly known compound data types are: -
+string - list - dictionary - tuple - NumPy array</p>
+<p>For most compound data types, the elements can be accessed by
+providing the index of the element with the square-bracket operator,
+<code>[ ]</code>. This works, for example, for items in lists and
+letters in strings. Notice that indexing in Python, as opposed to other
+languages like R, <strong>STARTS AT 0!</strong> Positive indexes access
+elements from the front, and negative indexes from the back. Multiple
+elements can be selected with a colon <code>from:to</code>, where the
+first is inclusive and the last exclusive. Here is an example for
+accessing items in a list, and in a string:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-# LIST
+<pre style=""><code class="source python"># List
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 print(campus[3]) # Forum
 print(campus[-1]) # the last item of the list
 print(campus[0:3]) # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
 our_building = campus[0] # GAIA
 
-# STRING
+# String
 print(our_building[0]) # G
 print(our_building[0:2]) # GA</code></pre>
 </div>
@@ -1272,56 +1646,75 @@ print(our_building[0:2]) # GA</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 3:</strong> What building is <code>campus[-2]</code>? Test it.
+<strong>Question 3:</strong> What building is <code>campus[-2]</code>?
+Test it.
 </p>
 </blockquote>
 </div>
 </div>
-<p>Lists can be nested. That means that a list is an item in another list. Accessing items in nested lists works the same as in regular lists, e.g,:</p>
+<p>Lists can be nested. That means that a list is an item in another
+list. Accessing items in nested lists works the same as in regular
+lists, e.g,:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-samples = [["x","y","z"],[12,32,7],[12,40,7]]
+<pre style=""><code class="source python"># Nested list
+samples = [["x", "y", "z"], [12, 32, 7], [12, 40, 7]]
 
-# access the x
+# Access the x
 header = samples[0]
 first_item = header[0]
 
-# or at once
-first_item = samples[0][0]
-</code></pre>
+# Or at once
+first_item = samples[0][0]</code></pre>
 </div>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 4:</strong> How can we access the value 40 above? Test it.
+<strong>Question 4:</strong> How can we access the value 40 above? Test
+it.
 </p>
 </blockquote>
 </div>
 </div>
-<p>A <em>dictionary</em> is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is not ordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, <code>[ ]</code> cannot be used.</p>
+<p>A <em>dictionary</em> is set of key-value pairs. The key can be used
+to access the value. A dictionary is different from the other compound
+data types as it is not ordered, i.e. the order of the elements is
+undetermined. As such, the square-bracket operator, <code>[ ]</code>
+cannot be used.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">campus_dictionary = {101:'Gaia',
-                    100:'Lumen',
-                    107:'Radix',
-                    102:'Forum',
-                    104:'Atlas'}
+<pre style=""><code class="source python"># Dictionary
+campus_dictionary = {101:'Gaia',
+                     100:'Lumen',
+                     107:'Radix',
+                     102:'Forum',
+                     104:'Atlas'}
+
+# Access dictionary value using key
 print(campus_dictionary[102])</code></pre>
 </div>
-<p>In contrast to a list, a <em>numpy array</em> is a <em>homogeneous multidimensional array</em> from the NumPy package (see section about modules and packages). Homogeneous refers to the fact that all data in one array have to be of the same type. NumPy’s array class is called <code>ndarray</code> (n-dimensional). In the array, the dimensions are called <em>axes</em>, and the number of axes is the <em>rank</em>.</p>
+<p>In contrast to a list, a <em>NumPy array</em> is a <em>homogeneous
+multidimensional array</em> from the NumPy package. Homogeneous refers
+to the fact that all data in one array have to be of the same type.
+NumPy’s array class is called <code>ndarray</code> (n-dimensional). In
+the array, the dimensions are called <em>axes</em>, and the number of
+axes is the <em>rank</em>.</p>
 <figure>
 <img src="images/numpy_structure.png" alt="Anatomy of a numpy array" width="100%">
 <figcaption>
-Anatomy of a numpy array, source https://valecs.gitlab.io/resources/numpy.pdf.
+Anatomy of a NumPy array, source
+https://valecs.gitlab.io/resources/numpy.pdf.
 </figcaption>
 </figure>
-<p>Below, you see to create a numpy array from a set of lists, and how to create <em>standard</em> arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.</p>
+<p>Below, we show how to create a NumPy array from a set of lists. We
+also show how to create <em>standard</em> arrays, filled with zeroes,
+ones, or random number, often to be updated with actual data later in
+your script.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1333,54 +1726,71 @@ a = np.array([[1, 3, 4], [2, 7, 6]])
 print('a is', a)
 
 # Create standard arrays.
-print(np.zeros((3,2)))
-print(np.ones((2,3), np.int))
-print(np.ones((2,3), np.int) * 5)
-print(np.empty((2,2)))
-</code></pre>
+print(np.zeros((3, 2)))
+print(np.ones((2, 3), np.int))
+print(np.ones((2, 3), np.int) * 5)
+print(np.empty((2, 2)))</code></pre>
 </div>
-<p>Just like with other compound data types, the elements can be accessed with the square-bracket operator, <code>[ ]</code>. But in numpy arrays, there is one index per dimension (per axis), separated by commas. Multiple elements per dimension can be selected with a colon (<code>from:to</code>, just like in a list). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.</p>
-<p><img src="images/numpy_slicing.png" alt="How to slice Numpy arrays" width="50%"></img></p>
-<p>Finally, <em>structured numpy arrays</em> can have a different data type per column, i.e. per attribute. It is thereby similar to a DataFrame in R (we’ll find another similar data type tomorrow). In structured numpy arrays, you can access or edit attribute values either by dimension or by attribute name.</p>
+<p>Just like with other compound data types, the elements can be
+accessed with the square-bracket operator, <code>[ ]</code>. But in
+NumPy arrays, there is one index per dimension (per axis), separated by
+commas. Multiple elements per dimension can be selected with a colon
+(<code>from:to</code>, just like in a list). Leaving out the index
+before or after the colon, selects all elements from the beginning or to
+the end, respectively, see the examples in the figure below.</p>
+<p><img src="images/numpy_slicing.png" alt="How to slice NumPy arrays" width="50%"></img></p>
+<p>Finally, <em>structured NumPy arrays</em> can have a different data
+type per column, i.e. per attribute. It is thereby similar to a
+<code>DataFrame</code> in R (we’ll look at another similar data type
+tomorrow). In structured NumPy arrays, you can access or edit attribute
+values either by dimension or by attribute name.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Create create structured numpy array filled with zeroes
+<pre style=""><code class="source python"># Create create structured NumPy array filled with zeroes
 data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
                           'formats':('U10', 'i4', 'f8')})
 print(data.dtype)
 
-# Now we can fill this structured array with data (lists)
-# of the correct type
+# Now we can fill this structured array with data (lists) of the correct type
 name = ['Alice', 'Bob', 'Cathy', 'Doug']
 age = [25, 45, 37, 19]
 weight = [55.0, 85.5, 68.0, 61.5]
 data['name'] = name
 data['age'] = age
 data['weight'] = weight
-print(data)
-</code></pre>
+
+# Inspect the result
+print(data)</code></pre>
 </div>
-<h3 id="functions">Functions</h3>
-<p>A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs.</p>
-<p>Functions may (not always) accept <em>argument(s)</em>, perform an <em>action</em>, and may (not always) <em>return value(s)</em>. For example, the built-in function ‘int()’ we have seen before performs the action of converting a value to integer type:</p>
+<h2 id="functions">Functions</h2>
+<p>A function is a section of code with a common purpose. Functions can
+be useful for 1) making the main part of the code concise, 2) debugging,
+as functions can be tested and edited separately from the main code, and
+3) reuse of code in the same or other programs.</p>
+<p>Functions may (not always) accept <em>argument(s)</em>, perform an
+<em>action</em>, and may (not always) <em>return value(s)</em>. For
+example, the built-in function ‘int()’ we have seen before performs the
+action of converting a value to integer type:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># return value into a variable, the function name, its (single) argument
-myint = int(10.6)
-</code></pre>
+<pre style=""><code class="source python"># Return value into a variable, the function name, its (single) argument
+myint = int(10.6)</code></pre>
 </div>
-<p>You can also create functions yourself. The syntax for creating a function is:</p>
+<p>You can also create functions yourself. The syntax for creating a
+function is:</p>
 <pre><code>def functionname(arg1, arg2, argn):
     ... (expression1) ...
     ... (expression2) ...
     ... (expressionn) ...
     return returnvar1, returnvar2, returnvarn
 </code></pre>
-<p>For example, we could create a function to compute the area of a rectangle based on its width and length, provided as arguments, and return the output:</p>
+<p>For example, we could create a function to compute the area of a
+rectangle based on its width and length, provided as arguments, and
+return the output:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1388,42 +1798,55 @@ myint = int(10.6)
 <pre style=""><code class="source python">def calculate_rectangle_area(width, length):
     rectangle_area = width * length
     return rectangle_area
-    
-print(calculate_rectangle_area(4,3))
 
-output_number = calculate_rectangle_area(width=4,length=3)
+print(calculate_rectangle_area(4, 3))
+
+# Or alternatively;
+output_number = calculate_rectangle_area(width = 4, length = 3)
 print(output_number)</code></pre>
 </div>
-<p>Functions or classes can be made more informative by <em>docstrings</em>:</p>
+<p>Functions or classes can be made more informative by
+<em>docstrings</em>:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">def calculate_rectangle_area(width, length):
     """Computes the area of a rectangle by multiplying width and length.
-    
+
     :width: width is the width of the rectangle
     :length: length is the length of the rectangle
     :returns: width * length
     """
     rectangle_area = width * length
     return rectangle_area
-    
-print(calculate_rectangle_area(4,3))
-</code></pre>
+
+print(calculate_rectangle_area(4, 3))</code></pre>
 </div>
-<p>Variables created in functions are <em>local</em>. That means that a variable created in a function does not exist outside of the function. So, here, <code>rectangle_area</code> cannot be accessed outside of the function definition (after the indented part of the code).</p>
+<p>Variables created in functions are <em>local</em>. That means that a
+variable created in a function does not exist outside of the function.
+So, here, <code>rectangle_area</code> cannot be accessed outside of the
+function definition (after the indented part of the code).</p>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 5</strong>: Test typing <code>print(rectangle_area)</code> at the end of the code block defined above. What happens? Why is that?
+<strong>Question 5</strong>: Test typing
+<code>print(rectangle_area)</code> at the end of the code block defined
+above. What happens? Why is that?
 </p>
 </blockquote>
 </div>
 </div>
-<h3 id="modules-and-packages">Modules and packages</h3>
-<p>Python packages and modules are collections of classes and functions. Any Python file is a <em>module</em>, its name being the file’s base name without the .py extension. A <em>package</em> is a directory of Python modules containing an additional <code>__init__.py</code> file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own <code>__init__.py</code> file.</p>
+<h2 id="modules-and-packages">Modules and packages</h2>
+<p>Python packages and modules are collections of classes and functions.
+Any Python file is a <em>module</em>, its name being the file’s base
+name without the <code>.py</code> extension. A <em>package</em> is a
+directory of Python modules containing an additional
+<code>__init__.py</code> file, to distinguish a package from a directory
+that just happens to contain a bunch of Python scripts. Packages can be
+nested to any depth, provided that the corresponding directories contain
+their own <code>__init__.py</code> file.</p>
 Basically there are four ways to load a module and/or a package:
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
@@ -1445,7 +1868,8 @@ print(np.pi)</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 6</strong>: What are the differences between these four ways to import modules and/or packages?
+<strong>Question 6</strong>: What are the differences between these four
+ways to import modules and/or packages?
 </p>
 </blockquote>
 </div>
@@ -1454,30 +1878,15 @@ print(np.pi)</code></pre>
 <ul>
 <li><code>os</code>: Operating system features</li>
 <li><code>sys</code>: System specific configuration</li>
-<li><code>math</code>: Mathametical functions, operators and constants</li>
+<li><code>math</code>: Mathametical functions, operators and
+constants</li>
 <li><code>datetime</code>: Date/Time functionality</li>
 </ul>
-<h3 id="looking-for-help">Looking for help</h3>
-<p>There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">import sys
-help(sys)</code></pre>
-</div>
-<p>See how the objects and functions in the <code>sys</code> package got listed.</p>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 7</strong>: What kind of functionality does the <code>sys</code> package provide?
-</p>
-</blockquote>
-</div>
-</div>
-<h3 id="conditionals">Conditionals</h3>
-<p><em>Comparison operators</em> compare two values or, more commonly, variables. The operands (x and y below) are often numerical, e.g. floating point or integer. The result of comparison operators is a 0 (False) or 1 (True), of type Boolean.</p>
+<h2 id="conditionals">Conditionals</h2>
+<p><em>Comparison operators</em> compare two values or, more commonly,
+variables. The operands (x and y below) are often numerical,
+e.g. floating point or integer. The result of comparison operators is a
+0 (False) or 1 (True), of type Boolean.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1489,7 +1898,9 @@ x < y     # TRUE if x is less than y
 x >= y    # TRUE if x is greater than or equal to y
 x <= y    # TRUE if x is less than or equal to y</code></pre>
 </div>
-<p><em>Logical operators</em> evaluate the logical relation between two values or variables. The operands (x and y below) are in most cases Boolean. The result of logical operators is also Boolean.</p>
+<p><em>Logical operators</em> evaluate the logical relation between two
+values or variables. The operands (x and y below) are in most cases
+Boolean. The result of logical operators is also Boolean.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1498,7 +1909,9 @@ x <= y    # TRUE if x is less than or equal to y</code></pre>
 x or y    # TRUE if x or y are TRUE
 not x     # TRUE if x is FALSE</code></pre>
 </div>
-<p>A <em>conditional statement</em> checks whether a condition is fulfilled and only if it does, it executes a block of code. The syntax of a conditional statement is:</p>
+<p>A <em>conditional statement</em> checks whether a condition is
+fulfilled and only if it does, it executes a block of code. The syntax
+of a conditional statement is:</p>
 <pre><code>if condition:
     ... (expression1) ...
     ... (expression2) ...
@@ -1508,7 +1921,15 @@ else:
     ... (alternative_expression2) ...
     ... (alternative_expression3) ...
 </code></pre>
-<p>The condition should be a Boolean variable, or an expression resulting in a Boolean. A condition is typically built up using comparison operators and/or logical operators. The expressions after the <code>if</code>-statement are executed when the condition is met, while the conditions in the <code>else</code>-statement (not mandatory to include) are executed when the condition is not met. Mutiple conditions can be checked consecutively with one or more <code>elif</code>-statements in-between the <code>if</code> and <code>else</code>. For example:</p>
+<p>The condition should be a Boolean variable, or an expression
+resulting in a Boolean. A condition is typically built up using
+comparison operators and/or logical operators. The expressions after the
+<code>if</code>-statement are executed when the condition is met, while
+the conditions in the <code>else</code>-statement (not mandatory to
+include) are executed when the condition is not met. Multiple conditions
+can be checked consecutively with one or more
+<code>elif</code>-statements in-between the <code>if</code> and
+<code>else</code>. For example:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -1527,114 +1948,153 @@ else:
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 8</strong>: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
+<strong>Question 8</strong>: Think of a conditional statement that uses
+logical operators in the condition instead of comparison operators.
 </p>
 </blockquote>
 </div>
 </div>
-<h3 id="loops">Loops</h3>
-<p>Loops are an essential construct in Python, more than in R. Two types of loops exist: - the <code>for</code>-loop, used when it can be known beforehand how many iterations are required - the <code>while</code>-loop, used when it cannot be known beforehand how many iterations are required</p>
-<p>The <code>for</code>-loop is the preferred construct, as it is computationally more efficient and less error-prone than the <code>while</code>-loop; no chance to end up in an endless loop or to accidentally skip an element (iteration). The syntax of a <code>for</code>-loop is:</p>
+<h2 id="loops">Loops</h2>
+<p>Loops are an essential construct in Python, more than in R. Two types
+of loops exist: - the <code>for</code>-loop, used when it can be known
+beforehand how many iterations are required - the
+<code>while</code>-loop, used when it cannot be known beforehand how
+many iterations are required</p>
+<p>The <code>for</code>-loop is often the preferred construct, as it is
+computationally more efficient and less error-prone than the
+<code>while</code>-loop; no chance to end up in an endless loop or to
+accidentally skip an element (iteration). The syntax of a
+<code>for</code>-loop is:</p>
 <pre><code>for element in compound:
     ... (expression1) ...
     ... (expression2) ...
     ... (expressionn) ...
 </code></pre>
-<p>Often <code>i</code>, standing for iterator, is used as the <code>element</code>, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the <code>element</code> is what one should use in the expressions in the <code>for</code>-loop. The <code>for</code>-loop works on any compound data type:</p>
+<p>Often <code>i</code>, standing for iterator, is used as the
+<code>element</code>, but it can be any variable name. Key is that the
+current element is put into that variable in each iteration, so the
+<code>element</code> is what one should use in the expressions in the
+<code>for</code>-loop. The <code>for</code>-loop works on any compound
+data type:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">
-# LOOPING A LIST
+# Looping a list
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for i in campus:
     print(i)
 
-# LOOPING A STRING
+# Looping
 our_building = campus[0] # GAIA
 for letter in our_building:
     print(letter)
 </code></pre>
 </div>
-<p>The <code>while</code>-loop works on a condition instead of on a compound data type. The syntax of a <code>while</code>-loop is:</p>
+<p>The <code>while</code>-loop works on a condition instead of on a
+compound data type. The syntax of a <code>while</code>-loop is:</p>
 <pre><code>while condition:
     ... (expression1) ...
     ... (expression2) ...
     ... (expressionn) ...
 </code></pre>
-<p>In a <code>while</code>-loop, when an element is used, it is not automatically altered in each iteration; the alteration needs to be explicitly programmed.</p>
+<p>In a <code>while</code>-loop, when an element is used, it is not
+automatically altered in each iteration; the alteration needs to be
+explicitly programmed.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-n = 0
+<pre style=""><code class="source python">n = 0
 while n < 20:
     print(n)
-    n = n+1
-</code></pre>
+    n = n+1</code></pre>
 </div>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 9</strong>: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
+<strong>Question 9</strong>: What is the last number printed? Now print
+n after the loop (not in the indented part); what does it print?
 </p>
 </blockquote>
 </div>
 </div>
-<p>You may remember that variables in a function are local. This is different for loops: Variables in a loop are NOT local, and thus affect what happens outside of the loop, as demonstrated by the last question. Be aware of this.</p>
-<h3 id="visualization">Visualization</h3>
-<p>Visualization is essential to make concepts understandable and patterns recognizable. In Python, matplotlib is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.</p>
-<p>In matplotlib, a <em>figure</em> object contains <em>axes</em>, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:</p>
+<p>You may remember that variables in a function are local. This is
+different for loops: Variables in a loop are NOT local, and thus affect
+what happens outside of the loop, as demonstrated by the last question.
+Be aware of this.</p>
+<h2 id="visualization">Visualization</h2>
+<p>Visualization is essential to make concepts understandable and
+patterns recognizable. In Python, <em>Matplotlib</em> is a general
+plotting package. It is used as a base for many other, more tailored,
+packages. One of the core advantages of Matplotlib is that the
+representation of figure is separated from the act of rendering it. This
+enables building increasingly sophisticated features and logic into the
+figure, a bit like making a map in a GIS.</p>
+<p>In Matplotlib, a <em>figure</em> object contains <em>axes</em>, or
+subplots. These axes contain an x-axis, a y-axis and can contain lines
+and text. This hierarchy is important to understand when you want to
+edit a plot:</p>
 <figure>
 <img src="images/mpl_structure.png" alt="matplotlib class structure" width="80%">
 <figcaption>
-Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html.
+Matplotlib hierarchy of figure elements, source
+https://www.aosabook.org/en/matplotlib.html.
 </figcaption>
 </figure>
 <figure>
 <img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="50%">
 <figcaption>
-Elements in an example Matplotlib figure, source https://www.aosabook.org/en/matplotlib.html.
+Elements in an example Matplotlib figure, source
+https://www.aosabook.org/en/matplotlib.html.
 </figcaption>
 </figure>
-<p>Let us create a simple line figure, based on data in Numpy arrays.</p>
+<p>Let’s create a simple line figure, based on data in NumPy arrays.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-import numpy as np
+<pre style=""><code class="source python">import numpy as np
 from matplotlib import pyplot as plt
 
 # Create some data
 x = np.arange(-np.pi, np.pi, 0.2)
 y = np.sin(x)
+
 # Plot x against y
 plt.plot(x,y)
+
 # Show in an interactive plot
-plt.show()
-</code></pre>
+plt.show()</code></pre>
 </div>
 <p><img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img></p>
-<p>Note that the behavior of <code>plt.show()</code> depends on how you run the script. If you are using Spyder and want <code>plt.show()</code> to work:</p>
+<p>Note that the behavior of <code>plt.show()</code> depends on how you
+run the script. If you are using Spyder and want <code>plt.show()</code>
+to work:</p>
 <ol style="list-style-type: decimal">
 <li>Go to Tools.</li>
 <li>Go to Preferences.</li>
 <li>Select IPython console.</li>
 <li>Go to Graphics tab.</li>
-<li>In the Graphics backend section, select Automatic as the backend type.</li>
+<li>In the Graphics backend section, select Automatic as the backend
+type.</li>
 <li>Restart your kernel.</li>
 </ol>
-<p>Instead of a single plot, the figure can have subplots (here two). Using the <code>sharex</code> and/or <code>sharey</code> argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.</p>
+<p>Instead of a single plot, the figure can have subplots (here two).
+Using the <code>sharex</code> and/or <code>sharey</code> argument, the
+axes can be aligned automatically, for easy comparison between the
+subplots. Also, we can add a title and axis labels. Finally, we can
+change the positions of the tick marks on an axis to something
+meaningful in the context of trigonometric functions and customize the
+labels with regular text or lateX. Check if you understand what object
+in the hierarchy is edited and why.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-import numpy as np
+<pre style=""><code class="source python">import numpy as np
 from matplotlib import pyplot as plt
 
 # Create some data
@@ -1643,15 +2103,15 @@ y1 = np.sin(x1)
 x2 = np.arange(-np.pi, 0, 0.2)
 y2 = np.cos(x2)
 
-# Initiate a figure
-# A figure with two subplots 
+# Initiate a figure with two subplots 
 f, axarr = plt.subplots(2, sharex=True)
-# subplots are stored in an array
+
+# Subplots are stored in an array
 line = axarr[0].plot(x1, y1)
 axarr[0].set_title('plot 1')
 axarr[1].plot(x2, y2)
 axarr[1].set_title('plot 2')
-f.suptitle('super title', fontsize=16)
+f.suptitle('super title', fontsize = 16)
 
 # Axis label
 axarr[1].set_xlabel('x')
@@ -1670,68 +2130,100 @@ new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
 axarr[1].set_xticks(new_ticks)
 axarr[1].set_xticklabels(new_labels)
 
-plt.show()
-</code></pre>
+plt.show()</code></pre>
 </div>
 <p><img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img></p>
-<p>One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors. Furthermore, for the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.</p>
+<p>One can also create multiple subplots (axes) and use different
+plotting styles, changing e.g. the marker style, line style, marker
+size, and colors. Furthermore, for the upper left subplot it is
+demonstrated how to add a legend; adding a label to the plotted line is
+essential for this.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-from matplotlib import pyplot as plt
+<pre style=""><code class="source python">from matplotlib import pyplot as plt
 
-x = [1,2,3,4,5]
-y = [6,7,8,9,10]
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 8, 9, 10]
 
-# New: define number of rows and columns of subplots
-# And we unpack them directly into variables that then each contain one axes object
+# New: define number of rows and columns of subplots and unpack them directly 
+# into variables that then each contain one axes object
 f, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
-# dashed line, label for legend, and show the legend on the subplot
+
+# Dashed line, label for legend, and show the legend on the subplot
 ax0.plot(x, y, 'r--', label='red dashed line')
 ax0.legend(loc='lower right')
-# scatter plot, using a colormap based on the y-value, changing the marker size to 35
+
+# Scatter plot, using a colormap based on the y-value, changing the marker size to 35
 ax1.scatter(x, y, c=y, cmap='bwr', s = 35)
-# bar chart, changing the bar color to black
+
+# Bar chart, changing the bar color to black
 ax2.bar(x, y, color='k')
-# horizontal bar chart, changing the bar color to yellow
+
+# Horizontal bar chart, changing the bar color to yellow
 ax3.barh(x, y, color='y')
-plt.show()
-</code></pre>
+plt.show()</code></pre>
 </div>
 <p><img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img></p>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 10</strong>: In the upper right subplot, why is there no point at x=3, y=8?.
+<strong>Question 10</strong>: In the upper right subplot, why is there
+no point at x=3, y=8?.
 </p>
 </blockquote>
 </div>
 </div>
-<p>When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use plt.axis(‘equal’), or ax.set_aspect(‘equal’) on the axis, to ensure equal scales in both directions. Let us test this on the non-spatial data in the plots above, see what happens, and save the figure to disk.</p>
+<p>When working with spatial data, it is crucial that the spatial scale
+(aspect) in the x and y direction is the same. Because Matplotlib can be
+used for plotting any kind of data, not necessarily spatial, it does not
+automatically do this. We can use <code>plt.axis('equal')</code>, or
+<code>ax.set_aspect('equal')</code> on the axis, to ensure equal scales
+in both directions. Let’s test this on the non-spatial data in the plots
+above, see what happens, and save the figure to disk.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-ax0.set_aspect('equal')
+<pre style=""><code class="source python">ax0.set_aspect('equal')
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('./output/equal_scale.png')
-</code></pre>
+plt.savefig('./output/equal_scale.png')</code></pre>
 </div>
 <p><img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img></p>
-<!-- 
-<div class="row"><div class="alert alert-info">
-<p><strong>Protip</strong>: if you finished early and still want to learn more, then you can go through one of the guidelines or examples below. The <a href="https://gist.github.com/sloria/7001839">Python style guide</a> can be recommended for people who want to properly write Python code the Pythonic Way. If you are often stuck coding in Python, a <a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">cheat sheet</a> might help to put you back on track quickly. Furthermore, the <a href="https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks#earth-science-and-geo-spatial-data">Geo-Spatial Notebooks</a> are quite inspiring and interesting for any geo-scripter.</p>
-</div></div>
--->
+<h1 id="python-help">Python help</h1>
+<p>There are several ways to find help with programming in Python.
+Searching the internet typically solves your problem the quickest,
+because it finds answers on multiple platforms, such as StackOverflow
+and Github. During Geoscripting we have the forum to ask and give help.
+Asking your friends or colleagues in person is also a great way to learn
+and fix programming problems. Another good option is get documentation
+from the package website or inside Python:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">import sys
+help(sys)</code></pre>
+</div>
+<p>See how the objects and functions in the <code>sys</code> package got
+listed.</p>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 7</strong>: What kind of functionality does the
+<code>sys</code> package provide?
+</p>
+</blockquote>
+</div>
+</div>
 <h1 id="what-have-we-learned">What have we learned?</h1>
 <ol style="list-style-type: decimal">
-<li>Python package management with conda</li>
+<li>Python package management with Mamba &amp; Conda</li>
 <li>Running a Python script in the terminal</li>
 <li>Using Python editors and IDEs</li>
 <li>What classes and objects are</li>
@@ -1739,18 +2231,22 @@ plt.savefig('./output/equal_scale.png')
 <li>Compound data types</li>
 <li>Writing and using functions</li>
 <li>Using modules and packages</li>
-<li>Looking for help</li>
 <li>Applying conditionals</li>
 <li>Using loops</li>
 <li>Visualization</li>
+<li>Python help</li>
 </ol>
 <h1 id="more-info">More info</h1>
 <ul>
-<li><a href="https://docs.Python.org/3/contents.html">Official Python tutorial</a></li>
-<li><a href="https://www.python.org/dev/peps/pep-0008/">Python Style guide</a></li>
-<li><a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">Python 3 Cheatsheet</a></li>
-<li><a href="https://www.datacamp.com/community/data-science-cheatsheets?tag=python">Overview Python package Cheatsheets</a></li>
-</ul>
+<li><a href="https://docs.Python.org/3/contents.html">Official Python
+tutorial</a></li>
+<li><a href="https://www.python.org/dev/peps/pep-0008/">Python Style
+guide</a></li>
+<li><a href="https://ugoproto.github.io/ugo_py_doc/py_cs/">Python 3
+Cheatsheet</a></li>
+<li><a
+href="https://www.datacamp.com/community/data-science-cheatsheets?tag=python">Overview
+Python package Cheatsheets</a>
 </div>
 </div>
 </div>
@@ -1760,11 +2256,13 @@ plt.savefig('./output/equal_scale.png')
 <div id="footer">
 <div class="container">
 <p class="text-muted" id="credit">
-Styled with <a href="https://github.com/jimhester/knitrBootstrap">knitrBootstrap</a>
+Styled with
+<a href="https://github.com/jimhester/knitrBootstrap">knitrBootstrap</a>
 </p>
 </div>
 </div>
 <link rel="stylesheet" id="theme" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css" media="screen"></link><link rel="stylesheet" id="highlight" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-bright.min.css" media="screen"></link>
-</div>
+</div></li>
+</ul>
 </body>
 </html>
