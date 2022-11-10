@@ -100,10 +100,10 @@ This will install Mamba into `~/mamba`. Finally, restart your terminal to be abl
 Mamba creates isolated `conda` environments with sets of packages, that do not interfere with your base Python or with other `conda` environments. To create an environment:
 
 ```{r, eval=FALSE, engine='bash'}
-mamba create --name geotest python=2.7 numpy
+mamba create --name geotest python numpy
 ```
 
-This would create a new environment called `geotest` with Python 2.7 and `NumPy` installed into the `conda` environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
+This would create a new environment called `geotest` with Python 2.7 and `NumPy` and `Spyder` installed into the `conda` environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
 
 Let's first list the currently available environments:
 
@@ -114,7 +114,7 @@ mamba info --envs
 Mamba puts an asterisk (*) in front of the active environment. To activate the environment:
 
 ```{r, eval=FALSE, engine='bash'}
-# Cross-platform (but not always working, like in our VDI, try it)
+# Cross-platform (but not always working)
 conda activate geotest
 
 # Linux, macOS
@@ -128,43 +128,31 @@ After this, the current environment is shown in parentheses in front of your pro
 
 After creating a `conda` environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.
 
-* Using `mamba` to install and manage `conda` packages. This downloads `conda` packages using `conda` channels, which are URLs to directories containing the `conda` packages. Generally, installing `conda` packages using `mamba` is the preferred method.
+* Using `mamba` to install and manage `conda` packages. This downloads `conda` packages using `conda` channels, which are URLs to directories containing the `conda` packages. **Generally, installing `conda` packages using `mamba` is the preferred method.**
 * Using `pip` to install packages and `mamba` to manage these packages. `pip` is available for Windows, macOS and Linux. `pip` can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs).
 * Using the distribution's package manager (only on Ubuntu, that is `sudo apt-get install python-*`).
 
-The `mamba` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
+The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
 
 ```{r, eval=FALSE, engine='bash'}
-mamba search spyder
+mamba search pandas
 ```
 
-This gives a list of all packages that have "spyder" in the name and lists all available versions. To install:
+This gives a list of all packages that have "pandas" in the name and lists all available versions. To install:
 
 ```{r, eval=FALSE, engine='bash'}
-mamba install spyder
+mamba install pandas
 ```
 
-This installs the latest version of the _Spyder_ package (Python IDE). Note that this would install it into your currently activated environment.
+This installs the latest compatible version of _Pandas_. Note that this would install it into your currently activated environment.
 
 Note that you can also install multiple packages at the same time: 
 
 ```{r, eval=FALSE, engine='bash'}
-mamba install geopandas pandas
+mamba install geopandas matplotlib
 ```
 
-Sometimes packages are not directly available from the standard `conda` channels, but require a specific `conda` channel. The documentation of Python packages often show the recommended `conda` channel to install the Python package. For example, the folium package can be installed from the `conda-forge` channel:
-
-```{r, eval=FALSE, engine='bash'}
-mamba install --channel conda-forge folium
-```
-
-As explained above, another alternative is to use `pip` to install packages (not possible for all packages), as shown here for the packages `rasterio` and `rasterstats`:
-
-```{r, eval=FALSE, engine='bash'}
-pip install rasterio rasterstats
-```
-
-In addition, as you saw with _Spyder_ install, `mamba` is able to install some non-Python packages that have Python bindings, such as _Spyder_ and _GDAL_. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
+As you saw with _Spyder_ (which is an IDE, more on that later), `mamba` is also able to install some non-Python packages that have Python bindings. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
 
 Some additional helpful utilities for package management in this context are:
 
@@ -176,7 +164,6 @@ Removing packages is just as simple:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba remove geopandas pandas folium
-pip uninstall rasterio rasterstats
 ```
 
 Now, we deactivate the environment and return to base environment.
@@ -261,7 +248,7 @@ Type the following Python code in the code cell:
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
-m = folium.Map(location = [51.9700000, 5.6666700], zoom_start = 13)
+m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m
 ```
 
@@ -312,8 +299,6 @@ We only make a directory for output, because no input data or separate scripts a
 
 ```
 name: refresher
-channels:
-  - conda-forge
 dependencies:
   - python
   - numpy
@@ -485,8 +470,8 @@ print('a is', a)
 
 # Create standard arrays.
 print(np.zeros((3, 2)))
-print(np.ones((2, 3), np.int))
-print(np.ones((2, 3), np.int) * 5)
+print(np.ones((2, 3), int))
+print(np.ones((2, 3), int) * 5)
 print(np.empty((2, 2)))
 ```
 
@@ -546,7 +531,7 @@ def calculate_rectangle_area(width, length):
 print(calculate_rectangle_area(4, 3))
 
 # Or alternatively;
-output_number = calculate_rectangle_area(width = 4, length = 3)
+output_number = calculate_rectangle_area(width=4, length=3)
 print(output_number)
 ```
 
@@ -678,7 +663,6 @@ for element in compound:
 Often `i`, standing for iterator, is used as the `element`, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the `element` is what one should use in the expressions in the `for`-loop. The `for`-loop works on any compound data type:
 
 ```{Python,engine.path='/usr/bin/python3'}
-
 # Looping a list
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for i in campus:
@@ -708,7 +692,7 @@ In a `while`-loop, when an element is used, it is not automatically altered in e
 n = 0
 while n < 20:
     print(n)
-    n = n+1
+    n = n + 1
 ```
 
 
@@ -747,7 +731,7 @@ y = np.sin(x)
 # Plot x against y
 plt.plot(x,y)
 
-# Show in an interactive plot
+# Show the plot
 plt.show()
 ```
 
@@ -782,7 +766,7 @@ line = axarr[0].plot(x1, y1)
 axarr[0].set_title('plot 1')
 axarr[1].plot(x2, y2)
 axarr[1].set_title('plot 2')
-f.suptitle('super title', fontsize = 16)
+f.suptitle('super title', fontsize=16)
 
 # Axis label
 axarr[1].set_xlabel('x')
@@ -839,14 +823,14 @@ plt.show()
 > **Question 10**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
-When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens, and save the figure to disk.
+When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the folder icon in the top right pane if necessary.
 
 ```{Python,engine.path='/usr/bin/python3'}
 ax0.set_aspect('equal')
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('./output/equal_scale.png')
+plt.savefig('output/equal_scale.png')
 ```
 
 <img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img>
