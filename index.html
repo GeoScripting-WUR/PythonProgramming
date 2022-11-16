@@ -1149,15 +1149,15 @@ packages, that do not interfere with your base Python or with other
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">mamba create --name geotest python=2.7 numpy</code></pre>
+<pre style=""><code class="source bash">mamba create --name geotest python numpy</code></pre>
 </div>
 <p>This would create a new environment called <code>geotest</code> with
-Python 2.7 and <code>NumPy</code> installed into the <code>conda</code>
-environment. Another option is to create an environment from a
-<code>.yaml</code> file, in which all required modules are listed. You
-will see an example of this later on in this tutorial. To create an
-environment from such a file, you can use the argument
-<code>--file</code> (or <code>--f</code> in short).</p>
+Python 2.7 and <code>NumPy</code> and <code>Spyder</code> installed into
+the <code>conda</code> environment. Another option is to create an
+environment from a <code>.yaml</code> file, in which all required
+modules are listed. You will see an example of this later on in this
+tutorial. To create an environment from such a file, you can use the
+argument <code>--file</code> (or <code>--f</code> in short).</p>
 <p>Let’s first list the currently available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1171,7 +1171,7 @@ activate the environment:</p>
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash"># Cross-platform (but not always working, like in our VDI, try it)
+<pre style=""><code class="source bash"># Cross-platform (but not always working)
 conda activate geotest
 
 # Linux, macOS
@@ -1193,9 +1193,9 @@ packages the recommended way to install them can be found.</p>
 <li>Using <code>mamba</code> to install and manage <code>conda</code>
 packages. This downloads <code>conda</code> packages using
 <code>conda</code> channels, which are URLs to directories containing
-the <code>conda</code> packages. Generally, installing
+the <code>conda</code> packages. <strong>Generally, installing
 <code>conda</code> packages using <code>mamba</code> is the preferred
-method.</li>
+method.</strong></li>
 <li>Using <code>pip</code> to install packages and <code>mamba</code> to
 manage these packages. <code>pip</code> is available for Windows, macOS
 and Linux. <code>pip</code> can also install <a
@@ -1204,60 +1204,39 @@ Windows</a>.</li>
 <li>Using the distribution’s package manager (only on Ubuntu, that is
 <code>sudo apt-get install python-*</code>).</li>
 </ul>
-<p>The <code>mamba</code> command searches a set of channels. By
+<p>The <code>mamba search</code> command searches a set of channels. By
 default, packages are automatically downloaded and updated from the
 default channel. To search for a package, type:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">mamba search spyder</code></pre>
+<pre style=""><code class="source bash">mamba search pandas</code></pre>
 </div>
-<p>This gives a list of all packages that have “spyder” in the name and
+<p>This gives a list of all packages that have “pandas” in the name and
 lists all available versions. To install:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">mamba install spyder</code></pre>
+<pre style=""><code class="source bash">mamba install pandas</code></pre>
 </div>
-<p>This installs the latest version of the <em>Spyder</em> package
-(Python IDE). Note that this would install it into your currently
-activated environment.</p>
+<p>This installs the latest compatible version of <em>Pandas</em>. Note
+that this would install it into your currently activated
+environment.</p>
 <p>Note that you can also install multiple packages at the same
 time:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">mamba install geopandas pandas</code></pre>
+<pre style=""><code class="source bash">mamba install geopandas matplotlib</code></pre>
 </div>
-<p>Sometimes packages are not directly available from the standard
-<code>conda</code> channels, but require a specific <code>conda</code>
-channel. The documentation of Python packages often show the recommended
-<code>conda</code> channel to install the Python package. For example,
-the folium package can be installed from the <code>conda-forge</code>
-channel:</p>
-<div class="row">
-<button class="source bash toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> bash source
-</button>
-<pre style=""><code class="source bash">mamba install --channel conda-forge folium</code></pre>
-</div>
-<p>As explained above, another alternative is to use <code>pip</code> to
-install packages (not possible for all packages), as shown here for the
-packages <code>rasterio</code> and <code>rasterstats</code>:</p>
-<div class="row">
-<button class="source bash toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> bash source
-</button>
-<pre style=""><code class="source bash">pip install rasterio rasterstats</code></pre>
-</div>
-<p>In addition, as you saw with <em>Spyder</em> install,
-<code>mamba</code> is able to install some non-Python packages that have
-Python bindings, such as <em>Spyder</em> and <em>GDAL</em>. This is
-useful for making sure your Python and binary versions match and do not
-interfere with the system-wide ones.</p>
+<p>As you saw with <em>Spyder</em> (which is an IDE, more on that
+later), <code>mamba</code> is also able to install some non-Python
+packages that have Python bindings. This is useful for making sure your
+Python and binary versions match and do not interfere with the
+system-wide ones.</p>
 <p>Some additional helpful utilities for package management in this
 context are:</p>
 <ul>
@@ -1274,8 +1253,7 @@ which <em>Spyder</em> executable is used either from system or
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash">mamba remove geopandas pandas folium
-pip uninstall rasterio rasterstats</code></pre>
+<pre style=""><code class="source bash">mamba remove geopandas pandas folium</code></pre>
 </div>
 <p>Now, we deactivate the environment and return to base
 environment.</p>
@@ -1412,7 +1390,8 @@ exercise and date). Leave the other cell on code.</p>
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python">import folium
-m = folium.Map(location = [51.9700000, 5.6666700], zoom_start = 13)
+
+m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m</code></pre>
 </div>
 <p>Run the code cell by selecting it and pressing the <em>Run</em>
@@ -1482,8 +1461,6 @@ your preferred text editor, e.g. <code>gedit</code>. Then, (re)name it
 (to) <code>refresher.yaml</code>, and copy the following content into
 the file:</p>
 <pre><code>name: refresher
-channels:
-  - conda-forge
 dependencies:
   - python
   - numpy
@@ -1633,14 +1610,14 @@ accessing items in a list, and in a string:</p>
 </button>
 <pre style=""><code class="source python"># List
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-print(campus[3]) # Forum
-print(campus[-1]) # the last item of the list
-print(campus[0:3]) # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
-our_building = campus[0] # GAIA
+print(campus[3])  # Forum
+print(campus[-1])  # the last item of the list
+print(campus[0:3])  # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
+our_building = campus[0]  # GAIA
 
 # String
-print(our_building[0]) # G
-print(our_building[0:2]) # GA</code></pre>
+print(our_building[0])  # G
+print(our_building[0:2])  # GA</code></pre>
 </div>
 <div class="row">
 <div class="alert alert-success">
@@ -1689,11 +1666,11 @@ cannot be used.</p>
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python"># Dictionary
-campus_dictionary = {101:'Gaia',
-                     100:'Lumen',
-                     107:'Radix',
-                     102:'Forum',
-                     104:'Atlas'}
+campus_dictionary = {101: 'Gaia',
+                     100: 'Lumen',
+                     107: 'Radix',
+                     102: 'Forum',
+                     104: 'Atlas'}
 
 # Access dictionary value using key
 print(campus_dictionary[102])</code></pre>
@@ -1727,8 +1704,8 @@ print('a is', a)
 
 # Create standard arrays.
 print(np.zeros((3, 2)))
-print(np.ones((2, 3), np.int))
-print(np.ones((2, 3), np.int) * 5)
+print(np.ones((2, 3), int))
+print(np.ones((2, 3), int) * 5)
 print(np.empty((2, 2)))</code></pre>
 </div>
 <p>Just like with other compound data types, the elements can be
@@ -1749,8 +1726,8 @@ values either by dimension or by attribute name.</p>
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
 <pre style=""><code class="source python"># Create create structured NumPy array filled with zeroes
-data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
-                          'formats':('U10', 'i4', 'f8')})
+data = np.zeros(4, dtype={'names': ('name', 'age', 'weight'),
+                          'formats': ('U10', 'i4', 'f8')})
 print(data.dtype)
 
 # Now we can fill this structured array with data (lists) of the correct type
@@ -1799,10 +1776,11 @@ return the output:</p>
     rectangle_area = width * length
     return rectangle_area
 
+
 print(calculate_rectangle_area(4, 3))
 
 # Or alternatively;
-output_number = calculate_rectangle_area(width = 4, length = 3)
+output_number = calculate_rectangle_area(width=4, length=3)
 print(output_number)</code></pre>
 </div>
 <p>Functions or classes can be made more informative by
@@ -1813,13 +1791,13 @@ print(output_number)</code></pre>
 </button>
 <pre style=""><code class="source python">def calculate_rectangle_area(width, length):
     """Computes the area of a rectangle by multiplying width and length.
-
     :width: width is the width of the rectangle
     :length: length is the length of the rectangle
     :returns: width * length
     """
     rectangle_area = width * length
     return rectangle_area
+
 
 print(calculate_rectangle_area(4, 3))</code></pre>
 </div>
@@ -1980,17 +1958,15 @@ data type:</p>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">
-# Looping a list
+<pre style=""><code class="source python"># Looping a list
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for i in campus:
     print(i)
 
 # Looping
-our_building = campus[0] # GAIA
+our_building = campus[0]  # GAIA
 for letter in our_building:
-    print(letter)
-</code></pre>
+    print(letter)</code></pre>
 </div>
 <p>The <code>while</code>-loop works on a condition instead of on a
 compound data type. The syntax of a <code>while</code>-loop is:</p>
@@ -2009,7 +1985,7 @@ explicitly programmed.</p>
 <pre style=""><code class="source python">n = 0
 while n < 20:
     print(n)
-    n = n+1</code></pre>
+    n = n + 1</code></pre>
 </div>
 <div class="row">
 <div class="alert alert-success">
@@ -2064,9 +2040,9 @@ x = np.arange(-np.pi, np.pi, 0.2)
 y = np.sin(x)
 
 # Plot x against y
-plt.plot(x,y)
+plt.plot(x, y)
 
-# Show in an interactive plot
+# Show the plot
 plt.show()</code></pre>
 </div>
 <p><img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img></p>
@@ -2111,7 +2087,7 @@ line = axarr[0].plot(x1, y1)
 axarr[0].set_title('plot 1')
 axarr[1].plot(x2, y2)
 axarr[1].set_title('plot 2')
-f.suptitle('super title', fontsize = 16)
+f.suptitle('super title', fontsize=16)
 
 # Axis label
 axarr[1].set_xlabel('x')
@@ -2123,13 +2099,12 @@ xticks = axarr[1].get_xticks()
 print(xticks)
 new_ticks = np.arange(-np.pi, np.pi + 0.1, 0.25 * np.pi)
 new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
-            r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
-            "$0$", r"$\frac{1}{4}\pi$",
-            r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
-            r"$2\pi$"]
+              r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
+              "$0$", r"$\frac{1}{4}\pi$",
+              r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
+              r"$2\pi$"]
 axarr[1].set_xticks(new_ticks)
 axarr[1].set_xticklabels(new_labels)
-
 plt.show()</code></pre>
 </div>
 <p><img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img></p>
@@ -2156,7 +2131,7 @@ ax0.plot(x, y, 'r--', label='red dashed line')
 ax0.legend(loc='lower right')
 
 # Scatter plot, using a colormap based on the y-value, changing the marker size to 35
-ax1.scatter(x, y, c=y, cmap='bwr', s = 35)
+ax1.scatter(x, y, c=y, cmap='bwr', s=35)
 
 # Bar chart, changing the bar color to black
 ax2.bar(x, y, color='k')
@@ -2182,7 +2157,10 @@ used for plotting any kind of data, not necessarily spatial, it does not
 automatically do this. We can use <code>plt.axis('equal')</code>, or
 <code>ax.set_aspect('equal')</code> on the axis, to ensure equal scales
 in both directions. Let’s test this on the non-spatial data in the plots
-above, see what happens, and save the figure to disk.</p>
+above, see what happens (make sure to adjust the code above properly,
+and replace <code>plt.show()</code> with the code below). Adjust the
+Spyder working directory by clicking on the folder icon in the top right
+pane if necessary.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -2191,7 +2169,7 @@ above, see what happens, and save the figure to disk.</p>
 ax1.set_aspect('equal')
 ax2.set_aspect('equal')
 ax3.set_aspect('equal')
-plt.savefig('./output/equal_scale.png')</code></pre>
+plt.savefig('output/equal_scale.png')</code></pre>
 </div>
 <p><img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img></p>
 <h1 id="python-help">Python help</h1>

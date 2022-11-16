@@ -35,7 +35,6 @@ Good morning! Today we will start working with Python for geoscripting and do a 
 - Get introduced to Python editors and IDEs
 - Refresh Python programming knowledge
 
-
 # Introduction to Python
 
 Python is a jack-of-all-trades programming language that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geoscripting, data wrangling, visualization and machine learning. For example:
@@ -248,6 +247,7 @@ Type the following Python code in the code cell:
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import folium
+
 m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
 m
 ```
@@ -405,14 +405,14 @@ For most compound data types, the elements can be accessed by providing the inde
 ```{Python,engine.path='/usr/bin/python3'}
 # List
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-print(campus[3]) # Forum
-print(campus[-1]) # the last item of the list
-print(campus[0:3]) # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
-our_building = campus[0] # GAIA
+print(campus[3])  # Forum
+print(campus[-1])  # the last item of the list
+print(campus[0:3])  # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
+our_building = campus[0]  # GAIA
 
 # String
-print(our_building[0]) # G
-print(our_building[0:2]) # GA
+print(our_building[0])  # G
+print(our_building[0:2])  # GA
 ```
 
 ```{block, type="alert alert-success"}
@@ -442,11 +442,11 @@ A *dictionary* is set of key-value pairs. The key can be used to access the valu
 
 ```{Python,engine.path='/usr/bin/python3'}
 # Dictionary
-campus_dictionary = {101:'Gaia',
-                     100:'Lumen',
-                     107:'Radix',
-                     102:'Forum',
-                     104:'Atlas'}
+campus_dictionary = {101: 'Gaia',
+                     100: 'Lumen',
+                     107: 'Radix',
+                     102: 'Forum',
+                     104: 'Atlas'}
 
 # Access dictionary value using key
 print(campus_dictionary[102])
@@ -483,8 +483,8 @@ Finally, *structured NumPy arrays* can have a different data type per column, i.
 
 ```{Python,engine.path='/usr/bin/python3'}
 # Create create structured NumPy array filled with zeroes
-data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
-                          'formats':('U10', 'i4', 'f8')})
+data = np.zeros(4, dtype={'names': ('name', 'age', 'weight'),
+                          'formats': ('U10', 'i4', 'f8')})
 print(data.dtype)
 
 # Now we can fill this structured array with data (lists) of the correct type
@@ -528,6 +528,7 @@ def calculate_rectangle_area(width, length):
     rectangle_area = width * length
     return rectangle_area
 
+
 print(calculate_rectangle_area(4, 3))
 
 # Or alternatively;
@@ -540,13 +541,13 @@ Functions or classes can be made more informative by *docstrings*:
 ```{Python,engine.path='/usr/bin/python3'}
 def calculate_rectangle_area(width, length):
     """Computes the area of a rectangle by multiplying width and length.
-
     :width: width is the width of the rectangle
     :length: length is the length of the rectangle
     :returns: width * length
     """
     rectangle_area = width * length
     return rectangle_area
+
 
 print(calculate_rectangle_area(4, 3))
 ```
@@ -669,10 +670,9 @@ for i in campus:
     print(i)
 
 # Looping
-our_building = campus[0] # GAIA
+our_building = campus[0]  # GAIA
 for letter in our_building:
     print(letter)
-
 ```
 
 The `while`-loop works on a condition instead of on a compound data type. The syntax of a `while`-loop is:
@@ -729,7 +729,7 @@ x = np.arange(-np.pi, np.pi, 0.2)
 y = np.sin(x)
 
 # Plot x against y
-plt.plot(x,y)
+plt.plot(x, y)
 
 # Show the plot
 plt.show()
@@ -778,13 +778,12 @@ xticks = axarr[1].get_xticks()
 print(xticks)
 new_ticks = np.arange(-np.pi, np.pi + 0.1, 0.25 * np.pi)
 new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
-            r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
-            "$0$", r"$\frac{1}{4}\pi$",
-            r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
-            r"$2\pi$"]
+              r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
+              "$0$", r"$\frac{1}{4}\pi$",
+              r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
+              r"$2\pi$"]
 axarr[1].set_xticks(new_ticks)
 axarr[1].set_xticklabels(new_labels)
-
 plt.show()
 ```
 
@@ -807,7 +806,7 @@ ax0.plot(x, y, 'r--', label='red dashed line')
 ax0.legend(loc='lower right')
 
 # Scatter plot, using a colormap based on the y-value, changing the marker size to 35
-ax1.scatter(x, y, c=y, cmap='bwr', s = 35)
+ax1.scatter(x, y, c=y, cmap='bwr', s=35)
 
 # Bar chart, changing the bar color to black
 ax2.bar(x, y, color='k')
