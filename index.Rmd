@@ -640,7 +640,7 @@ else:
 
 
 ```{block, type="alert alert-success"}
-> **Question 8**: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
+> **Question 7**: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
 
 ```
 
@@ -697,7 +697,7 @@ while n < 20:
 
 
 ```{block, type="alert alert-success"}
-> **Question 9**: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
+> **Question 8**: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
 ```
 
 You may remember that variables in a function are local. This is different for loops: Variables in a loop are NOT local, and thus affect what happens outside of the loop, as demonstrated by the last question. Be aware of this.
@@ -819,7 +819,7 @@ plt.show()
 <img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
 
 ```{block, type="alert alert-success"}
-> **Question 10**: In the upper right subplot, why is there no point at x=3, y=8?.
+> **Question 9**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
 When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the folder icon in the top right pane if necessary.
@@ -846,7 +846,7 @@ help(sys)
 See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question 7**: What kind of functionality does the `sys` package provide?
+> **Question 10**: What kind of functionality does the `sys` package provide?
 ```
 
 # What have we learned?
