@@ -286,7 +286,7 @@ Open a new file and save it somewhere as `main.py` (File -- > New File --> Save 
 
 In the second part of this tutorial we will do a quick Python refresher. Again, we advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.
 
-First, make a folder structure for this tutorial:
+First, make a directory structure for this tutorial:
 
 ```{r, eval=FALSE,engine='bash'}
 cd ~/Documents/
@@ -822,7 +822,7 @@ plt.show()
 > **Question 9**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
-When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the folder icon in the top right pane if necessary.
+When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
 
 ```{Python,engine.path='/usr/bin/python3'}
 ax0.set_aspect('equal')
