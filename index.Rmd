@@ -30,7 +30,7 @@ Good morning! Today we will start working with Python for geoscripting and do a 
 
 ## Today’s Learning objectives
 
-- Know how to work with virtual environments: Conda + Mamba
+- Know how to work with virtual environments: *Conda* + *Mamba*
 - Know how to run a Python script from the terminal
 - Get introduced to Python editors and IDEs
 - Refresh Python programming knowledge
@@ -60,14 +60,14 @@ Python is a jack-of-all-trades programming language that is free, flexible, open
 ## Python package management with Conda
 A set of tools co-exist for installing and managing Python packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
 
-Instead, we recommend to create a `conda` environment on your local machine for each project. In `conda` environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other `conda` environments.
+Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.
 
-## Conda/Mamba installation
-For this course, we will make use of Mamba, fast drop-in reimplementation of the Conda package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
+## Mamba installation
+For this course, we will make use of *Mamba*, fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
 
-Mamba replaces Conda for most commands, *except for activating and deactivating environments*. You will see more clearly how this works in practice in the first part of this tutorial.
+*Mamba* replaces *Conda* for most commands, **except for activating and deactivating environments**. You will see more clearly how this works in practice in the first part of this tutorial.
 
-To install Mamba in your Linux environment, we have prepared a short `Bash` script for you. Just run the following lines of code, line by line, in a new terminal window.
+To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
 git clone https://github.com/GeoScripting-WUR/InstallLinuxScript.git
@@ -88,21 +88,21 @@ popd
 ```
 
 <<<<<<< HEAD
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
 =======
 
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. -->
 
-This will install Mamba into `~/mamba`. Finally, restart your terminal to be able to use `mamba` and `conda` in the terminal. Next, let's see how to use Mamba in case you want make new virtual environments by yourself, or install packages after creating the environment.
+This will install *Mamba* into `~/mamba`. Finally, restart your terminal to be able to use *Mamba* and *Conda* in the terminal. Next, let's see how to use *Mamba* in case you want make new virtual environments by yourself, or install packages after creating the environment.
 
-## Mamba usage
-Mamba creates isolated `conda` environments with sets of packages, that do not interfere with your base Python or with other `conda` environments. To create an environment:
+## *Mamba* usage
+*Mamba* creates isolated conda environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba create --name geotest python numpy
 ```
 
-This would create a new environment called `geotest` with Python 2.7 and `NumPy` and `Spyder` installed into the `conda` environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
+This would create a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
 
 Let's first list the currently available environments:
 
@@ -110,10 +110,10 @@ Let's first list the currently available environments:
 mamba info --envs
 ```
 
-Mamba puts an asterisk (*) in front of the active environment. To activate the environment:
+*Mamba* puts an asterisk (*) in front of the active environment. To activate the environment:
 
 ```{r, eval=FALSE, engine='bash'}
-# Cross-platform (but not always working)
+# Cross-platform (but not always working, like in our VDI, so we use the next option)
 conda activate geotest
 
 # Linux, macOS
@@ -125,10 +125,10 @@ activate geotest
 
 After this, the current environment is shown in parentheses in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again.
 
-After creating a `conda` environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below. In the documentation of most Python packages the recommended way to install them can be found.
+After creating a conda environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below.
 
-* Using `mamba` to install and manage `conda` packages. This downloads `conda` packages using `conda` channels, which are URLs to directories containing the `conda` packages. **Generally, installing `conda` packages using `mamba` is the preferred method.**
-* Using `pip` to install packages and `mamba` to manage these packages. `pip` is available for Windows, macOS and Linux. `pip` can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs).
+* Using *Mamba* to install and manage conda packages. This downloads conda packages using conda channels, which are URLs to directories containing the conda packages. **Generally, installing conda packages using *Mamba* is the preferred method.**
+* Using *pip*` to install packages and *Mamba* to manage these packages. *pip*` is available for Windows, macOS and Linux. *pip*` can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip*` in a conda environment unless it's the last resort. This is because after you use pip to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
 * Using the distribution's package manager (only on Ubuntu, that is `sudo apt-get install python-*`).
 
 The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
@@ -151,13 +151,13 @@ Note that you can also install multiple packages at the same time:
 mamba install geopandas matplotlib
 ```
 
-As you saw with _Spyder_ (which is an IDE, more on that later), `mamba` is also able to install some non-Python packages that have Python bindings. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
+As you saw with *Spyder* (which is an IDE, more on that later), *Mamba* is also able to install some non-Python packages that have Python bindings. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
 
 Some additional helpful utilities for package management in this context are:
 
 * `mamba list` to check which packages are installed in `root` or in the active environment;
 * `python --version` or `gdal-config --version` to check which Python or GDAL version is used in the environment;
-* `which spyder` or `type spyder` to find out which _Spyder_ executable is used either from system or `conda` environment.
+* `which spyder` or `type spyder` to find out which *Spyder* executable is used either from system or conda environment.
 
 Removing packages is just as simple:
 
@@ -187,7 +187,7 @@ mamba remove --name geotest --all
 
 ## Running a Python script in the terminal
 
-Within a `conda` environment, Python can be started directly, or can be called to run a script file. To start Python directly:
+Within a conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:
 
 ```{r, eval=FALSE, engine='bash'}
 python
@@ -266,7 +266,7 @@ conda deactivate
 
 ### Spyder
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the `spyder` package is installed in the active `conda` environment. So, using `mamba`, make an environment and install Spyder to that environment. Activate the environment using `conda`. Spyder will automatically make use of the Python interpreter of the active `conda` environment. To start Spyder:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active conda environment. To start Spyder:
 
 ```{r, eval=FALSE,engine='bash'}
 spyder
@@ -295,7 +295,7 @@ cd ./PythonRefresher
 mkdir output
 ```
 
-We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a `conda` environment from a file. First create a text file in your preferred text editor, e.g. `gedit`. Then, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
+We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a conda environment from a file. First create a text file in your preferred text editor, e.g. `gedit`. Then, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
 
 ```
 name: refresher
@@ -306,7 +306,7 @@ dependencies:
   - spyder
 ```
 
-Now, create a new `conda` environment based on this file:
+Now, create a new conda environment based on this file:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba env create --file refresher.yaml
@@ -664,12 +664,12 @@ for element in compound:
 Often `i`, standing for iterator, is used as the `element`, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the `element` is what one should use in the expressions in the `for`-loop. The `for`-loop works on any compound data type:
 
 ```{Python,engine.path='/usr/bin/python3'}
-# Looping a list
+# Looping over a list
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for i in campus:
     print(i)
 
-# Looping
+# Looping over a string
 our_building = campus[0]  # GAIA
 for letter in our_building:
     print(letter)
@@ -851,7 +851,7 @@ See how the objects and functions in the `sys` package got listed.
 
 # What have we learned?
 
-1. Python package management with Mamba & Conda
+1. Python package management with *Mamba* & *Conda*
 2. Running a Python script in the terminal
 3. Using Python editors and IDEs
 4. What classes and objects are

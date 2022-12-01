@@ -1047,7 +1047,8 @@ for R users</a> | recommended if you have experience already in R</li>
 </ul>
 <h2 id="todays-learning-objectives">Today’s Learning objectives</h2>
 <ul>
-<li>Know how to work with virtual environments: Conda + Mamba</li>
+<li>Know how to work with virtual environments: <em>Conda</em> +
+<em>Mamba</em></li>
 <li>Know how to run a Python script from the terminal</li>
 <li>Get introduced to Python editors and IDEs</li>
 <li>Refresh Python programming knowledge</li>
@@ -1095,24 +1096,27 @@ sooner or later you will get conflicting Python packages since packages
 have varying dependencies. It can even <a
 href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages">break
 your system Python interpreter</a>.</p>
-<p>Instead, we recommend to create a <code>conda</code> environment on
-your local machine for each project. In <code>conda</code> environments,
-basically anything, such as software, C libraries or R packages can be
-installed. Here we use them here for installing Python packages.
-Packages installed in one environment do not interfere with your base
-Python or with other <code>conda</code> environments.</p>
-<h2 id="condamamba-installation">Conda/Mamba installation</h2>
-<p>For this course, we will make use of Mamba, fast drop-in
-reimplementation of the Conda package manager. It has its core parts
-implemented in C++ for maximum efficiency, makes use of parallel
+<p>Instead, we recommend to use a Python package manager that can make
+use of virtual environments, such as <em>Conda</em> or <em>Mamba</em>.
+That way, you can create a conda environment on your local machine for
+each project. In conda environments, basically anything, such as
+software, C libraries or R packages can be installed. Here we use them
+here for installing Python packages. Packages installed in one
+environment do not interfere with your base Python or with other conda
+environments.</p>
+<h2 id="mamba-installation">Mamba installation</h2>
+<p>For this course, we will make use of <em>Mamba</em>, fast drop-in
+reimplementation of the <em>Conda</em> package manager. It has its core
+parts implemented in C++ for maximum efficiency, makes use of parallel
 downloading of repository data and package files using multi-threading,
 and uses <code>libsolv</code> for (much) faster dependency solving.</p>
-<p>Mamba replaces Conda for most commands, <em>except for activating and
-deactivating environments</em>. You will see more clearly how this works
-in practice in the first part of this tutorial.</p>
-<p>To install Mamba in your Linux environment, we have prepared a short
-<code>Bash</code> script for you. Just run the following lines of code,
-line by line, in a new terminal window.</p>
+<p><em>Mamba</em> replaces <em>Conda</em> for most commands,
+<strong>except for activating and deactivating environments</strong>.
+You will see more clearly how this works in practice in the first part
+of this tutorial.</p>
+<p>To install <em>Mamba</em> in your Linux environment, we have prepared
+a short <em>Bash</em> script for you. Just run the following lines of
+code, line by line, in a new terminal window.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1132,32 +1136,32 @@ rm ${MINICONDA_VERSION}.sh
 popd</code></pre></div>
 
 <<<<<<< HEAD
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
 =======
 
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the Conda install location to path agree (i.e. type yes). This makes the Python interpreter of Conda the standard Python interpreter and allows you to run Conda commands from command line. -->
-<p>This will install Mamba into <code>~/mamba</code>. Finally, restart
-your terminal to be able to use <code>mamba</code> and
-<code>conda</code> in the terminal. Next, let’s see how to use Mamba in
-case you want make new virtual environments by yourself, or install
-packages after creating the environment.</p>
-<h2 id="mamba-usage">Mamba usage</h2>
-<p>Mamba creates isolated <code>conda</code> environments with sets of
+Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. -->
+<p>This will install <em>Mamba</em> into <code>~/mamba</code>. Finally,
+restart your terminal to be able to use <em>Mamba</em> and
+<em>Conda</em> in the terminal. Next, let’s see how to use
+<em>Mamba</em> in case you want make new virtual environments by
+yourself, or install packages after creating the environment.</p>
+<h2 id="mamba-usage"><em>Mamba</em> usage</h2>
+<p><em>Mamba</em> creates isolated conda environments with sets of
 packages, that do not interfere with your base Python or with other
-<code>conda</code> environments. To create an environment:</p>
+conda environments. To create an environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
 <pre style=""><code class="source bash">mamba create --name geotest python numpy</code></pre>
 </div>
-<p>This would create a new environment called <code>geotest</code> with
-Python 2.7 and <code>NumPy</code> and <code>Spyder</code> installed into
-the <code>conda</code> environment. Another option is to create an
-environment from a <code>.yaml</code> file, in which all required
-modules are listed. You will see an example of this later on in this
-tutorial. To create an environment from such a file, you can use the
-argument <code>--file</code> (or <code>--f</code> in short).</p>
+<p>This would create a new environment called <em>geotest</em> with
+<em>Python</em>, <em>NumPy</em> and <em>Spyder</em> installed into the
+conda environment. Another option is to create an environment from a
+<code>.yaml</code> file, in which all required modules are listed. You
+will see an example of this later on in this tutorial. To create an
+environment from such a file, you can use the argument
+<code>--file</code> (or <code>--f</code> in short).</p>
 <p>Let’s first list the currently available environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1165,13 +1169,13 @@ argument <code>--file</code> (or <code>--f</code> in short).</p>
 </button>
 <pre style=""><code class="source bash">mamba info --envs</code></pre>
 </div>
-<p>Mamba puts an asterisk (*) in front of the active environment. To
-activate the environment:</p>
+<p><em>Mamba</em> puts an asterisk (*) in front of the active
+environment. To activate the environment:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash"># Cross-platform (but not always working)
+<pre style=""><code class="source bash"># Cross-platform (but not always working, like in our VDI, so we use the next option)
 conda activate geotest
 
 # Linux, macOS
@@ -1185,22 +1189,27 @@ of your prompt (<code>(geotest)$</code>). Note that the activated
 environment is only valid for the shell in which you activated it. For
 instance, if you close the shell window and open a new one you will have
 to activate it again.</p>
-<p>After creating a <code>conda</code> environment, (additional) Python
-packages can be installed. There are three possible ways to install
-packages, which we list below. In the documentation of most Python
-packages the recommended way to install them can be found.</p>
+<p>After creating a conda environment, (additional) Python packages can
+be installed. There are three possible ways to install packages, which
+we list below.</p>
 <ul>
-<li>Using <code>mamba</code> to install and manage <code>conda</code>
-packages. This downloads <code>conda</code> packages using
-<code>conda</code> channels, which are URLs to directories containing
-the <code>conda</code> packages. <strong>Generally, installing
-<code>conda</code> packages using <code>mamba</code> is the preferred
+<li>Using <em>Mamba</em> to install and manage conda packages. This
+downloads conda packages using conda channels, which are URLs to
+directories containing the conda packages. <strong>Generally, installing
+conda packages using <em>Mamba</em> is the preferred
 method.</strong></li>
-<li>Using <code>pip</code> to install packages and <code>mamba</code> to
-manage these packages. <code>pip</code> is available for Windows, macOS
-and Linux. <code>pip</code> can also install <a
-href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on
-Windows</a>.</li>
+<li>Using
+<em>pip</em><code>to install packages and *Mamba* to manage these packages. *pip*</code>
+is available for Windows, macOS and Linux.
+<em>pip</em><code>can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip*</code>
+in a conda environment unless it’s the last resort. This is because
+after you use pip to modify an environment, you can no longer use
+<code>conda</code>/<code>mamba</code> to do so (trying that will break
+your environment, because <em>pip</em> does not communicate its changes
+to <em>Conda</em>). Hence install packages with <code>mamba</code> that
+you can first, and only then use <code>pip</code>, and then never touch
+the environment with <code>mamba</code> again (delete and start fresh if
+you need to).</li>
 <li>Using the distribution’s package manager (only on Ubuntu, that is
 <code>sudo apt-get install python-*</code>).</li>
 </ul>
@@ -1233,10 +1242,10 @@ time:</p>
 <pre style=""><code class="source bash">mamba install geopandas matplotlib</code></pre>
 </div>
 <p>As you saw with <em>Spyder</em> (which is an IDE, more on that
-later), <code>mamba</code> is also able to install some non-Python
-packages that have Python bindings. This is useful for making sure your
-Python and binary versions match and do not interfere with the
-system-wide ones.</p>
+later), <em>Mamba</em> is also able to install some non-Python packages
+that have Python bindings. This is useful for making sure your Python
+and binary versions match and do not interfere with the system-wide
+ones.</p>
 <p>Some additional helpful utilities for package management in this
 context are:</p>
 <ul>
@@ -1245,8 +1254,8 @@ context are:</p>
 <li><code>python --version</code> or <code>gdal-config --version</code>
 to check which Python or GDAL version is used in the environment;</li>
 <li><code>which spyder</code> or <code>type spyder</code> to find out
-which <em>Spyder</em> executable is used either from system or
-<code>conda</code> environment.</li>
+which <em>Spyder</em> executable is used either from system or conda
+environment.</li>
 </ul>
 <p>Removing packages is just as simple:</p>
 <div class="row">
@@ -1280,9 +1289,8 @@ we can remove the environment <code>geotest</code>.</p>
 </div>
 <h2 id="running-a-python-script-in-the-terminal">Running a Python script
 in the terminal</h2>
-<p>Within a <code>conda</code> environment, Python can be started
-directly, or can be called to run a script file. To start Python
-directly:</p>
+<p>Within a conda environment, Python can be started directly, or can be
+called to run a script file. To start Python directly:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1416,12 +1424,11 @@ environment by typing <code>conda deactivate</code>.</p>
 </div>
 <h3 id="spyder">Spyder</h3>
 <p>The <a href="https://docs.spyder-ide.org/">Spyder IDE</a> can be
-started in a terminal when the <code>spyder</code> package is installed
-in the active <code>conda</code> environment. So, using
-<code>mamba</code>, make an environment and install Spyder to that
-environment. Activate the environment using <code>conda</code>. Spyder
-will automatically make use of the Python interpreter of the active
-<code>conda</code> environment. To start Spyder:</p>
+started in a terminal when the <em>Spyder</em> package is installed in
+the active conda environment. So, using <em>Mamba</em>, make an
+environment and install Spyder to that environment. Activate the
+environment. Spyder will automatically make use of the Python
+interpreter of the active conda environment. To start Spyder:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1456,18 +1463,17 @@ mkdir output</code></pre>
 </div>
 <p>We only make a directory for output, because no input data or
 separate scripts are created in this tutorial. Next, we will create a
-<code>conda</code> environment from a file. First create a text file in
-your preferred text editor, e.g. <code>gedit</code>. Then, (re)name it
-(to) <code>refresher.yaml</code>, and copy the following content into
-the file:</p>
+conda environment from a file. First create a text file in your
+preferred text editor, e.g. <code>gedit</code>. Then, (re)name it (to)
+<code>refresher.yaml</code>, and copy the following content into the
+file:</p>
 <pre><code>name: refresher
 dependencies:
   - python
   - numpy
   - matplotlib
   - spyder</code></pre>
-<p>Now, create a new <code>conda</code> environment based on this
-file:</p>
+<p>Now, create a new conda environment based on this file:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
@@ -1958,12 +1964,12 @@ data type:</p>
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Looping a list
+<pre style=""><code class="source python"># Looping over a list
 campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
 for i in campus:
     print(i)
 
-# Looping
+# Looping over a string
 our_building = campus[0]  # GAIA
 for letter in our_building:
     print(letter)</code></pre>
@@ -2201,7 +2207,8 @@ listed.</p>
 </div>
 <h1 id="what-have-we-learned">What have we learned?</h1>
 <ol style="list-style-type: decimal">
-<li>Python package management with Mamba &amp; Conda</li>
+<li>Python package management with <em>Mamba</em> &amp;
+<em>Conda</em></li>
 <li>Running a Python script in the terminal</li>
 <li>Using Python editors and IDEs</li>
 <li>What classes and objects are</li>
