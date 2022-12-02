@@ -65,8 +65,6 @@ Instead, we recommend to use a Python package manager that can make use of virtu
 ## Mamba installation
 For this course, we will make use of *Mamba*, fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
 
-*Mamba* replaces *Conda* for most commands, **except for activating and deactivating environments**. You will see more clearly how this works in practice in the first part of this tutorial.
-
 To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
@@ -110,10 +108,10 @@ Let's first list the currently available environments:
 mamba info --envs
 ```
 
-*Mamba* puts an asterisk (*) in front of the active environment. To activate the environment:
+*Mamba* puts an asterisk (\*) in front of the active environment. Now we activate the environment. While *Mamba* replaces *Conda* for most commands, this is not the case for (de)activating environments:
 
 ```{r, eval=FALSE, engine='bash'}
-# Cross-platform (but not always working, like in our VDI, so we use the next option)
+# Cross-platform (but not always working, like in our VM, so we use the next option)
 conda activate geotest
 
 # Linux, macOS
@@ -128,7 +126,7 @@ After this, the current environment is shown in parentheses in front of your pro
 After creating a conda environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below.
 
 * Using *Mamba* to install and manage conda packages. This downloads conda packages using conda channels, which are URLs to directories containing the conda packages. **Generally, installing conda packages using *Mamba* is the preferred method.**
-* Using *pip*` to install packages and *Mamba* to manage these packages. *pip*` is available for Windows, macOS and Linux. *pip*` can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip*` in a conda environment unless it's the last resort. This is because after you use pip to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
+* Using *pip* to install packages and *Mamba* to manage these packages. *pip* is available for Windows, macOS and Linux. *pip* can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip* in a conda environment unless it's the last resort. This is because after you use *pip* to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
 * Using the distribution's package manager (only on Ubuntu, that is `sudo apt-get install python-*`).
 
 The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:

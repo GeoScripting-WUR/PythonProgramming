@@ -1110,10 +1110,6 @@ reimplementation of the <em>Conda</em> package manager. It has its core
 parts implemented in C++ for maximum efficiency, makes use of parallel
 downloading of repository data and package files using multi-threading,
 and uses <code>libsolv</code> for (much) faster dependency solving.</p>
-<p><em>Mamba</em> replaces <em>Conda</em> for most commands,
-<strong>except for activating and deactivating environments</strong>.
-You will see more clearly how this works in practice in the first part
-of this tutorial.</p>
 <p>To install <em>Mamba</em> in your Linux environment, we have prepared
 a short <em>Bash</em> script for you. Just run the following lines of
 code, line by line, in a new terminal window.</p>
@@ -1170,12 +1166,14 @@ environment from such a file, you can use the argument
 <pre style=""><code class="source bash">mamba info --envs</code></pre>
 </div>
 <p><em>Mamba</em> puts an asterisk (*) in front of the active
-environment. To activate the environment:</p>
+environment. Now we activate the environment. While <em>Mamba</em>
+replaces <em>Conda</em> for most commands, this is not the case for
+(de)activating environments:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> bash source
 </button>
-<pre style=""><code class="source bash"># Cross-platform (but not always working, like in our VDI, so we use the next option)
+<pre style=""><code class="source bash"># Cross-platform (but not always working, like in our VM, so we use the next option)
 conda activate geotest
 
 # Linux, macOS
@@ -1198,18 +1196,19 @@ downloads conda packages using conda channels, which are URLs to
 directories containing the conda packages. <strong>Generally, installing
 conda packages using <em>Mamba</em> is the preferred
 method.</strong></li>
-<li>Using
-<em>pip</em><code>to install packages and *Mamba* to manage these packages. *pip*</code>
-is available for Windows, macOS and Linux.
-<em>pip</em><code>can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip*</code>
+<li>Using <em>pip</em> to install packages and <em>Mamba</em> to manage
+these packages. <em>pip</em> is available for Windows, macOS and Linux.
+<em>pip</em> can also install <a
+href="https://www.lfd.uci.edu/~gohlke/Pythonlibs">binary wheels on
+Windows</a>. You should generally not install packages from <em>pip</em>
 in a conda environment unless it’s the last resort. This is because
-after you use pip to modify an environment, you can no longer use
-<code>conda</code>/<code>mamba</code> to do so (trying that will break
-your environment, because <em>pip</em> does not communicate its changes
-to <em>Conda</em>). Hence install packages with <code>mamba</code> that
-you can first, and only then use <code>pip</code>, and then never touch
-the environment with <code>mamba</code> again (delete and start fresh if
-you need to).</li>
+after you use <em>pip</em> to modify an environment, you can no longer
+use <code>conda</code>/<code>mamba</code> to do so (trying that will
+break your environment, because <em>pip</em> does not communicate its
+changes to <em>Conda</em>). Hence install packages with
+<code>mamba</code> that you can first, and only then use
+<code>pip</code>, and then never touch the environment with
+<code>mamba</code> again (delete and start fresh if you need to).</li>
 <li>Using the distribution’s package manager (only on Ubuntu, that is
 <code>sudo apt-get install python-*</code>).</li>
 </ul>
