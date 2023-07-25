@@ -1,0 +1,378 @@
+## Classes and objects
+
+Python is an *object-oriented programming language*. That is a programming paradigm that structures a code hierarchically with *classes* and *objects*. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.
+
+For example, one could have a class `dog` with functions, `bark()` and `doginfo()`, and properties `breed` and `age`. 
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+class Dog:
+    def __init__(self, breed, age):  
+        self.breed = breed
+        self.age = age
+
+    def bark(self):
+        print("bark bark!")
+
+    def doginfo(self):
+        print("This " + self.breed + " is " + str(self.age) + " year(s) old.")
+```
+
+One can then create an *instance* of this class, i.e. an object, that represents Ozzy, a Maltese of two years old. This object can apply the function `eat()` and `run()`. We can call the attributes and functions with the dot notation:
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+ozzy = Dog("Maltese", 2)
+print(ozzy.breed)
+print(ozzy.age)
+ozzy.bark()
+ozzy.doginfo()
+```
+
+During Geo-scripting, you do not need to define your own classes. However, sometimes existing classes of modules will be used, such as a `DataFrame` in Pandas or a `GeoDataFrame` in GeoPandas. It is therefore important to understand the concepts of classes and objects generated from them.
+
+```{block, type="alert alert-success"}
+> **Question 1**: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
+```
+
+## Data types and variables
+
+Values belong to a data type. The most important built-in (base) types are:
+* integer
+* floating point
+* Boolean
+* several compound data types (see next section), like string
+
+Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.
+
+Values can be cast to other types, e.g.:
+
+```{Python,engine.path='/usr/bin/python3'}
+print(int(10.6))
+```
+
+```{block, type="alert alert-success"}
+> **Question 2**: What is the difference between 10 and 10.0 in Python?
+```
+
+Often, we do not use values directly in a script. Instead, we use access them through variables. A variable is a way to reference to a known or unknown value. In Python, a value is assigned to a variable with the `=`-sign, e.g.:
+
+```{Python,engine.path='/usr/bin/python3'}
+building = 'Gaia'
+buildingnumber = 101
+print(building + ' is in Wageningen')
+```
+
+As opposed to other programming languages, in Python, the data type does not need to be explicitly defined when creating a variable. Python derives the data type of the variable from the value assigned to it. In the code above, the variable `building` is thus a string, and the variable `buildingnumber` is an integer, without having defined this explicitly.
+
+Variable names should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.
+
+
+## Compound data types
+
+*Compound data types* or container types are Python data types that have in common that they can be broken down into smaller *elements*. The most commonly known compound data types are:
+- string
+- list
+- dictionary
+- tuple
+- NumPy array
+
+For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, `[ ]`. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, **STARTS AT 0!** Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon `from:to`, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:
+
+```{Python,engine.path='/usr/bin/python3'}
+# List
+campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
+print(campus[3])  # Forum
+print(campus[-1])  # the last item of the list
+print(campus[0:3])  # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
+our_building = campus[0]  # GAIA
+
+# String
+print(our_building[0])  # G
+print(our_building[0:2])  # GA
+```
+
+```{block, type="alert alert-success"}
+> **Question 3:** What building is `campus[-2]`? Test it.
+```
+
+Lists can be nested. That means that a list is an item in another list. Accessing items in nested lists works the same as in regular lists, e.g,:
+
+```{Python,engine.path='/usr/bin/python3'}
+# Nested list
+samples = [["x", "y", "z"], [12, 32, 7], [12, 40, 7]]
+
+# Access the x
+header = samples[0]
+first_item = header[0]
+
+# Or at once
+first_item = samples[0][0]
+```
+
+
+```{block, type="alert alert-success"}
+> **Question 4:** How can we access the value 40 above? Test it.
+```
+
+A *dictionary* is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is not ordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, `[ ]` cannot be used. 
+
+```{Python,engine.path='/usr/bin/python3'}
+# Dictionary
+campus_dictionary = {101: 'Gaia',
+                     100: 'Lumen',
+                     107: 'Radix',
+                     102: 'Forum',
+                     104: 'Atlas'}
+
+# Access dictionary value using key
+print(campus_dictionary[102])
+```
+
+In contrast to a list, a *NumPy array* is a *homogeneous multidimensional array* from the NumPy package. Homogeneous refers to the fact that all data in one array have to be of the same type. NumPy’s array class is called `ndarray` (n-dimensional). In the array, the dimensions are called *axes*, and the number of axes is the *rank*.
+
+<figure>
+<img src="images/numpy_structure.png" alt="Anatomy of a numpy array" width="100%">
+<figcaption>Anatomy of a NumPy array, source https://valecs.gitlab.io/resources/numpy.pdf.</figcaption>
+</figure>
+
+Below, we show how to create a NumPy array from a set of lists. We also show how to create *standard* arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.
+
+```{Python,engine.path='/usr/bin/python3'}
+import numpy as np
+
+# Create array from list
+a = np.array([[1, 3, 4], [2, 7, 6]])
+print('a is', a)
+
+# Create standard arrays.
+print(np.zeros((3, 2)))
+print(np.ones((2, 3), int))
+print(np.ones((2, 3), int) * 5)
+print(np.empty((2, 2)))
+```
+
+Just like with other compound data types, the elements can be accessed with the square-bracket operator, `[ ]`. But in NumPy arrays, there is one index per dimension (per axis), separated by commas. Multiple elements per dimension can be selected with a colon (`from:to`, just like in a list). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.
+
+<img src="images/numpy_slicing.png" alt="How to slice NumPy arrays" width="50%"></img>
+
+Finally, *structured NumPy arrays* can have a different data type per column, i.e. per attribute. It is thereby similar to a `DataFrame` in R (we'll look at another similar data type tomorrow). In structured NumPy arrays, you can access or edit attribute values either by dimension or by attribute name.
+
+```{Python,engine.path='/usr/bin/python3'}
+# Create create structured NumPy array filled with zeroes
+data = np.zeros(4, dtype={'names': ('name', 'age', 'weight'),
+                          'formats': ('U10', 'i4', 'f8')})
+print(data.dtype)
+
+# Now we can fill this structured array with data (lists) of the correct type
+name = ['Alice', 'Bob', 'Cathy', 'Doug']
+age = [25, 45, 37, 19]
+weight = [55.0, 85.5, 68.0, 61.5]
+data['name'] = name
+data['age'] = age
+data['weight'] = weight
+
+# Inspect the result
+print(data)
+```
+
+## Functions
+
+A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs. 
+
+Functions may (not always) accept *argument(s)*, perform an *action*, and may (not always) *return value(s)*. For example, the built-in function 'int()' we have seen before performs the action of converting a value to integer type:
+
+```{Python,engine.path='/usr/bin/python3'}
+# Return value into a variable, the function name, its (single) argument
+myint = int(10.6)
+```
+
+You can also create functions yourself. The syntax for creating a function is:
+
+```
+def functionname(arg1, arg2, argn):
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+    return returnvar1, returnvar2, returnvarn
+
+```
+
+For example, we could create a function to compute the area of a rectangle based on its width and length, provided as arguments, and return the output: 
+
+```{Python,engine.path='/usr/bin/python3'}
+def calculate_rectangle_area(width, length):
+    rectangle_area = width * length
+    return rectangle_area
+
+
+print(calculate_rectangle_area(4, 3))
+
+# Or alternatively;
+output_number = calculate_rectangle_area(width=4, length=3)
+print(output_number)
+```
+
+Functions or classes can be made more informative by *docstrings*:
+
+```{Python,engine.path='/usr/bin/python3'}
+def calculate_rectangle_area(width, length):
+    """Computes the area of a rectangle by multiplying width and length.
+    :width: width is the width of the rectangle
+    :length: length is the length of the rectangle
+    :returns: width * length
+    """
+    rectangle_area = width * length
+    return rectangle_area
+
+
+print(calculate_rectangle_area(4, 3))
+```
+
+Variables created in functions are *local*. That means that a variable created in a function does not exist outside of the function. So, here, `rectangle_area` cannot be accessed outside of the function definition (after the indented part of the code). 
+
+```{block, type="alert alert-success"}
+> **Question 5**: Test typing `print(rectangle_area)` at the end of the code block defined above. What happens? Why is that?
+```
+
+## Modules and packages
+
+Python packages and modules are collections of classes and functions. Any Python file is a _module_, its name being the file's base name without the `.py` extension. A _package_ is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
+
+Basically there are four ways to load a module and/or a package:
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import math
+print(math.pi)
+
+from math import pi
+print(pi)
+
+from math import pi as ip
+print(ip) 
+
+import numpy as np
+print(np.pi)
+```
+
+```{block, type="alert alert-success"}
+> **Question 6**: What are the differences between these four ways to import modules and/or packages?
+```
+
+Often-used internal packages/modules:
+
+- `os`: Operating system features
+- `sys`: System specific configuration
+- `math`: Mathametical functions, operators and constants
+- `datetime`: Date/Time functionality
+
+## Conditionals
+
+*Comparison operators* compare two values or, more commonly, variables. The operands (x and y below) are often numerical, e.g. floating point or integer. The result of comparison operators is a 0 (False) or 1 (True), of type Boolean.
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+x == y    # TRUE if x is equal to y
+x != y    # TRUE if x is not equal to y
+x > y     # TRUE if x is greater than y
+x < y     # TRUE if x is less than y
+x >= y    # TRUE if x is greater than or equal to y
+x <= y    # TRUE if x is less than or equal to y
+```
+
+*Logical operators* evaluate the logical relation between two values or variables. The operands (x and y below) are in most cases Boolean. The result of logical operators is also Boolean.
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+x and y   # TRUE if both x and y are TRUE
+x or y    # TRUE if x or y are TRUE
+not x     # TRUE if x is FALSE
+```
+
+A *conditional statement* checks whether a condition is fulfilled and only if it does, it executes a block of code. The syntax of a conditional statement is:
+
+
+```
+if condition:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+else:
+    ... (alternative_expression1) ...
+    ... (alternative_expression2) ...
+    ... (alternative_expression3) ...
+
+```
+
+The condition should be a Boolean variable, or an expression resulting in a Boolean. A condition is typically built up using comparison operators and/or logical operators. The expressions after the `if`-statement are executed when the condition is met, while the conditions in the `else`-statement (not mandatory to include) are executed when the condition is not met. Multiple conditions can be checked consecutively with one or more `elif`-statements in-between the `if` and `else`. For example:
+
+```{Python,engine.path='/usr/bin/python3'}
+x = 3
+if x == 1:
+    print("it is one")
+elif x == 2:
+    print("it is two")
+elif x == 3:
+    print("it is three")
+else: 
+    print("above 3")
+```
+
+
+```{block, type="alert alert-success"}
+> **Question 7**: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
+
+```
+
+## Loops
+
+Loops are an essential construct in Python, more than in R. Two types of loops exist:
+- the `for`-loop, used when it can be known beforehand how many iterations are required
+- the `while`-loop, used when it cannot be known beforehand how many iterations are required
+
+The `for`-loop is often the preferred construct, as it is computationally more efficient and less error-prone than the `while`-loop; no chance to end up in an endless loop or to accidentally skip an element (iteration). The syntax of a `for`-loop is:
+
+
+```
+for element in compound:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+
+```
+
+Often `i`, standing for iterator, is used as the `element`, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the `element` is what one should use in the expressions in the `for`-loop. The `for`-loop works on any compound data type:
+
+```{Python,engine.path='/usr/bin/python3'}
+# Looping over a list
+campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
+for i in campus:
+    print(i)
+
+# Looping over a string
+our_building = campus[0]  # GAIA
+for letter in our_building:
+    print(letter)
+```
+
+The `while`-loop works on a condition instead of on a compound data type. The syntax of a `while`-loop is:
+
+
+```
+while condition:
+    ... (expression1) ...
+    ... (expression2) ...
+    ... (expressionn) ...
+
+```
+
+In a `while`-loop, when an element is used, it is not automatically altered in each iteration; the alteration needs to be explicitly programmed. 
+
+```{Python,engine.path='/usr/bin/python3'}
+n = 0
+while n < 20:
+    print(n)
+    n = n + 1
+```
+
+
+```{block, type="alert alert-success"}
+> **Question 8**: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
+```
+
+You may remember that variables in a function are local. This is different for loops: Variables in a loop are NOT local, and thus affect what happens outside of the loop, as demonstrated by the last question. Be aware of this.

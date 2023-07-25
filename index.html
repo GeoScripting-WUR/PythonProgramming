@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil" />
+  <meta name="author" content="Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil, Arno Timmer" />
   <title>Tutorial 8: Python refresher</title>
   <style type="text/css">
     html {
@@ -149,15 +149,10 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1032,7 +1027,7 @@ href="https://geoscripting-wur.github.io/">WUR Geoscripting</a>
 <h1 id="week-3-tutorial-8-python-refresher">Week 3, Tutorial 8: Python
 refresher</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Good morning! Today we will start working with Python for
+<p>Good afternoon! Today we will start working with Python for
 geoscripting and do a refresher of functions in Python. If you are
 unfamiliar with Python and/or feel that you need more training, follow
 one of the Datacamp courses as introduction into Python <em>before
@@ -1047,11 +1042,16 @@ for R users</a> | recommended if you have experience already in R</li>
 </ul>
 <h2 id="todays-learning-objectives">Today’s Learning objectives</h2>
 <ul>
-<li>Know how to work with virtual environments: <em>Conda</em> +
-<em>Mamba</em></li>
-<li>Know how to run a Python script from the terminal</li>
-<li>Get introduced to Python editors and IDEs</li>
-<li>Refresh Python programming knowledge</li>
+<li><p>Know how to work with virtual environments: <em>Conda</em> +
+<em>Mamba</em></p></li>
+<li><p>Know how to run a Python script from the terminal</p></li>
+<li><p>Get introduced to Python editors and IDEs</p></li>
+<li><p>Refresh Python programming knowledge</p></li>
+<li><p>Know how to work with virtual environments: Conda +
+Mamba</p></li>
+<li><p>Get introduced to Python editors and IDEs</p></li>
+<li><p>Familiarize yourself with python Objects and inheritance</p></li>
+<li><p>Be able to visualize data using python and matplotlib</p></li>
 </ul>
 <h1 id="introduction-to-python">Introduction to Python</h1>
 <p>Python is a jack-of-all-trades programming language that is free,
@@ -1098,20 +1098,21 @@ href="https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-pyth
 your system Python interpreter</a>.</p>
 <p>Instead, we recommend to use a Python package manager that can make
 use of virtual environments, such as <em>Conda</em> or <em>Mamba</em>.
-That way, you can create a conda environment on your local machine for
-each project. In conda environments, basically anything, such as
-software, C libraries or R packages can be installed. Here we use them
-here for installing Python packages. Packages installed in one
-environment do not interfere with your base Python or with other conda
-environments.</p>
+That way, you can create a conda environment on your machine for each
+project. In conda environments, basically anything, such as software, C
+libraries or R packages can be installed. Here we use them here for
+installing Python packages. Packages installed in one environment do not
+interfere with your base Python or with other conda environments.
+Additionally, it is possible to export and share the requirements for
+your (open source) project with colaborators or users of your code.</p>
 <h2 id="mamba-installation">Mamba installation</h2>
-<p>For this course, we will make use of <em>Mamba</em>, fast drop-in
+<p>For this course, we will make use of <em>Mamba</em>, a fast drop-in
 reimplementation of the <em>Conda</em> package manager. It has its core
 parts implemented in C++ for maximum efficiency, makes use of parallel
 downloading of repository data and package files using multi-threading,
-and uses <code>libsolv</code> for (much) faster dependency solving.</p>
-<p>To install <em>Mamba</em> in your Linux environment, we have prepared
-a short <em>Bash</em> script for you. Just run the following lines of
+and uses <code>libsolv</code> for (much) faster dependency solving. To
+install <em>Mamba</em> in your Linux environment, we have prepared a
+short <em>Bash</em> script for you. Just run the following lines of
 code, line by line, in a new terminal window.</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1130,10 +1131,6 @@ curl -O https://repo.continuum.io/miniconda/${MINICONDA_VERSION}.sh
 bash ${MINICONDA_VERSION}.sh
 rm ${MINICONDA_VERSION}.sh
 popd</code></pre></div>
-
-<<<<<<< HEAD
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
-=======
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. -->
 <p>This will install <em>Mamba</em> into <code>~/mamba</code>. Finally,
@@ -1334,9 +1331,9 @@ the script has finished running. Therefore, running a script from the
 terminal is a good final test before submitting an exercise or
 assignment.</p>
 <h2 id="python-editors-and-ides">Python editors and IDEs</h2>
-<p>There is a number of Integrated Development Environments [IDE] for
-Python. An IDE is a software application that provides facilities for
-software development.</p>
+<p>There are many Integrated Development Environments [IDE] for Python,
+and every programmer has their own preference. An IDE is a software
+application that provides facilities for software development.</p>
 <ul>
 <li><a href="http://jupyter.org/">Jupyter Notebook</a> integrates
 visualization with code and is suitable to make tutorials, simple
@@ -1446,10 +1443,11 @@ Have a look at the toolbar. Some important shortcuts are:</p>
 <p>Open a new file and save it somewhere as <code>main.py</code> (File –
 &gt; New File –&gt; Save As). Test writing a few lines of code and
 running the script.</p>
-<h1 id="python-programming-refresher">Python programming refresher</h1>
-<p>In the second part of this tutorial we will do a quick Python
-refresher. Again, we advise you to code in Spyder, as this IDE will be
-used in the rest of the Python week too.</p>
+<h1 id="python-refresher">Python refresher</h1>
+<h2 id="setting-up-the-environment">Setting up the environment</h2>
+<p>In the second part of this tutorial we will refresh your python
+knowledge and build upon it. Again, we advise you to code in Spyder, as
+this IDE is the recommended IDE for the python part of this course.</p>
 <p>First, make a directory structure for this tutorial:</p>
 <div class="row">
 <button class="source bash toggle btn btn-xs btn-primary">
@@ -1471,6 +1469,7 @@ dependencies:
   - python
   - numpy
   - matplotlib
+  - geopandas
   - spyder</code></pre>
 <p>Now, create a new conda environment based on this file:</p>
 <div class="row">
@@ -1494,518 +1493,414 @@ from the same channel as much as possible. Given that packages in the
 file <code>refresher.yaml</code> are installed from the
 <code>conda-forge</code> channel, it is wise to use this same channel
 when you want to install additional packages in your environment.</p>
-<h2 id="classes-and-objects">Classes and objects</h2>
-<p>Python is an <em>object-oriented programming language</em>. That is a
-programming paradigm that structures a code hierarchically with
-<em>classes</em> and <em>objects</em>. A class is a blueprint of
-functions and attributes to build an object, while an object is a
-self-contained component operationalizing the functions and
-attributes.</p>
-<p>For example, one could have a class <code>dog</code> with functions,
-<code>bark()</code> and <code>doginfo()</code>, and properties
-<code>breed</code> and <code>age</code>.</p>
+<h2 id="quick-refresher">Quick refresher</h2>
+<p>In the tutorial about R and Python we have gone over the differences
+and similarities of python and R. This tutorial also contains some basic
+python syntax, in this tutorial we assume you know this content, but we
+will go over a few basics here as well. The example below are mostly
+meant for reference purposes, we assume you understand most of this
+refresher already.</p>
+<h3 id="printing-and-basic-data-types">Printing and basic data
+types</h3>
+<p>In python we assign variable using the equals sign
+(<code>=</code>):</p>
+<p>Printing in python is done using the <code>print</code> function. We
+can print variables directly:</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">class Dog:
-    def __init__(self, breed, age):  
-        self.breed = breed
-        self.age = age
+<pre style=""><code class="source python"># Integer
+age = 25
 
-    def bark(self):
-        print("bark bark!")
-
-    def doginfo(self):
-        print("This " + self.breed + " is " + str(self.age) + " year(s) old.")</code></pre>
-</div>
-<p>One can then create an <em>instance</em> of this class, i.e. an
-object, that represents Ozzy, a Maltese of two years old. This object
-can apply the function <code>eat()</code> and <code>run()</code>. We can
-call the attributes and functions with the dot notation:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">ozzy = Dog("Maltese", 2)
-print(ozzy.breed)
-print(ozzy.age)
-ozzy.bark()
-ozzy.doginfo()</code></pre>
-</div>
-<p>During Geo-scripting, you do not need to define your own classes.
-However, sometimes existing classes of modules will be used, such as a
-<code>DataFrame</code> in Pandas or a <code>GeoDataFrame</code> in
-GeoPandas. It is therefore important to understand the concepts of
-classes and objects generated from them.</p>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 1</strong>: Suppose that we want to build a script in
-Python of an orchestra playing a song. What would be the class and what
-would be the objects?
-</p>
-</blockquote>
-</div>
-</div>
-<h2 id="data-types-and-variables">Data types and variables</h2>
-<p>Values belong to a data type. The most important built-in (base)
-types are: * integer * floating point * Boolean * several compound data
-types (see next section), like string</p>
-<p>Python is a strongly typed language. That is, you cannot perform
-operations inappropriate to the type of the value. For example,
-attempting to add integers to strings will fail. For this reason,
-understanding and being aware of value types in Python is crucial.</p>
-<p>Values can be cast to other types, e.g.:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">print(int(10.6))</code></pre>
-</div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 2</strong>: What is the difference between 10 and 10.0
-in Python?
-</p>
-</blockquote>
-</div>
-</div>
-<p>Often, we do not use values directly in a script. Instead, we use
-access them through variables. A variable is a way to reference to a
-known or unknown value. In Python, a value is assigned to a variable
-with the <code>=</code>-sign, e.g.:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">building = 'Gaia'
-buildingnumber = 101
-print(building + ' is in Wageningen')</code></pre>
-</div>
-<p>As opposed to other programming languages, in Python, the data type
-does not need to be explicitly defined when creating a variable. Python
-derives the data type of the variable from the value assigned to it. In
-the code above, the variable <code>building</code> is thus a string, and
-the variable <code>buildingnumber</code> is an integer, without having
-defined this explicitly.</p>
-<p>Variable names should: 1) start with a lowercase letter, and 2) not
-contain spaces. Furthermore, it is advisable to use meaningful variable
-names, both for yourself and for (future) users of your code.</p>
-<h2 id="compound-data-types">Compound data types</h2>
-<p><em>Compound data types</em> or container types are Python data types
-that have in common that they can be broken down into smaller
-<em>elements</em>. The most commonly known compound data types are: -
-string - list - dictionary - tuple - NumPy array</p>
-<p>For most compound data types, the elements can be accessed by
-providing the index of the element with the square-bracket operator,
-<code>[ ]</code>. This works, for example, for items in lists and
-letters in strings. Notice that indexing in Python, as opposed to other
-languages like R, <strong>STARTS AT 0!</strong> Positive indexes access
-elements from the front, and negative indexes from the back. Multiple
-elements can be selected with a colon <code>from:to</code>, where the
-first is inclusive and the last exclusive. Here is an example for
-accessing items in a list, and in a string:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python"># List
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-print(campus[3])  # Forum
-print(campus[-1])  # the last item of the list
-print(campus[0:3])  # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
-our_building = campus[0]  # GAIA
+# Float
+height = 1.75
 
 # String
-print(our_building[0])  # G
-print(our_building[0:2])  # GA</code></pre>
+name = "John Doe"
+
+# Boolean
+is_student = True
+
+# Print a name
+print(name)</code></pre>
 </div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 3:</strong> What building is <code>campus[-2]</code>?
-Test it.
-</p>
-</blockquote>
-</div>
-</div>
-<p>Lists can be nested. That means that a list is an item in another
-list. Accessing items in nested lists works the same as in regular
-lists, e.g,:</p>
+<p>We can use string formatting to use flexible strings, for example for
+printing. to start a formatted string, we put a <code>f</code> before
+the string. We can use curly brackets <code>{}</code> in this formatted
+string. The text between these curly brackets is executed as regular
+python code.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Nested list
-samples = [["x", "y", "z"], [12, 32, 7], [12, 40, 7]]
-
-# Access the x
-header = samples[0]
-first_item = header[0]
-
-# Or at once
-first_item = samples[0][0]</code></pre>
+<pre style=""><code class="source python"># String formatting and printing 
+print(f'{name} is {age} years old and is {height} meters tall.)</code></pre>
 </div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 4:</strong> How can we access the value 40 above? Test
-it.
-</p>
-</blockquote>
-</div>
-</div>
-<p>A <em>dictionary</em> is set of key-value pairs. The key can be used
-to access the value. A dictionary is different from the other compound
-data types as it is not ordered, i.e. the order of the elements is
-undetermined. As such, the square-bracket operator, <code>[ ]</code>
-cannot be used.</p>
+<h3 id="basic-arithmetic-operations">Basic arithmetic operations:</h3>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python"># Dictionary
-campus_dictionary = {101: 'Gaia',
-                     100: 'Lumen',
-                     107: 'Radix',
-                     102: 'Forum',
-                     104: 'Atlas'}
+<pre style=""><code class="source python">a = 10
+b = 5
 
-# Access dictionary value using key
-print(campus_dictionary[102])</code></pre>
+addition = a + b
+subtraction = a - b
+multiplication = a * b
+division = a / b
+modulo = a % b
+exponentiation = a ** b
+
+print(addition, subtraction, multiplication, division, modulo, exponentiation)</code></pre>
 </div>
-<p>In contrast to a list, a <em>NumPy array</em> is a <em>homogeneous
-multidimensional array</em> from the NumPy package. Homogeneous refers
-to the fact that all data in one array have to be of the same type.
-NumPy’s array class is called <code>ndarray</code> (n-dimensional). In
-the array, the dimensions are called <em>axes</em>, and the number of
-axes is the <em>rank</em>.</p>
-<figure>
-<img src="images/numpy_structure.png" alt="Anatomy of a numpy array" width="100%">
-<figcaption>
-Anatomy of a NumPy array, source
-https://valecs.gitlab.io/resources/numpy.pdf.
-</figcaption>
-</figure>
-<p>Below, we show how to create a NumPy array from a set of lists. We
-also show how to create <em>standard</em> arrays, filled with zeroes,
-ones, or random number, often to be updated with actual data later in
-your script.</p>
+<h3 id="conditional-statements">Conditional statements</h3>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">import numpy as np
+<pre style=""><code class="source python">x = 15
 
-# Create array from list
-a = np.array([[1, 3, 4], [2, 7, 6]])
-print('a is', a)
-
-# Create standard arrays.
-print(np.zeros((3, 2)))
-print(np.ones((2, 3), int))
-print(np.ones((2, 3), int) * 5)
-print(np.empty((2, 2)))</code></pre>
-</div>
-<p>Just like with other compound data types, the elements can be
-accessed with the square-bracket operator, <code>[ ]</code>. But in
-NumPy arrays, there is one index per dimension (per axis), separated by
-commas. Multiple elements per dimension can be selected with a colon
-(<code>from:to</code>, just like in a list). Leaving out the index
-before or after the colon, selects all elements from the beginning or to
-the end, respectively, see the examples in the figure below.</p>
-<p><img src="images/numpy_slicing.png" alt="How to slice NumPy arrays" width="50%"></img></p>
-<p>Finally, <em>structured NumPy arrays</em> can have a different data
-type per column, i.e. per attribute. It is thereby similar to a
-<code>DataFrame</code> in R (we’ll look at another similar data type
-tomorrow). In structured NumPy arrays, you can access or edit attribute
-values either by dimension or by attribute name.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python"># Create create structured NumPy array filled with zeroes
-data = np.zeros(4, dtype={'names': ('name', 'age', 'weight'),
-                          'formats': ('U10', 'i4', 'f8')})
-print(data.dtype)
-
-# Now we can fill this structured array with data (lists) of the correct type
-name = ['Alice', 'Bob', 'Cathy', 'Doug']
-age = [25, 45, 37, 19]
-weight = [55.0, 85.5, 68.0, 61.5]
-data['name'] = name
-data['age'] = age
-data['weight'] = weight
-
-# Inspect the result
-print(data)</code></pre>
-</div>
-<h2 id="functions">Functions</h2>
-<p>A function is a section of code with a common purpose. Functions can
-be useful for 1) making the main part of the code concise, 2) debugging,
-as functions can be tested and edited separately from the main code, and
-3) reuse of code in the same or other programs.</p>
-<p>Functions may (not always) accept <em>argument(s)</em>, perform an
-<em>action</em>, and may (not always) <em>return value(s)</em>. For
-example, the built-in function ‘int()’ we have seen before performs the
-action of converting a value to integer type:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python"># Return value into a variable, the function name, its (single) argument
-myint = int(10.6)</code></pre>
-</div>
-<p>You can also create functions yourself. The syntax for creating a
-function is:</p>
-<pre><code>def functionname(arg1, arg2, argn):
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
-    return returnvar1, returnvar2, returnvarn
-</code></pre>
-<p>For example, we could create a function to compute the area of a
-rectangle based on its width and length, provided as arguments, and
-return the output:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">def calculate_rectangle_area(width, length):
-    rectangle_area = width * length
-    return rectangle_area
-
-
-print(calculate_rectangle_area(4, 3))
-
-# Or alternatively;
-output_number = calculate_rectangle_area(width=4, length=3)
-print(output_number)</code></pre>
-</div>
-<p>Functions or classes can be made more informative by
-<em>docstrings</em>:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">def calculate_rectangle_area(width, length):
-    """Computes the area of a rectangle by multiplying width and length.
-    :width: width is the width of the rectangle
-    :length: length is the length of the rectangle
-    :returns: width * length
-    """
-    rectangle_area = width * length
-    return rectangle_area
-
-
-print(calculate_rectangle_area(4, 3))</code></pre>
-</div>
-<p>Variables created in functions are <em>local</em>. That means that a
-variable created in a function does not exist outside of the function.
-So, here, <code>rectangle_area</code> cannot be accessed outside of the
-function definition (after the indented part of the code).</p>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 5</strong>: Test typing
-<code>print(rectangle_area)</code> at the end of the code block defined
-above. What happens? Why is that?
-</p>
-</blockquote>
-</div>
-</div>
-<h2 id="modules-and-packages">Modules and packages</h2>
-<p>Python packages and modules are collections of classes and functions.
-Any Python file is a <em>module</em>, its name being the file’s base
-name without the <code>.py</code> extension. A <em>package</em> is a
-directory of Python modules containing an additional
-<code>__init__.py</code> file, to distinguish a package from a directory
-that just happens to contain a bunch of Python scripts. Packages can be
-nested to any depth, provided that the corresponding directories contain
-their own <code>__init__.py</code> file.</p>
-Basically there are four ways to load a module and/or a package:
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">import math
-print(math.pi)
-
-from math import pi
-print(pi)
-
-from math import pi as ip
-print(ip) 
-
-import numpy as np
-print(np.pi)</code></pre>
-</div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 6</strong>: What are the differences between these four
-ways to import modules and/or packages?
-</p>
-</blockquote>
-</div>
-</div>
-<p>Often-used internal packages/modules:</p>
-<ul>
-<li><code>os</code>: Operating system features</li>
-<li><code>sys</code>: System specific configuration</li>
-<li><code>math</code>: Mathametical functions, operators and
-constants</li>
-<li><code>datetime</code>: Date/Time functionality</li>
-</ul>
-<h2 id="conditionals">Conditionals</h2>
-<p><em>Comparison operators</em> compare two values or, more commonly,
-variables. The operands (x and y below) are often numerical,
-e.g. floating point or integer. The result of comparison operators is a
-0 (False) or 1 (True), of type Boolean.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">x == y    # TRUE if x is equal to y
-x != y    # TRUE if x is not equal to y
-x > y     # TRUE if x is greater than y
-x < y     # TRUE if x is less than y
-x >= y    # TRUE if x is greater than or equal to y
-x <= y    # TRUE if x is less than or equal to y</code></pre>
-</div>
-<p><em>Logical operators</em> evaluate the logical relation between two
-values or variables. The operands (x and y below) are in most cases
-Boolean. The result of logical operators is also Boolean.</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python">x and y   # TRUE if both x and y are TRUE
-x or y    # TRUE if x or y are TRUE
-not x     # TRUE if x is FALSE</code></pre>
-</div>
-<p>A <em>conditional statement</em> checks whether a condition is
-fulfilled and only if it does, it executes a block of code. The syntax
-of a conditional statement is:</p>
-<pre><code>if condition:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
+if x > 10:
+    print("x is greater than 10")
+elif x == 10:
+    print("x is equal to 10")
 else:
-    ... (alternative_expression1) ...
-    ... (alternative_expression2) ...
-    ... (alternative_expression3) ...
-</code></pre>
-<p>The condition should be a Boolean variable, or an expression
-resulting in a Boolean. A condition is typically built up using
-comparison operators and/or logical operators. The expressions after the
-<code>if</code>-statement are executed when the condition is met, while
-the conditions in the <code>else</code>-statement (not mandatory to
-include) are executed when the condition is not met. Multiple conditions
-can be checked consecutively with one or more
-<code>elif</code>-statements in-between the <code>if</code> and
-<code>else</code>. For example:</p>
+    print("x is less than 10")</code></pre>
+</div>
+<h3 id="loops-for-and-while">Loops (for and while)</h3>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">x = 3
-if x == 1:
-    print("it is one")
-elif x == 2:
-    print("it is two")
-elif x == 3:
-    print("it is three")
-else: 
-    print("above 3")</code></pre>
-</div>
-<div class="row">
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 7</strong>: Think of a conditional statement that uses
-logical operators in the condition instead of comparison operators.
-</p>
-</blockquote>
-</div>
-</div>
-<h2 id="loops">Loops</h2>
-<p>Loops are an essential construct in Python, more than in R. Two types
-of loops exist: - the <code>for</code>-loop, used when it can be known
-beforehand how many iterations are required - the
-<code>while</code>-loop, used when it cannot be known beforehand how
-many iterations are required</p>
-<p>The <code>for</code>-loop is often the preferred construct, as it is
-computationally more efficient and less error-prone than the
-<code>while</code>-loop; no chance to end up in an endless loop or to
-accidentally skip an element (iteration). The syntax of a
-<code>for</code>-loop is:</p>
-<pre><code>for element in compound:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
-</code></pre>
-<p>Often <code>i</code>, standing for iterator, is used as the
-<code>element</code>, but it can be any variable name. Key is that the
-current element is put into that variable in each iteration, so the
-<code>element</code> is what one should use in the expressions in the
-<code>for</code>-loop. The <code>for</code>-loop works on any compound
-data type:</p>
-<div class="row">
-<button class="source Python toggle btn btn-xs btn-primary">
-<span class="glyphicon glyphicon-chevron-down"></span> Python source
-</button>
-<pre style=""><code class="source python"># Looping over a list
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-for i in campus:
+<pre style=""><code class="source python"># For loop
+for i in range(5):
     print(i)
 
-# Looping over a string
-our_building = campus[0]  # GAIA
-for letter in our_building:
-    print(letter)</code></pre>
+# While loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1</code></pre>
 </div>
-<p>The <code>while</code>-loop works on a condition instead of on a
-compound data type. The syntax of a <code>while</code>-loop is:</p>
-<pre><code>while condition:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
-</code></pre>
-<p>In a <code>while</code>-loop, when an element is used, it is not
-automatically altered in each iteration; the alteration needs to be
-explicitly programmed.</p>
+<h3 id="lists-and-basic-list-operations">Lists and basic list
+operations</h3>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
 </button>
-<pre style=""><code class="source python">n = 0
-while n < 20:
-    print(n)
-    n = n + 1</code></pre>
+<pre style=""><code class="source python"># Creating a list
+fruits = ["apple", "banana", "orange"]
+
+# Accessing elements
+print(fruits[0])  # Output: "apple"
+
+# Adding elements
+fruits.append("grape")
+
+# Removing elements
+fruits.remove("banana")
+
+# Length of the list
+print(len(fruits))  # Output: 3</code></pre>
 </div>
+<h3 id="functions">Functions</h3>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python"># Function to add two numbers and return the result
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(5, 3)
+print(result)  # Output: 8</code></pre>
+</div>
+<h3 id="dictionaries">Dictionaries</h3>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python"># Creating a dictionary
+person = {
+    "name": "Alice",
+    "age": 30,
+    "is_student": False
+}
+
+# Accessing values
+print(person["name"])  # Output: "Alice"
+
+# Adding a new key-value pair
+person["occupation"] = "Engineer"
+
+# Removing a key-value pair
+del person["is_student"]</code></pre>
+</div>
+<h3 id="importing-packages">Importing packages</h3>
+<p>Python is used by a very large community, as is said before. One of
+the reasons for this is that this entire community builds a lot of (open
+source) packages. It is therefor very useful to be able to build upon
+these packages. In R you have worked a with <em>dataframes</em> and
+<em>spatial dataframes</em>. In Python these are not standard datatypes,
+but they are implemented in very well known packages called
+<code>Pandas</code> and its spatial counterpart <code>GeoPandas.</code>
+We will go in much more detail during the Python-Vector tutorial but we
+will introduce them quickly here.</p>
+<p>In python we import a package using the <code>import</code> statement
+(instead of th the <code>library</code> function in R) . For example
+importing the pandas package goes as follows</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">import pandas as pd</code></pre>
+</div>
+<p>As you can see we can import a package <em>as</em> something. We use
+this if we want to point at specific functionality of this package. If
+we want to point at for example the <code>read_csv</code> function from
+pandas we we call <code>pd.read_csv</code>. This function is also
+implemented in other packages, but now we are sure we use the pandas
+version of this function. Importing pandas is a convention, used very
+widely in the python community.</p>
+We can create a <code>dataframe</code> as follows:
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 22],
+    'City': ['New York', 'San Francisco', 'Chicago']
+}
+
+df = pd.DataFrame(data)
+print(df)</code></pre>
+</div>
+<p>We can access some information from this <code>dataframe</code> as
+follows:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python"># Display the first few rows of the DataFrame
+print(df.head())
+
+# Get statistical information about the DataFrame
+print(df.describe())
+
+# Access a specific column
+print(df['Age'])</code></pre>
+</div>
+<h3 id="geodataframe">GeoDataFrame</h3>
+The spatial counterpart of a <code>dataframe</code> is a ‘GeoDataFrame’,
+which we normally import <em>as</em> <code>gpd</code>:
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">import geopandas as gpd
+
+# Dummy data for the GeoDataFrame
+data = {
+    'Name': ['Location A', 'Location B', 'Location C'],
+    'Latitude': [40.7128, 34.0522, 41.8781],
+    'Longitude': [-74.0060, -118.2437, -87.6298]
+}
+
+# Create the GeoDataFrame with a single line of code
+gdf = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data['Longitude'], data['Latitude']))
+
+# Display the GeoDataFrame
+print(gdf)</code></pre>
+</div>
+<h2 id="object-oriented-programming-in-python">Object-Oriented
+Programming in Python</h2>
+<p>We have now gone over most of the more basic basic functionality of
+Python, a lot of similar things you have used in R. A concept we have
+not used before is the concept of objects. They have shortly been
+introduced in R, but we will elaborate on them in Python. Up until now,
+in this course we have looked at R mainly as a scripting language, we
+call this way of programming Procedural Programming. Both Python and R
+can be used in another programming paradigm: Object Oriented
+Programming. Object Oriented Programming (OOP) is a way of programming
+where functionality and information is encapsulated in objects. Instead
+of assigning variables and functions, objects are used where both values
+(properties) and calculations (methods) can be stored together. This
+offers several advantages. OOP promotes modularity and re-usability by
+breaking down complex problems into smaller, manageable units, these are
+the objects. These objects can be reused in various parts of the program
+or even in other projects, leading to more efficient, scalable and
+organized programming. Especially when working on projects containing
+lots of code OOP will make your work a lot easier to understand for you
+and others and it is easier to re-use parts of the code.</p>
+<h3 id="how-to-work-with-objects-in-python">How to work with objects in
+Python</h3>
+<p>In Python, objects are created and manipulated using classes. A class
+serves as a blueprint that defines the structure and behavior of
+objects. It brings together data (properties) and functions (methods)
+into a single object. To define a class in Python, we use the
+<code>class</code> keyword, followed by the name of the class. Let’s
+take a look at an example of a simple class called
+<code>Person</code>:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class Person:
+    def __init__(self, name, age):
+        self.name = name  # < this is a property
+        self.age = age    # < this is also a property
+    
+    def greet(self):  # < This "function" is a method
+        print(f"Hello, my name is {self.name} and I'm {self.age} years old.")</code></pre>
+</div>
+<p>In the provided code, the <code>__init__</code> method is a special
+method known as a <em>constructor</em>. It is automatically called when
+an object is created from the class. The <code>self</code> parameter
+refers to the instance of the class itself, allowing access to its
+properties and methods. Whenever a method is defined within a
+<code>class</code>, we give <code>self</code> as the first
+parameter.</p>
+<p>The <code>Person</code> class has two properties, <code>name</code>
+and <code>age</code>, as well as one method, <code>greet</code>. The
+<code>greet</code> method prints a greeting message that includes the
+person’s name and age.</p>
+<p>To create an instance of the <code>Person</code> class, you simply
+call the class as if it were a function and assign the result to a
+variable:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">person1 = Person("Alice", 25)
+person2 = Person("Bob", 30)</code></pre>
+</div>
+<p>We have created two objects, <code>person1</code> and
+<code>person2</code>, which are instances of the <code>Person</code>
+class. Now we can access the properties and call the methods of these
+objects:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">print(person1.name)  # Output: Alice
+print(person2.age)   # Output: 30
+person1.greet()      # Output: Hello, my name is Alice and I'm 25 years old.
+person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.</code></pre>
+</div>
+<p>This example is straightforward, but keep in mind that classes can
+become more complex.</p>
 <div class="row">
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 8</strong>: What is the last number printed? Now print
-n after the loop (not in the indented part); what does it print?
+<strong>Question 1</strong>: Take a look at the creation of a GeoPandas
+<code>GeoSeries</code> <a
+href="https://github.com/geopandas/geopandas/blob/main/geopandas/geoseries.py#L83">here</a>.
+It may seem complicated and hard to read, but it is well-documented, so
+try to understand some of its functionality. The <code>to_json</code>
+method, for example, provides straightforward functionality (though it
+may still be challenging to read due to its complexity).
 </p>
 </blockquote>
 </div>
 </div>
-<p>You may remember that variables in a function are local. This is
-different for loops: Variables in a loop are NOT local, and thus affect
-what happens outside of the loop, as demonstrated by the last question.
-Be aware of this.</p>
+<p>You may have noticed that class definitions differ from what we have
+learned. In the <code>GeoPandas</code> example, the class is defined as
+follows:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class GeoSeries(GeoPandasBase, Series):</code></pre>
+</div>
+<p>However, we previously learned to define a class like this:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class GeoSeries:</code></pre>
+</div>
+<p>The difference lies in the code within the parentheses, which
+represents <em>inheritance</em>. The class will inherit all the
+functionality from the classes specified as arguments, in this case,
+<code>GeoPandasBase</code> and <code>Series</code>. The
+<code>Series</code> object refers to the <a
+href="https://github.com/pandas-dev/pandas/blob/main/pandas/core/series.py#L243C15-L243C15">Pandas.Series</a>,
+which contains thousands of lines of code with various functionality.
+Therefore, the GeoPandas <code>GeoSeries</code> contains all the
+functionality implemented in Pandas, as well as those from
+<code>GeoPandasBase</code> and <code>GeoPandas.Series</code>itself. When
+new functionality is developed for the <code>Pandas</code> package, this
+is directly available in the <code>GeoPandas</code> objects, since we
+inherit all functionality from pandas.</p>
+<p>Phew, that’s a lot of complicated code, and it may seem overwhelming.
+You don’t need to understand every detail. The important thing is to
+grasp the value of classes, objects, and inheritance. When creating a
+class, we can inherit functionality from another class. How does this
+work in a simple example?</p>
+<p>So, we’ve learned that with inheritance, classes can acquire all the
+functionality from other classes and build upon that. Let’s create a new
+object called <code>Student</code>, which will inherit all the
+properties and methods from the <code>Person</code> class we defined
+earlier.</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">class Student(Person):
+    def __init__(self, name, age, student_id):
+        super().__init__(name, age)
+        self.student_id = student_id
+        self.is_studying = False
+    
+    def study(self):
+        self.is_studying = True
+        print(f"{self.name} is studying.")</code></pre>
+</div>
+<p>In the provided code, the <code>Student</code> class inherits from
+the <code>Person</code> class, which we will refer to as the superclass.
+By doing so, it extends the functionality of the superclass by adding a
+new property (<code>student_id</code>) and a new method
+(<code>study</code>). The <code>super()</code> function is used to call
+the superclass’s <code>__init__</code> method, allowing the subclass to
+initialize the inherited properties.</p>
+<p>As a result, the <code>Student</code> class contains both the methods
+and properties inherited from the <code>Person</code> class, as well as
+the additional ones defined within the <code>Student</code> class:</p>
+<div class="row">
+<button class="source Python toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> Python source
+</button>
+<pre style=""><code class="source python">student = Student("Eve", 22, "123456")
+print(student.name)         # Output: Eve
+print(student.student_id)   # Output: 123456
+student.greet()             # Output: Hello, my name is Eve and I'm 22 years old.
+student.study()             # Output: Eve is studying.</code></pre>
+</div>
+<p>In this example, <code>student</code> is an instance of the
+<code>Student</code> class. It can access the inherited properties from
+the <code>Person</code> class, such as <code>name</code>, as well as the
+newly added property <code>student_id</code> and
+<code>is_studying</code>, which defaults to <code>False</code>.
+Similarly, it can invoke both the inherited method <code>greet</code>
+and the additional method <code>study</code>, which are specific to the
+<code>Student</code> class. The method <code>study</code> prints a
+message and sets the <code>is_studying</code> property to
+<code>True</code>.</p>
+<div class="row">
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 2</strong>: Create a new class called
+<code>Teacher</code>. This new class also inherits from
+<code>Person</code>. Define a method for the teacher that checks whether
+a student is studying. The student should be an input to the method.
+</p>
+</blockquote>
+</div>
+</div>
 <h2 id="visualization">Visualization</h2>
 <p>Visualization is essential to make concepts understandable and
 patterns recognizable. In Python, <em>Matplotlib</em> is a general
@@ -2032,7 +1927,8 @@ Elements in an example Matplotlib figure, source
 https://www.aosabook.org/en/matplotlib.html.
 </figcaption>
 </figure>
-<p>Let’s create a simple line figure, based on data in NumPy arrays.</p>
+<p>Let’s create a simple line figure, based on data in
+<code>NumPy.array</code>s.</p>
 <div class="row">
 <button class="source Python toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> Python source
@@ -2150,7 +2046,7 @@ plt.show()</code></pre>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 9</strong>: In the upper right subplot, why is there no
+<strong>Question 3</strong>: In the upper right subplot, why is there no
 point at x=3, y=8?.
 </p>
 </blockquote>
@@ -2198,7 +2094,7 @@ listed.</p>
 <div class="alert alert-success">
 <blockquote>
 <p>
-<strong>Question 10</strong>: What kind of functionality does the
+<strong>Question 4</strong>: What kind of functionality does the
 <code>sys</code> package provide?
 </p>
 </blockquote>
@@ -2210,13 +2106,8 @@ listed.</p>
 <em>Conda</em></li>
 <li>Running a Python script in the terminal</li>
 <li>Using Python editors and IDEs</li>
-<li>What classes and objects are</li>
-<li>Data types and variables</li>
-<li>Compound data types</li>
-<li>Writing and using functions</li>
+<li>What Object Oriented Programming is</li>
 <li>Using modules and packages</li>
-<li>Applying conditionals</li>
-<li>Using loops</li>
 <li>Visualization</li>
 <li>Python help</li>
 </ol>

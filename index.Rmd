@@ -1,6 +1,6 @@
 ---
 pagetitle: "Tutorial 8: Python refresher"
-author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil"
+author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil, Arno Timmer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   knitrBootstrap::bootstrap_document:
@@ -23,7 +23,7 @@ a:visited {color: #91170a;}
 
 ## Introduction
 
-Good morning! Today we will start working with Python for geoscripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
+Good afternoon! Today we will start working with Python for geoscripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
 
 * [Introduction to Python](https://www.datacamp.com/courses/intro-to-python-for-data-science) | recommended to follow if you haven't any scripting experience so far
 * [Python for R users](https://www.datacamp.com/courses/python-for-r-users) | recommended if you have experience already in R
@@ -34,6 +34,12 @@ Good morning! Today we will start working with Python for geoscripting and do a 
 - Know how to run a Python script from the terminal
 - Get introduced to Python editors and IDEs
 - Refresh Python programming knowledge
+
+- Know how to work with virtual environments: Conda + Mamba
+- Get introduced to Python editors and IDEs
+- Familiarize yourself with python Objects and inheritance
+- Be able to visualize data using python and matplotlib
+
 
 # Introduction to Python
 
@@ -60,11 +66,10 @@ Python is a jack-of-all-trades programming language that is free, flexible, open
 ## Python package management with Conda
 A set of tools co-exist for installing and managing Python packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
 
-Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your local machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments.
+Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with colaborators or users of your code. 
 
 ## Mamba installation
-For this course, we will make use of *Mamba*, fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
-
+For this course, we will make use of *Mamba*, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
 To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
@@ -84,10 +89,6 @@ bash ${MINICONDA_VERSION}.sh
 rm ${MINICONDA_VERSION}.sh
 popd
 ```
-
-<<<<<<< HEAD
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. *Finally, <u>restart your terminal</u> to be able to use conda in the terminal*. 
-=======
 
 Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. -->
 
@@ -214,7 +215,7 @@ python test.py
 The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE (see the next section), such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment. 
 
 ## Python editors and IDEs
-There is a number of Integrated Development Environments [IDE] for Python. An IDE is a software application that provides facilities for software development.
+There are many Integrated Development Environments [IDE] for Python, and every programmer has their own preference. An IDE is a software application that provides facilities for software development.
 
 * [Jupyter Notebook](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
 * [Spyder](https://www.spyder-ide.org/) is a lightweight IDE. *In this course, Spyder is the recommended Python IDE.*
@@ -280,9 +281,11 @@ In Spyder you should see an editor, a file explorer and a console. Have a look a
 
 Open a new file and save it somewhere as `main.py` (File -- > New File --> Save As). Test writing a few lines of code and running the script.
 
-# Python programming refresher
+# Python refresher
 
-In the second part of this tutorial we will do a quick Python refresher. Again, we advise you to code in Spyder, as this IDE will be used in the rest of the Python week too.
+## Setting up the environment
+
+In the second part of this tutorial we will refresh your python knowledge and build upon it. Again, we advise you to code in Spyder, as this IDE is the recommended IDE for the python part of this course. 
 
 First, make a directory structure for this tutorial:
 
@@ -301,6 +304,7 @@ dependencies:
   - python
   - numpy
   - matplotlib
+  - geopandas
   - spyder
 ```
 
@@ -321,387 +325,278 @@ Create a new Python script and save it.
 
 Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file `refresher.yaml` are installed from the `conda-forge` channel, it is wise to use this same channel when you want to install additional packages in your environment. 
 
-## Classes and objects
 
-Python is an *object-oriented programming language*. That is a programming paradigm that structures a code hierarchically with *classes* and *objects*. A class is a blueprint of functions and attributes to build an object, while an object is a self-contained component operationalizing the functions and attributes.
+## Quick refresher
+In the tutorial about R and Python we have gone over the differences and similarities of python and R. This tutorial also contains some basic python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
 
-For example, one could have a class `dog` with functions, `bark()` and `doginfo()`, and properties `breed` and `age`. 
+### Printing and basic data types
+In python we assign variable using the equals sign (`=`):
 
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-class Dog:
-    def __init__(self, breed, age):  
-        self.breed = breed
-        self.age = age
+Printing in python is done using the `print` function. We can print variables directly: 
 
-    def bark(self):
-        print("bark bark!")
+```{r, engine = 'Python', eval=FALSE}
+# Integer
+age = 25
 
-    def doginfo(self):
-        print("This " + self.breed + " is " + str(self.age) + " year(s) old.")
-```
-
-One can then create an *instance* of this class, i.e. an object, that represents Ozzy, a Maltese of two years old. This object can apply the function `eat()` and `run()`. We can call the attributes and functions with the dot notation:
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-ozzy = Dog("Maltese", 2)
-print(ozzy.breed)
-print(ozzy.age)
-ozzy.bark()
-ozzy.doginfo()
-```
-
-During Geo-scripting, you do not need to define your own classes. However, sometimes existing classes of modules will be used, such as a `DataFrame` in Pandas or a `GeoDataFrame` in GeoPandas. It is therefore important to understand the concepts of classes and objects generated from them.
-
-```{block, type="alert alert-success"}
-> **Question 1**: Suppose that we want to build a script in Python of an orchestra playing a song. What would be the class and what would be the objects?
-```
-
-## Data types and variables
-
-Values belong to a data type. The most important built-in (base) types are:
-* integer
-* floating point
-* Boolean
-* several compound data types (see next section), like string
-
-Python is a strongly typed language. That is, you cannot perform operations inappropriate to the type of the value. For example, attempting to add integers to strings will fail. For this reason, understanding and being aware of value types in Python is crucial.
-
-Values can be cast to other types, e.g.:
-
-```{Python,engine.path='/usr/bin/python3'}
-print(int(10.6))
-```
-
-```{block, type="alert alert-success"}
-> **Question 2**: What is the difference between 10 and 10.0 in Python?
-```
-
-Often, we do not use values directly in a script. Instead, we use access them through variables. A variable is a way to reference to a known or unknown value. In Python, a value is assigned to a variable with the `=`-sign, e.g.:
-
-```{Python,engine.path='/usr/bin/python3'}
-building = 'Gaia'
-buildingnumber = 101
-print(building + ' is in Wageningen')
-```
-
-As opposed to other programming languages, in Python, the data type does not need to be explicitly defined when creating a variable. Python derives the data type of the variable from the value assigned to it. In the code above, the variable `building` is thus a string, and the variable `buildingnumber` is an integer, without having defined this explicitly.
-
-Variable names should: 1) start with a lowercase letter, and 2) not contain spaces. Furthermore, it is advisable to use meaningful variable names, both for yourself and for (future) users of your code.
-
-
-## Compound data types
-
-*Compound data types* or container types are Python data types that have in common that they can be broken down into smaller *elements*. The most commonly known compound data types are:
-- string
-- list
-- dictionary
-- tuple
-- NumPy array
-
-For most compound data types, the elements can be accessed by providing the index of the element with the square-bracket operator, `[ ]`. This works, for example, for items in lists and letters in strings. Notice that indexing in Python, as opposed to other languages like R, **STARTS AT 0!** Positive indexes access elements from the front, and negative indexes from the back. Multiple elements can be selected with a colon `from:to`, where the first is inclusive and the last exclusive. Here is an example for accessing items in a list, and in a string:
-
-```{Python,engine.path='/usr/bin/python3'}
-# List
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-print(campus[3])  # Forum
-print(campus[-1])  # the last item of the list
-print(campus[0:3])  # the first 3 items (index 0, 1, and 2), i.e. 'slicing' 
-our_building = campus[0]  # GAIA
+# Float
+height = 1.75
 
 # String
-print(our_building[0])  # G
-print(our_building[0:2])  # GA
+name = "John Doe"
+
+# Boolean
+is_student = True
+
+# Print a name
+print(name)
 ```
 
-```{block, type="alert alert-success"}
-> **Question 3:** What building is `campus[-2]`? Test it.
+We can use string formatting to use flexible strings, for example for printing. to start a formatted string, we put a `f` before the string. We can use curly brackets `{}` in this formatted string. The text between these curly brackets is executed as regular python code. 
+
+```{r, engine = 'Python', eval=FALSE}
+# String formatting and printing 
+print(f'{name} is {age} years old and is {height} meters tall.)
 ```
 
-Lists can be nested. That means that a list is an item in another list. Accessing items in nested lists works the same as in regular lists, e.g,:
+### Basic arithmetic operations:
+```{r, engine = 'Python', eval=FALSE}
+a = 10
+b = 5
 
-```{Python,engine.path='/usr/bin/python3'}
-# Nested list
-samples = [["x", "y", "z"], [12, 32, 7], [12, 40, 7]]
+addition = a + b
+subtraction = a - b
+multiplication = a * b
+division = a / b
+modulo = a % b
+exponentiation = a ** b
 
-# Access the x
-header = samples[0]
-first_item = header[0]
-
-# Or at once
-first_item = samples[0][0]
+print(addition, subtraction, multiplication, division, modulo, exponentiation)
 ```
 
 
-```{block, type="alert alert-success"}
-> **Question 4:** How can we access the value 40 above? Test it.
-```
+### Conditional statements
+```{r, engine = 'Python', eval=FALSE}
+x = 15
 
-A *dictionary* is set of key-value pairs. The key can be used to access the value. A dictionary is different from the other compound data types as it is not ordered, i.e. the order of the elements is undetermined. As such, the square-bracket operator, `[ ]` cannot be used. 
-
-```{Python,engine.path='/usr/bin/python3'}
-# Dictionary
-campus_dictionary = {101: 'Gaia',
-                     100: 'Lumen',
-                     107: 'Radix',
-                     102: 'Forum',
-                     104: 'Atlas'}
-
-# Access dictionary value using key
-print(campus_dictionary[102])
-```
-
-In contrast to a list, a *NumPy array* is a *homogeneous multidimensional array* from the NumPy package. Homogeneous refers to the fact that all data in one array have to be of the same type. NumPy’s array class is called `ndarray` (n-dimensional). In the array, the dimensions are called *axes*, and the number of axes is the *rank*.
-
-<figure>
-<img src="images/numpy_structure.png" alt="Anatomy of a numpy array" width="100%">
-<figcaption>Anatomy of a NumPy array, source https://valecs.gitlab.io/resources/numpy.pdf.</figcaption>
-</figure>
-
-Below, we show how to create a NumPy array from a set of lists. We also show how to create *standard* arrays, filled with zeroes, ones, or random number, often to be updated with actual data later in your script.
-
-```{Python,engine.path='/usr/bin/python3'}
-import numpy as np
-
-# Create array from list
-a = np.array([[1, 3, 4], [2, 7, 6]])
-print('a is', a)
-
-# Create standard arrays.
-print(np.zeros((3, 2)))
-print(np.ones((2, 3), int))
-print(np.ones((2, 3), int) * 5)
-print(np.empty((2, 2)))
-```
-
-Just like with other compound data types, the elements can be accessed with the square-bracket operator, `[ ]`. But in NumPy arrays, there is one index per dimension (per axis), separated by commas. Multiple elements per dimension can be selected with a colon (`from:to`, just like in a list). Leaving out the index before or after the colon, selects all elements from the beginning or to the end, respectively, see the examples in the figure below.
-
-<img src="images/numpy_slicing.png" alt="How to slice NumPy arrays" width="50%"></img>
-
-Finally, *structured NumPy arrays* can have a different data type per column, i.e. per attribute. It is thereby similar to a `DataFrame` in R (we'll look at another similar data type tomorrow). In structured NumPy arrays, you can access or edit attribute values either by dimension or by attribute name.
-
-```{Python,engine.path='/usr/bin/python3'}
-# Create create structured NumPy array filled with zeroes
-data = np.zeros(4, dtype={'names': ('name', 'age', 'weight'),
-                          'formats': ('U10', 'i4', 'f8')})
-print(data.dtype)
-
-# Now we can fill this structured array with data (lists) of the correct type
-name = ['Alice', 'Bob', 'Cathy', 'Doug']
-age = [25, 45, 37, 19]
-weight = [55.0, 85.5, 68.0, 61.5]
-data['name'] = name
-data['age'] = age
-data['weight'] = weight
-
-# Inspect the result
-print(data)
-```
-
-## Functions
-
-A function is a section of code with a common purpose. Functions can be useful for 1) making the main part of the code concise, 2) debugging, as functions can be tested and edited separately from the main code, and 3) reuse of code in the same or other programs. 
-
-Functions may (not always) accept *argument(s)*, perform an *action*, and may (not always) *return value(s)*. For example, the built-in function 'int()' we have seen before performs the action of converting a value to integer type:
-
-```{Python,engine.path='/usr/bin/python3'}
-# Return value into a variable, the function name, its (single) argument
-myint = int(10.6)
-```
-
-You can also create functions yourself. The syntax for creating a function is:
-
-```
-def functionname(arg1, arg2, argn):
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
-    return returnvar1, returnvar2, returnvarn
-
-```
-
-For example, we could create a function to compute the area of a rectangle based on its width and length, provided as arguments, and return the output: 
-
-```{Python,engine.path='/usr/bin/python3'}
-def calculate_rectangle_area(width, length):
-    rectangle_area = width * length
-    return rectangle_area
-
-
-print(calculate_rectangle_area(4, 3))
-
-# Or alternatively;
-output_number = calculate_rectangle_area(width=4, length=3)
-print(output_number)
-```
-
-Functions or classes can be made more informative by *docstrings*:
-
-```{Python,engine.path='/usr/bin/python3'}
-def calculate_rectangle_area(width, length):
-    """Computes the area of a rectangle by multiplying width and length.
-    :width: width is the width of the rectangle
-    :length: length is the length of the rectangle
-    :returns: width * length
-    """
-    rectangle_area = width * length
-    return rectangle_area
-
-
-print(calculate_rectangle_area(4, 3))
-```
-
-Variables created in functions are *local*. That means that a variable created in a function does not exist outside of the function. So, here, `rectangle_area` cannot be accessed outside of the function definition (after the indented part of the code). 
-
-```{block, type="alert alert-success"}
-> **Question 5**: Test typing `print(rectangle_area)` at the end of the code block defined above. What happens? Why is that?
-```
-
-## Modules and packages
-
-Python packages and modules are collections of classes and functions. Any Python file is a _module_, its name being the file's base name without the `.py` extension. A _package_ is a directory of Python modules containing an additional `__init__.py` file, to distinguish a package from a directory that just happens to contain a bunch of Python scripts. Packages can be nested to any depth, provided that the corresponding directories contain their own `__init__.py` file.
-
-Basically there are four ways to load a module and/or a package:
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import math
-print(math.pi)
-
-from math import pi
-print(pi)
-
-from math import pi as ip
-print(ip) 
-
-import numpy as np
-print(np.pi)
-```
-
-```{block, type="alert alert-success"}
-> **Question 6**: What are the differences between these four ways to import modules and/or packages?
-```
-
-Often-used internal packages/modules:
-
-- `os`: Operating system features
-- `sys`: System specific configuration
-- `math`: Mathametical functions, operators and constants
-- `datetime`: Date/Time functionality
-
-## Conditionals
-
-*Comparison operators* compare two values or, more commonly, variables. The operands (x and y below) are often numerical, e.g. floating point or integer. The result of comparison operators is a 0 (False) or 1 (True), of type Boolean.
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-x == y    # TRUE if x is equal to y
-x != y    # TRUE if x is not equal to y
-x > y     # TRUE if x is greater than y
-x < y     # TRUE if x is less than y
-x >= y    # TRUE if x is greater than or equal to y
-x <= y    # TRUE if x is less than or equal to y
-```
-
-*Logical operators* evaluate the logical relation between two values or variables. The operands (x and y below) are in most cases Boolean. The result of logical operators is also Boolean.
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-x and y   # TRUE if both x and y are TRUE
-x or y    # TRUE if x or y are TRUE
-not x     # TRUE if x is FALSE
-```
-
-A *conditional statement* checks whether a condition is fulfilled and only if it does, it executes a block of code. The syntax of a conditional statement is:
-
-
-```
-if condition:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
+if x > 10:
+    print("x is greater than 10")
+elif x == 10:
+    print("x is equal to 10")
 else:
-    ... (alternative_expression1) ...
-    ... (alternative_expression2) ...
-    ... (alternative_expression3) ...
-
-```
-
-The condition should be a Boolean variable, or an expression resulting in a Boolean. A condition is typically built up using comparison operators and/or logical operators. The expressions after the `if`-statement are executed when the condition is met, while the conditions in the `else`-statement (not mandatory to include) are executed when the condition is not met. Multiple conditions can be checked consecutively with one or more `elif`-statements in-between the `if` and `else`. For example:
-
-```{Python,engine.path='/usr/bin/python3'}
-x = 3
-if x == 1:
-    print("it is one")
-elif x == 2:
-    print("it is two")
-elif x == 3:
-    print("it is three")
-else: 
-    print("above 3")
+    print("x is less than 10")
 ```
 
 
-```{block, type="alert alert-success"}
-> **Question 7**: Think of a conditional statement that uses logical operators in the condition instead of comparison operators.
-
-```
-
-## Loops
-
-Loops are an essential construct in Python, more than in R. Two types of loops exist:
-- the `for`-loop, used when it can be known beforehand how many iterations are required
-- the `while`-loop, used when it cannot be known beforehand how many iterations are required
-
-The `for`-loop is often the preferred construct, as it is computationally more efficient and less error-prone than the `while`-loop; no chance to end up in an endless loop or to accidentally skip an element (iteration). The syntax of a `for`-loop is:
-
-
-```
-for element in compound:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
-
-```
-
-Often `i`, standing for iterator, is used as the `element`, but it can be any variable name. Key is that the current element is put into that variable in each iteration, so the `element` is what one should use in the expressions in the `for`-loop. The `for`-loop works on any compound data type:
-
-```{Python,engine.path='/usr/bin/python3'}
-# Looping over a list
-campus = ['Gaia', 'Lumen', 'Radix', 'Forum']
-for i in campus:
+### Loops (for and while)
+```{r, engine = 'Python', eval=FALSE}
+# For loop
+for i in range(5):
     print(i)
 
-# Looping over a string
-our_building = campus[0]  # GAIA
-for letter in our_building:
-    print(letter)
+# While loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
 ```
 
-The `while`-loop works on a condition instead of on a compound data type. The syntax of a `while`-loop is:
+### Lists and basic list operations
+```{r, engine = 'Python', eval=FALSE}
+# Creating a list
+fruits = ["apple", "banana", "orange"]
 
+# Accessing elements
+print(fruits[0])  # Output: "apple"
 
-```
-while condition:
-    ... (expression1) ...
-    ... (expression2) ...
-    ... (expressionn) ...
+# Adding elements
+fruits.append("grape")
 
-```
+# Removing elements
+fruits.remove("banana")
 
-In a `while`-loop, when an element is used, it is not automatically altered in each iteration; the alteration needs to be explicitly programmed. 
-
-```{Python,engine.path='/usr/bin/python3'}
-n = 0
-while n < 20:
-    print(n)
-    n = n + 1
+# Length of the list
+print(len(fruits))  # Output: 3
 ```
 
+
+### Functions
+```{r, engine = 'Python', eval=FALSE}
+# Function to add two numbers and return the result
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(5, 3)
+print(result)  # Output: 8
+```
+
+
+### Dictionaries
+```{r, engine = 'Python', eval=FALSE}
+# Creating a dictionary
+person = {
+    "name": "Alice",
+    "age": 30,
+    "is_student": False
+}
+
+# Accessing values
+print(person["name"])  # Output: "Alice"
+
+# Adding a new key-value pair
+person["occupation"] = "Engineer"
+
+# Removing a key-value pair
+del person["is_student"]
+```
+
+
+### Importing packages
+Python is used by a very large community, as is said before. One of the reasons for this is that this entire community builds a lot of (open source) packages. It is therefor very useful to be able to build upon these packages. In R you have worked a with *dataframes* and *spatial dataframes*. In Python these are not standard datatypes, but they are implemented in very well known packages called `Pandas` and its spatial counterpart `GeoPandas.` We will go in much more detail during the Python-Vector tutorial but we will introduce them quickly here. 
+
+In python we import a package using the `import` statement (instead of th the `library` function in R) . For example importing the pandas package goes as follows
+
+```{r, engine = 'Python', eval=FALSE}
+import pandas as pd
+```
+
+As you can see we can import a package *as* something. We use this if we want to point at specific functionality of this package. If we want to point at for example the `read_csv` function from pandas we we call `pd.read_csv`. This function is also implemented in other packages, but now we are sure we use the pandas version of this function. Importing pandas is a convention, used very widely in the python community. 
+
+We can create a `dataframe` as follows: 
+```{r, engine = 'Python', eval=FALSE}
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 22],
+    'City': ['New York', 'San Francisco', 'Chicago']
+}
+
+df = pd.DataFrame(data)
+print(df)
+```   
+
+We can access some information from this `dataframe` as follows:
+
+```{r, engine = 'Python', eval=FALSE}
+# Display the first few rows of the DataFrame
+print(df.head())
+
+# Get statistical information about the DataFrame
+print(df.describe())
+
+# Access a specific column
+print(df['Age'])
+```   
+
+### GeoDataFrame
+The spatial counterpart of a `dataframe` is a 'GeoDataFrame', which we normally import *as* `gpd`: 
+```{r, engine = 'Python', eval=FALSE}
+import geopandas as gpd
+
+# Dummy data for the GeoDataFrame
+data = {
+    'Name': ['Location A', 'Location B', 'Location C'],
+    'Latitude': [40.7128, 34.0522, 41.8781],
+    'Longitude': [-74.0060, -118.2437, -87.6298]
+}
+
+# Create the GeoDataFrame with a single line of code
+gdf = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data['Longitude'], data['Latitude']))
+
+# Display the GeoDataFrame
+print(gdf)
+```
+
+
+## Object-Oriented Programming in Python
+We have now gone over most of the more basic basic functionality of Python, a lot of similar things you have used in R. A concept we have not used before is the concept of objects. They have shortly been introduced in R, but we will elaborate on them in Python. Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code. 
+
+### How to work with objects in Python
+In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
+
+```{r, engine = 'Python', eval=FALSE}
+class Person:
+    def __init__(self, name, age):
+        self.name = name  # < this is a property
+        self.age = age    # < this is also a property
+    
+    def greet(self):  # < This "function" is a method
+        print(f"Hello, my name is {self.name} and I'm {self.age} years old.")
+```
+
+In the provided code, the `__init__` method is a special method known as a *constructor*. It is automatically called when an object is created from the class. The `self` parameter refers to the instance of the class itself, allowing access to its properties and methods. Whenever a method is defined within a `class`, we give `self` as the first parameter. 
+
+The `Person` class has two properties, `name` and `age`, as well as one method, `greet`. The `greet` method prints a greeting message that includes the person's name and age.
+
+To create an instance of the `Person` class, you simply call the class as if it were a function and assign the result to a variable:
+
+```{r, engine = 'Python', eval=FALSE}
+person1 = Person("Alice", 25)
+person2 = Person("Bob", 30)
+```
+
+We have created two objects, `person1` and `person2`, which are instances of the `Person` class. Now we can access the properties and call the methods of these objects:
+
+```{r, engine = 'Python', eval=FALSE}
+print(person1.name)  # Output: Alice
+print(person2.age)   # Output: 30
+person1.greet()      # Output: Hello, my name is Alice and I'm 25 years old.
+person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.
+```
+
+This example is straightforward, but keep in mind that classes can become more complex. 
 
 ```{block, type="alert alert-success"}
-> **Question 8**: What is the last number printed? Now print n after the loop (not in the indented part); what does it print?
+> **Question 1**: Take a look at the creation of a GeoPandas `GeoSeries` [here](https://github.com/geopandas/geopandas/blob/main/geopandas/geoseries.py#L83). It may seem complicated and hard to read, but it is well-documented, so try to understand some of its functionality. The `to_json` method, for example, provides straightforward functionality (though it may still be challenging to read due to its complexity). 
 ```
 
-You may remember that variables in a function are local. This is different for loops: Variables in a loop are NOT local, and thus affect what happens outside of the loop, as demonstrated by the last question. Be aware of this.
+You may have noticed that class definitions differ from what we have learned. In the `GeoPandas` example, the class is defined as follows:
+
+```{r, engine = 'Python', eval=FALSE}
+class GeoSeries(GeoPandasBase, Series):
+```
+
+However, we previously learned to define a class like this:
+
+```{r, engine = 'Python', eval=FALSE}
+class GeoSeries:
+```
+
+The difference lies in the code within the parentheses, which represents *inheritance*. The class will inherit all the functionality from the classes specified as arguments, in this case, `GeoPandasBase` and `Series`. The `Series` object refers to the [Pandas.Series](https://github.com/pandas-dev/pandas/blob/main/pandas/core/series.py#L243C15-L243C15), which contains thousands of lines of code with various functionality. Therefore, the GeoPandas `GeoSeries` contains all the functionality implemented in Pandas, as well as those from `GeoPandasBase` and `GeoPandas.Series`itself. When new functionality is developed for the `Pandas` package, this is directly available in the `GeoPandas` objects, since we inherit all functionality from pandas.
+
+Phew, that's a lot of complicated code, and it may seem overwhelming. You don't need to understand every detail. The important thing is to grasp the value of classes, objects, and inheritance. When creating a class, we can inherit functionality from another class. How does this work in a simple example?
+
+So, we've learned that with inheritance, classes can acquire all the functionality from other classes and build upon that. Let's create a new object called `Student`, which will inherit all the properties and methods from the `Person` class we defined earlier.
+
+```{r, engine = 'Python', eval=FALSE}
+class Student(Person):
+    def __init__(self, name, age, student_id):
+        super().__init__(name, age)
+        self.student_id = student_id
+        self.is_studying = False
+    
+    def study(self):
+        self.is_studying = True
+        print(f"{self.name} is studying.")
+```
+
+In the provided code, the `Student` class inherits from the `Person` class, which we will refer to as the superclass. By doing so, it extends the functionality of the superclass by adding a new property (`student_id`) and a new method (`study`). The `super()` function is used to call the superclass's `__init__` method, allowing the subclass to initialize the inherited properties.
+
+As a result, the `Student` class contains both the methods and properties inherited from the `Person` class, as well as the additional ones defined within the `Student` class:
+
+```{r, engine = 'Python', eval=FALSE}
+student = Student("Eve", 22, "123456")
+print(student.name)         # Output: Eve
+print(student.student_id)   # Output: 123456
+student.greet()             # Output: Hello, my name is Eve and I'm 22 years old.
+student.study()             # Output: Eve is studying.
+```
+
+In this example, `student` is an instance of the `Student` class. It can access the inherited properties from the `Person` class, such as `name`, as well as the newly added property `student_id` and `is_studying`, which defaults to `False`. Similarly, it can invoke both the inherited method `greet` and the additional method `study`, which are specific to the `Student` class. The method `study` prints a message and sets the `is_studying` property to `True`.
+
+```{block, type="alert alert-success"}
+> **Question 2**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
+```
 
 ## Visualization 
-
 Visualization is essential to make concepts understandable and patterns recognizable. In Python, _Matplotlib_ is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.
 
 In Matplotlib, a *figure* object contains *axes*, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:
@@ -716,7 +611,7 @@ In Matplotlib, a *figure* object contains *axes*, or subplots. These axes contai
 <figcaption>Elements in an example Matplotlib figure, source https://www.aosabook.org/en/matplotlib.html.</figcaption>
 </figure>
 
-Let's create a simple line figure, based on data in NumPy arrays.
+Let's create a simple line figure, based on data in `NumPy.array`s.
 
 ```{Python,engine.path='/usr/bin/python3'}
 import numpy as np
@@ -817,7 +712,7 @@ plt.show()
 <img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
 
 ```{block, type="alert alert-success"}
-> **Question 9**: In the upper right subplot, why is there no point at x=3, y=8?.
+> **Question 3**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
 When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
@@ -844,7 +739,7 @@ help(sys)
 See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question 10**: What kind of functionality does the `sys` package provide?
+> **Question 4**: What kind of functionality does the `sys` package provide?
 ```
 
 # What have we learned?
@@ -852,15 +747,10 @@ See how the objects and functions in the `sys` package got listed.
 1. Python package management with *Mamba* & *Conda*
 2. Running a Python script in the terminal
 3. Using Python editors and IDEs
-4. What classes and objects are
-5. Data types and variables
-6. Compound data types
-7. Writing and using functions
-8. Using modules and packages
-9. Applying conditionals
-10. Using loops
-11. Visualization
-12. Python help
+4. What Object Oriented Programming is
+5. Using modules and packages
+6. Visualization
+7. Python help
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3/contents.html)
