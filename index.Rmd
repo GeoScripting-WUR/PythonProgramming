@@ -25,7 +25,7 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 <font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-# Week 3, Tutorial 8: Python refresher
+# Python refresher
 
 ## Introduction
 
@@ -36,16 +36,10 @@ Good afternoon! Today we will start working with Python for geoscripting and do 
 
 ## Today’s Learning objectives
 
+- Be able to visualize data using Python and matplotlib
+- Familiarize yourself with Python objects and inheritance
 - Know how to work with virtual environments: *Conda* + *Mamba*
-- Know how to run a Python script from the terminal
 - Get introduced to Python editors and IDEs
-- Refresh Python programming knowledge
-
-- Know how to work with virtual environments: Conda + Mamba
-- Get introduced to Python editors and IDEs
-- Familiarize yourself with python Objects and inheritance
-- Be able to visualize data using python and matplotlib
-
 
 # Introduction to Python
 
@@ -70,12 +64,12 @@ Python is a jack-of-all-trades programming language that is free, flexible, open
     * PyTorch (Deep Learning)
 
 ## Python package management with Conda
-A set of tools co-exist for installing and managing Python packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
+A set of tools exist for installing and managing Python packages. Although it is possible to install packages on your base Python interpreter, sooner or later you will get conflicts between Python packages since packages may have varying dependencies. This can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
 
-Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with colaborators or users of your code. 
+Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a Conda environment on your machine for each project. In Conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other Conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with collaborators or users of your code. 
 
 ## Mamba installation
-For this course, we will make use of *Mamba*, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
+For this course, we will make use of *Mamba*, a fast drop-in re-implementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
 To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
