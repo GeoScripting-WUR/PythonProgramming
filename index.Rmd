@@ -1,25 +1,31 @@
 ---
-pagetitle: "Tutorial 8: Python refresher"
+pagetitle: "Python refresher"
 author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil, Arno Timmer"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
-  knitrBootstrap::bootstrap_document:
-    title: "Tutorial 8: Python refresher"
-    theme: "simplex"
-    highlight: Tomorrow Night Bright
-    menu: FALSE
-    theme.chooser: TRUE
-    highlight.chooser: TRUE
+  rmdformats::html_clean:
+    highlight: zenburn
 ---
 
-<style type="text/css">
-body {max-width: none;}
-a:visited {color: #91170a;}
-</style>
+```{css, echo=FALSE}
+@import url("https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css");
+.main-container {max-width: none;}
+div.figcaption {display: none;}
+pre {color: inherit; background-color: inherit;}
+code[class^="sourceCode"]::before {
+  content: attr(class);
+  display: block;
+  text-align: right;
+  font-size: 70%;
+}
+code[class^="sourceCode r"]::before { content: "R Source";}
+code[class^="sourceCode python"]::before { content: "Python Source"; }
+code[class^="sourceCode bash"]::before { content: "Bash Source"; }
+```
 
-# [WUR Geoscripting](https://geoscripting-wur.github.io/) <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px;"/>
+<font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-# Week 3, Tutorial 8: Python refresher
+# Python refresher
 
 ## Introduction
 
@@ -31,14 +37,9 @@ Good afternoon! Today we will start working with Python for geoscripting and do 
 ## Today’s Learning objectives
 
 - Know how to work with virtual environments: *Conda* + *Mamba*
-- Know how to run a Python script from the terminal
 - Get introduced to Python editors and IDEs
-- Refresh Python programming knowledge
-
-- Know how to work with virtual environments: Conda + Mamba
-- Get introduced to Python editors and IDEs
-- Familiarize yourself with python Objects and inheritance
-- Be able to visualize data using python and matplotlib
+- Familiarize yourself with Python objects and inheritance
+- Be able to visualize data using Python and matplotlib
 
 
 # Introduction to Python
@@ -64,12 +65,16 @@ Python is a jack-of-all-trades programming language that is free, flexible, open
     * PyTorch (Deep Learning)
 
 ## Python package management with Conda
-A set of tools co-exist for installing and managing Python packages. It is possible to install packages on your base Python interpreter, but sooner or later you will get conflicting Python packages since packages have varying dependencies. It can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
+A set of tools exist for installing and managing Python packages. Although it is possible to install packages on your base Python interpreter, sooner or later you will get conflicts between Python packages since packages may have varying dependencies. This can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
 
-Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a conda environment on your machine for each project. In conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them here for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with colaborators or users of your code. 
+Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a Conda environment on your machine for each project. In Conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other Conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with collaborators or users of your code. 
+
+```{block, type="alert alert-success"}
+> **Question 1**: Why do you not need to worry about environments for scripting in R? Hint: Look back at [R & Python Basics](https://geoscripting-wur.github.io/RPythonBasics/#what-are-r-and-python). 
+```
 
 ## Mamba installation
-For this course, we will make use of *Mamba*, a fast drop-in reimplementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
+For this course, we will make use of *Mamba*, a fast drop-in re-implementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
 To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
 
 ```{bash, eval=FALSE}
@@ -95,13 +100,13 @@ Scroll down the license with enter. Accept License (i.e. type yes). Use default 
 This will install *Mamba* into `~/mamba`. Finally, restart your terminal to be able to use *Mamba* and *Conda* in the terminal. Next, let's see how to use *Mamba* in case you want make new virtual environments by yourself, or install packages after creating the environment.
 
 ## Mamba usage
-*Mamba* creates isolated conda environments with sets of packages, that do not interfere with your base Python or with other conda environments. To create an environment:
+*Mamba* creates isolated Conda environments with sets of packages, that do not interfere with your base Python or with other Conda environments. To create an environment:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba create --name geotest python numpy
 ```
 
-This would create a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
+This would create a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the Conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
 
 Let's first list the currently available environments:
 
@@ -124,10 +129,10 @@ activate geotest
 
 After this, the current environment is shown in parentheses in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again.
 
-After creating a conda environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below.
+After creating a Conda environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below.
 
-* Using *Mamba* to install and manage conda packages. This downloads conda packages using conda channels, which are URLs to directories containing the conda packages. **Generally, installing conda packages using *Mamba* is the preferred method.**
-* Using *pip* to install packages and *Mamba* to manage these packages. *pip* is available for Windows, macOS and Linux. *pip* can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip* in a conda environment unless it's the last resort. This is because after you use *pip* to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
+* Using *Mamba* to install and manage Conda packages. This downloads Conda packages using Conda channels, which are URLs to directories containing the Conda packages. **Generally, installing Conda packages using *Mamba* is the preferred method.**
+* Using *pip* to install packages and *Mamba* to manage these packages. *pip* is available for Windows, macOS and Linux. *pip* can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip* in a Conda environment unless it's the last resort. This is because after you use *pip* to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
 * Using the distribution's package manager (only on Ubuntu, that is `sudo apt-get install python-*`).
 
 The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
@@ -156,7 +161,7 @@ Some additional helpful utilities for package management in this context are:
 
 * `mamba list` to check which packages are installed in `root` or in the active environment;
 * `python --version` or `gdal-config --version` to check which Python or GDAL version is used in the environment;
-* `which spyder` or `type spyder` to find out which *Spyder* executable is used either from system or conda environment.
+* `which spyder` or `type spyder` to find out which *Spyder* executable is used either from system or Conda environment.
 
 Removing packages is just as simple:
 
@@ -186,7 +191,7 @@ mamba remove --name geotest --all
 
 ## Running a Python script in the terminal
 
-Within a conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:
+Within a Conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:
 
 ```{r, eval=FALSE, engine='bash'}
 python
@@ -265,7 +270,7 @@ conda deactivate
 
 ### Spyder
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active conda environment. To start Spyder:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active Conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active Conda environment. To start Spyder:
 
 ```{r, eval=FALSE,engine='bash'}
 spyder
@@ -285,7 +290,7 @@ Open a new file and save it somewhere as `main.py` (File -- > New File --> Save 
 
 ## Setting up the environment
 
-In the second part of this tutorial we will refresh your python knowledge and build upon it. Again, we advise you to code in Spyder, as this IDE is the recommended IDE for the python part of this course. 
+In the second part of this tutorial we will refresh your Python knowledge and build upon it. Again, we advise you to code in Spyder, as this IDE is the recommended IDE for the Python part of this course. 
 
 First, make a directory structure for this tutorial:
 
@@ -296,7 +301,7 @@ cd ./PythonRefresher
 mkdir output
 ```
 
-We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a conda environment from a file. First create a text file in your preferred text editor, e.g. `gedit`. Then, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
+We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a Conda environment from a file. First create a text file in your preferred text editor, e.g. `gedit`. Then, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
 
 ```
 name: refresher
@@ -308,7 +313,7 @@ dependencies:
   - spyder
 ```
 
-Now, create a new conda environment based on this file:
+Now, create a new Conda environment based on this file:
 
 ```{r, eval=FALSE, engine='bash'}
 mamba env create --file refresher.yaml
@@ -327,12 +332,12 @@ Important to note: for compatibility, it is best to install packages from the sa
 
 
 ## Quick refresher
-In the tutorial about R and Python we have gone over the differences and similarities of python and R. This tutorial also contains some basic python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
+In the tutorial about R and Python we have gone over the differences and similarities of Python and R. This tutorial also contains some basic Python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
 
 ### Printing and basic data types
-In python we assign variable using the equals sign (`=`):
+In Python we assign variable using the equals sign (`=`):
 
-Printing in python is done using the `print` function. We can print variables directly: 
+Printing in Python is done using the `print` function. We can print variables directly: 
 
 ```{r, engine = 'Python', eval=FALSE}
 # Integer
@@ -351,7 +356,7 @@ is_student = True
 print(name)
 ```
 
-We can use string formatting to use flexible strings, for example for printing. to start a formatted string, we put a `f` before the string. We can use curly brackets `{}` in this formatted string. The text between these curly brackets is executed as regular python code. 
+We can use string formatting to use flexible strings, for example for printing. to start a formatted string, we put a `f` before the string. We can use curly brackets `{}` in this formatted string. The text between these curly brackets is executed as regular Python code. 
 
 ```{r, engine = 'Python', eval=FALSE}
 # String formatting and printing 
@@ -451,15 +456,15 @@ del person["is_student"]
 
 
 ### Importing packages
-Python is used by a very large community, as is said before. One of the reasons for this is that this entire community builds a lot of (open source) packages. It is therefor very useful to be able to build upon these packages. In R you have worked a with *dataframes* and *spatial dataframes*. In Python these are not standard datatypes, but they are implemented in very well known packages called `Pandas` and its spatial counterpart `GeoPandas.` We will go in much more detail during the Python-Vector tutorial but we will introduce them quickly here. 
+Python is used by a very large community, as is said before. One of the reasons for this is that this entire community builds a lot of (open source) packages. It is therefore very useful to be able to build upon these packages. In R you have worked a with *dataframes* and *spatial dataframes*. In Python these are not standard datatypes, but they are implemented in very well known packages called `Pandas` and its spatial counterpart `GeoPandas.` We will go in much more detail during the Python-Vector tutorial but we will introduce them quickly here. 
 
-In python we import a package using the `import` statement (instead of th the `library` function in R) . For example importing the pandas package goes as follows
+In Python we import a package using the `import` statement (instead of th the `library` function in R) . For example importing the pandas package goes as follows
 
 ```{r, engine = 'Python', eval=FALSE}
 import pandas as pd
 ```
 
-As you can see we can import a package *as* something. We use this if we want to point at specific functionality of this package. If we want to point at for example the `read_csv` function from pandas we we call `pd.read_csv`. This function is also implemented in other packages, but now we are sure we use the pandas version of this function. Importing pandas is a convention, used very widely in the python community. 
+As you can see we can import a package *as* something. We use this if we want to point at specific functionality of this package. If we want to point at for example the `read_csv` function from pandas we we call `pd.read_csv`. This function is also implemented in other packages, but now we are sure we use the pandas version of this function. Importing pandas is a convention, used very widely in the Python community. 
 
 We can create a `dataframe` as follows: 
 ```{r, engine = 'Python', eval=FALSE}
@@ -545,7 +550,7 @@ person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.
 This example is straightforward, but keep in mind that classes can become more complex. 
 
 ```{block, type="alert alert-success"}
-> **Question 1**: Take a look at the creation of a GeoPandas `GeoSeries` [here](https://github.com/geopandas/geopandas/blob/main/geopandas/geoseries.py#L83). It may seem complicated and hard to read, but it is well-documented, so try to understand some of its functionality. The `to_json` method, for example, provides straightforward functionality (though it may still be challenging to read due to its complexity). 
+> **Question 2**: Take a look at the creation of a GeoPandas `GeoSeries` [here](https://github.com/geopandas/geopandas/blob/main/geopandas/geoseries.py#L83). It may seem complicated and hard to read, but it is well-documented, so try to understand some of its functionality. The `to_json` method, for example, provides straightforward functionality (though it may still be challenging to read due to its complexity). 
 ```
 
 You may have noticed that class definitions differ from what we have learned. In the `GeoPandas` example, the class is defined as follows:
@@ -593,7 +598,7 @@ student.study()             # Output: Eve is studying.
 In this example, `student` is an instance of the `Student` class. It can access the inherited properties from the `Person` class, such as `name`, as well as the newly added property `student_id` and `is_studying`, which defaults to `False`. Similarly, it can invoke both the inherited method `greet` and the additional method `study`, which are specific to the `Student` class. The method `study` prints a message and sets the `is_studying` property to `True`.
 
 ```{block, type="alert alert-success"}
-> **Question 2**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
+> **Question 3**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
 ```
 
 ## Visualization 
@@ -712,7 +717,7 @@ plt.show()
 <img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
 
 ```{block, type="alert alert-success"}
-> **Question 3**: In the upper right subplot, why is there no point at x=3, y=8?.
+> **Question 4**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
 When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
@@ -739,7 +744,7 @@ help(sys)
 See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question 4**: What kind of functionality does the `sys` package provide?
+> **Question 5**: What kind of functionality does the `sys` package provide?
 ```
 
 # What have we learned?
