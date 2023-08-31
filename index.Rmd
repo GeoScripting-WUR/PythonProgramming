@@ -199,13 +199,13 @@ python
 
 Now, you can type Python expressions that will be executed one by one:
 
-```{Python,eval=FALSE, engine.path='/usr/bin/python3'}
+```{python,eval=FALSE, engine.path='/usr/bin/python3'}
 import sys
 print('Good morning, you are running Python:', sys.version)
 ```
 
 To go back, type:
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+```{python,engine.path='/usr/bin/python3', eval=FALSE}
 exit()
 # or 
 quit()
@@ -270,27 +270,13 @@ conda deactivate
 
 ### Spyder
 
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active Conda environment. So, using *Mamba*, make an environment and install Spyder to that environment. Activate the environment. Spyder will automatically make use of the Python interpreter of the active Conda environment. To start Spyder:
+The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active Conda environment. We will use Spyder in the next section of this tutorial to do a quick Python refresher. For the remainder of the course we advise you to code in Spyder as it the recommended IDE for the Python part of this course.
 
-```{r, eval=FALSE,engine='bash'}
-spyder
-```
-
-In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
-
-* F5 to run your script
-* CTRL + S to save your script
-* CTRL + 1 to comment/uncomment your code
-* TAB to indent your code
-* SHIFT + TAB to unindent your code
-
-Open a new file and save it somewhere as `main.py` (File -- > New File --> Save As). Test writing a few lines of code and running the script.
+First, using *Mamba*, we will make an environment and install Spyder to that environment. Spyder will automatically make use of the Python interpreter of the active Conda environment. To start Spyder simply type `spyder` in the terminal of the activated Conda environmet. Now let's see this in action!
 
 # Python refresher
 
 ## Setting up the environment
-
-In the second part of this tutorial we will refresh your Python knowledge and build upon it. Again, we advise you to code in Spyder, as this IDE is the recommended IDE for the Python part of this course. 
 
 First, make a directory structure for this tutorial:
 
@@ -319,6 +305,8 @@ Now, create a new Conda environment based on this file:
 mamba env create --file refresher.yaml
 ```
 
+Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file `refresher.yaml` are installed from the `conda-forge` channel, it is wise to use this same channel when you want to install additional packages in your environment. 
+
 Once everything is installed, activate the environment and start Spyder:
 
 ```{r, eval=FALSE, engine='bash'}
@@ -326,20 +314,29 @@ source activate refresher
 spyder
 ```
 
-Create a new Python script and save it. 
+In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
 
-Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file `refresher.yaml` are installed from the `conda-forge` channel, it is wise to use this same channel when you want to install additional packages in your environment. 
+* F5 to run your script
+* CTRL + S to save your script
+* CTRL + 1 to comment/uncomment your code
+* TAB to indent your code
+* SHIFT + TAB to unindent your code
 
+Open a new file and save it in the project directory as `main.py` (File -- > New File --> Save As). Set the working directory to the source file location. This can be done by clicking on the three lines icon on the top right of the editor pane, and selecting **Set console working directory**. 
+
+![Setting working directory in Spyder](images/spyder_setWD.PNG)
 
 ## Quick refresher
-In the tutorial about R and Python we have gone over the differences and similarities of Python and R. This tutorial also contains some basic Python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
+In the tutorial about [R and Python](https://geoscripting-wur.github.io/RPythonBasics/) we have gone over the differences and similarities of Python and R. This tutorial also contains some basic Python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
+
+You can run the following code in the main.py file you just created. All of the variables which you create will appear in the *Variable Explorer* tab, and any visualizations should be rendered in the *Plots* tab, of the top right pane in Spyder.
 
 ### Printing and basic data types
 In Python we assign variable using the equals sign (`=`):
 
 Printing in Python is done using the `print` function. We can print variables directly: 
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # Integer
 age = 25
 
@@ -358,13 +355,13 @@ print(name)
 
 We can use string formatting to use flexible strings, for example for printing. to start a formatted string, we put a `f` before the string. We can use curly brackets `{}` in this formatted string. The text between these curly brackets is executed as regular Python code. 
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # String formatting and printing 
 print(f'{name} is {age} years old and is {height} meters tall.)
 ```
 
 ### Basic arithmetic operations:
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 a = 10
 b = 5
 
@@ -380,7 +377,7 @@ print(addition, subtraction, multiplication, division, modulo, exponentiation)
 
 
 ### Conditional statements
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 x = 15
 
 if x > 10:
@@ -393,7 +390,7 @@ else:
 
 
 ### Loops (for and while)
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # For loop
 for i in range(5):
     print(i)
@@ -406,7 +403,7 @@ while count < 5:
 ```
 
 ### Lists and basic list operations
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # Creating a list
 fruits = ["apple", "banana", "orange"]
 
@@ -425,7 +422,7 @@ print(len(fruits))  # Output: 3
 
 
 ### Functions
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # Function to add two numbers and return the result
 def add_numbers(a, b):
     return a + b
@@ -436,7 +433,7 @@ print(result)  # Output: 8
 
 
 ### Dictionaries
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # Creating a dictionary
 person = {
     "name": "Alice",
@@ -460,14 +457,14 @@ Python is used by a very large community, as is said before. One of the reasons 
 
 In Python we import a package using the `import` statement (instead of th the `library` function in R) . For example importing the pandas package goes as follows
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 import pandas as pd
 ```
 
 As you can see we can import a package *as* something. We use this if we want to point at specific functionality of this package. If we want to point at for example the `read_csv` function from pandas we we call `pd.read_csv`. This function is also implemented in other packages, but now we are sure we use the pandas version of this function. Importing pandas is a convention, used very widely in the Python community. 
 
 We can create a `dataframe` as follows: 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 data = {
     'Name': ['Alice', 'Bob', 'Charlie'],
     'Age': [25, 30, 22],
@@ -480,7 +477,7 @@ print(df)
 
 We can access some information from this `dataframe` as follows:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 # Display the first few rows of the DataFrame
 print(df.head())
 
@@ -493,7 +490,7 @@ print(df['Age'])
 
 ### GeoDataFrame
 The spatial counterpart of a `dataframe` is a 'GeoDataFrame', which we normally import *as* `gpd`: 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 import geopandas as gpd
 
 # Dummy data for the GeoDataFrame
@@ -517,7 +514,7 @@ We have now gone over most of the more basic basic functionality of Python, a lo
 ### How to work with objects in Python
 In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class Person:
     def __init__(self, name, age):
         self.name = name  # < this is a property
@@ -533,14 +530,14 @@ The `Person` class has two properties, `name` and `age`, as well as one method, 
 
 To create an instance of the `Person` class, you simply call the class as if it were a function and assign the result to a variable:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 person1 = Person("Alice", 25)
 person2 = Person("Bob", 30)
 ```
 
 We have created two objects, `person1` and `person2`, which are instances of the `Person` class. Now we can access the properties and call the methods of these objects:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 print(person1.name)  # Output: Alice
 print(person2.age)   # Output: 30
 person1.greet()      # Output: Hello, my name is Alice and I'm 25 years old.
@@ -555,13 +552,13 @@ This example is straightforward, but keep in mind that classes can become more c
 
 You may have noticed that class definitions differ from what we have learned. In the `GeoPandas` example, the class is defined as follows:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class GeoSeries(GeoPandasBase, Series):
 ```
 
 However, we previously learned to define a class like this:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class GeoSeries:
 ```
 
@@ -571,7 +568,7 @@ Phew, that's a lot of complicated code, and it may seem overwhelming. You don't 
 
 So, we've learned that with inheritance, classes can acquire all the functionality from other classes and build upon that. Let's create a new object called `Student`, which will inherit all the properties and methods from the `Person` class we defined earlier.
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class Student(Person):
     def __init__(self, name, age, student_id):
         super().__init__(name, age)
@@ -587,7 +584,7 @@ In the provided code, the `Student` class inherits from the `Person` class, whic
 
 As a result, the `Student` class contains both the methods and properties inherited from the `Person` class, as well as the additional ones defined within the `Student` class:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 student = Student("Eve", 22, "123456")
 print(student.name)         # Output: Eve
 print(student.student_id)   # Output: 123456
