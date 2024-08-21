@@ -1,11 +1,10 @@
 ---
-pagetitle: "Tutoorial 9: Python refresher"
-author: "Arno Timmer"
-honorable mentions: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil, Arno Timmer"
+pagetitle: "Tutorial 9: Python Programing"
+author: "Arno Timmer, Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   rmdformats::html_clean:
-    title: "Tutoorial 9: Python refresher"
+    title: "Tutorial 9: Python Programing"
     theme: "simplex"
     highlight: zenburn
     menu: FALSE
@@ -30,13 +29,150 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 <font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-# Tutoorial 9: Python refresher
+# Tutorial 9: Python Programing
 
+In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. 
 
 ## Today’s Learning objectives
+- Learn to make basic vizualizations and static maps with Matplotlib 
+- Use geopandas built in plot functionality to vizualize GeopandasDataFrames
+- Create basic interactive maps 
+- Familiarize yourself with python objects and inheritance
 
-- Refresh Python programming knowledge
-- Familiarize yourself with python Objects and inheritance
+
+## Visualization
+Communicating research results is challenging without vizualisations. These can be graphs or more elaborate infographics, and in the case of geospatial data analysis, the end product ends up on a map. There are many tools to vizualize data using python, and they can become very elaborate. The most basic tool and one of the most used tools is _Matplotlib_, a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step. 
+
+### Matplotlib
+
+As said, Matplotlib is a plotting package where a vizualization object can be created before it is rendered (shown). This allows to add things to the vizualization in steps, layering complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below. 
+
+
+
+<figure>
+<img src="images/mpl_structure.png" width="45%" style="display: inline-block;"/>
+<img src="images/mpl_simple_plot.png" width="45%" style="display: inline-block;"/>
+<figcaption> Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html. </figcaption>
+</figure>
+
+
+The most important elements are the *figure* and the *axes* objects (not to be confused with *Axis* objects!). The figure is like the canvas and the axes is the part of the canvas on which we will make a visualization containing for example an x-axis, y-axis, lines and text. Let's build up a simple line figure as an example.
+
+We will base this image on data in `NumPy.array`s.
+
+```{Python,engine.path='/usr/bin/python3'}
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Create some data
+x = np.arange(-np.pi, np.pi, 0.2)
+y = np.sin(x)
+
+# Plot x against y
+plt.plot(x, y)
+
+# Show the plot
+plt.show()
+```
+
+<img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img>
+
+Note that the behavior of `plt.show()` depends on how you run the script. If you are using Spyder and want `plt.show()` to work:
+
+1.	Go to Tools.
+2.	Go to Preferences.
+3.	Select IPython console.
+4.	Go to Graphics tab.
+5.	In the Graphics backend section, select Automatic as the backend type.
+6.  Restart your kernel.
+
+Instead of a single plot, the figure can have subplots (here two). Using the `sharex` and/or `sharey` argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.
+
+```{Python,engine.path='/usr/bin/python3'}
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Create some data
+x1 = np.arange(-np.pi, np.pi, 0.2)
+y1 = np.sin(x1)
+x2 = np.arange(-np.pi, 0, 0.2)
+y2 = np.cos(x2)
+
+# Initiate a figure with two subplots 
+f, axarr = plt.subplots(2, sharex=True)
+
+# Subplots are stored in an array
+line = axarr[0].plot(x1, y1)
+axarr[0].set_title('plot 1')
+axarr[1].plot(x2, y2)
+axarr[1].set_title('plot 2')
+f.suptitle('super title', fontsize=16)
+
+# Axis label
+axarr[1].set_xlabel('x')
+axarr[0].set_ylabel('sin(x)')
+axarr[1].set_ylabel('cos(x)')
+
+# Axis ticks and tick labels
+xticks = axarr[1].get_xticks()
+print(xticks)
+new_ticks = np.arange(-np.pi, np.pi + 0.1, 0.25 * np.pi)
+new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
+              r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
+              "$0$", r"$\frac{1}{4}\pi$",
+              r"$\frac{1}{2}\pi$", r"$\frac{3}{4}\pi$",
+              r"$2\pi$"]
+axarr[1].set_xticks(new_ticks)
+axarr[1].set_xticklabels(new_labels)
+plt.show()
+```
+
+<img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img>
+
+One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors. Furthermore, for the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.
+
+```{Python,engine.path='/usr/bin/python3'}
+from matplotlib import pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 8, 9, 10]
+
+# New: define number of rows and columns of subplots and unpack them directly 
+# into variables that then each contain one axes object
+f, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
+
+# Dashed line, label for legend, and show the legend on the subplot
+ax0.plot(x, y, 'r--', label='red dashed line')
+ax0.legend(loc='lower right')
+
+# Scatter plot, using a colormap based on the y-value, changing the marker size to 35
+ax1.scatter(x, y, c=y, cmap='bwr', s=35)
+
+# Bar chart, changing the bar color to black
+ax2.bar(x, y, color='k')
+
+# Horizontal bar chart, changing the bar color to yellow
+ax3.barh(x, y, color='y')
+plt.show()
+```
+
+<img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
+
+```{block, type="alert alert-success"}
+> **Question 3**: In the upper right subplot, why is there no point at x=3, y=8?.
+```
+
+When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
+
+```{Python,engine.path='/usr/bin/python3'}
+ax0.set_aspect('equal')
+ax1.set_aspect('equal')
+ax2.set_aspect('equal')
+ax3.set_aspect('equal')
+plt.savefig('output/equal_scale.png')
+```
+
+<img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img>
 
 
 ## Object-Oriented Programming in Python
