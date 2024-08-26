@@ -272,19 +272,11 @@ plt.show()
 > **Question 4**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
-When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
+## Vizualizing spatial data
 
-```{Python,engine.path='/usr/bin/python3'}
-ax0.set_aspect('equal')
-ax1.set_aspect('equal')
-ax2.set_aspect('equal')
-ax3.set_aspect('equal')
-plt.savefig('output/equal_scale.png')
-```
+So, plotting sine and cosines is fun and all, but this is a course about **geo**scripting, so how is this going to help you making maps? Well, matplotlib really is a fundament when it comes to plotting thins in python. Almost every package that can be used to create static plots (and even some dynamic ones) is based upon or uses Matplotlib, and lots of the logic you just saw will therefor be re used. The figures-, axes- and axis-objects are re-used in many packages. As we saw, Geopandas plot functionality is completely based upon matplotlib. We will show you how to create maps using `Cartopy`, and have look at the [definition of the `GeoAxes`](https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354). What does it inherit from? And what does this mean for its functionality? 
 
-<img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img>
-
-
+For working with vector data we will use, among others `GeoPandas` and for vector data we will use `Rasterio`. During these examples we will already import and use these packages to load the data. A more elaborate introduction will follow in the respective Tutorials covering raster and vector analysis. 
 
 
 # Python help
