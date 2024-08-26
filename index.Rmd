@@ -1,10 +1,15 @@
 ---
-pagetitle: "Python refresher"
-author: "Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil, Arno Timmer"
-date: "`r format(Sys.time(), '%Y-%m-%d')`"
+pagetitle: "Tutorial 9: Python Programing"
+author: "Arno Timmer, Jan Verbesselt, Jorge Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas, David Swinkels, Judith Verstegen, Corné Vreugdenhil"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   rmdformats::html_clean:
+    title: "Tutorial 9: Python Programing"
+    theme: "simplex"
     highlight: zenburn
+    menu: FALSE
+    theme.chooser: TRUE
+    highlight.chooser: TRUE
 ---
 
 ```{css, echo=FALSE}
@@ -25,491 +30,21 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 <font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-# Python refresher
 
-## Introduction
+# Python Programing
 
-Good afternoon! Today we will start working with Python for geoscripting and do a refresher of functions in Python. If you are unfamiliar with Python and/or feel that you need more training, follow one of the Datacamp courses as introduction into Python *before today*:
 
-* [Introduction to Python](https://www.datacamp.com/courses/intro-to-python-for-data-science) | recommended to follow if you haven't any scripting experience so far
-* [Python for R users](https://www.datacamp.com/courses/python-for-r-users) | recommended if you have experience already in R
+In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. To do this we will use several open source packages that built upon eachother.
+To explain their functionality we will refer to concepts from Object Oriented Programing . Object Oriented Programming is a way of programming with Objects as a fundamental buildingblocks and supports modularity an reusability of code, hence its use in open source packages, we can re-use and adapt already developed code and functionality. Before we go into the visualization part of this tutorial we will therefor start with explaining Object Oriented Programming. 
 
 ## Today’s Learning objectives
-
-- Know how to work with virtual environments: *Conda* + *Mamba*
-- Get introduced to Python editors and IDEs
-- Familiarize yourself with Python objects and inheritance
-- Be able to visualize data using Python and matplotlib
-
-
-# Introduction to Python
-
-Python is a jack-of-all-trades programming language that is free, flexible, open-source, cross-platform and has a very large community behind it. If you ask Python programmers what they like most about Python, they will often cite its high readability and high availability of good packages. There are many Python packages out there for geoscripting, data wrangling, visualization and machine learning. For example:
-
-* Geoscripting
-    * GeoPandas (Vector Processing)
-    * Rasterio (Raster Processing)
-    * GDAL/OGR (Vector and Raster Processing)
-    * QGIS plugins (Open Source GIS)
-    * ArcPy (Propietary GIS)
-* Data Handling
-    * Pandas (Dataframes and Data Analysis)
-    * NumPy (Scientific Computing)
-* Visualization
-    * Matplotlib (General Graphics)
-    * Seaborn (Statistical Graphics)
-    * Folium (Interactive Maps)
-* Machine Learning
-    * scikit-learn (Machine Learning)
-    * Keras + TensorFlow (Deep Learning)
-    * PyTorch (Deep Learning)
-
-## Python package management with Conda
-A set of tools exist for installing and managing Python packages. Although it is possible to install packages on your base Python interpreter, sooner or later you will get conflicts between Python packages since packages may have varying dependencies. This can even [break your system Python interpreter](https://askubuntu.com/questions/95037/what-is-the-best-way-to-install-python-packages).
-
-Instead, we recommend to use a Python package manager that can make use of virtual environments, such as *Conda* or *Mamba*. That way, you can create a Conda environment on your machine for each project. In Conda environments, basically anything, such as software, C libraries or R packages can be installed. Here we use them for installing Python packages. Packages installed in one environment do not interfere with your base Python or with other Conda environments. Additionally, it is possible to export and share the requirements for your (open source) project with collaborators or users of your code. 
-
-```{block, type="alert alert-success"}
-> **Question 1**: Why do you not need to worry about environments for scripting in R? Hint: Look back at [R & Python Basics](https://geoscripting-wur.github.io/RPythonBasics/#what-are-r-and-python). 
-```
-
-## Mamba installation
-For this course, we will make use of *Mamba*, a fast drop-in re-implementation of the *Conda* package manager. It has its core parts implemented in C++ for maximum efficiency, makes use of parallel downloading of repository data and package files using multi-threading, and uses `libsolv` for (much) faster dependency solving. 
-To install *Mamba* in your Linux environment, we have prepared a short *Bash* script for you. Just run the following lines of code, line by line, in a new terminal window.
-
-```{bash, eval=FALSE}
-git clone https://github.com/GeoScripting-WUR/InstallLinuxScript.git
-cd InstallLinuxScript/user
-chmod u+x ./install.sh
-./install.sh
-```
-
-<!-- This should be kept for external students, TODO: think about how to combine this
-```{r, eval=FALSE, engine='bash'}
-MINICONDA_VERSION="Miniconda3-latest-Linux-x86_64"
-pushd /tmp
-curl -O https://repo.continuum.io/miniconda/${MINICONDA_VERSION}.sh
-## This installation script will require user input
-bash ${MINICONDA_VERSION}.sh
-rm ${MINICONDA_VERSION}.sh
-popd
-```
-
-Scroll down the license with enter. Accept License (i.e. type yes). Use default install location (i.e. press Enter). When prompted to prepend the *Conda* install location to path agree (i.e. type yes). This makes the Python interpreter of *Conda* the standard Python interpreter and allows you to run *Conda* commands from command line. -->
-
-This will install *Mamba* into `~/mamba`. Finally, restart your terminal to be able to use *Mamba* and *Conda* in the terminal. Next, let's see how to use *Mamba* in case you want make new virtual environments by yourself, or install packages after creating the environment.
-
-## Mamba usage
-*Mamba* creates isolated Conda environments with sets of packages, that do not interfere with your base Python or with other Conda environments. To create an environment:
-
-```{r, eval=FALSE, engine='bash'}
-mamba create --name geotest python numpy
-```
-
-This would create a new environment called *geotest* with *Python*, *NumPy* and *Spyder* installed into the Conda environment. Another option is to create an environment from a `.yaml` file, in which all required modules are listed. You will see an example of this later on in this tutorial. To create an environment from such a file, you can use the argument `--file` (or `--f` in short). 
-
-Let's first list the currently available environments:
-
-```{r, eval=FALSE, engine='bash'}
-mamba info --envs
-```
-
-*Mamba* puts an asterisk (\*) in front of the active environment. Now we activate the environment. While *Mamba* replaces *Conda* for most commands, this is not the case for (de)activating environments:
-
-```{r, eval=FALSE, engine='bash'}
-# Cross-platform (but not always working, like in our VM, so we use the next option)
-conda activate geotest
-
-# Linux, macOS
-source activate geotest
-
-# Windows
-activate geotest
-```
-
-After this, the current environment is shown in parentheses in front of your prompt (`(geotest)$`). Note that the activated environment is only valid for the shell in which you activated it. For instance, if you close the shell window and open a new one you will have to activate it again.
-
-After creating a Conda environment, (additional) Python packages can be installed. There are three possible ways to install packages, which we list below.
-
-* Using *Mamba* to install and manage Conda packages. This downloads Conda packages using Conda channels, which are URLs to directories containing the Conda packages. **Generally, installing Conda packages using *Mamba* is the preferred method.**
-* Using *pip* to install packages and *Mamba* to manage these packages. *pip* is available for Windows, macOS and Linux. *pip* can also install [binary wheels on Windows](https://www.lfd.uci.edu/~gohlke/Pythonlibs). You should generally not install packages from *pip* in a Conda environment unless it's the last resort. This is because after you use *pip* to modify an environment, you can no longer use `conda`/`mamba` to do so (trying that will break your environment, because *pip* does not communicate its changes to *Conda*). Hence install packages with `mamba` that you can first, and only then use `pip`, and then never touch the environment with `mamba` again (delete and start fresh if you need to).
-* Using the distribution's package manager (only on Ubuntu, that is `sudo apt-get install python-*`).
-
-The `mamba search` command searches a set of channels. By default, packages are automatically downloaded and updated from the default channel. To search for a package, type:
-
-```{r, eval=FALSE, engine='bash'}
-mamba search pandas
-```
-
-This gives a list of all packages that have "pandas" in the name and lists all available versions. To install:
-
-```{r, eval=FALSE, engine='bash'}
-mamba install pandas
-```
-
-This installs the latest compatible version of _Pandas_. Note that this would install it into your currently activated environment.
-
-Note that you can also install multiple packages at the same time: 
-
-```{r, eval=FALSE, engine='bash'}
-mamba install geopandas matplotlib
-```
-
-As you saw with *Spyder* (which is an IDE, more on that later), *Mamba* is also able to install some non-Python packages that have Python bindings. This is useful for making sure your Python and binary versions match and do not interfere with the system-wide ones.
-
-Some additional helpful utilities for package management in this context are:
-
-* `mamba list` to check which packages are installed in `root` or in the active environment;
-* `python --version` or `gdal-config --version` to check which Python or GDAL version is used in the environment;
-* `which spyder` or `type spyder` to find out which *Spyder* executable is used either from system or Conda environment.
-
-Removing packages is just as simple:
-
-```{r, eval=FALSE, engine='bash'}
-mamba remove geopandas pandas folium
-```
-
-Now, we deactivate the environment and return to base environment.
-
-```{r, eval=FALSE, engine='bash'}
-# Cross-platform
-conda deactivate
-
-# Linux, macOS
-source deactivate
-
-# Windows
-deactivate
-```
-
-When we are finished, and do not need the environment for next time, we can remove the environment `geotest`.
-
-```{r, eval=FALSE, engine='bash'}
-mamba remove --name geotest --all
-```
-
-
-## Running a Python script in the terminal
-
-Within a Conda environment, Python can be started directly, or can be called to run a script file. To start Python directly:
-
-```{r, eval=FALSE, engine='bash'}
-python
-```
-
-Now, you can type Python expressions that will be executed one by one:
-
-```{python,eval=FALSE, engine.path='/usr/bin/python3'}
-import sys
-print('Good morning, you are running Python:', sys.version)
-```
-
-To go back, type:
-```{python,engine.path='/usr/bin/python3', eval=FALSE}
-exit()
-# or 
-quit()
-```
-
-Usually, we do not want to run expressions one by one, but build scripts instead, to ensure transferability and reproducibilty. Create a new text file and (re)name it (to) `test.py`. Open it, for example with a text editor, paste in the code you used above (`import sys` etc.), and save the script. Navigate in the terminal to the location where this script is stored, using `cd`. Finally, run the script with:
-
-```{r, eval=FALSE, engine='bash'}
-python test.py
-```
-
-The output is printed to the terminal. Running a script from the terminal is less error-prone than running it from an IDE (see the next section), such as Spyder, as IDEs often keep variables in memory after the script has finished running. Therefore, running a script from the terminal is a good final test before submitting an exercise or assignment. 
-
-## Python editors and IDEs
-There are many Integrated Development Environments [IDE] for Python, and every programmer has their own preference. An IDE is a software application that provides facilities for software development.
-
-* [Jupyter Notebook](http://jupyter.org/) integrates visualization with code and is suitable to make tutorials, simple dashboards, quick visualizations, and do prototype testing. Jupyter Notebooks run in your browser on a localhost server or on a web server. They allow for various programming languages, e.g. Python, R, Julia, Spark or PySpark. 
-* [Spyder](https://www.spyder-ide.org/) is a lightweight IDE. *In this course, Spyder is the recommended Python IDE.*
-* [PyCharm Community Edition](https://www.jetbrains.com/help/pycharm/install-and-set-up-pycharm.html) is a free professional Python IDE with a lot of advanced functionality, such as integrated GIT version control, code completion, code checking, debugging and navigation. This IDE can optionally be used by more advanced scripters during this course instead of Spyder, but do know that you will not be assisted for solving IDE-related issues.
-
-### Jupyter Notebooks
-
-Jupyter Notebooks integrate code and visualization, and are therefore helpful for demonstration purposes. Install `jupyter` and the module `folium` in an existing or new environment that includes Python and start Jupyter:
-
-```{r, eval=FALSE, engine='bash'}
-jupyter notebook
-```
-
-Jupyter should pop up in your browser. You will see a menu with all files in your working directory. The Jupyter Notebook will only see files that are accessible from the working directory in which you launched the notebook!
-
-Make a new folder: *New* → *Folder*, rename the folder (check the box next to the new 'Untitled Folder' and click **'Rename'** in the top) and, in this folder, create a new Python3 Jupyter Notebook *New* → *Python 3*. Give your notebook a name by clicking on *untitled*. Note that this creates a file with the extension *.ipynb*, which stands for Jupyter Notebook. 
-
-Feel free to have a go at the user interface tour (*Help* → *User Interface Tour*), or hover over the toolbar to check out the tools. The main tools are:
-
-- _Save and checkpoint_
-- _Insert cell below_
-- _Run_
-- _Code/Markdown/Heading_ (List box)
-
-Similar to RMarkdown, Jupyter Notebooks have code cells (*Code*) and text cells (*Markdown*). Insert two extra cells by clicking the + button and change the first cell from code to markdown. Enter some documentation for your code (e.g. your team name, exercise and date). Leave the other cell on code. 
-
-Type the following Python code in the code cell:
-
-```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import folium
-
-m = folium.Map(location=[51.9700000, 5.6666700], zoom_start=13)
-m
-```
-
-Run the code cell by selecting it and pressing the *Run* button, or press *CTRL + Enter* or *Shift + Enter*. You'll see a map visualized below your code, similar to the one below. Try to drag the map to play around with it. 
-
-<img src="images/WUR_Basic_Folium_Map.png" alt="Wageningen University Basic Folium map" width="100%"></img>
-
-Your Jupyter Notebook is automatically saved as an `.ipynb` file on your computer (the file extension comes from the historic name "IPython Notebook"). The notebook can be downloaded as a Python script, pdf or html. You can also save it manually. 
-
-To exit a notebook properly, use *File* → *Close and Halt*. After that, by pressing Ctrl + c in the terminal where Jupyter Notebook server is running, you cancel the running process. The terminal goes back to command line and you can exit the virtual environment by typing `conda deactivate`.
-
-```{r, engine='bash', eval=FALSE}
-conda deactivate
-```
-
-### Spyder
-
-The [Spyder IDE](https://docs.spyder-ide.org/) can be started in a terminal when the *Spyder* package is installed in the active Conda environment. We will use Spyder in the next section of this tutorial to do a quick Python refresher. For the remainder of the course we advise you to code in Spyder as it the recommended IDE for the Python part of this course.
-
-First, using *Mamba*, we will make an environment and install Spyder to that environment. Spyder will automatically make use of the Python interpreter of the active Conda environment. To start Spyder simply type `spyder` in the terminal of the activated Conda environmet. Now let's see this in action!
-
-# Python refresher
-
-## Setting up the environment
-
-First, make a directory structure for this tutorial:
-
-```{r, eval=FALSE,engine='bash'}
-cd ~/Documents/
-mkdir PythonRefresher #or give the directory a name to your liking
-cd ./PythonRefresher
-mkdir output
-```
-
-We only make a directory for output, because no input data or separate scripts are created in this tutorial. Next, we will create a Conda environment from a file. First create a text file in your preferred text editor, e.g. `gedit`. Then, (re)name it (to) `refresher.yaml`, and copy the following content into the file:
-
-```
-name: refresher
-dependencies:
-  - python
-  - numpy
-  - matplotlib
-  - geopandas
-  - spyder
-```
-
-Now, create a new Conda environment based on this file:
-
-```{r, eval=FALSE, engine='bash'}
-mamba env create --file refresher.yaml
-```
-
-Important to note: for compatibility, it is best to install packages from the same channel as much as possible. Given that packages in the file `refresher.yaml` are installed from the `conda-forge` channel, it is wise to use this same channel when you want to install additional packages in your environment. 
-
-Once everything is installed, activate the environment and start Spyder:
-
-```{r, eval=FALSE, engine='bash'}
-source activate refresher
-spyder
-```
-
-In Spyder you should see an editor, a file explorer and a console. Have a look at the toolbar. Some important shortcuts are:
-
-* F5 to run your script
-* CTRL + S to save your script
-* CTRL + 1 to comment/uncomment your code
-* TAB to indent your code
-* SHIFT + TAB to unindent your code
-
-Open a new file and save it in the project directory as `main.py` (File -- > New File --> Save As). Set the working directory to the source file location. This can be done by clicking on the three lines icon on the top right of the editor pane, and selecting **Set console working directory**. 
-
-![Setting working directory in Spyder](images/spyder_setWD.PNG)
-
-## Quick refresher
-In the tutorial about [R and Python](https://geoscripting-wur.github.io/RPythonBasics/) we have gone over the differences and similarities of Python and R. This tutorial also contains some basic Python syntax, in this tutorial we assume you know this content, but we will go over a few basics here as well. The example below are mostly meant for reference purposes, we  assume you understand most of this refresher already. 
-
-You can run the following code in the main.py file you just created. All of the variables which you create will appear in the *Variable Explorer* tab, and any visualizations should be rendered in the *Plots* tab, of the top right pane in Spyder.
-
-### Printing and basic data types
-In Python we assign variable using the equals sign (`=`):
-
-Printing in Python is done using the `print` function. We can print variables directly: 
-
-```{python, eval=FALSE}
-# Integer
-age = 25
-
-# Float
-height = 1.75
-
-# String
-name = "John Doe"
-
-# Boolean
-is_student = True
-
-# Print a name
-print(name)
-```
-
-We can use string formatting to use flexible strings, for example for printing. to start a formatted string, we put a `f` before the string. We can use curly brackets `{}` in this formatted string. The text between these curly brackets is executed as regular Python code. 
-
-```{python, eval=FALSE}
-# String formatting and printing 
-print(f'{name} is {age} years old and is {height} meters tall.)
-```
-
-### Basic arithmetic operations:
-```{python, eval=FALSE}
-a = 10
-b = 5
-
-addition = a + b
-subtraction = a - b
-multiplication = a * b
-division = a / b
-modulo = a % b
-exponentiation = a ** b
-
-print(addition, subtraction, multiplication, division, modulo, exponentiation)
-```
-
-
-### Conditional statements
-```{python, eval=FALSE}
-x = 15
-
-if x > 10:
-    print("x is greater than 10")
-elif x == 10:
-    print("x is equal to 10")
-else:
-    print("x is less than 10")
-```
-
-
-### Loops (for and while)
-```{python, eval=FALSE}
-# For loop
-for i in range(5):
-    print(i)
-
-# While loop
-count = 0
-while count < 5:
-    print(count)
-    count += 1
-```
-
-### Lists and basic list operations
-```{python, eval=FALSE}
-# Creating a list
-fruits = ["apple", "banana", "orange"]
-
-# Accessing elements
-print(fruits[0])  # Output: "apple"
-
-# Adding elements
-fruits.append("grape")
-
-# Removing elements
-fruits.remove("banana")
-
-# Length of the list
-print(len(fruits))  # Output: 3
-```
-
-
-### Functions
-```{python, eval=FALSE}
-# Function to add two numbers and return the result
-def add_numbers(a, b):
-    return a + b
-
-result = add_numbers(5, 3)
-print(result)  # Output: 8
-```
-
-
-### Dictionaries
-```{python, eval=FALSE}
-# Creating a dictionary
-person = {
-    "name": "Alice",
-    "age": 30,
-    "is_student": False
-}
-
-# Accessing values
-print(person["name"])  # Output: "Alice"
-
-# Adding a new key-value pair
-person["occupation"] = "Engineer"
-
-# Removing a key-value pair
-del person["is_student"]
-```
-
-
-### Importing packages
-Python is used by a very large community, as is said before. One of the reasons for this is that this entire community builds a lot of (open source) packages. It is therefore very useful to be able to build upon these packages. In R you have worked a with *dataframes* and *spatial dataframes*. In Python these are not standard datatypes, but they are implemented in very well known packages called `Pandas` and its spatial counterpart `GeoPandas.` We will go in much more detail during the Python-Vector tutorial but we will introduce them quickly here. 
-
-In Python we import a package using the `import` statement (instead of th the `library` function in R) . For example importing the pandas package goes as follows
-
-```{python, eval=FALSE}
-import pandas as pd
-```
-
-As you can see we can import a package *as* something. We use this if we want to point at specific functionality of this package. If we want to point at for example the `read_csv` function from pandas we we call `pd.read_csv`. This function is also implemented in other packages, but now we are sure we use the pandas version of this function. Importing pandas is a convention, used very widely in the Python community. 
-
-We can create a `dataframe` as follows: 
-```{python, eval=FALSE}
-data = {
-    'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [25, 30, 22],
-    'City': ['New York', 'San Francisco', 'Chicago']
-}
-
-df = pd.DataFrame(data)
-print(df)
-```   
-
-We can access some information from this `dataframe` as follows:
-
-```{python, eval=FALSE}
-# Display the first few rows of the DataFrame
-print(df.head())
-
-# Get statistical information about the DataFrame
-print(df.describe())
-
-# Access a specific column
-print(df['Age'])
-```   
-
-### GeoDataFrame
-The spatial counterpart of a `dataframe` is a 'GeoDataFrame', which we normally import *as* `gpd`: 
-```{python, eval=FALSE}
-import geopandas as gpd
-
-# Dummy data for the GeoDataFrame
-data = {
-    'Name': ['Location A', 'Location B', 'Location C'],
-    'Latitude': [40.7128, 34.0522, 41.8781],
-    'Longitude': [-74.0060, -118.2437, -87.6298]
-}
-
-# Create the GeoDataFrame with a single line of code
-gdf = gpd.GeoDataFrame(data, geometry=gpd.points_from_xy(data['Longitude'], data['Latitude']))
-
-# Display the GeoDataFrame
-print(gdf)
-```
-
+- Familiarize yourself with python objects and inheritance
+- Learn to make basic vizualizations and static maps with Matplotlib 
+- Use geopandas built in plot functionality to vizualize GeopandasDataFrames
+- Create basic interactive maps 
 
 ## Object-Oriented Programming in Python
-We have now gone over most of the more basic basic functionality of Python, a lot of similar things you have used in R. A concept we have not used before is the concept of objects. They have shortly been introduced in R, but we will elaborate on them in Python. Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code. 
+Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code. 
 
 ### How to work with objects in Python
 In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
@@ -547,10 +82,12 @@ person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.
 This example is straightforward, but keep in mind that classes can become more complex. 
 
 ```{block, type="alert alert-success"}
-> **Question 2**: Take a look at the creation of a GeoPandas `GeoSeries` [here](https://github.com/geopandas/geopandas/blob/main/geopandas/geoseries.py#L83). It may seem complicated and hard to read, but it is well-documented, so try to understand some of its functionality. The `to_json` method, for example, provides straightforward functionality (though it may still be challenging to read due to its complexity). 
+> **Question 1**: Take a look at the [implementation of a geoseries](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L79) object in GeoPandas. Don't be intimidated by the amount of code! It is not necessary to understand all of it. At line [948 the plot method is defined](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L948) it calls the [`plot_series` function as defined here](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/plotting.py#L313). What library is used for plotting and what exactly does `self` refer to when the `plot` method is defined.
 ```
 
-You may have noticed that class definitions differ from what we have learned. In the `GeoPandas` example, the class is defined as follows:
+### Inheritence
+
+You may have noticed that class definitions differ very slightly from what we have learned. In the `GeoSeries` example, the class is defined as follows:
 
 ```{python, eval=FALSE}
 class GeoSeries(GeoPandasBase, Series):
@@ -566,7 +103,7 @@ The difference lies in the code within the parentheses, which represents *inheri
 
 Phew, that's a lot of complicated code, and it may seem overwhelming. You don't need to understand every detail. The important thing is to grasp the value of classes, objects, and inheritance. When creating a class, we can inherit functionality from another class. How does this work in a simple example?
 
-So, we've learned that with inheritance, classes can acquire all the functionality from other classes and build upon that. Let's create a new object called `Student`, which will inherit all the properties and methods from the `Person` class we defined earlier.
+So, we've learned that with inheritance, classes can inherit all the functionality from other classes and build upon that. Let's create a new object called `Student`, which will inherit all the properties and methods from the `Person` class we defined earlier. In the end, a student is a person and in possesses all it's characteristics.
 
 ```{python, eval=FALSE}
 class Student(Person):
@@ -598,22 +135,12 @@ In this example, `student` is an instance of the `Student` class. It can access 
 > **Question 3**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
 ```
 
-## Visualization 
-Visualization is essential to make concepts understandable and patterns recognizable. In Python, _Matplotlib_ is a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like making a map in a GIS.
+## Visualization
+Communicating research results is challenging without good visualizations. These can be graphs or more elaborate infographics, and in the case of geospatial data analysis, the end product ends up on a map. There are many tools to vizualize data using python, and they can become very elaborate. The most basic tool and one of the most used tools is _Matplotlib_, a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step. 
 
-In Matplotlib, a *figure* object contains *axes*, or subplots. These axes contain an x-axis, a y-axis and can contain lines and text. This hierarchy is important to understand when you want to edit a plot:
+### Matplotlib
 
-<figure>
-<img src="images/mpl_structure.png" alt="matplotlib class structure" width="80%">
-<figcaption>Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html.</figcaption>
-</figure>
-
-<figure>
-<img src="images/mpl_simple_plot.png" alt="matplotlib simple plot" width="50%">
-<figcaption>Elements in an example Matplotlib figure, source https://www.aosabook.org/en/matplotlib.html.</figcaption>
-</figure>
-
-Let's create a simple line figure, based on data in `NumPy.array`s.
+In the most basic form plotting is very easy. Look at the code below:
 
 ```{Python,engine.path='/usr/bin/python3'}
 import numpy as np
@@ -630,6 +157,16 @@ plt.plot(x, y)
 plt.show()
 ```
 
+In this example, we are using the package numpy to create a series of x values (values from -pi (-3.14) to pi with steps of 0.2, check what this looks like). The y values are the sie of these values. Plotting these is straight forward, therefor we can plot them in a very simple way. however, as said, Matplotlib is a plotting package where a vizualization object can be created before it is rendered (shown). In the example above, the rendering of the image is only done at the line `plt.show()`. Before this command we can modify or add things to the plot. This allows to add things to the vizualization in steps, layering complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below. 
+
+<figure>
+<img src="images/mpl_structure.png" width="45%" style="display: inline-block;"/>
+<img src="images/mpl_simple_plot.png" width="45%" style="display: inline-block;"/>
+<figcaption> Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html. </figcaption>
+</figure>
+
+The basic elements are the *figure* and the *axes* objects (not to be confused with *Axis* objects!). The figure is like the canvas and the axes is the part of the canvas on which we will make a visualization containing for example an x-axis, y-axis, lines and text. Let's build up a simple line figure as an example.
+
 <img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img>
 
 Note that the behavior of `plt.show()` depends on how you run the script. If you are using Spyder and want `plt.show()` to work:
@@ -641,36 +178,50 @@ Note that the behavior of `plt.show()` depends on how you run the script. If you
 5.	In the Graphics backend section, select Automatic as the backend type.
 6.  Restart your kernel.
 
-Instead of a single plot, the figure can have subplots (here two). Using the `sharex` and/or `sharey` argument, the axes can be aligned automatically, for easy comparison between the subplots. Also, we can add a title and axis labels. Finally, we can change the positions of the tick marks on an axis to something meaningful in the context of trigonometric functions and customize the labels with regular text or lateX. Check if you understand what object in the hierarchy is edited and why.
+Instead of a single plot, we can add different plots to the figure, for example two Let's try to add another pot with the cosine values. 
 
 ```{Python,engine.path='/usr/bin/python3'}
-import numpy as np
-from matplotlib import pyplot as plt
-
 # Create some data
-x1 = np.arange(-np.pi, np.pi, 0.2)
-y1 = np.sin(x1)
-x2 = np.arange(-np.pi, 0, 0.2)
-y2 = np.cos(x2)
+x = np.arange(-np.pi, np.pi, 0.2)
+sine = np.sin(x)
+cosine = np.cos(x)
+```
 
+We can use the subplots method to create a figure and an array of two axes, one for each plot. Check the [subplots documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html) to learn more. By using The `sharex` and/or `sharey` argument, we can share axis between different plots for easy comparison between the subplots. Let's initiate the figure and the two axes (don't confuse axis and axes! we are initiating 2 axes, one for each plot) and let the figure share the x-axis.
+
+```{Python,engine.path='/usr/bin/python3'}
 # Initiate a figure with two subplots 
 f, axarr = plt.subplots(2, sharex=True)
 
+```
+
+```{block, type="alert alert-success"}
+> **Question 2**: `axarr` is an array. What are the elements of this array and how many elements does is exist out of? 
+```
+
+We can add a title to the figure and and labels to the axes. Check [this documentation](https://matplotlib.org/stable/api/axes_api.html) to see what more you can tweak.
+
+```{Python,engine.path='/usr/bin/python3'}
+
 # Subplots are stored in an array
-line = axarr[0].plot(x1, y1)
-axarr[0].set_title('plot 1')
-axarr[1].plot(x2, y2)
-axarr[1].set_title('plot 2')
-f.suptitle('super title', fontsize=16)
+line = axarr[0].plot(x, sine)
+axarr[0].set_title('sine plot')
+axarr[1].plot(x, cosine)
+axarr[1].set_title('cosine plot')
+f.suptitle('This is an image of a two plots', fontsize=16)
+
+```
+
+We looked now at the axes, let's look at the axis as well. We can change the positions of the tick marks to something meaningful in the context of trigonometric functions and customize the labels with regular text or style it using lateX. Check if you understand what object in the hierarchy is edited and why.
+
+```{Python,engine.path='/usr/bin/python3'}
 
 # Axis label
 axarr[1].set_xlabel('x')
 axarr[0].set_ylabel('sin(x)')
 axarr[1].set_ylabel('cos(x)')
 
-# Axis ticks and tick labels
-xticks = axarr[1].get_xticks()
-print(xticks)
+
 new_ticks = np.arange(-np.pi, np.pi + 0.1, 0.25 * np.pi)
 new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
               r"$-\frac{1}{2}\pi$", r"$-\frac{1}{4}\pi$",
@@ -679,12 +230,19 @@ new_labels = [r"$-\pi$", r"$-\frac{3}{4}\pi$",
               r"$2\pi$"]
 axarr[1].set_xticks(new_ticks)
 axarr[1].set_xticklabels(new_labels)
+```
+
+Finally! our plot is done for now. We have entered a lot of commands, stacked a lot of different layers to our plot, but we cannot see it yet. using the `plt.show()` command we can see the result! 
+
+```{Python,engine.path='/usr/bin/python3'}
 plt.show()
 ```
 
+Alternatively we can use `plt.savefig('filename.png')` instead of showing it. Make sure to create the plot before you run this! `plt.show()` closes and the current plot, so calling savefig after show will result in an empty image. this is useful, otherwise we would keep adding stuff to the same plot. 
+
 <img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img>
 
-One can also create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors. Furthermore, for the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.
+One can create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors, see the example below. For the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.
 
 ```{Python,engine.path='/usr/bin/python3'}
 from matplotlib import pyplot as plt
@@ -717,17 +275,12 @@ plt.show()
 > **Question 4**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 
-When working with spatial data, it is crucial that the spatial scale (aspect) in the x and y direction is the same. Because Matplotlib can be used for plotting any kind of data, not necessarily spatial, it does not automatically do this. We can use `plt.axis('equal')`, or `ax.set_aspect('equal')` on the axis, to ensure equal scales in both directions. Let's test this on the non-spatial data in the plots above, see what happens (make sure to adjust the code above properly, and replace `plt.show()` with the code below). Adjust the Spyder working directory by clicking on the directory icon in the top right pane if necessary.
+## Vizualizing spatial data
 
-```{Python,engine.path='/usr/bin/python3'}
-ax0.set_aspect('equal')
-ax1.set_aspect('equal')
-ax2.set_aspect('equal')
-ax3.set_aspect('equal')
-plt.savefig('output/equal_scale.png')
-```
+So, plotting sine and cosines is fun and all, but this is a course about **geo**scripting, so how is this going to help you making maps? Well, matplotlib really is a fundament when it comes to plotting thins in python. Almost every package that can be used to create static plots (and even some dynamic ones) is based upon or uses Matplotlib, and lots of the logic you just saw will therefor be re used. The figures-, axes- and axis-objects are re-used in many packages. As we saw, Geopandas plot functionality is completely based upon matplotlib. We will show you how to create maps using `Cartopy`, and have look at the [definition of the `GeoAxes`](https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354). What does it inherit from? And what does this mean for its functionality? 
 
-<img src="images/mpl4.png" alt="matplotlib plot example with equal scale" width="50%"></img>
+For working with vector data we will use, among others `GeoPandas` and for vector data we will use `Rasterio`. During these examples we will already import and use these packages to load the data. A more elaborate introduction will follow in the respective Tutorials covering raster and vector analysis. 
+
 
 # Python help
 
@@ -746,13 +299,7 @@ See how the objects and functions in the `sys` package got listed.
 
 # What have we learned?
 
-1. Python package management with *Mamba* & *Conda*
-2. Running a Python script in the terminal
-3. Using Python editors and IDEs
-4. What Object Oriented Programming is
-5. Using modules and packages
-6. Visualization
-7. Python help
+#TODO
 
 # More info
 - [Official Python tutorial](https://docs.Python.org/3/contents.html)
