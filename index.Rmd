@@ -15,6 +15,7 @@ output:
 ```{css, echo=FALSE}
 @import url("https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css");
 .main-container {max-width: none;}
+div.figcaption {display: none;}
 pre {color: inherit; background-color: inherit;}
 code[class^="sourceCode"]::before {
   content: attr(class);
@@ -29,7 +30,9 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 <font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-# Tutorial 9: Python Programing
+
+# Python Programing
+
 
 In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. To do this we will use several open source packages that built upon eachother.
 To explain their functionality we will refer to concepts from Object Oriented Programing . Object Oriented Programming is a way of programming with Objects as a fundamental buildingblocks and supports modularity an reusability of code, hence its use in open source packages, we can re-use and adapt already developed code and functionality. Before we go into the visualization part of this tutorial we will therefor start with explaining Object Oriented Programming. 
@@ -46,7 +49,7 @@ Up until now, in this course we have looked at R mainly as a scripting language,
 ### How to work with objects in Python
 In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class Person:
     def __init__(self, name, age):
         self.name = name  # < this is a property
@@ -62,14 +65,14 @@ The `Person` class has two properties, `name` and `age`, as well as one method, 
 
 To create an instance of the `Person` class, you simply call the class as if it were a function and assign the result to a variable:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 person1 = Person("Alice", 25)
 person2 = Person("Bob", 30)
 ```
 
 We have created two objects, `person1` and `person2`, which are instances of the `Person` class. Now we can access the properties and call the methods of these objects:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 print(person1.name)  # Output: Alice
 print(person2.age)   # Output: 30
 person1.greet()      # Output: Hello, my name is Alice and I'm 25 years old.
@@ -86,13 +89,13 @@ This example is straightforward, but keep in mind that classes can become more c
 
 You may have noticed that class definitions differ very slightly from what we have learned. In the `GeoSeries` example, the class is defined as follows:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class GeoSeries(GeoPandasBase, Series):
 ```
 
 However, we previously learned to define a class like this:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class GeoSeries:
 ```
 
@@ -102,7 +105,7 @@ Phew, that's a lot of complicated code, and it may seem overwhelming. You don't 
 
 So, we've learned that with inheritance, classes can inherit all the functionality from other classes and build upon that. Let's create a new object called `Student`, which will inherit all the properties and methods from the `Person` class we defined earlier. In the end, a student is a person and in possesses all it's characteristics.
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 class Student(Person):
     def __init__(self, name, age, student_id):
         super().__init__(name, age)
@@ -118,7 +121,7 @@ In the provided code, the `Student` class inherits from the `Person` class, whic
 
 As a result, the `Student` class contains both the methods and properties inherited from the `Person` class, as well as the additional ones defined within the `Student` class:
 
-```{r, engine = 'Python', eval=FALSE}
+```{python, eval=FALSE}
 student = Student("Eve", 22, "123456")
 print(student.name)         # Output: Eve
 print(student.student_id)   # Output: 123456
@@ -129,7 +132,7 @@ student.study()             # Output: Eve is studying.
 In this example, `student` is an instance of the `Student` class. It can access the inherited properties from the `Person` class, such as `name`, as well as the newly added property `student_id` and `is_studying`, which defaults to `False`. Similarly, it can invoke both the inherited method `greet` and the additional method `study`, which are specific to the `Student` class. The method `study` prints a message and sets the `is_studying` property to `True`.
 
 ```{block, type="alert alert-success"}
-> **Question 2**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
+> **Question 3**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
 ```
 
 ## Visualization
@@ -291,7 +294,7 @@ help(sys)
 See how the objects and functions in the `sys` package got listed.
 
 ```{block, type="alert alert-success"}
-> **Question 4**: What kind of functionality does the `sys` package provide?
+> **Question 5**: What kind of functionality does the `sys` package provide?
 ```
 
 # What have we learned?
