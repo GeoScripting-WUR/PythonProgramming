@@ -33,7 +33,6 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 # Python Programing
 
-
 In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. To do this we will use several open source packages that built upon eachother.
 To explain their functionality we will refer to concepts from Object Oriented Programing . Object Oriented Programming is a way of programming with Objects as a fundamental buildingblocks and supports modularity an reusability of code, hence its use in open source packages, we can re-use and adapt already developed code and functionality. Before we go into the visualization part of this tutorial we will therefor start with explaining Object Oriented Programming. 
 
@@ -42,6 +41,16 @@ To explain their functionality we will refer to concepts from Object Oriented Pr
 - Learn to make basic vizualizations and static maps with Matplotlib 
 - Use geopandas built in plot functionality to vizualize GeopandasDataFrames
 - Create basic interactive maps 
+
+## TO DO! Create the yaml with dependencies 
+```
+name: python-programming
+dependencies:
+  - cartopy
+  - python
+  - spyder
+  - ....
+```
 
 ## Object-Oriented Programming in Python
 Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code. 
@@ -279,7 +288,34 @@ plt.show()
 
 So, plotting sine and cosines is fun and all, but this is a course about **geo**scripting, so how is this going to help you making maps? Well, matplotlib really is a fundament when it comes to plotting thins in python. Almost every package that can be used to create static plots (and even some dynamic ones) is based upon or uses Matplotlib, and lots of the logic you just saw will therefor be re used. The figures-, axes- and axis-objects are re-used in many packages. As we saw, Geopandas plot functionality is completely based upon matplotlib. We will show you how to create maps using `Cartopy`, and have look at the [definition of the `GeoAxes`](https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354). What does it inherit from? And what does this mean for its functionality? 
 
-For working with vector data we will use, among others `GeoPandas` and for vector data we will use `Rasterio`. During these examples we will already import and use these packages to load the data. A more elaborate introduction will follow in the respective Tutorials covering raster and vector analysis. 
+For working with vector data we will use, among others `GeoPandas` and for vector data we will use `Rasterio` for raster data. During these examples we will import and use these packages to load the data. A more elaborate introduction to these packages will follow in the respective Tutorials covering raster and vector analysis. 
+
+For this tutorial part of the material was taken from the [project pythia](https://foundations.projectpythia.org/core/cartopy/cartopy.html) website, an excellent source for more information and tutorials about working with python! 
+
+## Cartopy
+As said, Cartopy is basically adding the spatial component to matplotlib. Therefor a lot of the logic will be familiar. By addding tpatial information, a coordinate reference system, to an Axes (turning it into a GeoAxes) we can reference our spatial data to each other. Cartopy hsa abuilt in module to handle the referencing `cartopy.crs`. Let's import this. 
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
+from cartopy import crs as ccrs, feature as cfeature
+
+#  Suppress warnings issued by Cartopy when downloading data files
+warnings.filterwarnings('ignore')
+```
+
+
+Let's start by creating a map of the world. We do this by generating 1 subplot (so just a plot) with the PlateCarree projection, a projection where every poitn is spaced out equally in terms of degrees. 
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+fig = plt.figure(figsize=(11, 8.5))
+ax = plt.subplot(1, 1, 1, projection=ccrs.PlateCarree(central_longitude=-75))
+ax.set_title("A Geo-referenced subplot, Plate Carree projection");
+```
+
+We don't see anything yet! That's because we have not put anything on the map. In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can select some built in features that we can simply add to the map. Later we will also add our own data. Let's start with the coastline for some spatial context, but feel free to explor the other options. Adding them is quite similar.  
 
 
 # Python help
