@@ -52,11 +52,11 @@ dependencies:
   - ....
 ```
 
-## Object-Oriented Programming in Python
+# Object-Oriented Programming in Python
 
 Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code.
 
-### How to work with objects in Python
+## How to work with objects in Python
 
 In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
 
@@ -96,7 +96,7 @@ This example is straightforward, but keep in mind that classes can become more c
 > **Question 1**: Take a look at the [implementation of a geoseries](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L79) object in GeoPandas. Don't be intimidated by the amount of code! It is not necessary to understand all of it. At line [948 the plot method is defined](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L948) it calls the [`plot_series` function as defined here](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/plotting.py#L313). What library is used for plotting and what exactly does `self` refer to when the `plot` method is defined.
 ```
 
-### Inheritence
+## Inheritence
 
 You may have noticed that class definitions differ very slightly from what we have learned. In the `GeoSeries` example, the class is defined as follows:
 
@@ -146,11 +146,11 @@ In this example, `student` is an instance of the `Student` class. It can access 
 > **Question 3**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
 ```
 
-## Visualization
+# Visualization
 
 Communicating research results is challenging without good visualizations. These can be graphs or more elaborate infographics, and in the case of geospatial data analysis, the end product ends up on a map. There are many tools to vizualize data using python, and they can become very elaborate. The most basic tool and one of the most used tools is *Matplotlib*, a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step.
 
-### Matplotlib
+## Matplotlib
 
 In the most basic form plotting is very easy. Look at the code below:
 
