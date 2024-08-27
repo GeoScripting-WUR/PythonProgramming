@@ -30,17 +30,17 @@ code[class^="sourceCode bash"]::before { content: "Bash Source"; }
 
 <font size="6">[WUR Geoscripting](https://geoscripting-wur.github.io/)</font> <img src="https://www.wur.nl/upload/854757ab-168f-46d7-b415-f8b501eebaa5_WUR_RGB_standard_2021-site.svg" alt="WUR logo" style="height: 35px; margin:inherit;"/>
 
-
 # Python Programing
 
-In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. To do this we will use several open source packages that built upon eachother.
-To explain their functionality we will refer to concepts from Object Oriented Programing . Object Oriented Programming is a way of programming with Objects as a fundamental buildingblocks and supports modularity an reusability of code, hence its use in open source packages, we can re-use and adapt already developed code and functionality. Before we go into the visualization part of this tutorial we will therefor start with explaining Object Oriented Programming. 
+In the previous tutorial we learned how to set up virtual environments to write run python code in. In today's tutorial we will start using these environments. Next week we will work with spatial data analysis, and as a result more often than not the data will end up on a map. During this tutorial we will show different ways to show data on a map, both static and interactive. To do this we will use several open source packages that built upon eachother. To explain their functionality we will refer to concepts from Object Oriented Programing. Object Oriented Programming is a way of programming with Objects as a fundamental buildingblocks and supports modularity an reusability of code, hence its use in open source packages, we can re-use and adapt already developed code and functionality. Before we go into the visualization part of this tutorial we will therefor start with explaining Object Oriented Programming. 
+
 
 ## Today’s Learning objectives
-- Familiarize yourself with python objects and inheritance
-- Learn to make basic vizualizations and static maps with Matplotlib 
-- Use geopandas built in plot functionality to vizualize GeopandasDataFrames
-- Create basic interactive maps 
+
+-   Familiarize yourself with python objects and inheritance
+-   Learn to make basic vizualizations and static maps with Matplotlib
+-   Use geopandas built in plot functionality to vizualize GeopandasDataFrames
+-   Create basic interactive maps
 
 ## TO DO! Create the yaml with dependencies 
 ```
@@ -53,9 +53,11 @@ dependencies:
 ```
 
 ## Object-Oriented Programming in Python
-Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code. 
+
+Up until now, in this course we have looked at R mainly as a scripting language, we call this way of programming Procedural Programming. Both Python and R can be used in another programming paradigm: Object Oriented Programming. Object Oriented Programming (OOP) is a way of programming where functionality and information is encapsulated in objects. Instead of assigning variables and functions, objects are used where both values (properties) and calculations (methods) can be stored together. This offers several advantages. OOP promotes modularity and re-usability by breaking down complex problems into smaller, manageable units, these are the objects. These objects can be reused in various parts of the program or even in other projects, leading to more efficient, scalable and organized programming. Especially when working on projects containing lots of code OOP will make your work a lot easier to understand for you and others and it is easier to re-use parts of the code.
 
 ### How to work with objects in Python
+
 In Python, objects are created and manipulated using classes. A class serves as a blueprint that defines the structure and behavior of objects. It brings together data (properties) and functions (methods) into a single object. To define a class in Python, we use the `class` keyword, followed by the name of the class. Let's take a look at an example of a simple class called `Person`:
 
 ```{python, eval=FALSE}
@@ -68,7 +70,7 @@ class Person:
         print(f"Hello, my name is {self.name} and I'm {self.age} years old.")
 ```
 
-In the provided code, the `__init__` method is a special method known as a *constructor*. It is automatically called when an object is created from the class. The `self` parameter refers to the instance of the class itself, allowing access to its properties and methods. Whenever a method is defined within a `class`, we give `self` as the first parameter. 
+In the provided code, the `__init__` method is a special method known as a *constructor*. It is automatically called when an object is created from the class. The `self` parameter refers to the instance of the class itself, allowing access to its properties and methods. Whenever a method is defined within a `class`, we give `self` as the first parameter.
 
 The `Person` class has two properties, `name` and `age`, as well as one method, `greet`. The `greet` method prints a greeting message that includes the person's name and age.
 
@@ -88,7 +90,7 @@ person1.greet()      # Output: Hello, my name is Alice and I'm 25 years old.
 person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.
 ```
 
-This example is straightforward, but keep in mind that classes can become more complex. 
+This example is straightforward, but keep in mind that classes can become more complex.
 
 ```{block, type="alert alert-success"}
 > **Question 1**: Take a look at the [implementation of a geoseries](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L79) object in GeoPandas. Don't be intimidated by the amount of code! It is not necessary to understand all of it. At line [948 the plot method is defined](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L948) it calls the [`plot_series` function as defined here](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/plotting.py#L313). What library is used for plotting and what exactly does `self` refer to when the `plot` method is defined.
@@ -145,7 +147,8 @@ In this example, `student` is an instance of the `Student` class. It can access 
 ```
 
 ## Visualization
-Communicating research results is challenging without good visualizations. These can be graphs or more elaborate infographics, and in the case of geospatial data analysis, the end product ends up on a map. There are many tools to vizualize data using python, and they can become very elaborate. The most basic tool and one of the most used tools is _Matplotlib_, a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step. 
+
+Communicating research results is challenging without good visualizations. These can be graphs or more elaborate infographics, and in the case of geospatial data analysis, the end product ends up on a map. There are many tools to vizualize data using python, and they can become very elaborate. The most basic tool and one of the most used tools is *Matplotlib*, a general plotting package. It is used as a base for many other, more tailored, packages. One of the core advantages of Matplotlib is that the representation of figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step.
 
 ### Matplotlib
 
@@ -166,28 +169,30 @@ plt.plot(x, y)
 plt.show()
 ```
 
-In this example, we are using the package numpy to create a series of x values (values from -pi (-3.14) to pi with steps of 0.2, check what this looks like). The y values are the sie of these values. Plotting these is straight forward, therefor we can plot them in a very simple way. however, as said, Matplotlib is a plotting package where a vizualization object can be created before it is rendered (shown). In the example above, the rendering of the image is only done at the line `plt.show()`. Before this command we can modify or add things to the plot. This allows to add things to the vizualization in steps, layering complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below. 
+In this example, we are using the package numpy to create a series of x values (values from -pi (-3.14) to pi with steps of 0.2, check what this looks like). The y values are the sie of these values. Plotting these is straight forward, therefor we can plot them in a very simple way. however, as said, Matplotlib is a plotting package where a vizualization object can be created before it is rendered (shown). In the example above, the rendering of the image is only done at the line `plt.show()`. Before this command we can modify or add things to the plot. This allows to add things to the vizualization in steps, layering complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below.
 
 <figure>
-<img src="images/mpl_structure.png" width="45%" style="display: inline-block;"/>
-<img src="images/mpl_simple_plot.png" width="45%" style="display: inline-block;"/>
-<figcaption> Matplotlib hierarchy of figure elements, source https://www.aosabook.org/en/matplotlib.html. </figcaption>
+
+<img src="images/mpl_structure.png" width="45%" style="display: inline-block;"/> <img src="images/mpl_simple_plot.png" width="45%" style="display: inline-block;"/>
+
+<figcaption>Matplotlib hierarchy of figure elements, source <https://www.aosabook.org/en/matplotlib.html>.</figcaption>
+
 </figure>
 
 The basic elements are the *figure* and the *axes* objects (not to be confused with *Axis* objects!). The figure is like the canvas and the axes is the part of the canvas on which we will make a visualization containing for example an x-axis, y-axis, lines and text. Let's build up a simple line figure as an example.
 
-<img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"></img>
+<img src="images/mpl1.png" alt="matplotlib simple figure" width="50%"/></img>
 
 Note that the behavior of `plt.show()` depends on how you run the script. If you are using Spyder and want `plt.show()` to work:
 
-1.	Go to Tools.
-2.	Go to Preferences.
-3.	Select IPython console.
-4.	Go to Graphics tab.
-5.	In the Graphics backend section, select Automatic as the backend type.
+1.  Go to Tools.
+2.  Go to Preferences.
+3.  Select IPython console.
+4.  Go to Graphics tab.
+5.  In the Graphics backend section, select Automatic as the backend type.
 6.  Restart your kernel.
 
-Instead of a single plot, we can add different plots to the figure, for example two Let's try to add another pot with the cosine values. 
+Instead of a single plot, we can add different plots to the figure, for example two Let's try to add another pot with the cosine values.
 
 ```{Python,engine.path='/usr/bin/python3'}
 # Create some data
@@ -241,15 +246,15 @@ axarr[1].set_xticks(new_ticks)
 axarr[1].set_xticklabels(new_labels)
 ```
 
-Finally! our plot is done for now. We have entered a lot of commands, stacked a lot of different layers to our plot, but we cannot see it yet. using the `plt.show()` command we can see the result! 
+Finally! our plot is done for now. We have entered a lot of commands, stacked a lot of different layers to our plot, but we cannot see it yet. using the `plt.show()` command we can see the result!
 
 ```{Python,engine.path='/usr/bin/python3'}
 plt.show()
 ```
 
-Alternatively we can use `plt.savefig('filename.png')` instead of showing it. Make sure to create the plot before you run this! `plt.show()` closes and the current plot, so calling savefig after show will result in an empty image. this is useful, otherwise we would keep adding stuff to the same plot. 
+Alternatively we can use `plt.savefig('filename.png')` instead of showing it. Make sure to create the plot before you run this! `plt.show()` closes and the current plot, so calling savefig after show will result in an empty image. this is useful, otherwise we would keep adding stuff to the same plot.
 
-<img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"></img>
+<img src="images/mpl2.png" alt="two subplots with shared x-axis" width="50%"/></img>
 
 One can create multiple subplots (axes) and use different plotting styles, changing e.g. the marker style, line style, marker size, and colors, see the example below. For the upper left subplot it is demonstrated how to add a legend; adding a label to the plotted line is essential for this.
 
@@ -278,11 +283,13 @@ ax3.barh(x, y, color='y')
 plt.show()
 ```
 
-<img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"></img>
+<img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"/></img>
 
 ```{block, type="alert alert-success"}
 > **Question 4**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
+There are more types of graphs available, have look at the [matplotlib documentation](https://matplotlib.org/stable/plot_types/index.html) and play around to find out more! 
+
 
 ## Vizualizing spatial data
 
@@ -317,7 +324,6 @@ ax.set_title("A Geo-referenced subplot, Plate Carree projection");
 
 We don't see anything yet! That's because we have not put anything on the map. In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can select some built in features that we can simply add to the map. Later we will also add our own data. Let's start with the coastline for some spatial context, but feel free to explor the other options. Adding them is quite similar.  
 
-
 # Python help
 
 There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
@@ -338,7 +344,8 @@ See how the objects and functions in the `sys` package got listed.
 #TODO
 
 # More info
-- [Official Python tutorial](https://docs.Python.org/3/contents.html)
-- [Python Style guide ](https://www.python.org/dev/peps/pep-0008/)
-- [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
-- [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
+
+-   [Official Python tutorial](https://docs.Python.org/3/contents.html)
+-   [Python Style guide](https://www.python.org/dev/peps/pep-0008/)
+-   [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
+-   [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
