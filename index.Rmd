@@ -114,7 +114,7 @@ person2.greet()      # Output: Hello, my name is Bob and I'm 30 years old.
 This example is straightforward, but keep in mind that classes can become more complex.
 
 ```{block, type="alert alert-success"}
-> **Question 1**: Take a look at the [implementation of a geoseries](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L79) object in GeoPandas. Don't be intimidated by the amount of code! It is not necessary to understand all of it. At line [948 the plot method is defined](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L948) it calls the [`plot_series` function as defined here](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/plotting.py#L313). What library is used for plotting and what exactly does `self` refer to when the `plot` method is defined?
+> **Question 2**: Take a look at the [implementation of a geoseries](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L79) object in GeoPandas. Don't be intimidated by the amount of code! It is not necessary to understand all of it. At line [948 the plot method is defined](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/geoseries.py#L948) it calls the [`plot_series` function as defined here](https://github.com/geopandas/geopandas/blob/80edc868454d3fae943b734ed1719c2197806815/geopandas/plotting.py#L313). What library is used for plotting and what exactly does `self` refer to when the `plot` method is defined?
 ```
 
 ## Inheritence
@@ -164,7 +164,7 @@ student.study()             # Output: Eve is studying.
 In this example, `student` is an instance of the `Student` class. It can access the inherited properties from the `Person` class, such as `name`, as well as the newly added property `student_id` and `is_studying`, which defaults to `False`. Similarly, it can invoke both the inherited method `greet` and the additional method `study`, which are specific to the `Student` class. The method `study` prints a message and sets the `is_studying` property to `True`.
 
 ```{block, type="alert alert-success"}
-> **Question 2**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
+> **Question 3**: Create a new class called `Teacher`. This new class also inherits from `Person`. Define a method for the teacher that checks whether a student is studying. The student should be an input to the method. 
 ```
 
 # Visualization
@@ -232,7 +232,7 @@ f, axarr = plt.subplots(2, sharex=True)
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 2**: `axarr` is an array. What are the elements of this array and how many elements does is exist out of? 
+> **Question 4**: `axarr` is an array. What are the elements of this array and how many elements does is exist out of? 
 ```
 
 We can add a title to the figure and and labels to the axes. Check [this documentation](https://matplotlib.org/stable/api/axes_api.html) to see what more you can tweak.
@@ -306,7 +306,7 @@ plt.show()
 <img src="images/mpl3.png" alt="matplotlib plot type examples" width="50%"/></img>
 
 ```{block, type="alert alert-success"}
-> **Question 4**: In the upper right subplot, why is there no point at x=3, y=8?.
+> **Question 5**: In the upper right subplot, why is there no point at x=3, y=8?.
 ```
 There are more types of graphs available, have look at the [Matplotlib documentation](https://matplotlib.org/stable/plot_types/index.html) and play around to find out more! 
 
@@ -346,7 +346,7 @@ ax.coastlines()
 coastlines is a special case, apparently showing the coastlines happened so often that a special function was defined. Not everything is this simple sadly... In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can see that there exist pre defined features that we can add using the `add_feature` method from a `GeoAxes`. `ax.add_feature(cfeature.COASTLINE, linewidth=0.3, edgecolor='black')` does the same as `ax.coastlines()` (don't believe it? [Check the source](https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609)! ) effectively. Have a look and play around with adding other features! Using the `linewidth` and`edgecolor` arguments we can style the map. 
 
 ```{block, type="alert alert-success"}
-> **Question 1**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to see how.
+> **Question 6**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to see how.
 ```
 
 We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Greenland is](https://www.thetruesize.com)?! Let's quickly create another map in another projection. In the [documentation](https://scitools.org.uk/cartopy/docs/latest/reference/projections.html) we can find a large list of projections that can be used.
@@ -357,11 +357,11 @@ projLae = ccrs.LambertAzimuthalEqualArea(central_longitude=0.0, central_latitude
 ax = plt.subplot(1, 1, 1, projection=projLae)
 ax.set_title("Lambert Azimuthal Equal Area Projection")
 ax.coastlines()
-ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
+ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue')
 ```
 
 ## Smaller maps
-We have seen now how to make worldwide maps, let's now make a smaller map with our own data. The polygon data that is shown here is read by `GeoPandas`, directly from a url. The `add_geometries` method reads the geometries from a GeoDataFrame, but can also read geometries from Shapelt (more about this in in the Python Vector tutorial). The `set_extent` method is used to define an area of interest, basically it sets the top bottom and left and right so that only the area of iterest is shown. Have a look at the code below, the comments explain more line by line.
+We have seen how to make worldwide maps, let's now make a smaller map with our own data. The polygon data that is shown here is read by `GeoPandas`, directly from a url. The `add_geometries` method reads the geometries from a GeoDataFrame, but can also read geometries from Shapelt (more about this in in the Python Vector tutorial). The `set_extent` method is used to define an area of interest, basically it sets the top and bottom left and right corners, so that only the area of interest is shown. Have a look at the code below, the comments explain more line by line.
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import geopandas as gpd
@@ -435,7 +435,7 @@ show(dataset, ax=ax,  cmap='gist_ncar')
 # What have we learned?
 
 You finished this tutorial well done!
-We started with a short introduction about object oriented programming, you now know what objects are, how they are implemented in python and how they can inherit functionality from eachother. In this way we can stand on top of the shoulders of giants, we do not have to write some code somebody else already has. 
+We started with a short introduction about object oriented programming and you now know what objects are, how they are implemented in python and how they can inherit functionality from each other. In this way we can stand on top of the shoulders of giants, we do not have to write the same code somebody else already has. 
 
 Next Matplotlib was introduced, you now know what the structure of a Matplotlib plot is, how different elements are organized on a figure and how to add data to a plot. 
 
