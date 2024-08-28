@@ -307,14 +307,14 @@ import warnings
 
 import matplotlib.pyplot as plt
 import numpy as np
-from cartopy import crs as ccrs, feature as cfeature
+from cartopy import crs as ccrs
+from cartopy import feature as cfeature
 
 #  Suppress warnings issued by Cartopy when downloading data files
 warnings.filterwarnings('ignore')
 ```
 
-
-Let's start by creating a map of the world. We do this by generating 1 subplot (so just a plot) with the PlateCarree projection, a projection where every poitn is spaced out equally in terms of degrees. 
+Let's start by creating a map of the world. We do this by generating 1 subplot (so just a plot) with the PlateCarree projection, a projection where every point is spaced out equally in terms of degrees. 
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 fig = plt.figure(figsize=(11, 8.5))
@@ -322,7 +322,53 @@ ax = plt.subplot(1, 1, 1, projection=ccrs.PlateCarree(central_longitude=-75))
 ax.set_title("A Geo-referenced subplot, Plate Carree projection");
 ```
 
-We don't see anything yet! That's because we have not put anything on the map. In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can select some built in features that we can simply add to the map. Later we will also add our own data. Let's start with the coastline for some spatial context, but feel free to explor the other options. Adding them is quite similar.  
+We don't see anything yet! That's because we have not put anything on the map.  Let's add the coastline for some spatial context, which can be done by calling a method of the GeoAxes object `ax.coastlines`. 
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+ax.coastlines()
+```
+
+In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can see that there exist pre defined features that we can add using the `add_feature` method from a `GeoAxes`. `ax.add_feature(cfeature.COASTLINE, linewidth=0.3, edgecolor='black')` does the same as `ax.coastlines()` (don't believe me? [Check the source](https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609)! ) effectively. Have a look and play around with adding other features! Using the `linewidth` and`edgecolor` arguments we can style the map. 
+
+```{block, type="alert alert-success"}
+> **Question 1**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to figure out how
+```
+
+We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Greenland is](https://www.thetruesize.com)?! Let's quickly create another map in another projection. 
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+fig = plt.figure(figsize=(11, 8.5))
+projLae = ccrs.LambertAzimuthalEqualArea(central_longitude=0.0, central_latitude=0.0)
+ax = plt.subplot(1, 1, 1, projection=projLae)
+ax.set_title("Lambert Azimuthal Equal Area Projection")
+ax.coastlines()
+ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
+```
+
+## Regional maps
+We have seen now how to make worldwide maps, let's now make a smaller map with our own data. We can use the `set_extent` method to define an area of interest. In the following code we define an area of interest in units of the Dutch projection system RDNew (with the EPSG ode 28992). When passing these coordinates, do not forget to tell Cartopy from which reference system they are! Let's also add some gridlines so, another nice way to add some reference to map. 
+
+
+
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+
+xmin, ymin, xmax, ymax = 171206, 440178, 178100, 444527 # The boundingbox of Wageningen
+crs = ccrs.epsg(28992) # 
+
+fig = plt.figure(figsize=(11, 8.5))
+ax = plt.subplot(1, 1, 1, projection=crs)
+ax.set_title('RDNew')
+gl = ax.gridlines(
+    draw_labels=True, linewidth=2, color='gray', alpha=0.5, linestyle='--'
+)
+ax.set_extent([xmin, xmax, ymin, ymax], crs=crs)
+ax.coastlines(resolution=res, color='black')
+ax.add_feature(cfeature.RIVERS, linewidth=0.3, edgecolor='brown')
+ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
+```
+
+So we see that the pre defined features are useful, but when zooming in to Wageningen coastlines will not really help us... A good moment to add our own data! Let's start with a GeoDataFrame
 
 # Python help
 
