@@ -348,27 +348,41 @@ ax.coastlines()
 ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
 ```
 
-## Regional maps
-We have seen now how to make worldwide maps, let's now make a smaller map with our own data. We can use the `set_extent` method to define an area of interest. In the following code we define an area of interest in units of the Dutch projection system RDNew (with the EPSG ode 28992). When passing these coordinates, do not forget to tell Cartopy from which reference system they are! Let's also add some gridlines so, another nice way to add some reference to map. 
+## Smaller maps
+We have seen now how to make worldwide maps, let's now make a smaller map with our own data. To do this we use the `set_extent` method to define an area of interest and the `add_geometries` method to add geometries in a GeoDataFrame. Have a look at the code below
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import geopandas as gpd
 
-xmin, ymin, xmax, ymax = 171206, 440178, 178100, 444527 # The boundingbox of Wageningen
-crs = ccrs.epsg(28992) # 
+gdf = gpd.read_file('https://raw.githubusercontent.com/GeoScripting-WUR/PythonProgramming/master/data/gadm41_NLD_2.json')
 
-fig = plt.figure(figsize=(11, 8.5))
+# Using the dutch coodinate reference system RDNew (epsg code 28992)
+crs = ccrs.epsg(28992)
+
+# The data is in another projection as our plot, reprojection to RDnew
+gdf = gdf.to_crs(28992)
+
+# Initiate the plot, a little bigger then before
+fig = plt.figure(figsize=(15, 15))
 ax = plt.subplot(1, 1, 1, projection=crs)
-ax.set_title('RDNew')
+ax.set_title('The municipalities of NL')
+
+# Draw gridlines 
 gl = ax.gridlines(
     draw_labels=True, linewidth=2, color='gray', alpha=0.5, linestyle='--'
 )
-ax.set_extent([xmin, xmax, ymin, ymax], crs=crs)
-ax.coastlines(resolution=res, color='black')
-ax.add_feature(cfeature.RIVERS, linewidth=0.3, edgecolor='brown')
-ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
+
+# Set the extent to the extent of the municipalities
+min_x, max_x, min_y, max_y = gdf.total_bounds
+ax.set_extent((min_x, max_x, min_y, max_y), crs=crs)
+
+# ax.set_extent(gdf.total_bounds, crs=crs) would do this in one step, 
+# but the coordinates can be defined seperately as well in this order! 
+
+# Add the geometries to the map
+ax.add_geometries(gdf["geometry"], crs=crs, edgecolor = 'black', facecolor = '#FFFFFF')
 ```
 
-So we see that the pre defined features are useful, but when zooming in to Wageningen coastlines will not really help us... A good moment to add our own data! Let's start with a GeoDataFrame
 
 
 # Python help
