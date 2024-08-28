@@ -51,8 +51,25 @@ dependencies:
   - cartopy
   - python
   - spyder
-  - ....
+  - geopandas
+  - rasterio
+  - 
 ```
+# Python help
+
+Before we dive into python, it makes sense to take some time to find how what to do if you are stuck. There are several ways to find help with programming in Python. Most packages, especially the larger ones, have a webpage with documentation. The documentation is a good first place to look for information. Secondly, googling your issue typically solves your problem too, because it finds answers on multiple platforms, such as StackOverflow and Github. Try to use terms that are used by others, don't include filepaths and personal variable names for example. Generative AI is also a useful source of coding help, but be careful, GenAI doesn't understand programming, it might come up with not existing functions for example. Lastly, during Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation and more information about a package inside Python:
+
+```{Python,engine.path='/usr/bin/python3', eval=FALSE}
+import sys
+help(sys)
+```
+
+See how the objects and functions in the `sys` package got listed.
+
+```{block, type="alert alert-success"}
+> **Question 1**: What kind of functionality does the `sys` package provide?
+```
+
 
 # Object-Oriented Programming in Python
 
@@ -296,28 +313,22 @@ There are more types of graphs available, have look at the [Matplotlib documenta
 ## Vizualizing spatial data
 
 So, plotting sine and cosines is fun and all, but this is a course about **geo**scripting, so how is this going to help you making maps? Well, Matplotlib really is fundamental when it comes to plotting things in python. Almost every package that can be used to create static plots (and even some dynamic ones) is based upon or uses Matplotlib, and lots of the logic you just saw will therefore be reused: the figures-, axes- and axis-objects are reused in many packages. As we saw, GeoPandas plot functionality is completely based upon Matplotlib.
-We will show you how to create maps using `Cartopy`. Have a look at the [definition of the `GeoAxes`](https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354). What does it inherit from? And what does this mean for its functionality? 
+We will show you how to create maps using `Cartopy`, a geospatial wrapper around Matplotlib. Have a look at the [definition of the `GeoAxes`](https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354). What does it inherit from? And what does this mean for its functionality? 
 
-For working with vector data we will use among others `GeoPandas` and for raster data we will use `Rasterio` packages. A more elaborate introduction to these packages will follow in the respective tutorials covering raster and vector analysis. 
+For working with vector data we will use among others `GeoPandas` and for raster data we will use `Rasterio` packages. A more elaborate introduction to these packages will follow in the respective tutorials covering raster and vector analysis. In this tutorial we will use these packages already for reading data, if you do not entirely understand why we do certain things related to these packages, most likely this will be cleared up next week.
 
 For this tutorial, part of the material was taken from the [project pythia](https://foundations.projectpythia.org/core/cartopy/cartopy.html) website, an excellent source for more information and tutorials about working with python! 
 
 ## Cartopy
-As said, Cartopy is basically adding the spatial component to Matplotlib. Therefore, a lot of the logic will be familiar. By adding spatial information (a coordinate reference system) to an Axes (turning it into a GeoAxes) we can reference our spatial data to each other. Cartopy has a built-in module to handle the referencing `cartopy.crs`. Let's import needed libraries. 
+As said, Cartopy is basically adding the spatial component to Matplotlib. Therefore, a lot of the logic will be familiar. By adding spatial information (a coordinate reference system) to an Axes (turning it into a GeoAxes) we can reference our spatial data to each other. Additionally, cartopy has a built-in module to handle the referencing `cartopy.crs`. Let's import these libraries and modules. 
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import warnings
-
 import matplotlib.pyplot as plt
-import numpy as np
 from cartopy import crs as ccrs
 from cartopy import feature as cfeature
-
-#  Suppress warnings issued by Cartopy when downloading data files
-warnings.filterwarnings('ignore')
 ```
 
-Let's start by creating a map of the world. We do this by generating 1 subplot (so just a plot) with the PlateCarree projection, a projection where every point is spaced out equally in terms of degrees. 
+Let's start by creating a map of the world. We do this by generating 1 subplot (so just a plot) with the [Plate Carrée](https://en.wikipedia.org/wiki/Equirectangular_projection) projection, a projection where every point is spaced out equally in terms of degrees. 
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 fig = plt.figure(figsize=(11, 8.5))
@@ -325,19 +336,19 @@ ax = plt.subplot(1, 1, 1, projection=ccrs.PlateCarree(central_longitude=-75))
 ax.set_title("A Geo-referenced subplot, Plate Carree projection")
 ```
 
-We don't see anything yet! That's because we have not put anything on the map.  Let's add the coastline for some spatial context, which can be done by calling a method of the GeoAxes object `ax.coastlines`. 
+We don't see anything yet! That's because we have not put anything on the map. Let's add the coastline for some spatial context, which can be done by calling a method of the GeoAxes object `ax.coastlines`. 
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 ax.coastlines()
 ```
 
-In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can see that there exist pre defined features that we can add using the `add_feature` method from a `GeoAxes`. `ax.add_feature(cfeature.COASTLINE, linewidth=0.3, edgecolor='black')` does the same as `ax.coastlines()` (don't believe me? [Check the source](https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609)! ) effectively. Have a look and play around with adding other features! Using the `linewidth` and`edgecolor` arguments we can style the map. 
+coastlines is a special case, apparently showing the coastlines happened so often that a special function was defined. Not everything is this simple sadly... In the [cartopy documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html) we can see that there exist pre defined features that we can add using the `add_feature` method from a `GeoAxes`. `ax.add_feature(cfeature.COASTLINE, linewidth=0.3, edgecolor='black')` does the same as `ax.coastlines()` (don't believe it? [Check the source](https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609)! ) effectively. Have a look and play around with adding other features! Using the `linewidth` and`edgecolor` arguments we can style the map. 
 
 ```{block, type="alert alert-success"}
-> **Question 1**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to figure out how
+> **Question 1**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to see how.
 ```
 
-We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Greenland is](https://www.thetruesize.com)?! Let's quickly create another map in another projection. 
+We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Greenland is](https://www.thetruesize.com)?! Let's quickly create another map in another projection. In the [documentation](https://scitools.org.uk/cartopy/docs/latest/reference/projections.html) we can find a large list of projections that can be used.
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 fig = plt.figure(figsize=(11, 8.5))
@@ -349,7 +360,7 @@ ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue');
 ```
 
 ## Smaller maps
-We have seen now how to make worldwide maps, let's now make a smaller map with our own data. To do this we use the `set_extent` method to define an area of interest and the `add_geometries` method to add geometries in a GeoDataFrame. Have a look at the code below
+We have seen now how to make worldwide maps, let's now make a smaller map with our own data. The polygon data that is shown here is read by `GeoPandas`, directly from a url. The `add_geometries` method reads the geometries from a GeoDataFrame, but can also read geometries from Shapelt (more about this in in the Python Vector tutorial). The `set_extent` method is used to define an area of interest, basically it sets the top bottom and left and right so that only the area of iterest is shown. Have a look at the code below, the comments explain more line by line.
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 import geopandas as gpd
@@ -383,22 +394,42 @@ ax.set_extent((min_x, max_x, min_y, max_y), crs=crs)
 ax.add_geometries(gdf["geometry"], crs=crs, edgecolor = 'black', facecolor = '#FFFFFF')
 ```
 
-
-
-# Python help
-
-There are several ways to find help with programming in Python. Searching the internet typically solves your problem the quickest, because it finds answers on multiple platforms, such as StackOverflow and Github. During Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation from the package website or inside Python:
+## Plotting rasters
+In the case of rasters, we will make use in another way of the widespread use of `Matplotlib` and the `GeoAxes` objects. For rasters we will make use of the package `Rasterio` to handle raster files. In this package a [plot module](https://github.com/rasterio/rasterio/blob/7c83de410b7b812e6552e4b76ce236bb6213c80d/rasterio/plot.py#L34) is defined, that allows for the plotting of rasters. Instead of defining an axes and adding the raster as a feature to the plot, we will create the `Figure` and `GeoAxes` objects using `Cartopy`, and pass them to `Rasterio` `plot.show` function. Other features that we might want to add, we can add still to the same `GeoAxes`, in that way everything will be added to the same canvas. Have a look at the code below. 
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
-import sys
-help(sys)
+import requests
+import io 
+import zipfile 
+import rasterio
+from rasterio.plot import show
+
+# These first 4 lines download and unzip a landsat8 image 
+# It is not necessary to understand these lines. 
+url = 'https://github.com/GeoScripting-WUR/VectorRaster/releases/download/tutorial-data/landsat8.zip'
+resp = requests.get(url, "data.zip")
+zf = zipfile.ZipFile(io.BytesIO(resp.content))
+zf.extractall('./')
+
+#The landsat image is projected in UTM31N, let's use that projection
+crs = ccrs.epsg(32631)
+
+# Initiate the area of interest
+fig = plt.figure(figsize=(15, 15))
+ax = plt.subplot(1, 1, 1, projection=crs)
+ax.set_title('The municipalities of NL')
+
+# Read the GeoJson again with GeoPandas.
+gdf = gpd.read_file('https://raw.githubusercontent.com/GeoScripting-WUR/PythonProgramming/master/data/gadm41_NLD_2.json')
+# This time reproject it to UTM31
+gdf = gdf.to_crs(32631)
+gdf.plot(ax=ax,edgecolor='white', color = 'None')
+
+# Open the raster using rasterio, more about rasterio next week! 
+dataset = rasterio.open('./LC81970242014109LGN00.tif')
+show(dataset, ax=ax,  cmap='gist_ncar')
 ```
 
-See how the objects and functions in the `sys` package got listed.
-
-```{block, type="alert alert-success"}
-> **Question 5**: What kind of functionality does the `sys` package provide?
-```
 
 # What have we learned?
 

@@ -905,11 +905,7 @@ margin-left: 0 !important;
          <h4 class="author"><em>Arno Timmer, Jan Verbesselt, Jorge
 Mendes de Jesus, Aldo Bergsma, Johannes Eberenz, Dainius Masiliunas,
 David Swinkels, Judith Verstegen, Corné Vreugdenhil</em></h4>
-<<<<<<< HEAD
-            <h4 class="date"><em>27 augustus, 2024</em></h4>
-=======
-            <h4 class="date"><em>28 August, 2024</em></h4>
->>>>>>> 74bc42584628d29e632163ffb85ab913dc160520
+            <h4 class="date"><em>28 augustus, 2024</em></h4>
       
       
    
@@ -986,7 +982,39 @@ dependencies:
   - cartopy
   - python
   - spyder
-  - ....</code></pre>
+  - geopandas
+  - rasterio
+  - </code></pre>
+</div>
+</div>
+<div id="python-help" class="section level1">
+<h1>Python help</h1>
+<p>Before we dive into python, it makes sense to take some time to find
+how what to do if you are stuck. There are several ways to find help
+with programming in Python. Most packages, especially the larger ones,
+have a webpage with documentation. The documentation is a good first
+place to look for information. Secondly, googling your issue typically
+solves your problem too, because it finds answers on multiple platforms,
+such as StackOverflow and Github. Try to use terms that are used by
+others, don’t include filepaths and personal variable names for example.
+Generative AI is also a useful source of coding help, but be careful,
+GenAI doesn’t understand programming, it might come up with not existing
+functions for example. Lastly, during Geoscripting we have the forum to
+ask and give help. Asking your friends or colleagues in person is also a
+great way to learn and fix programming problems. Another good option is
+get documentation and more information about a package inside
+Python:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="bu">help</span>(sys)</span></code></pre></div>
+<p>See how the objects and functions in the <code>sys</code> package got
+listed.</p>
+<div class="alert alert-success">
+<blockquote>
+<p>
+<strong>Question 1</strong>: What kind of functionality does the
+<code>sys</code> package provide?
+</p>
+</blockquote>
 </div>
 </div>
 <div id="object-oriented-programming-in-python" class="section level1">
@@ -1016,13 +1044,13 @@ into a single object. To define a class in Python, we use the
 <code>class</code> keyword, followed by the name of the class. Let’s
 take a look at an example of a simple class called
 <code>Person</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">class</span> Person:</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age):</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name  <span class="co"># &lt; this is a property</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>        <span class="va">self</span>.age <span class="op">=</span> age    <span class="co"># &lt; this is also a property</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    </span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="kw">def</span> greet(<span class="va">self</span>):  <span class="co"># &lt; This &quot;function&quot; is a method</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;Hello, my name is </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> and I&#39;m </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>age<span class="sc">}</span><span class="ss"> years old.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">class</span> Person:</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age):</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name  <span class="co"># &lt; this is a property</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>        <span class="va">self</span>.age <span class="op">=</span> age    <span class="co"># &lt; this is also a property</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="kw">def</span> greet(<span class="va">self</span>):  <span class="co"># &lt; This &quot;function&quot; is a method</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;Hello, my name is </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> and I&#39;m </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>age<span class="sc">}</span><span class="ss"> years old.&quot;</span>)</span></code></pre></div>
 <p>The <code>Person</code> class has two properties, <code>name</code>
 and <code>age</code>, as well as one method, <code>greet</code>. The
 <code>greet</code> method prints a greeting message that includes the
@@ -1039,16 +1067,16 @@ parameter.</p>
 <p>To create an instance of the <code>Person</code> class, you simply
 call the class as if it were a function and assign the result to a
 variable:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>person1 <span class="op">=</span> Person(<span class="st">&quot;Alice&quot;</span>, <span class="dv">25</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>person2 <span class="op">=</span> Person(<span class="st">&quot;Bob&quot;</span>, <span class="dv">30</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>person1 <span class="op">=</span> Person(<span class="st">&quot;Alice&quot;</span>, <span class="dv">25</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>person2 <span class="op">=</span> Person(<span class="st">&quot;Bob&quot;</span>, <span class="dv">30</span>)</span></code></pre></div>
 <p>We have created two objects, <code>person1</code> and
 <code>person2</code>, which are instances of the <code>Person</code>
 class. Now we can access the properties and call the methods of these
 objects:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="bu">print</span>(person1.name)  <span class="co"># Output: Alice</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="bu">print</span>(person2.age)   <span class="co"># Output: 30</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>person1.greet()      <span class="co"># Output: Hello, my name is Alice and I&#39;m 25 years old.</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>person2.greet()      <span class="co"># Output: Hello, my name is Bob and I&#39;m 30 years old.</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">print</span>(person1.name)  <span class="co"># Output: Alice</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="bu">print</span>(person2.age)   <span class="co"># Output: 30</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>person1.greet()      <span class="co"># Output: Hello, my name is Alice and I&#39;m 25 years old.</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>person2.greet()      <span class="co"># Output: Hello, my name is Bob and I&#39;m 30 years old.</span></span></code></pre></div>
 <p>This example is straightforward, but keep in mind that classes can
 become more complex.</p>
 <div class="alert alert-success">
@@ -1070,9 +1098,9 @@ method is defined?
 <p>You may have noticed that class definitions differ very slightly from
 what we have learned. In the <code>GeoSeries</code> example, the class
 is defined as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">class</span> GeoSeries(GeoPandasBase, Series):</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">class</span> GeoSeries(GeoPandasBase, Series):</span></code></pre></div>
 <p>However, we previously learned to define a class like this:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">class</span> GeoSeries:</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">class</span> GeoSeries:</span></code></pre></div>
 <p>The difference lies in the code within the parentheses, which
 represents <em>inheritance</em>. The class will inherit all the
 functionality from the classes specified as arguments, in this case,
@@ -1096,15 +1124,15 @@ object called <code>Student</code>, which will inherit all the
 properties and methods from the <code>Person</code> class we defined
 earlier. In the end, a student is a person, and it possesses all its
 characteristics.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">class</span> Student(Person):</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age, student_id):</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, age)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>        <span class="va">self</span>.student_id <span class="op">=</span> student_id</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>        <span class="va">self</span>.is_studying <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    </span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="kw">def</span> study(<span class="va">self</span>):</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>        <span class="va">self</span>.is_studying <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> is studying.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">class</span> Student(Person):</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age, student_id):</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, age)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>        <span class="va">self</span>.student_id <span class="op">=</span> student_id</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>        <span class="va">self</span>.is_studying <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>    <span class="kw">def</span> study(<span class="va">self</span>):</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>        <span class="va">self</span>.is_studying <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> is studying.&quot;</span>)</span></code></pre></div>
 <p>In the provided code, the <code>Student</code> class inherits from
 the <code>Person</code> class, which we will refer to as the superclass.
 By doing so, it extends the functionality of the superclass by adding a
@@ -1116,11 +1144,11 @@ inherited properties.</p>
 <p>As a result, the <code>Student</code> class contains both the methods
 and properties inherited from the <code>Person</code> class, as well as
 the additional ones defined within the <code>Student</code> class:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>student <span class="op">=</span> Student(<span class="st">&quot;Eve&quot;</span>, <span class="dv">22</span>, <span class="st">&quot;123456&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">print</span>(student.name)         <span class="co"># Output: Eve</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="bu">print</span>(student.student_id)   <span class="co"># Output: 123456</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>student.greet()             <span class="co"># Output: Hello, my name is Eve and I&#39;m 22 years old.</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>student.study()             <span class="co"># Output: Eve is studying.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>student <span class="op">=</span> Student(<span class="st">&quot;Eve&quot;</span>, <span class="dv">22</span>, <span class="st">&quot;123456&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">print</span>(student.name)         <span class="co"># Output: Eve</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="bu">print</span>(student.student_id)   <span class="co"># Output: 123456</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>student.greet()             <span class="co"># Output: Hello, my name is Eve and I&#39;m 22 years old.</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>student.study()             <span class="co"># Output: Eve is studying.</span></span></code></pre></div>
 <p>In this example, <code>student</code> is an instance of the
 <code>Student</code> class. It can access the inherited properties from
 the <code>Person</code> class, such as <code>name</code>, as well as the
@@ -1162,18 +1190,18 @@ will take you through it step by step.</p>
 <h2>Matplotlib</h2>
 <p>In the most basic form plotting is very easy. Look at the code
 below:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># Create some data</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi, <span class="fl">0.2</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co"># Plot x against y</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>plt.plot(x, y)</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># Show the plot</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># Create some data</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi, <span class="fl">0.2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co"># Plot x against y</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co"># Show the plot</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p>In this example, we are using the package numpy to create a series of
 x values (values from -pi (-3.14) to pi with steps of 0.2, check what
 this looks like). The y values are the sine of these values. Plotting
@@ -1213,10 +1241,10 @@ type.</li>
 <p>Instead of a single plot, we can add different plots to the figure,
 for example two. Let’s try to add another pot with the cosine
 values.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Create some data</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi, <span class="fl">0.2</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>sine <span class="op">=</span> np.sin(x)</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>cosine <span class="op">=</span> np.cos(x)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Create some data</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi, <span class="fl">0.2</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>sine <span class="op">=</span> np.sin(x)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>cosine <span class="op">=</span> np.cos(x)</span></code></pre></div>
 <p>We can use the subplots method to create a figure and an array of two
 axes, one for each plot. Check the <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html">subplots
 documentation</a> to learn more. By using The <code>sharex</code> and/or
@@ -1224,8 +1252,8 @@ documentation</a> to learn more. By using The <code>sharex</code> and/or
 for easy comparison between the subplots. Let’s initiate the figure and
 the two axes (don’t confuse axis and axes! we are initiating 2 axes, one
 for each plot) and let the figure share the x-axis.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Initiate a figure with two subplots </span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">2</span>, sharex<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Initiate a figure with two subplots </span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>f, axarr <span class="op">=</span> plt.subplots(<span class="dv">2</span>, sharex<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="alert alert-success">
 <blockquote>
 <p>
@@ -1236,35 +1264,35 @@ the elements of this array and how many elements does is exist out of?
 </div>
 <p>We can add a title to the figure and and labels to the axes. Check <a href="https://matplotlib.org/stable/api/axes_api.html">this
 documentation</a> to see what more you can tweak.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Subplots are stored in an array</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>line <span class="op">=</span> axarr[<span class="dv">0</span>].plot(x, sine)</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>axarr[<span class="dv">0</span>].set_title(<span class="st">&#39;sine plot&#39;</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>axarr[<span class="dv">1</span>].plot(x, cosine)</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_title(<span class="st">&#39;cosine plot&#39;</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>f.suptitle(<span class="st">&#39;This is an image of a two plots&#39;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Subplots are stored in an array</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>line <span class="op">=</span> axarr[<span class="dv">0</span>].plot(x, sine)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>axarr[<span class="dv">0</span>].set_title(<span class="st">&#39;sine plot&#39;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>axarr[<span class="dv">1</span>].plot(x, cosine)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_title(<span class="st">&#39;cosine plot&#39;</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>f.suptitle(<span class="st">&#39;This is an image of a two plots&#39;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span></code></pre></div>
 <p>We looked now at the axes, let’s look at the axis as well. We can
 change the positions of the tick marks to something meaningful in the
 context of trigonometric functions and customize the labels with regular
 text or style it using lateX. Check if you understand what object in the
 hierarchy is edited and why.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Axis label</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>axarr[<span class="dv">0</span>].set_ylabel(<span class="st">&#39;sin(x)&#39;</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_ylabel(<span class="st">&#39;cos(x)&#39;</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>new_ticks <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi <span class="op">+</span> <span class="fl">0.1</span>, <span class="fl">0.25</span> <span class="op">*</span> np.pi)</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>new_labels <span class="op">=</span> [<span class="vs">r&quot;$-\pi$&quot;</span>, <span class="vs">r&quot;$-\frac</span><span class="sc">{3}{4}</span><span class="vs">\pi$&quot;</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>              <span class="vs">r&quot;$-\frac</span><span class="sc">{1}{2}</span><span class="vs">\pi$&quot;</span>, <span class="vs">r&quot;$-\frac</span><span class="sc">{1}{4}</span><span class="vs">\pi$&quot;</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>              <span class="st">&quot;$0$&quot;</span>, <span class="vs">r&quot;$\frac</span><span class="sc">{1}{4}</span><span class="vs">\pi$&quot;</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>              <span class="vs">r&quot;$\frac</span><span class="sc">{1}{2}</span><span class="vs">\pi$&quot;</span>, <span class="vs">r&quot;$\frac</span><span class="sc">{3}{4}</span><span class="vs">\pi$&quot;</span>,</span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>              <span class="vs">r&quot;$2\pi$&quot;</span>]</span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xticks(new_ticks)</span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xticklabels(new_labels)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Axis label</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xlabel(<span class="st">&#39;x&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>axarr[<span class="dv">0</span>].set_ylabel(<span class="st">&#39;sin(x)&#39;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_ylabel(<span class="st">&#39;cos(x)&#39;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>new_ticks <span class="op">=</span> np.arange(<span class="op">-</span>np.pi, np.pi <span class="op">+</span> <span class="fl">0.1</span>, <span class="fl">0.25</span> <span class="op">*</span> np.pi)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>new_labels <span class="op">=</span> [<span class="vs">r&quot;$-\pi$&quot;</span>, <span class="vs">r&quot;$-\frac</span><span class="sc">{3}{4}</span><span class="vs">\pi$&quot;</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>              <span class="vs">r&quot;$-\frac</span><span class="sc">{1}{2}</span><span class="vs">\pi$&quot;</span>, <span class="vs">r&quot;$-\frac</span><span class="sc">{1}{4}</span><span class="vs">\pi$&quot;</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>              <span class="st">&quot;$0$&quot;</span>, <span class="vs">r&quot;$\frac</span><span class="sc">{1}{4}</span><span class="vs">\pi$&quot;</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>              <span class="vs">r&quot;$\frac</span><span class="sc">{1}{2}</span><span class="vs">\pi$&quot;</span>, <span class="vs">r&quot;$\frac</span><span class="sc">{3}{4}</span><span class="vs">\pi$&quot;</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>              <span class="vs">r&quot;$2\pi$&quot;</span>]</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xticks(new_ticks)</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>axarr[<span class="dv">1</span>].set_xticklabels(new_labels)</span></code></pre></div>
 <p>Finally! our plot is done for now. We have entered a lot of commands,
 stacked a lot of different layers to our plot, but we cannot see it yet.
 using the <code>plt.show()</code> command we can see the result!</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p>Alternatively we can use <code>plt.savefig(&#39;filename.png&#39;)</code>
 instead of showing it. Make sure to create the plot before you run this!
 <code>plt.show()</code> closes and the current plot, so calling savefig
@@ -1276,28 +1304,28 @@ styles, changing e.g. the marker style, line style, marker size, and
 colors, see the example below. For the upper left subplot it is
 demonstrated how to add a legend; adding a label to the plotted line is
 essential for this.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co"># New: define number of rows and columns of subplots and unpack them directly </span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co"># into variables that then each contain one axes object</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>f, ((ax0, ax1), (ax2, ax3)) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co"># Dashed line, label for legend, and show the legend on the subplot</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>ax0.plot(x, y, <span class="st">&#39;r--&#39;</span>, label<span class="op">=</span><span class="st">&#39;red dashed line&#39;</span>)</span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>ax0.legend(loc<span class="op">=</span><span class="st">&#39;lower right&#39;</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co"># Scatter plot, using a colormap based on the y-value, changing the marker size to 35</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>ax1.scatter(x, y, c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">&#39;bwr&#39;</span>, s<span class="op">=</span><span class="dv">35</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co"># Bar chart, changing the bar color to black</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a>ax2.bar(x, y, color<span class="op">=</span><span class="st">&#39;k&#39;</span>)</span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co"># Horizontal bar chart, changing the bar color to yellow</span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a>ax3.barh(x, y, color<span class="op">=</span><span class="st">&#39;y&#39;</span>)</span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co"># New: define number of rows and columns of subplots and unpack them directly </span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co"># into variables that then each contain one axes object</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>f, ((ax0, ax1), (ax2, ax3)) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co"># Dashed line, label for legend, and show the legend on the subplot</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>ax0.plot(x, y, <span class="st">&#39;r--&#39;</span>, label<span class="op">=</span><span class="st">&#39;red dashed line&#39;</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>ax0.legend(loc<span class="op">=</span><span class="st">&#39;lower right&#39;</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co"># Scatter plot, using a colormap based on the y-value, changing the marker size to 35</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>ax1.scatter(x, y, c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">&#39;bwr&#39;</span>, s<span class="op">=</span><span class="dv">35</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co"># Bar chart, changing the bar color to black</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a>ax2.bar(x, y, color<span class="op">=</span><span class="st">&#39;k&#39;</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="co"># Horizontal bar chart, changing the bar color to yellow</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>ax3.barh(x, y, color<span class="op">=</span><span class="st">&#39;y&#39;</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="data:image/png;base64,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yumuU6fOsGHDsB/BqycwMobtv+i1ZMkSe1fceOONMsGxE+F//ud/Ro0ahR3LktvNmjXDjt8whgNCXkXecMMN7dq1w37aGDt2bKtWrX7++We5zRhOQpx/KrRFixaRa7f0l6/auXMn9l0Re5CvXbv2tddeW7x48bx583r37l2uXDnX3hmaPn36xIkTly9fbr8l06BBgx9//BFtRUx4AsX48ePlVZecdOxH8OoJjIxh+2mJPLwePXpcc8012ImQkZHx3nvvYcey5HalSpWw4zeM4YDo06dPZmZmrp//6GYStm3bVr9+/WXLltm7jOEkxPmnQiVFhg8fjh3L+vbbb+Wrdu3ahX1XJDTIO3fuLJmNHRcdPHhQYviZZ57BfhETnkAhkSbPDHZicu0JdMZw5KuT++67r2PHjtiJIDH8/vvvY8ey3n333cqVK2PHbxjDQdCvX7+mTZtu2rQJ+2lDZq9MWnl1b5Pb8hJebrj22ZwA8Mub0okOcnkxEfm9WDddddVVkd9rt5nwpvSWLVvKly//4YcfYj8m157AyBjmm9LkPwUFBX379m3cuPH69etxVzrJy8tbEaFNmzZdu3aVG2im+MTzp0IHDBgg92PHsiRmXPuEUXKD/Le//e3ll1+OHRfl5+c3adJk6NCh2C/i4RMYlp2d3bBhw6NHj2I/JteewMgYtj+iNXLkSHtXXiPG+IjWddddhx3Luvbaa/kRLfKGrJ4yTGfPnl348wUhhw4dQlv64ZvSyYn2p0IljO+66y67j/3zNg899JD0kZ5u/rxNjEEeeYTPPvusrOYS1StXrpT7ZXGfNGmS3aTbww8/LIcnT9H8+fM7d+5cs2ZNo55A2/Hjx+V6ceDAgdgv5OETeODAgaWFpJBcy8oN+8fkRowYIad78uTJ8nr6jjvuiPyBJTlUOTD79ty5cytUqCCd16xZI//lDyyRZ2QElzBmzBi0pR/GcNKUfyo0KytLnlL7tpCkueCCC6RP8+bN3fztExjZEcKDPPII5RLqjDPOqFKlyimnnNKuXbtp06bZ97vA/vFWSVa5ZL/llltWrVpl32/IE2j7/PPP5albt24d9gt5+ATaH8yOJAcj98sFsX3VXrly5fbt20e+uSWHavexTZgw4eyzz5anvWXLlq695NKBMUxEROQZxjAREZFnGMNERESeYQwTERF5hjFMRETkGcYwERGRZxjDREREnmEMExEReYYxTERE5BnGMBERkWcYw0RERJ5hDBMREXmGMUxEROQZxjAREZFnGMNERESeYQwTERF5hjFMRETkGcYwERGRZxjDREREnmEMExEReYYxTERE5BnGMBERkWcYw0RERJ5hDBMREXmGMUxEROQZxjAREZFnGMNERESeYQwTERF5hjFMRETkGcYwERGRZxjDREREnmEMExEReQYxHEj9izxY6IEHHuhXqG/fvn369OnVq1fPnj1/+9vf3nzzzT169MDXEBERuen3v///4DP8eIIhAu0AAAAASUVORK5CYII=" alt="matplotlib plot type examples" width="50%" /></img></p>
 <div class="alert alert-success">
 <blockquote>
@@ -1320,15 +1348,18 @@ create static plots (and even some dynamic ones) is based upon or uses
 Matplotlib, and lots of the logic you just saw will therefore be reused:
 the figures-, axes- and axis-objects are reused in many packages. As we
 saw, GeoPandas plot functionality is completely based upon Matplotlib.
-We will show you how to create maps using <code>Cartopy</code>. Have a
-look at the <a href="https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354">definition
+We will show you how to create maps using <code>Cartopy</code>, a
+geospatial wrapper around Matplotlib. Have a look at the <a href="https://github.com/SciTools/cartopy/blob/main/lib/cartopy/mpl/geoaxes.py#L354">definition
 of the <code>GeoAxes</code></a>. What does it inherit from? And what
 does this mean for its functionality?</p>
 <p>For working with vector data we will use among others
 <code>GeoPandas</code> and for raster data we will use
 <code>Rasterio</code> packages. A more elaborate introduction to these
 packages will follow in the respective tutorials covering raster and
-vector analysis.</p>
+vector analysis. In this tutorial we will use these packages already for
+reading data, if you do not entirely understand why we do certain things
+related to these packages, most likely this will be cleared up next
+week.</p>
 <p>For this tutorial, part of the material was taken from the <a href="https://foundations.projectpythia.org/core/cartopy/cartopy.html">project
 pythia</a> website, an excellent source for more information and
 tutorials about working with python!</p>
@@ -1339,35 +1370,31 @@ tutorials about working with python!</p>
 Matplotlib. Therefore, a lot of the logic will be familiar. By adding
 spatial information (a coordinate reference system) to an Axes (turning
 it into a GeoAxes) we can reference our spatial data to each other.
-Cartopy has a built-in module to handle the referencing
-<code>cartopy.crs</code>. Let’s import needed libraries.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="im">import</span> warnings</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> crs <span class="im">as</span> ccrs</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> feature <span class="im">as</span> cfeature</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co">#  Suppress warnings issued by Cartopy when downloading data files</span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>warnings.filterwarnings(<span class="st">&#39;ignore&#39;</span>)</span></code></pre></div>
+Additionally, cartopy has a built-in module to handle the referencing
+<code>cartopy.crs</code>. Let’s import these libraries and modules.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> crs <span class="im">as</span> ccrs</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> feature <span class="im">as</span> cfeature</span></code></pre></div>
 <p>Let’s start by creating a map of the world. We do this by generating
-1 subplot (so just a plot) with the PlateCarree projection, a projection
-where every point is spaced out equally in terms of degrees.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">8.5</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>ccrs.PlateCarree(central_longitude<span class="op">=-</span><span class="dv">75</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>ax.set_title(<span class="st">&quot;A Geo-referenced subplot, Plate Carree projection&quot;</span>)</span></code></pre></div>
+1 subplot (so just a plot) with the <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Plate
+Carrée</a> projection, a projection where every point is spaced out
+equally in terms of degrees.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">8.5</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>ccrs.PlateCarree(central_longitude<span class="op">=-</span><span class="dv">75</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>ax.set_title(<span class="st">&quot;A Geo-referenced subplot, Plate Carree projection&quot;</span>)</span></code></pre></div>
 <p>We don’t see anything yet! That’s because we have not put anything on
-<<<<<<< HEAD
 the map. Let’s add the coastline for some spatial context, which can be
 done by calling a method of the GeoAxes object
 <code>ax.coastlines</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>ax.coastlines()</span></code></pre></div>
-<p>In the <a href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html">cartopy
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>ax.coastlines()</span></code></pre></div>
+<p>coastlines is a special case, apparently showing the coastlines
+happened so often that a special function was defined. Not everything is
+this simple sadly… In the <a href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html">cartopy
 documentation</a> we can see that there exist pre defined features that
 we can add using the <code>add_feature</code> method from a
 <code>GeoAxes</code>.
 <code>ax.add_feature(cfeature.COASTLINE, linewidth=0.3, edgecolor=&#39;black&#39;)</code>
-does the same as <code>ax.coastlines()</code> (don’t believe me? <a href="https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609">Check
+does the same as <code>ax.coastlines()</code> (don’t believe it? <a href="https://github.com/SciTools/cartopy/blob/75939f9e81ac67838c52ce80230e4431badbeace/lib/cartopy/mpl/geoaxes.py#L609">Check
 the source</a>! ) effectively. Have a look and play around with adding
 other features! Using the <code>linewidth</code>
 and<code>edgecolor</code> arguments we can style the map.</p>
@@ -1377,75 +1404,106 @@ and<code>edgecolor</code> arguments we can style the map.</p>
 <strong>Question 1</strong>: Create a worldwide map with 3 different
 features, each styled differently. Also add the stockimage to the map.
 Use <a href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img">the
-documentation</a> to figure out how
+documentation</a> to see how.
 </p>
 </blockquote>
 </div>
 <p>We have now step by step built up a map in a Pate Carree projection
 system. However, this projection has some major issues, have you seen <a href="https://www.thetruesize.com">how big Greenland is</a>?! Let’s
-quickly create another map in another projection.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">8.5</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>projLae <span class="op">=</span> ccrs.LambertAzimuthalEqualArea(central_longitude<span class="op">=</span><span class="fl">0.0</span>, central_latitude<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>projLae)</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>ax.set_title(<span class="st">&quot;Lambert Azimuthal Equal Area Projection&quot;</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>ax.coastlines()</span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>ax.add_feature(cfeature.BORDERS, linewidth<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">&#39;blue&#39;</span>)<span class="op">;</span></span></code></pre></div>
+quickly create another map in another projection. In the <a href="https://scitools.org.uk/cartopy/docs/latest/reference/projections.html">documentation</a>
+we can find a large list of projections that can be used.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">8.5</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>projLae <span class="op">=</span> ccrs.LambertAzimuthalEqualArea(central_longitude<span class="op">=</span><span class="fl">0.0</span>, central_latitude<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>projLae)</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>ax.set_title(<span class="st">&quot;Lambert Azimuthal Equal Area Projection&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>ax.coastlines()</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>ax.add_feature(cfeature.BORDERS, linewidth<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">&#39;blue&#39;</span>)<span class="op">;</span></span></code></pre></div>
 </div>
-<div id="regional-maps" class="section level2">
-<h2>Regional maps</h2>
+<div id="smaller-maps" class="section level2">
+<h2>Smaller maps</h2>
 <p>We have seen now how to make worldwide maps, let’s now make a smaller
-map with our own data. We can use the <code>set_extent</code> method to
-define an area of interest. In the following code we define an area of
-interest in units of the Dutch projection system RDNew (with the EPSG
-ode 28992). When passing these coordinates, do not forget to tell
-Cartopy from which reference system they are! Let’s also add some
-gridlines so, another nice way to add some reference to map.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>xmin, ymin, xmax, ymax <span class="op">=</span> <span class="dv">171206</span>, <span class="dv">440178</span>, <span class="dv">178100</span>, <span class="dv">444527</span> <span class="co"># The boundingbox of Wageningen</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>crs <span class="op">=</span> ccrs.epsg(<span class="dv">28992</span>) <span class="co"># </span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">8.5</span>))</span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>crs)</span>
-<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>ax.set_title(<span class="st">&#39;RDNew&#39;</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>gl <span class="op">=</span> ax.gridlines(</span>
-<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    draw_labels<span class="op">=</span><span class="va">True</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">&#39;gray&#39;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span></span>
-<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>)</span>
-<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>ax.set_extent([xmin, xmax, ymin, ymax], crs<span class="op">=</span>crs)</span>
-<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>ax.coastlines(resolution<span class="op">=</span>res, color<span class="op">=</span><span class="st">&#39;black&#39;</span>)</span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>ax.add_feature(cfeature.RIVERS, linewidth<span class="op">=</span><span class="fl">0.3</span>, edgecolor<span class="op">=</span><span class="st">&#39;brown&#39;</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>ax.add_feature(cfeature.BORDERS, linewidth<span class="op">=</span><span class="fl">0.5</span>, edgecolor<span class="op">=</span><span class="st">&#39;blue&#39;</span>)<span class="op">;</span></span></code></pre></div>
-<p>So we see that the pre defined features are useful, but when zooming
-in to Wageningen coastlines will not really help us… A good moment to
-add our own data! Let’s start with a GeoDataFrame</p>
-=======
-the map. In the <a href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html">cartopy
-documentation</a> we can select some built in features that we can
-simply add to the map. Later we will also add our own data. Let’s start
-with the coastline for some spatial context, but feel free to explore
-the other options. Adding them is quite similar.</p>
->>>>>>> 74bc42584628d29e632163ffb85ab913dc160520
+map with our own data. The polygon data that is shown here is read by
+<code>GeoPandas</code>, directly from a url. The
+<code>add_geometries</code> method reads the geometries from a
+GeoDataFrame, but can also read geometries from Shapelt (more about this
+in in the Python Vector tutorial). The <code>set_extent</code> method is
+used to define an area of interest, basically it sets the top bottom and
+left and right so that only the area of iterest is shown. Have a look at
+the code below, the comments explain more line by line.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>gdf <span class="op">=</span> gpd.read_file(<span class="st">&#39;https://raw.githubusercontent.com/GeoScripting-WUR/PythonProgramming/master/data/gadm41_NLD_2.json&#39;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># Using the dutch coodinate reference system RDNew (epsg code 28992)</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>crs <span class="op">=</span> ccrs.epsg(<span class="dv">28992</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co"># The data is in another projection as our plot, reprojection to RDnew</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>gdf <span class="op">=</span> gdf.to_crs(<span class="dv">28992</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co"># Initiate the plot, a little bigger then before</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>crs)</span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>ax.set_title(<span class="st">&#39;The municipalities of NL&#39;</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="co"># Draw gridlines </span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>gl <span class="op">=</span> ax.gridlines(</span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a>    draw_labels<span class="op">=</span><span class="va">True</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">&#39;gray&#39;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a>)</span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="co"># Set the extent to the extent of the municipalities</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a>min_x, max_x, min_y, max_y <span class="op">=</span> gdf.total_bounds</span>
+<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a>ax.set_extent((min_x, max_x, min_y, max_y), crs<span class="op">=</span>crs)</span>
+<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co"># ax.set_extent(gdf.total_bounds, crs=crs) would do this in one step, </span></span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co"># but the coordinates can be defined seperately as well in this order! </span></span>
+<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="co"># Add the geometries to the map</span></span>
+<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a>ax.add_geometries(gdf[<span class="st">&quot;geometry&quot;</span>], crs<span class="op">=</span>crs, edgecolor <span class="op">=</span> <span class="st">&#39;black&#39;</span>, facecolor <span class="op">=</span> <span class="st">&#39;#FFFFFF&#39;</span>)</span></code></pre></div>
 </div>
-</div>
-<div id="python-help" class="section level1">
-<h1>Python help</h1>
-<p>There are several ways to find help with programming in Python.
-Searching the internet typically solves your problem the quickest,
-because it finds answers on multiple platforms, such as StackOverflow
-and Github. During Geoscripting we have the forum to ask and give help.
-Asking your friends or colleagues in person is also a great way to learn
-and fix programming problems. Another good option is get documentation
-from the package website or inside Python:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="bu">help</span>(sys)</span></code></pre></div>
-<p>See how the objects and functions in the <code>sys</code> package got
-listed.</p>
-<div class="alert alert-success">
-<blockquote>
-<p>
-<strong>Question 5</strong>: What kind of functionality does the
-<code>sys</code> package provide?
-</p>
-</blockquote>
+<div id="plotting-rasters" class="section level2">
+<h2>Plotting rasters</h2>
+<p>In the case of rasters, we will make use in another way of the
+widespread use of <code>Matplotlib</code> and the <code>GeoAxes</code>
+objects. For rasters we will make use of the package
+<code>Rasterio</code> to handle raster files. In this package a <a href="https://github.com/rasterio/rasterio/blob/7c83de410b7b812e6552e4b76ce236bb6213c80d/rasterio/plot.py#L34">plot
+module</a> is defined, that allows for the plotting of rasters. Instead
+of defining an axes and adding the raster as a feature to the plot, we
+will create the <code>Figure</code> and <code>GeoAxes</code> objects
+using <code>Cartopy</code>, and pass them to <code>Rasterio</code>
+<code>plot.show</code> function. Other features that we might want to
+add, we can add still to the same <code>GeoAxes</code>, in that way
+everything will be added to the same canvas. Have a look at the code
+below.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="im">import</span> io </span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="im">import</span> zipfile </span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="im">import</span> rasterio</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co"># These first 4 lines download and unzip a landsat8 image </span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co"># It is not necessary to understand these lines. </span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&#39;https://github.com/GeoScripting-WUR/VectorRaster/releases/download/tutorial-data/landsat8.zip&#39;</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>resp <span class="op">=</span> requests.get(url, <span class="st">&quot;data.zip&quot;</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>zf <span class="op">=</span> zipfile.ZipFile(io.BytesIO(resp.content))</span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>zf.extractall(<span class="st">&#39;./&#39;</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a><span class="co">#The landsat image is projected in UTM31N, let&#39;s use that projection</span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>crs <span class="op">=</span> ccrs.epsg(<span class="dv">32631</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a><span class="co"># Initiate the area of interest</span></span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a>ax <span class="op">=</span> plt.subplot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, projection<span class="op">=</span>crs)</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>ax.set_title(<span class="st">&#39;The municipalities of NL&#39;</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a><span class="co"># Read the GeoJson again with GeoPandas.</span></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>gdf <span class="op">=</span> gpd.read_file(<span class="st">&#39;https://raw.githubusercontent.com/GeoScripting-WUR/PythonProgramming/master/data/gadm41_NLD_2.json&#39;</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a><span class="co"># This time reproject it to UTM31</span></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a>gdf <span class="op">=</span> gdf.to_crs(<span class="dv">32631</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a>gdf.plot(ax<span class="op">=</span>ax,edgecolor<span class="op">=</span><span class="st">&#39;white&#39;</span>, color <span class="op">=</span> <span class="st">&#39;None&#39;</span>)</span>
+<span id="cb22-27"><a href="#cb22-27" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" tabindex="-1"></a><span class="co"># Open the raster using rasterio, more about rasterio next week! </span></span>
+<span id="cb22-29"><a href="#cb22-29" tabindex="-1"></a>dataset <span class="op">=</span> rasterio.<span class="bu">open</span>(<span class="st">&#39;./LC81970242014109LGN00.tif&#39;</span>)</span>
+<span id="cb22-30"><a href="#cb22-30" tabindex="-1"></a>show(dataset, ax<span class="op">=</span>ax,  cmap<span class="op">=</span><span class="st">&#39;gist_ncar&#39;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="what-have-we-learned" class="section level1">
@@ -1481,6 +1539,8 @@ Python package Cheatsheets</a></li>
        <li><a href="#to-do-create-the-yaml-with-dependencies" id="toc-to-do-create-the-yaml-with-dependencies">TO DO! Create
        the yaml with dependencies</a></li>
        </ul></li>
+       <li><a href="#python-help" id="toc-python-help">Python
+       help</a></li>
        <li><a href="#object-oriented-programming-in-python" id="toc-object-oriented-programming-in-python">Object-Oriented
        Programming in Python</a>
        <ul>
@@ -1494,11 +1554,10 @@ Python package Cheatsheets</a></li>
        <li><a href="#vizualizing-spatial-data" id="toc-vizualizing-spatial-data">Vizualizing spatial
        data</a></li>
        <li><a href="#cartopy" id="toc-cartopy">Cartopy</a></li>
-       <li><a href="#regional-maps" id="toc-regional-maps">Regional
+       <li><a href="#smaller-maps" id="toc-smaller-maps">Smaller
        maps</a></li>
+       <li><a href="#plotting-rasters" id="toc-plotting-rasters">Plotting rasters</a></li>
        </ul></li>
-       <li><a href="#python-help" id="toc-python-help">Python
-       help</a></li>
        <li><a href="#what-have-we-learned" id="toc-what-have-we-learned">What have we learned?</a></li>
        <li><a href="#more-info" id="toc-more-info">More info</a></li>
        </ul>
