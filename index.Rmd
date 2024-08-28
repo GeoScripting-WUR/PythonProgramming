@@ -38,13 +38,12 @@ During this tutorial, we will demonstrate different ways to visualize data on a 
 
 ## Today’s Learning objectives
 
--   Familiarize yourself with python objects and inheritance
--   Learn to make basic vizualizations and static maps with Matplotlib
--   Use GeoPandas built in plot functionality to vizualize GeoPandasDataFrames
--   Create basic interactive maps
+-   Vizualize data using Matplotlib and understand the structure matplotlib uses
+-   Use cartopy's built in functionality to create maps
+-   Add geospatial data to a map using rasterio for rasters, geopandas for vector 
 
-## TO DO! Create the yaml with dependencies 
-
+## Dependencies
+For the tutorial today we make use of a set of packages. Create a new yaml file (`env.yml` for example) and paste the following environment definition in it. 
 ```
 name: python-programming
 dependencies:
@@ -53,8 +52,11 @@ dependencies:
   - spyder
   - geopandas
   - rasterio
-  - 
+  - matplotlib
 ```
+
+Create the environment using `mamba env create --file vector.yaml`.
+
 # Python help
 
 Before we dive into python, it makes sense to take some time to find how what to do if you are stuck. There are several ways to find help with programming in Python. Most packages, especially the larger ones, have a webpage with documentation. The documentation is a good first place to look for information. Secondly, googling your issue typically solves your problem too, because it finds answers on multiple platforms, such as StackOverflow and Github. Try to use terms that are used by others, don't include filepaths and personal variable names for example. Generative AI is also a useful source of coding help, but be careful, GenAI doesn't understand programming, it might come up with not existing functions for example. Lastly, during Geoscripting we have the forum to ask and give help. Asking your friends or colleagues in person is also a great way to learn and fix programming problems. Another good option is get documentation and more information about a package inside Python:
@@ -69,7 +71,6 @@ See how the objects and functions in the `sys` package got listed.
 ```{block, type="alert alert-success"}
 > **Question 1**: What kind of functionality does the `sys` package provide?
 ```
-
 
 # Object-Oriented Programming in Python
 
@@ -433,7 +434,15 @@ show(dataset, ax=ax,  cmap='gist_ncar')
 
 # What have we learned?
 
-#TODO
+You finished this tutorial well done!
+We started with a short introduction about object oriented programming, you now know what objects are, how they are implemented in python and how they can inherit functionality from eachother. In this way we can stand on top of the shoulders of giants, we do not have to write some code somebody else already has. 
+
+Next Matplotlib was introduced, you now know what the structure of a Matplotlib plot is, how different elements are organized on a figure and how to add data to a plot. 
+
+Building on that, we looked at Cartopy, building on top of Matplotlib, illustrating object oriented programming and showing it's power. We made basic maps using all built in functionality, and we also saw how to add our own data to maps both vector and raster. 
+
+What you learned today is only a tip of the iceberg. For more elaborate plots and other examples, visit the Pythia project and the cartopy gallery, both listed below! 
+
 
 # More info
 
@@ -441,3 +450,5 @@ show(dataset, ax=ax,  cmap='gist_ncar')
 -   [Python Style guide](https://www.python.org/dev/peps/pep-0008/)
 -   [Python 3 Cheatsheet](https://ugoproto.github.io/ugo_py_doc/py_cs/)
 -   [Overview Python package Cheatsheets](https://www.datacamp.com/community/data-science-cheatsheets?tag=python)
+-   [Project Pythia](https://foundations.projectpythia.org/core/cartopy/cartopy.html)
+-   [Cartopy examples](https://scitools.org.uk/cartopy/docs/latest/gallery/index.html)
