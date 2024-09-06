@@ -349,7 +349,7 @@ coastlines is a special case, apparently showing the coastlines happened so ofte
 > **Question 6**: Create a worldwide map with 3 different features, each styled differently. Also add the stockimage to the map. Use [the documentation](https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/geoaxes.html?highlight=stock#cartopy.mpl.geoaxes.GeoAxes.stock_img) to see how.
 ```
 
-We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Greenland is](https://www.thetruesize.com)?! Let's quickly create another map in another projection. In the [documentation](https://scitools.org.uk/cartopy/docs/latest/reference/projections.html) we can find a large list of projections that can be used.
+We have now step by step built up a map in a Pate Carree projection system. However, this projection has some major issues, have you seen [how big Antartica is at the equator](https://www.thetruesize.com)?! Let's quickly create another map in another projection. In the [documentation](https://scitools.org.uk/cartopy/docs/latest/reference/projections.html) we can find a large list of projections that can be used.
 
 ```{Python,engine.path='/usr/bin/python3', eval=FALSE}
 fig = plt.figure(figsize=(11, 8.5))
