@@ -43,7 +43,7 @@ During this tutorial, we will demonstrate different ways to visualize data on a 
 -   Add geospatial data to a map using rasterio for rasters, geopandas for vector 
 
 ## Dependencies
-For the tutorial today we make use of a set of packages. Create a new yaml file (`env.yml` for example) and paste the following environment definition in it. 
+For the tutorial today we make use of a set of packages. Create a new yaml file (`env.yaml` for example) and paste the following environment definition in it. 
 ```
 name: python-programming
 dependencies:
@@ -232,10 +232,10 @@ f, axarr = plt.subplots(2, sharex=True)
 ```
 
 ```{block, type="alert alert-success"}
-> **Question 4**: `axarr` is an array. What are the elements of this array and how many elements does is exist out of? 
+> **Question 4**: `axarr` is an array. What are the elements of this array and how many elements does it exist out of? 
 ```
 
-We can add a title to the figure and and labels to the axes. Check [this documentation](https://matplotlib.org/stable/api/axes_api.html) to see what more you can tweak.
+We can add a title to the figure and labels to the axes. Check [this documentation](https://matplotlib.org/stable/api/axes_api.html) to see what more you can tweak.
 
 ```{Python,engine.path='/usr/bin/python3'}
 # Subplots are stored in an array
