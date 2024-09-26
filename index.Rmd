@@ -385,7 +385,7 @@ gl = ax.gridlines(
 )
 
 # Set the extent to the extent of the municipalities
-min_x, max_x, min_y, max_y = gdf.total_bounds
+min_x, min_y, max_x, max_y = gdf.total_bounds
 ax.set_extent((min_x, max_x, min_y, max_y), crs=crs)
 
 # ax.set_extent(gdf.total_bounds, crs=crs) would do this in one step, 
