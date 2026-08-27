@@ -34,3 +34,10 @@ td code:not(.sourceCode) {
   vertical-align: middle;
 }
 
+/* Quarto only centers the image <p>/<div> inside a centered figure, not
+   the <figcaption> itself, so a resized image's caption is left-aligned
+   below it instead of centered under the image. */
+.quarto-figure-center figcaption {
+  text-align: center;
+}
+
