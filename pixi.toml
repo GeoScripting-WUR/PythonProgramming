@@ -10,7 +10,7 @@ version = "0.1.0"
 [dependencies]
 python = "*"
 cartopy = "*"
-geopandas = "*"
+geopandas = ">=1.1.4,<2"
 rasterio = "*"
 matplotlib = "*"
 numpy = ">=2.5.1,<3"
@@ -24,7 +24,7 @@ channels = ["conda-forge"]
 [feature.python-programming.dependencies]
 cartopy = "*"
 python = "*"
-geopandas = "*"
+geopandas = ">=1.1.4,<2"
 rasterio = "*"
 matplotlib = "*"
 contextily = "*"
