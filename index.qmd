@@ -58,7 +58,7 @@ class Person:
 
 In Positron, you can create this class by pasting the code above into a .py file, saving it. To run this code, pick your preferred method from the previous tutorial.
 
-However, to walk through the code interactively step by step, it’s better to use a REPL or a Jupyter Notebook. You can start a REPL or open a Jupyter Notebook, paste the code above into a cell, and run it. Note that, even though we selected the interpreter in VS Code earlier for running .py files, Jupyter Notebooks run code through their own kernel, so we need to select the interpreter (python-programming in our case) again here to link the notebook’s kernel to the same environment.
+However, to walk through the code interactively step by step, it’s better to use a REPL or a Jupyter Notebook. You can start a REPL or open a Jupyter Notebook, paste the code above into a cell, and run it. Note that, even though we selected the interpreter in Positron earlier for running .py files, Jupyter Notebooks run code through their own kernel, so we need to select the interpreter (python-programming in our case) again here to link the notebook’s kernel to the same environment.
 
 Before we use the class, let’s first examine it. The `Person` class has two properties, `name` and `age`, as well as one method, `greet`. The `greet` method prints a greeting message that includes the person's name and age.
 
@@ -145,7 +145,7 @@ This is an often used way of working in the field of deep learning. Also using a
 
 # Visualization
 
-Doing advanced analysis is one thing, but communicating these results is just as important. Results in raw numbers will never reach a bigger audience, and a large part of this communication depends on effective visualizations. Creating good visuals is challenging. A visual can be a graph, a colored table or an advanced infographic. In the case of geospatial data analysis, data often ends up on a map. There are many tools to visualize data, spatial or other. Maps are often made using desktop software such as QGIS, but when you want to repeatedly make similar maps, python and R can also be used. Python offers several packages to make maps, static simple maps but also very elaborate webpage like interactive maps. 
+Doing advanced analysis is one thing, but communicating these results is just as important. Results in raw numbers will never reach a bigger audience, and a large part of this communication depends on effective visualizations. Creating good visuals is challenging. A visual can be a graph, a colored table or an advanced infographic. In the case of geospatial data analysis, data often ends up on a map. There are many tools to visualize data, spatial or other. Maps are often made using desktop software such as QGIS, but when you want to repeatedly make similar maps, python and R can also be used. Python offers several packages to make maps, from simple static simple ones to elaborate interactive webmaps. 
 
 The most basic and one of the most used tools is *Matplotlib*, a general plotting package. It is used as a base for many other, more specific visualization packages. One of the core advantages of Matplotlib is that the representation of the figure is separated from the act of rendering it. This enables building increasingly sophisticated features and logic into the figure, a bit like adding many layers to a map in a Desktop GIS. Matplotlib can be used to create simple graphs but also maps. Have a look at the [Python Graph Gallery](https://python-graph-gallery.com/matplotlib/) to see some examples, but don't look at the code yet! We will take you through it step by step.
 
@@ -168,7 +168,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-In this example, we are using the package numpy to create a series of x values (values from -pi (3.1415...) to pi with steps of 0.2, check what this looks like). The y values are the sine of these values. Plotting these values is straightforward. However, as said, Matplotlib is a plotting package where a visualization object can be created before it is rendered (shown). In the example above, the rendering of the image is only done at the line `plt.show()`. Before this command, we can modify the plot. This allows to add things to the visualization in steps, layering the complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below.
+In this example, we are using the package numpy to create a series of x values (values from -pi (3.1415...) to pi with steps of 0.2, check what this looks like). The y values are the sine of these values. Plotting these values is straightforward. However, as said, Matplotlib is a plotting package where a visualization object can be created before it is rendered (shown). In the example above, the rendering of the image is only done at the line `plt.show()`. Before this command, we can modify the plot. This allows you to add things to the visualization in steps, layering the complexity. To understand how this works, it is important to understand the hierarchy of the figure object. Have a look at the image below.
 
 ::: {#fig-mpl-structure layout-ncol="2"}
 ![](images/mpl_structure.png)
@@ -475,7 +475,7 @@ plt.show()
 
 ```
 
-There are some caveats and for a long time there were issues and a wishlist with features to change this behaviour. For example, in the current version it is cumbersome to add legend entries for other geometry types than polygons. The legend will always show the color rather than the geometry type (including line thickness or point styling). In the following GeoPandas version however, this will be fixed, see this [merged pull request](https://github.com/geopandas/geopandas/pull/3728). It contains quite some new functionality, it is also a good illustration of how open source software development works! 
+There are some caveats and for a long time there were issues and a wishlist with features to change this behaviour. For example, in the current version it is cumbersome to add legend entries for other geometry types than polygons. The legend will always show the color rather than the geometry type (including line thickness or point styling). In the next GeoPandas version however, this will be fixed, see this [merged pull request](https://github.com/geopandas/geopandas/pull/3728). It contains quite some new functionality, it is also a good illustration of how open source software development works! 
 
 ### Legends on raster data
 For adding a legend, for example a colorbar, to a raster plot there is no built-in functionality in rasterio. Instead, we will use matplotlib's [colorbar](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html) functionality. For the example, see below, we cannot use the full color RGB image from above, but we need to display a single band. We will show the Digital Number (DN) from the nir band in the legend. For the plotting we will use rasterio's show, as explained above. 
